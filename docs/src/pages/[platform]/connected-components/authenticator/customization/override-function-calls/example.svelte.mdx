@@ -1,0 +1,16 @@
+import { Tabs, Alert } from '@aws-amplify/ui-react';
+import { CURRENT_MAJOR_VERSIONS } from '@/data/frameworks';
+
+export const latestVersion = CURRENT_MAJOR_VERSIONS['svelte'];
+export const amplify5UIVersion = null
+
+  <Tabs.Container defaultValue={latestVersion}>
+    <Tabs.List>
+      <Tabs.Item value={latestVersion}>`@aws-amplify/ui-svelte` v{latestVersion} (latest)</Tabs.Item>
+    </Tabs.List>
+    <Tabs.Panel value={latestVersion}>
+    In `@aws-amplify/ui-svelte` version {latestVersion}, `Auth` function calls are imported directly as shown below.
+    ```html file=../../../../../../../../examples/svelte/src/routes/ui/components/authenticator/override-function-calls/+page.svelte
+    ```
+    </Tabs.Panel>
+  </Tabs.Container>

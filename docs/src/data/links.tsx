@@ -41,6 +41,7 @@ import {
   MdChevronRight,
   MdPanToolAlt,
   MdLabel,
+  MdAccountCircle,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -120,6 +121,7 @@ export const connectedComponents: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'swift',
+      'svelte',
     ],
   },
   {
@@ -133,6 +135,7 @@ export const connectedComponents: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'swift',
+      'svelte',
     ],
     tertiary: true,
   },
@@ -147,13 +150,14 @@ export const connectedComponents: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'swift',
+      'svelte',
     ],
     tertiary: true,
   },
   {
     href: '/connected-components/authenticator/advanced',
     label: 'Advanced Usage',
-    platforms: ['react', 'vue', 'angular', 'react-native'],
+    platforms: ['react', 'vue', 'angular', 'react-native', 'svelte'],
     tertiary: true,
   },
   {
@@ -204,6 +208,13 @@ export const connectedComponents: ComponentNavItem[] = [
     platforms: ['react'],
   },
   {
+    href: '/connected-components/storage/storage-browser',
+    label: 'Storage Browser',
+    body: 'The StorageBrowser provides users a simple interface for interacting with data stored in Amazon S3.',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/storage/storageimage',
     label: 'Storage Image',
     body: 'StorageImage component allows users to load an image managed by Amplify Storage.',
@@ -211,9 +222,9 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
-    href: '/connected-components/storage/storagemanager',
-    label: 'Storage Manager',
-    body: 'StorageManager component allows users to upload and manage files in your Amplify backend.',
+    href: '/connected-components/storage/fileuploader',
+    label: 'File Uploader',
+    body: 'FileUploader component allows users to upload and manage files in your Amplify backend.',
     platforms: ['react'],
     tertiary: true,
   },
@@ -226,6 +237,13 @@ export const connectedComponents: ComponentNavItem[] = [
 ];
 
 export const dataDisplayComponents: ComponentNavItem[] = [
+  {
+    href: '/components/avatar',
+    label: 'Avatar',
+    body: `An Avatar represents a user by displaying a profile image, initials, or a fallback icon.`,
+    platforms: ['react'],
+    icon: MdAccountCircle,
+  },
   {
     href: '/components/badge',
     label: 'Badge',
@@ -570,6 +588,7 @@ export const gettingStarted: ComponentNavItem[] = [
       'react-native',
       'android',
       'swift',
+      'svelte',
     ],
   },
   {
@@ -582,12 +601,13 @@ export const gettingStarted: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'android',
+      'svelte',
     ],
   },
   {
     href: '/getting-started/usage',
     label: 'Usage',
-    platforms: ['react', 'vue', 'angular', 'react-native'],
+    platforms: ['react', 'vue', 'angular', 'react-native', 'svelte'],
   },
   {
     href: '/getting-started/usage/nextjs',
@@ -609,7 +629,7 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/accessibility',
     label: 'Accessibility',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react', 'vue', 'angular', 'svelte'],
   },
   {
     href: '/getting-started/internationalization',

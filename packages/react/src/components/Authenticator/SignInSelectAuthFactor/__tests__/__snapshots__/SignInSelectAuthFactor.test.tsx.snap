@@ -1,0 +1,390 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignInSelectAuthFactor renders with all auth methods 1`] = `
+<div>
+  <div
+    class=""
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      <div
+        data-amplify-router=""
+      >
+        <form
+          data-amplify-authenticator-signinselect="true"
+          data-amplify-form="true"
+          method="post"
+        >
+          <div
+            class="amplify-flex"
+            style="flex-direction: column;"
+          >
+            <div
+              class="amplify-flex amplify-field amplify-textfield"
+            >
+              <label
+                class="amplify-label"
+                for="amplify-id-:r4:"
+              >
+                Username
+              </label>
+              <div
+                class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+              >
+                <div
+                  class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="amplify-input amplify-field-group__control"
+                    disabled=""
+                    id="amplify-id-:r4:"
+                    name="username"
+                    readonly=""
+                    type="text"
+                    value="testuser"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="amplify-flex amplify-field amplify-textfield amplify-passwordfield"
+            >
+              <label
+                class="amplify-label"
+                for="amplify-id-:r6:"
+              >
+                Password
+              </label>
+              <div
+                class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+              >
+                <div
+                  class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+                >
+                  <input
+                    aria-invalid="false"
+                    autocomplete="current-password"
+                    class="amplify-input amplify-field-group__control"
+                    id="amplify-id-:r6:"
+                    name="password"
+                    type="password"
+                  />
+                </div>
+                <div
+                  class="amplify-field-group__outer-end"
+                >
+                  <button
+                    aria-checked="false"
+                    aria-label="Show password"
+                    class="amplify-button amplify-field-group__control amplify-field__show-password"
+                    role="switch"
+                    type="button"
+                  >
+                    <span
+                      aria-live="polite"
+                      class="amplify-visually-hidden"
+                    >
+                      Password is hidden
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      class="amplify-icon"
+                      style="width: 1em; height: 1em;"
+                    >
+                      <svg
+                        fill="none"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 6C15.79 6 19.17 8.13 20.82 11.5C19.17 14.87 15.79 17 12 17C8.21 17 4.83 14.87 3.18 11.5C4.83 8.13 8.21 6 12 6ZM12 4C7 4 2.73 7.11 1 11.5C2.73 15.89 7 19 12 19C17 19 21.27 15.89 23 11.5C21.27 7.11 17 4 12 4ZM12 9C13.38 9 14.5 10.12 14.5 11.5C14.5 12.88 13.38 14 12 14C10.62 14 9.5 12.88 9.5 11.5C9.5 10.12 10.62 9 12 9ZM12 7C9.52 7 7.5 9.02 7.5 11.5C7.5 13.98 9.52 16 12 16C14.48 16 16.5 13.98 16.5 11.5C16.5 9.02 14.48 7 12 7Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
+              type="submit"
+            >
+              Sign In with Password
+            </button>
+            <hr
+              aria-orientation="horizontal"
+              class="amplify-divider amplify-divider--horizontal"
+              data-label="or"
+            />
+            <div
+              class="amplify-flex"
+              style="flex-direction: column; gap: 0.5rem;"
+            >
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
+                type="button"
+              >
+                Sign In with Email
+              </button>
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
+                type="button"
+              >
+                Sign In with SMS
+              </button>
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
+                type="button"
+              >
+                Sign In with Passkey
+              </button>
+            </div>
+            <button
+              class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+              type="button"
+            >
+              Back to Sign In
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SignInSelectAuthFactor renders with only passwordless methods 1`] = `
+<div>
+  <div
+    class=""
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      <div
+        data-amplify-router=""
+      >
+        <form
+          data-amplify-authenticator-signinselect="true"
+          data-amplify-form="true"
+          method="post"
+        >
+          <div
+            class="amplify-flex"
+            style="flex-direction: column;"
+          >
+            <div
+              class="amplify-flex amplify-field amplify-textfield"
+            >
+              <label
+                class="amplify-label"
+                for="amplify-id-:r8:"
+              >
+                Username
+              </label>
+              <div
+                class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+              >
+                <div
+                  class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="amplify-input amplify-field-group__control"
+                    disabled=""
+                    id="amplify-id-:r8:"
+                    name="username"
+                    readonly=""
+                    type="text"
+                    value="testuser"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="amplify-flex"
+              style="flex-direction: column; gap: 0.5rem;"
+            >
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
+                type="button"
+              >
+                Sign In with Email
+              </button>
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
+                type="button"
+              >
+                Sign In with SMS
+              </button>
+            </div>
+            <button
+              class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+              type="button"
+            >
+              Back to Sign In
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SignInSelectAuthFactor renders with password and email OTP options 1`] = `
+<div>
+  <div
+    class=""
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      <div
+        data-amplify-router=""
+      >
+        <form
+          data-amplify-authenticator-signinselect="true"
+          data-amplify-form="true"
+          method="post"
+        >
+          <div
+            class="amplify-flex"
+            style="flex-direction: column;"
+          >
+            <div
+              class="amplify-flex amplify-field amplify-textfield"
+            >
+              <label
+                class="amplify-label"
+                for="amplify-id-:r0:"
+              >
+                Username
+              </label>
+              <div
+                class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+              >
+                <div
+                  class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="amplify-input amplify-field-group__control"
+                    disabled=""
+                    id="amplify-id-:r0:"
+                    name="username"
+                    readonly=""
+                    type="text"
+                    value="testuser"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="amplify-flex amplify-field amplify-textfield amplify-passwordfield"
+            >
+              <label
+                class="amplify-label"
+                for="amplify-id-:r2:"
+              >
+                Password
+              </label>
+              <div
+                class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+              >
+                <div
+                  class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+                >
+                  <input
+                    aria-invalid="false"
+                    autocomplete="current-password"
+                    class="amplify-input amplify-field-group__control"
+                    id="amplify-id-:r2:"
+                    name="password"
+                    type="password"
+                  />
+                </div>
+                <div
+                  class="amplify-field-group__outer-end"
+                >
+                  <button
+                    aria-checked="false"
+                    aria-label="Show password"
+                    class="amplify-button amplify-field-group__control amplify-field__show-password"
+                    role="switch"
+                    type="button"
+                  >
+                    <span
+                      aria-live="polite"
+                      class="amplify-visually-hidden"
+                    >
+                      Password is hidden
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      class="amplify-icon"
+                      style="width: 1em; height: 1em;"
+                    >
+                      <svg
+                        fill="none"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 6C15.79 6 19.17 8.13 20.82 11.5C19.17 14.87 15.79 17 12 17C8.21 17 4.83 14.87 3.18 11.5C4.83 8.13 8.21 6 12 6ZM12 4C7 4 2.73 7.11 1 11.5C2.73 15.89 7 19 12 19C17 19 21.27 15.89 23 11.5C21.27 7.11 17 4 12 4ZM12 9C13.38 9 14.5 10.12 14.5 11.5C14.5 12.88 13.38 14 12 14C10.62 14 9.5 12.88 9.5 11.5C9.5 10.12 10.62 9 12 9ZM12 7C9.52 7 7.5 9.02 7.5 11.5C7.5 13.98 9.52 16 12 16C14.48 16 16.5 13.98 16.5 11.5C16.5 9.02 14.48 7 12 7Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
+              type="submit"
+            >
+              Sign In with Password
+            </button>
+            <hr
+              aria-orientation="horizontal"
+              class="amplify-divider amplify-divider--horizontal"
+              data-label="or"
+            />
+            <div
+              class="amplify-flex"
+              style="flex-direction: column; gap: 0.5rem;"
+            >
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth"
+                type="button"
+              >
+                Sign In with Email
+              </button>
+            </div>
+            <button
+              class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+              type="button"
+            >
+              Back to Sign In
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

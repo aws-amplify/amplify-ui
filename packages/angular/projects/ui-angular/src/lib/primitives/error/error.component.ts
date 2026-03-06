@@ -3,6 +3,7 @@ import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-error',
+  standalone: false,
   templateUrl: './error.component.html',
 })
 export class ErrorComponent {

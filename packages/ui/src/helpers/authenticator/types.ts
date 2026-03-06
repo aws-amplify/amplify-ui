@@ -2,11 +2,14 @@
  * This files provides types that describe general shape of
  * authenticator machine and its intepreter.
  */
-import { Interpreter } from 'xstate';
-import { AuthUser } from 'aws-amplify/auth';
-import { HubCapsule } from 'aws-amplify/utils';
+import type { Interpreter } from 'xstate';
+import type { AuthUser } from 'aws-amplify/auth';
+import type { HubCapsule } from 'aws-amplify/utils';
 
-import { AuthContext, AuthEvent } from '../../machines/authenticator/types';
+import type {
+  AuthContext,
+  AuthEvent,
+} from '../../machines/authenticator/types';
 
 /**
  * Intefrace for `authMachine` machine interpreter

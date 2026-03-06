@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../../theme';
-import { FederatedProviderButtonStyle } from './types';
+import type { StrictTheme } from '../../../theme';
+import type { FederatedProviderButtonStyle } from './types';
 
 export const getThemedStyles = (
   theme: StrictTheme

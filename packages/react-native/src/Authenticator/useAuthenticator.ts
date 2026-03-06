@@ -1,13 +1,11 @@
 // re-export `UseAuthenticator` export
-export { UseAuthenticator } from '@aws-amplify/ui-react-core';
+export type { UseAuthenticator } from '@aws-amplify/ui-react-core';
 
 import { signOut as _signOut } from 'aws-amplify/auth';
-import { AuthEventData } from '@aws-amplify/ui';
+import type { AuthEventData } from '@aws-amplify/ui';
 
-import {
-  useAuthenticator as _useAuthenticator,
-  UseAuthenticator,
-} from '@aws-amplify/ui-react-core';
+import type { UseAuthenticator } from '@aws-amplify/ui-react-core';
+import { useAuthenticator as _useAuthenticator } from '@aws-amplify/ui-react-core';
 
 // wrap and re-export `useAuthenticator` to replace state machine `signOut` with
 // `aws-amplify/auth` version due to iOS specifc requirements for federated sign

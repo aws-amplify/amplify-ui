@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MessageColorTheme } from '../types';
+import type { MessageColorTheme } from '../types';
 
 export interface MessageContextType {
   colorTheme?: MessageColorTheme;

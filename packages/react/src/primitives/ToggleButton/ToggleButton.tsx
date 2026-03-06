@@ -4,7 +4,7 @@ import * as React from 'react';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { Button } from '../Button';
 import { ComponentClassName } from '@aws-amplify/ui';
-import {
+import type {
   BaseToggleButtonProps,
   ToggleButtonProps,
   ForwardRefPrimitive,

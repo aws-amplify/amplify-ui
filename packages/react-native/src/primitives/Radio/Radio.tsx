@@ -1,10 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
-import {
-  GestureResponderEvent,
-  Pressable,
-  View,
-  ViewStyle,
-} from 'react-native';
+import type { GestureResponderEvent, ViewStyle } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { Label } from '../Label';
@@ -12,7 +8,7 @@ import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 import { usePressableContainerStyles } from '../../hooks';
 
 import { getThemedStyles } from './styles';
-import { RadioProps } from './types';
+import type { RadioProps } from './types';
 import { getRadioDimensions } from './getRadioDimensions';
 
 export const CONTAINER_TEST_ID = 'amplify__radio-button__container';
@@ -33,7 +29,7 @@ export default function Radio<T>({
   style,
   value,
   ...rest
-}: RadioProps<T>): JSX.Element {
+}: RadioProps<T>): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

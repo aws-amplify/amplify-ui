@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  LiveProvider,
-  LiveEditor,
-  LivePreview,
-  LiveContext,
-  ContextProps,
-} from 'react-live';
+import { LiveProvider, LiveEditor, LivePreview, LiveContext } from 'react-live';
 // only import the primitives to prevent importing sideEffects
 import { primitives as AUI } from '@aws-amplify/ui-react';
 import { trackClick } from '@/utils/track';
@@ -47,7 +41,7 @@ const code = `<Card variation="elevated">
 </Card>`;
 
 const Error = () => {
-  const context: ContextProps = React.useContext(LiveContext);
+  const context = React.useContext(LiveContext);
   const { error } = context;
   if (error) {
     return <Alert variation="error">{error}</Alert>;
@@ -58,6 +52,7 @@ const Error = () => {
 
 const HomeEditor = () => {
   const [edited, setEdited] = React.useState(false);
+
   return (
     <LiveProvider
       scope={{ ...AUI }}
@@ -73,22 +68,14 @@ const HomeEditor = () => {
         <View
           flex="1"
           className="docs-home-editor__code-panel with-lines scrollable"
+          onKeyUp={() => {
+            if (!edited) {
+              trackClick('HomeCodeEdit');
+              setEdited(true);
+            }
+          }}
         >
-          <LiveEditor
-            onKeyDown={(e) => {
-              // This makes sure the editor is not a focus trap, allowing customers to 'tab' out of the editor
-              if (e.keyCode === 9) {
-                // tab key
-                e.preventDefault();
-                e.currentTarget.blur();
-                return;
-              }
-              if (!edited) {
-                trackClick('HomeCodeEdit');
-                setEdited(true);
-              }
-            }}
-          />
+          <LiveEditor tabMode="focus" />
         </View>
         <View
           aria-label="Live preview results"

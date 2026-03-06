@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'amplify-form-select',
+  standalone: false,
   templateUrl: './select.component.html',
 })
 export class SelectComponent {

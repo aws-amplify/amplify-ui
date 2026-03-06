@@ -1,19 +1,8 @@
+import RoutesList from './routes-list.mdx';
+
 You can use `useAuthenticator` composable to access `route` string that represents the current `authState`. They can be one of:
 
-- `idle`
-- `setup`
-- `signIn`
-- `signUp`
-- `confirmSignIn`
-- `confirmSignUp`
-- `setupTotp`
-- `forceNewPassword`
-- `forgotPassword`
-- `confirmResetPassword`
-- `verifyUser`
-- `confirmVerifyUser`
-- `signOut`
-- `authenticated`
+<RoutesList />
 
 ```html{1,5-7}
 <script setup>

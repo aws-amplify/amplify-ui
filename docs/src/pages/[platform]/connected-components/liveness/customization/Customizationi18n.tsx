@@ -6,8 +6,8 @@ const dictionary = {
   // use default strings for english
   en: null,
   es: {
-    photosensitivyWarningHeadingText: 'Advertencia de fotosensibilidad',
-    photosensitivyWarningBodyText:
+    photosensitivityWarningHeadingText: 'Advertencia de fotosensibilidad',
+    photosensitivityWarningBodyText:
       'Esta verificación muestra luces de colores. Tenga cuidado si es fotosensible.',
     goodFitCaptionText: 'Buen ajuste',
     tooFarCaptionText: 'Demasiado lejos',

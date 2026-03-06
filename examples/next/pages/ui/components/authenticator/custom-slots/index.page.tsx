@@ -1,20 +1,19 @@
 import { Amplify } from 'aws-amplify';
 
-import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
 // Amplify UI Primitives to style the custom components
 import {
+  Authenticator,
   Button,
   Heading,
   Image,
   Text,
-  View,
   useAuthenticator,
   useTheme,
+  View,
 } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 const components = {
@@ -184,6 +183,22 @@ const components = {
       return <Text>Footer Information</Text>;
     },
   },
+  SelectMfaType: {
+    Header() {
+      return <Heading level={3}>Select Desired MFA Type</Heading>;
+    },
+    Footer() {
+      return <Text>Footer Information</Text>;
+    },
+  },
+  SetupEmail: {
+    Header() {
+      return <Heading level={3}>Email MFA Setup</Heading>;
+    },
+    Footer() {
+      return <Text>Footer Information</Text>;
+    },
+  },
 };
 
 const formFields = {
@@ -240,6 +255,12 @@ const formFields = {
       label: 'New Label',
       placeholder: 'Enter your Confirmation Code:',
       isRequired: false,
+    },
+  },
+  setupEmail: {
+    email: {
+      label: 'New Label',
+      placeholder: 'Please enter your Email:',
     },
   },
 };

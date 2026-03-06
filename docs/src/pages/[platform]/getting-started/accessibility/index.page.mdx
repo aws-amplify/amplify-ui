@@ -2,7 +2,7 @@
 title: Accessibility
 metaTitle: Accessibility
 description: An introduction to building accessible apps with Amplify UI.
-supportedFrameworks: react|angular|vue
+supportedFrameworks: react|angular|vue|svelte
 ---
 
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
@@ -10,6 +10,7 @@ import { InlineFilter } from '@/components/InlineFilter';
 import AccessibilityAngular from './accessibility.angular.mdx';
 import AccessibilityReact from './accessibility.react.mdx';
 import AccessibilityVue from './accessibility.vue.mdx';
+import AccessibilitySvelte from './accessibility.svelte.mdx';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -29,4 +30,7 @@ export async function getStaticProps() {
 </InlineFilter>
 <InlineFilter filters={['vue']}>
   <AccessibilityVue />
+</InlineFilter>
+<InlineFilter filters={['svelte']}>
+  <AccessibilitySvelte />
 </InlineFilter>

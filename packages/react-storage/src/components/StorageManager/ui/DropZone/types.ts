@@ -1,4 +1,4 @@
-import { StorageManagerDisplayText } from '../../utils/displayText';
+import type { FileUploaderDisplayText as StorageManagerDisplayText } from '../../../FileUploader/utils/displayText';
 
 export interface DropZoneProps {
   children?: React.ReactNode;

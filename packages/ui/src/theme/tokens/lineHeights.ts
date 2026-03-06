@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   LineHeightValue,
   OutputVariantKey,
@@ -9,7 +9,7 @@ type LineHeightSize = 'small' | 'medium' | 'large';
 
 export type LineHeights<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<LineHeightSize, LineHeightValue, Output, Platform> &
   RecursiveDesignToken<LineHeightValue, Output, Platform>;
 

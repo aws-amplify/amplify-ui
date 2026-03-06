@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
 import { usePressableContainerStyles } from '../../hooks';
 import { Button } from '../Button';
 import { getThemedStyles } from './styles';
-import { TabProps } from './types';
+import type { TabProps } from './types';
 
 export default function Tab({
   children,
@@ -14,7 +14,7 @@ export default function Tab({
   textStyle,
   indicatorPosition,
   ...rest
-}: TabProps): JSX.Element {
+}: TabProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme, indicatorPosition);
 

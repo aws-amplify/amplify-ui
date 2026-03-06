@@ -1,5 +1,4 @@
-import {
-  defaultLivenessDisplayText,
+import type {
   LivenessDisplayText,
   HintDisplayText,
   CameraDisplayText,
@@ -7,6 +6,7 @@ import {
   StreamDisplayText,
   ErrorDisplayText,
 } from '../displayText';
+import { defaultLivenessDisplayText } from '../displayText';
 
 interface LivenessDisplayTextInterface {
   hintDisplayText: Required<HintDisplayText>;

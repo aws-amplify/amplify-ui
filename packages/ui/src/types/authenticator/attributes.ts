@@ -1,4 +1,4 @@
-import { UserAttributeKey } from 'aws-amplify/auth';
+import type { UserAttributeKey } from 'aws-amplify/auth';
 
 /** Array of auth fields that we supply defaults with */
 export const signUpFieldsWithDefault = [

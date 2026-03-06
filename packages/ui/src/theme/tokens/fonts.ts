@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   FontValue,
   OutputVariantKey,
@@ -9,7 +9,7 @@ type FontVariant = 'variable' | 'static';
 
 type BaseFonts<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = {
   default?: DesignTokenValues<FontVariant, FontValue, Output, Platform>;
 };
@@ -17,7 +17,7 @@ type BaseFonts<
 // `Fonts` tokens requires special handling for `required` output due to nested tokens
 export type Fonts<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = (Output extends 'required' | 'default'
   ? Required<BaseFonts<Output, Platform>>
   : BaseFonts<Output, Platform>) &

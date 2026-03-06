@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   OutlineOffsetValue,
   OutputVariantKey,
@@ -9,7 +9,7 @@ type OutlineOffsetSize = 'small' | 'medium' | 'large';
 
 export type OutlineOffsets<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<OutlineOffsetSize, OutlineOffsetValue, Output, Platform> &
   RecursiveDesignToken<OutlineOffsetValue, Output, Platform>;
 

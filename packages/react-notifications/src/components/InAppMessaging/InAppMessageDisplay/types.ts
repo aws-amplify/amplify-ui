@@ -1,13 +1,13 @@
-import {
+import type {
   BannerMessageComponent,
   CarouselMessageComponent,
   FullScreenMessageComponent,
   ModalMessageComponent,
 } from '@aws-amplify/ui-react-core-notifications';
 
-import { BannerMessageProps } from '../BannerMessage';
-import { FullScreenMessageProps } from '../FullScreenMessage';
-import { ModalMessageProps } from '../ModalMessage';
+import type { BannerMessageProps } from '../BannerMessage';
+import type { FullScreenMessageProps } from '../FullScreenMessage';
+import type { ModalMessageProps } from '../ModalMessage';
 
 // TODO: replace these incrementally as they become available
 type BannerStyle = BannerMessageProps['style'];

@@ -1,0 +1,22 @@
+---
+title: FileUploader
+description: The FileUploader lets your users upload and manage files in the cloud.
+themeSource: packages/ui/src/theme/tokens/components/storagemanager.ts
+reactSource: packages/react-storage/src/components/StorageManager/StorageManager.tsx
+supportedFrameworks: react
+---
+
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+import ReactPage from './react.mdx';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<ReactPage />

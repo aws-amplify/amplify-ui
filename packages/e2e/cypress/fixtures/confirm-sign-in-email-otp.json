@@ -1,0 +1,10 @@
+{
+  "AuthenticationResult": {
+    "AccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiY29nbml0bzp1c2VybmFtZSI6InRlc3QtdXNlciIsImlzcyI6Imh0dHBzOi8vY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vdXMtZWFzdC0xX3Rlc3QiLCJpYXQiOjE3NzI1MzU1MjYsImV4cCI6MTc3MjUzOTEyNiwidG9rZW5fdXNlIjoiYWNjZXNzIn0.mock-signature",
+    "ExpiresIn": 3600,
+    "IdToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImNvZ25pdG86dXNlcm5hbWUiOiJ0ZXN0LXVzZXIiLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tL3VzLWVhc3QtMV90ZXN0IiwiaWF0IjoxNzcyNTM1NTI2LCJleHAiOjE3NzI1MzkxMjYsInRva2VuX3VzZSI6ImlkIn0.mock-signature",
+    "RefreshToken": "mock-refresh-token-1234567890",
+    "TokenType": "Bearer"
+  },
+  "ChallengeParameters": {}
+}

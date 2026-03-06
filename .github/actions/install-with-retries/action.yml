@@ -1,5 +1,5 @@
 name: 'Install with retries'
-description: 'Runs yarn install with up to 2 retries'
+description: 'Runs yarn install with up to 3 retries'
 inputs:
   skip-cypress-binary:
     description: 'Whether to skip binary installation for cypress'

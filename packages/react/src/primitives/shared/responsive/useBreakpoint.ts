@@ -2,7 +2,7 @@
 // comes from https://github.com/iiroj/use-breakpoint/
 
 import * as React from 'react';
-import { Breakpoint, UseBreakpoint } from '../../types/responsive';
+import type { Breakpoint, UseBreakpoint } from '../../types/responsive';
 import { getMediaQueries } from './getMediaQueries';
 
 const useIsomorphicEffect =

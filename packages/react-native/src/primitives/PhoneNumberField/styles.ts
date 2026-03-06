@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { PhoneNumberFieldStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { PhoneNumberFieldStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): PhoneNumberFieldStyles => {
   const { components } = theme;

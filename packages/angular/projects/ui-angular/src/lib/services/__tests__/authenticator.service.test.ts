@@ -4,8 +4,9 @@ import * as UIModule from '@aws-amplify/ui';
 import * as XState from 'xstate';
 
 // mock state machine service
-// based on https://github.com/statelyai/xstate/blob/main/packages/core/src/interpreter.ts
+// based on https://github.com/statelyai/xstate/blob/v4/packages/core/src/interpreter.ts
 class MockAuthService {
+  initialized = false;
   private listeners: (() => void)[] = [];
 
   subscribe(callback: () => void): { unsubscribe: () => void } {
@@ -15,6 +16,12 @@ class MockAuthService {
   }
 
   start(): this {
+    this.initialized = true;
+    return this;
+  }
+
+  stop(): this {
+    this.initialized = false;
     return this;
   }
 
@@ -57,5 +64,21 @@ describe('AuthenticatorService', () => {
     expect(handler).toHaveBeenCalledWith(mockFacade);
 
     subscription.unsubscribe();
+  });
+
+  it('should stop actor on destruction', () => {
+    expect(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      ((authService as any)._authService as ReturnType<typeof XState.interpret>)
+        .initialized
+    ).toBeTruthy();
+
+    authService.ngOnDestroy();
+
+    expect(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      ((authService as any)._authService as ReturnType<typeof XState.interpret>)
+        .initialized
+    ).toBeFalsy();
   });
 });

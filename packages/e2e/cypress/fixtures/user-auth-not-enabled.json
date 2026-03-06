@@ -1,0 +1,4 @@
+{
+  "__type": "InvalidParameterException",
+  "message": "USER_AUTH flow not enabled for this client"
+}

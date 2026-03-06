@@ -4,25 +4,12 @@
 
 import { When } from '@badeball/cypress-cucumber-preprocessor';
 
-When('I select my country code with status {string}', (status: string) => {
-  const countryCodeSelect = cy.findByRole('combobox', {
-    name: /country code/i,
-  });
-  if (countryCodeSelect) {
-    const countryCode =
-      status === 'CONFIRMED'
-        ? '+1'
-        : status === 'UNCONFIRMED'
-        ? '+7'
-        : status === 'UNKNOWN'
-        ? '+20'
-        : status === 'FORCE_CHANGE_PASSWORD'
-        ? '+30'
-        : null;
-
-    countryCodeSelect.select(countryCode);
+When(
+  'I update my country code from {string} to {string}',
+  (initialCode: string, nextCode: string) => {
+    cy.findByDisplayValue(initialCode).select(nextCode);
   }
-});
+);
 
 When(
   'I type my {string} with status {string}',

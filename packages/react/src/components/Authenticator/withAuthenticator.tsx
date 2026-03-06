@@ -1,7 +1,8 @@
 import React from 'react';
-import { AuthUser } from 'aws-amplify/auth';
+import type { AuthUser } from 'aws-amplify/auth';
 
-import { Authenticator, AuthenticatorProps, SignOut } from './Authenticator';
+import type { AuthenticatorProps, SignOut } from './Authenticator';
+import { Authenticator } from './Authenticator';
 export type WithAuthenticatorOptions = Omit<AuthenticatorProps, 'children'>;
 
 export interface WithAuthenticatorProps {
@@ -15,7 +16,7 @@ export interface WithAuthenticatorProps {
 export function withAuthenticator<Props = {}>(
   Component: React.ComponentType<Props & WithAuthenticatorProps>,
   options: WithAuthenticatorOptions = {}
-): (props: Props) => JSX.Element {
+): (props: Props) => React.JSX.Element {
   const { variation = 'modal' } = options;
 
   return function WrappedWithAuthenticator(props: Props) {

@@ -1,4 +1,2 @@
-export {
-  default as handleMessageAction,
-  HandleMessageLinkAction,
-} from './handleMessageAction';
+export type { HandleMessageLinkAction } from './handleMessageAction';
+export { default as handleMessageAction } from './handleMessageAction';

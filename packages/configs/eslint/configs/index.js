@@ -1,6 +1,6 @@
 module.exports = {
   env: { node: true },
-  plugins: ['@typescript-eslint', 'index'],
+  plugins: ['@typescript-eslint', 'import', 'index'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -16,6 +16,8 @@ module.exports = {
   rules: {
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/consistent-type-exports': 'error',
+    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 2,
     '@typescript-eslint/member-ordering': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -45,6 +47,12 @@ module.exports = {
     'generator-star-spacing': 'off',
     'global-require': 'off',
     'implicit-arrow-linebreak': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        packageDir: ['.', '../..'],
+      },
+    ],
     'index/only-import-export': 'error',
     'max-params': 2,
     'no-alert': 'error',

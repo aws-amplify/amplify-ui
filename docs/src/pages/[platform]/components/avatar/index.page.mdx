@@ -1,0 +1,27 @@
+---
+title: Avatar
+description: An Avatar represents a user by displaying a profile image, initials, or a fallback icon.
+themeSource: packages/ui/src/theme/tokens/components/avatar.ts
+reactSource: packages/react/src/primitives/Avatar/Avatar.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span
+htmlElement: span
+supportedFrameworks: react
+---
+
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { PrimitiveTabs } from '@/components/PrimitiveTabs';
+import ReactPage from './react.mdx';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<PrimitiveTabs {...frontmatter}>
+  <ReactPage />
+</PrimitiveTabs>

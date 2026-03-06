@@ -1,18 +1,20 @@
-import { Amplify, ResourcesConfig } from 'aws-amplify';
-import { UserAttributeKey } from 'aws-amplify/auth';
+import type { ResourcesConfig } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
+import type { UserAttributeKey } from 'aws-amplify/auth';
 
 import {
   confirmResetPassword,
   confirmSignIn,
   confirmSignUp,
   getCurrentUser,
+  resendSignUpCode,
   resetPassword,
   signIn,
   signUp,
 } from 'aws-amplify/auth';
 import { hasSpecialChars } from '../../helpers';
 
-import {
+import type {
   AuthFormData,
   AuthTouchData,
   LoginMechanism,
@@ -75,11 +77,30 @@ export const defaultServices = {
         ) as SocialProvider[])
       : undefined;
 
+    // Detect passwordless capabilities from amplify_outputs.json
+    // Support both snake_case (legacy) and camelCase (current) formats
+    const passwordlessConfig = (result.Auth?.Cognito as any)?.passwordless;
+    const passwordlessCapabilities = {
+      emailOtpEnabled:
+        passwordlessConfig?.emailOtpEnabled ??
+        passwordlessConfig?.email_otp_enabled === true,
+      smsOtpEnabled:
+        passwordlessConfig?.smsOtpEnabled ??
+        passwordlessConfig?.sms_otp_enabled === true,
+      webAuthnEnabled: !!(
+        passwordlessConfig?.webAuthn ?? passwordlessConfig?.web_authn
+      ),
+      preferredChallenge:
+        passwordlessConfig?.preferredChallenge ??
+        passwordlessConfig?.preferred_challenge,
+    };
+
     return {
       ...cliConfig,
       loginMechanisms: parsedLoginMechanisms,
       signUpAttributes: parsedSignupAttributes,
       socialProviders: parsedSocialProviders,
+      passwordlessCapabilities,
     };
   },
   getCurrentUser,
@@ -89,11 +110,12 @@ export const defaultServices = {
   handleConfirmSignUp: confirmSignUp,
   handleForgotPasswordSubmit: confirmResetPassword,
   handleForgotPassword: resetPassword,
+  handleResendSignUpCode: resendSignUpCode,
 
   // Validation hooks for overriding
   async validateCustomSignUp(
-    formData: AuthFormData,
-    touchData: AuthTouchData
+    _: AuthFormData,
+    __: AuthTouchData
   ): Promise<ValidatorResult> {},
   async validateFormPassword(
     formData: AuthFormData,
@@ -169,7 +191,40 @@ export const defaultServices = {
     }
   },
   async validatePreferredUsername(
-    formData: AuthFormData,
-    touchData: AuthTouchData
+    _: AuthFormData,
+    __: AuthTouchData
   ): Promise<ValidatorResult> {},
+  async validateRequiredFieldsForAuthMethod(
+    formData: AuthFormData
+  ): Promise<ValidatorResult> {
+    const authMethod = formData.__authMethod;
+
+    // If no auth method specified, skip validation (will use default required fields)
+    if (!authMethod) return null;
+
+    // Check required fields based on auth method
+    if (authMethod === 'EMAIL_OTP' && !formData.email) {
+      return { email: 'Email is required for Email OTP sign up' };
+    }
+
+    if (authMethod === 'SMS_OTP' && !formData.phone_number) {
+      return { phone_number: 'Phone number is required for SMS OTP sign up' };
+    }
+
+    if (authMethod === 'PASSWORD') {
+      const errors: Record<string, string> = {};
+
+      if (!formData.password) {
+        errors.password = 'Password is required';
+      }
+
+      if (!formData.confirm_password) {
+        errors.confirm_password = 'Confirm Password is required';
+      }
+
+      return Object.keys(errors).length > 0 ? errors : null;
+    }
+
+    return null;
+  },
 };

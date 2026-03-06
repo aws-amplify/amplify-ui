@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Flex } from '../Flex';
-import {
+import type {
   Primitive,
   ForwardRefPrimitive,
   ToggleButtonProps,

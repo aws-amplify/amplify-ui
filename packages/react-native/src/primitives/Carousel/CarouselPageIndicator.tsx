@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { CarouselPageIndicatorProps } from './types';
+import type { CarouselPageIndicatorProps } from './types';
 import {
   DEFAULT_CAROUSEL_INDICATOR_ACTIVE_STYLE,
   DEFAULT_CAROUSEL_INDICATOR_INACTIVE_STYLE,
@@ -12,9 +12,10 @@ export default function CarouselPageIndicator({
   activeStyle,
   currentIndex,
   inactiveStyle,
+  indicatorTestId,
   numberOfItems,
   style,
-}: CarouselPageIndicatorProps): JSX.Element {
+}: CarouselPageIndicatorProps): React.JSX.Element {
   const items = useMemo(
     () =>
       new Array(numberOfItems ?? 0)
@@ -24,15 +25,17 @@ export default function CarouselPageIndicator({
             <View
               style={[DEFAULT_CAROUSEL_INDICATOR_ACTIVE_STYLE, activeStyle]}
               key={`indicator-item-${index}`}
+              testID={indicatorTestId}
             />
           ) : (
             <View
               style={[DEFAULT_CAROUSEL_INDICATOR_INACTIVE_STYLE, inactiveStyle]}
               key={`indicator-item-${index}`}
+              testID={indicatorTestId}
             />
           )
         ),
-    [activeStyle, currentIndex, inactiveStyle, numberOfItems]
+    [activeStyle, currentIndex, inactiveStyle, indicatorTestId, numberOfItems]
   );
 
   return <SafeAreaView style={style}>{items}</SafeAreaView>;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { post, get } from 'aws-amplify/api';
 import useSWR from 'swr';
 
@@ -12,9 +12,13 @@ const getSystemClockOffset = (serverDate: string | undefined) => {
   return Math.abs(delta) > maxSupportedClockSkew ? delta : undefined;
 };
 
-export function useLiveness() {
+export function useLiveness(challengeType: string) {
   const [isLivenessActive, setLivenessActive] = useState(false);
   const [getLivenessResponse, setGetLivenessResponse] = useState(null);
+
+  useEffect(() => {
+    mutate();
+  }, [challengeType]);
 
   const {
     data: createLivenessSessionApiData,
@@ -26,7 +30,7 @@ export function useLiveness() {
     async () => {
       const response = await post({
         apiName: 'BYOB',
-        path: '/liveness/create',
+        path: `/livenessnolight/create?challengeType=${challengeType}`,
         options: {},
       }).response;
       const { body } = response;
@@ -67,7 +71,7 @@ export function useLiveness() {
   const handleGetLivenessDetection = async (sessionId) => {
     const response = await get({
       apiName: 'BYOB',
-      path: `/liveness/${sessionId}`,
+      path: `/livenessnolight/${sessionId}`,
       options: {},
     }).response;
     const { body } = response;

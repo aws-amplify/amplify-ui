@@ -1,5 +1,6 @@
-import { ColorModeOverride } from './types';
-import { ReactNativeTokens, tokens } from './tokens';
+import type { ColorModeOverride } from './types';
+import type { ReactNativeTokens } from './tokens';
+import { tokens } from './tokens';
 
 const darkModeTokens = {
   colors: {
@@ -102,6 +103,12 @@ const darkModeTokens = {
       primary: '{colors.neutral.60}',
       secondary: '{colors.neutral.40}',
       tertiary: '{colors.neutral.20}',
+    },
+
+    shadow: {
+      primary: { value: 'hsla(100, 100%, 100%, 0.25)' },
+      secondary: { value: 'hsla(100, 100%, 100%, 0.15)' },
+      tertiary: { value: 'hsla(100, 100%, 100%, 0.05)' },
     },
 
     overlay: {

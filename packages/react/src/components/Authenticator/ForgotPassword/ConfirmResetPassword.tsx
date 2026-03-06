@@ -9,14 +9,15 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getResendCodeText, getResetYourPasswordText } = authenticatorTextUtil;
 
 export const ConfirmResetPassword = ({
   className,
   variation,
-}: RouteProps): JSX.Element => {
+}: RouteProps): React.JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
 
@@ -59,13 +60,13 @@ export const ConfirmResetPassword = ({
   );
 };
 
-ConfirmResetPassword.Header = function Header(): JSX.Element {
+ConfirmResetPassword.Header = function Header(): React.JSX.Element {
   const headerText = getResetYourPasswordText();
 
   return <Heading level={3}>{headerText}</Heading>;
 };
 
-ConfirmResetPassword.Footer = function Footer(): JSX.Element {
+ConfirmResetPassword.Footer = function Footer(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

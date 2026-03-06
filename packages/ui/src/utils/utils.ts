@@ -1,6 +1,8 @@
-import { Modifiers } from '../types';
+import type { Modifiers } from '../types';
 
 /**
+ * @deprecated - will be removed in a future major version
+ *
  * Some libraries may not follow Node ES module spec and could be loaded as CommonJS modules,
  * To ensure the interoperability between ESM and CJS, modules from those libraries have to be loaded via namespace import
  * And sanitized by the function below because unlike ESM namespace, CJS namespace set `module.exports` object on the `default` key
@@ -208,18 +210,6 @@ export const classNameModifierByFlag = (
 };
 
 /**
- * `isFunction` but types the param with its function signature
- *
- * @param {unknown} value param to check
- * @returns {boolean} whether `value` is a function
- */
-export function isTypedFunction<T extends (...args: any[]) => any>(
-  value: unknown
-): value is T {
-  return isFunction(value);
-}
-
-/**
  * Similar to `Array.join`, with an optional callback/template param
  * for formatting returned string values
  *
@@ -229,10 +219,11 @@ export function isTypedFunction<T extends (...args: any[]) => any>(
  */
 export function templateJoin(
   values: string[],
-  template: (value: string) => string
+  template: (value: string, index: number, values: string[]) => string
 ): string {
   return values.reduce(
-    (acc, curr) => `${acc}${isString(curr) ? template(curr) : ''}`,
+    (acc, curr, index) =>
+      `${acc}${isString(curr) ? template(curr, index, values) : ''}`,
     ''
   );
 }
@@ -267,3 +258,49 @@ export function groupLog(groupName: string, ...events: any[]): void {
     console.log(groupName);
   }
 }
+
+/**
+ * Splits an object into 2 objects based on a predicate
+ *
+ * @param {object} obj an object to split into two
+ * @param {function} predicate function to determin where an element should go
+ * @returns
+ */
+export function splitObject(
+  obj: Record<string, unknown>,
+  predicate: (key: string) => boolean
+) {
+  const left: Record<string, unknown> = {};
+  const right: Record<string, unknown> = {};
+  Object.entries(obj).forEach(([key, value]) => {
+    if (predicate(key)) {
+      left[key] = value;
+    } else {
+      right[key] = value;
+    }
+  });
+  return [left, right] as const;
+}
+
+export const cloneDeep = (obj: unknown) => {
+  if (obj === null || obj === undefined || typeof obj !== 'object') {
+    return obj;
+  }
+
+  if (obj instanceof Array) {
+    return obj.reduce((arr, item, i) => {
+      arr[i] = cloneDeep(item);
+      return arr;
+    }, []);
+  }
+
+  if (obj instanceof Object) {
+    return Object.keys(obj || {}).reduce(
+      (cpObj, key) => {
+        cpObj[key] = cloneDeep((obj as Record<string, unknown>)[key]);
+        return cpObj;
+      },
+      {} as Record<string, unknown>
+    );
+  }
+};

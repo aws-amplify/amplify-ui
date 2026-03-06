@@ -1,6 +1,6 @@
-import { Sizes } from './base';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
-import { FlexContainerStyleProps } from './flex';
+import type { Sizes } from './base';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { FlexContainerStyleProps } from './flex';
 
 export type ButtonSizes = Sizes;
 export type ButtonTypes = 'button' | 'reset' | 'submit';

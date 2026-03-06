@@ -17,7 +17,7 @@ export interface RatingPropControlsProps extends RatingProps {
 }
 
 interface RatingPropControlsInterface {
-  (props: RatingPropControlsProps): JSX.Element;
+  (props: RatingPropControlsProps): React.JSX.Element;
 }
 
 export const RatingPropControls: RatingPropControlsInterface = ({

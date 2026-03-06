@@ -1,14 +1,16 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const ptDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'A recuperação da conta requer informações de contato verificadas',
+  'Authenticator App (TOTP)': 'Aplicativo autenticador (TOTP)',
   'Add your Profile': 'Adicione seu Perfil',
   'Add your Website': 'Adicione seu Website',
   'Back to Sign In': 'Voltar para Entrar',
   'Change Password': 'Mudar senha',
   Changing: 'Mudando',
   Code: 'Código',
+  'Confirm Email Code': 'Confirmar código de e-mail',
   'Confirm Password': 'Confirme a Senha',
   'Confirm Sign Up': 'Confirmar inscrição',
   'Confirm SMS Code': 'Confirme o código SMS',
@@ -22,6 +24,7 @@ export const ptDict: AuthenticatorDictionary = {
   'Creating Account': 'Criando conta',
   'Dismiss alert': 'Descartar alerta',
   Email: 'O email',
+  'Email Message': 'Mensagem de e-mail',
   'Enter your Birthdate': 'Digite sua Data de Nascimento',
   'Enter your code': 'Insira seu código',
   'Enter your Confirmation Code': 'Digite seu código de confirmação',
@@ -40,6 +43,9 @@ export const ptDict: AuthenticatorDictionary = {
   'Hide password': 'Esconder a senha',
   'It may take a minute to arrive': 'Pode levar um minuto para chegar',
   Loading: 'Carregando',
+  'Multi-Factor Authentication': 'Autenticação multifator',
+  'Multi-Factor Authentication Setup':
+    'Configuração da autenticação multifator',
   'New password': 'Nova Senha',
   or: 'ou',
   Password: 'Senha',
@@ -48,9 +54,11 @@ export const ptDict: AuthenticatorDictionary = {
   'Resend Code': 'Reenviar código',
   'Reset your password': 'Redefina sua senha',
   'Reset your Password': 'Redefina sua senha',
+  'Select MFA Type': 'Selecionar tipo de MFA',
   'Send code': 'Enviar código',
   'Send Code': 'Enviar código',
   Sending: 'Enviando',
+  'Setup Email': 'Configurar e-mail',
   'Setup TOTP': 'Configurar TOTP',
   'Show password': 'Mostrar senha',
   'Sign in to your account': 'Faça login em sua conta',
@@ -64,6 +72,7 @@ export const ptDict: AuthenticatorDictionary = {
   Skip: 'Pular',
   Submit: 'Enviar',
   Submitting: 'Enviando',
+  'Text Message (SMS)': 'Mensagem de texto (SMS)',
   Username: 'Nome do usuário',
   'Verify Contact': 'Verificar contato',
   Verify: 'Verificar',

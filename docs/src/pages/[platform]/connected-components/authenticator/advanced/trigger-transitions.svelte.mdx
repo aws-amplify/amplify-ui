@@ -1,0 +1,14 @@
+You can use `useAuthenticator` composable to access functions that lets you trigger transitions to the authenticator. Please see [Full API](#full-api) to see all supported transition functions. Any invalid transitions (e.g. `signUp` directly to `authenticated`) will be ignored.
+
+```html
+<script>
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-svelte';
+  const {authenticator: a } = $derived(useAuthenticator());
+</script>
+
+<Authenticator />
+{#if a.route === 'authenticated'}
+  <h1>Hello { a.user?.username }!</h1>
+  <button onclick={a.signOut}>Sign out</button>
+{/if}
+```

@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   FontSizeValue,
   OutputVariantKey,
@@ -19,7 +19,7 @@ type FontSize =
 
 export type FontSizes<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<
   FontSize,
   FontSizeValue<Platform, Output>,

@@ -1,12 +1,14 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const ruDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Восстановление учетной записи требует проверки контактной информации',
+  'Authenticator App (TOTP)': 'Приложение для аутентификации (TOTP)',
   'Back to Sign In': 'Назад, чтобы войти',
   'Change Password': 'изменять пароль',
   Changing: 'Изменение',
   Code: 'Код',
+  'Confirm Email Code': 'Подтвердите код электронной почты',
   'Confirm Password': 'Подтверждение пароля',
   'Confirm Sign Up': 'Подтверждение зарегистрироваться',
   'Confirm SMS Code': 'Подтверждение CMC-Код',
@@ -19,6 +21,7 @@ export const ruDict: AuthenticatorDictionary = {
   'Creating Account': 'создание учетная запись',
   'Dismiss alert': 'Закрыть оповещение',
   Email: 'электронная почта',
+  'Email Message': 'Сообщение по электронной почте',
   'Enter your code': 'ввести ваш Код',
   'Enter your Email': 'ввести ваш электронная почта',
   'Enter your phone number': 'ввести ваш номер телефона',
@@ -27,6 +30,9 @@ export const ruDict: AuthenticatorDictionary = {
   'Hide password': 'Скрывать пароль',
   'It may take a minute to arrive': 'Доставка может занять некоторое время',
   Loading: 'Загрузка',
+  'Multi-Factor Authentication': 'Многофакторная аутентификация',
+  'Multi-Factor Authentication Setup':
+    'Настройка многофакторной аутентификации',
   'New password': 'Новый пароль',
   or: 'или',
   Password: 'Пароль',
@@ -34,9 +40,11 @@ export const ruDict: AuthenticatorDictionary = {
   'Resend Code': 'Отправь еще раз Код',
   'Reset your password': 'сброс ваш пароль',
   'Reset your Password': 'сброс ваш Пароль',
+  'Select MFA Type': 'Выберите тип МФА',
   'Send code': 'Отправлять Код',
   'Send Code': 'Отправлять Код',
   Sending: 'отправка',
+  'Setup Email': 'Настроить электронную почту',
   'Setup TOTP': 'Настраивать TOTP',
   'Show password': 'Показывать пароль',
   'Sign in to your account': 'знак в свой аккаунт',
@@ -50,6 +58,7 @@ export const ruDict: AuthenticatorDictionary = {
   Skip: 'Пропускать',
   Submit: 'Представлять на рассмотрение',
   Submitting: 'Представив',
+  'Text Message (SMS)': 'Текстовое сообщение (SMS)',
   Username: 'Имя пользователя',
   'Verify Contact': 'Проверить контакт',
   Verify: 'Проверить',

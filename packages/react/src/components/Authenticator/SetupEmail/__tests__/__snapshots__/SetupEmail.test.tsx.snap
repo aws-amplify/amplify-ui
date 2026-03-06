@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SetupEmail renders as expected  1`] = `
+<div>
+  <div
+    class=""
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      <div
+        data-amplify-router=""
+      >
+        <form
+          data-amplify-authenticator-setup-email=""
+          data-amplify-form=""
+          method="post"
+        >
+          <fieldset
+            class="amplify-flex"
+            style="flex-direction: column;"
+          >
+            <div
+              class="amplify-flex"
+              style="flex-direction: column;"
+            >
+              <div
+                class="amplify-flex amplify-field amplify-textfield"
+              >
+                <label
+                  class="amplify-label"
+                  for="amplify-id-:r1:"
+                >
+                  Seteup Email
+                </label>
+                <div
+                  class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+                >
+                  <div
+                    class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+                  >
+                    <input
+                      aria-invalid="false"
+                      autocapitalize="off"
+                      class="amplify-input amplify-field-group__control"
+                      id="amplify-id-:r1:"
+                      name="email"
+                      required=""
+                      type="email"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="amplify-flex"
+              style="flex-direction: column;"
+            >
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--primary"
+                type="submit"
+              >
+                Confirm
+              </button>
+              <button
+                class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+                type="button"
+              >
+                Back to Sign In
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

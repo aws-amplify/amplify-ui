@@ -1,4 +1,6 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import type React from 'react';
+import { useCallback, useState } from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;

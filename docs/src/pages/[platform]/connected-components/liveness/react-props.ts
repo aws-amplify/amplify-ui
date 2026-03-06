@@ -54,7 +54,7 @@ export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
   {
     name: `PhotosensitiveWarning?`,
     description:
-      'Overrides the rendered component for the photosensitivity warning.',
+      'Applies only to Face Movement and Light Challenge; PhotosensitiveWarning will not render with the Face Movement Challenge. Overrides the rendered component for the photosensitivity warning.',
     type: `React.ComponentType`,
   },
   {
@@ -131,6 +131,12 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
     name: `MOBILE_LANDSCAPE_ERROR`,
     description:
       'Indicates that the user attempted to switch to using landscape mode which is not supported.',
+    type: `Error`,
+  },
+  {
+    name: `MULTIPLE_FACES_ERROR`,
+    description:
+      'Indicates that multiple faces have been detected within the frame.',
     type: `Error`,
   },
 ];

@@ -1,9 +1,9 @@
 import { createMachine, sendUpdate } from 'xstate';
+import type { ConfirmSignInInput } from 'aws-amplify/auth';
 import {
   confirmSignIn,
-  ConfirmSignInInput,
   fetchUserAttributes,
-  resendSignUpCode,
+  listWebAuthnCredentials,
   resetPassword,
   signInWithRedirect,
 } from 'aws-amplify/auth';
@@ -13,12 +13,20 @@ import actions from '../actions';
 import { defaultServices } from '../defaultServices';
 import guards from '../guards';
 
-import { AuthEvent, ActorDoneData, SignInContext } from '../types';
+import type {
+  AuthEvent,
+  ActorDoneData,
+  SignInContext,
+  AuthContext,
+} from '../types';
 
-import { getFederatedSignInState } from './utils';
+import {
+  getConfirmSignInFormValuesKey,
+  getFederatedSignInState,
+} from './utils';
 
 export interface SignInMachineOptions {
-  services?: Partial<typeof defaultServices>;
+  services?: AuthContext['services'];
 }
 
 const handleSignInResponse = {
@@ -49,6 +57,8 @@ const handleSignInResponse = {
         'setMissingAttributes',
         'setNextSignInStep',
         'setTotpSecretCode',
+        'setAllowedMfaTypes',
+        'setCodeDeliveryDetails',
       ],
       target: '#signInActor.init',
     },
@@ -56,26 +66,41 @@ const handleSignInResponse = {
   onError: { actions: 'setRemoteError', target: 'edit' },
 };
 
-const handleFetchUserAttributesResponse = {
-  onDone: [
-    {
-      cond: 'shouldVerifyAttribute',
-      actions: [
-        'setShouldVerifyUserAttributeStep',
-        'setUnverifiedUserAttributes',
-      ],
-      target: '#signInActor.resolved',
+const getDefaultConfirmSignInState = (exit: string[]) => ({
+  initial: 'edit',
+  exit,
+  states: {
+    edit: {
+      entry: 'sendUpdate',
+      on: {
+        SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+        SIGN_IN: '#signInActor.signIn',
+        CHANGE: { actions: 'handleInput' },
+        RESEND: { target: 'resend' },
+      },
     },
-    {
-      actions: 'setConfirmAttributeCompleteStep',
-      target: '#signInActor.resolved',
+    submit: {
+      tags: 'pending',
+      entry: ['sendUpdate', 'clearError'],
+      invoke: { src: 'confirmSignIn', ...handleSignInResponse },
     },
-  ],
-  onError: {
-    actions: 'setConfirmAttributeCompleteStep',
-    target: '#signInActor.resolved',
+    resend: {
+      tags: 'pending',
+      entry: ['sendUpdate', 'clearError'],
+      invoke: {
+        src: 'resendSignInCode',
+        onDone: {
+          actions: ['setCodeDeliveryDetails', 'sendUpdate'],
+          target: 'edit',
+        },
+        onError: {
+          actions: 'setRemoteError',
+          target: 'edit',
+        },
+      },
+    },
   },
-};
+});
 
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
@@ -95,6 +120,14 @@ export function signInActor({ services }: SignInMachineOptions) {
               target: 'setupTotp',
             },
             {
+              cond: 'shouldSetupEmail',
+              target: 'setupEmail',
+            },
+            {
+              cond: 'shouldSelectMfaType',
+              target: 'selectMfaType',
+            },
+            {
               cond: ({ step }) =>
                 step === 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED',
               actions: 'setActorDoneData',
@@ -103,12 +136,66 @@ export function signInActor({ services }: SignInMachineOptions) {
             { target: 'signIn' },
           ],
         },
-        federatedSignIn: getFederatedSignInState('signIn'),
+        federatedSignIn: { ...getFederatedSignInState('signIn') },
         fetchUserAttributes: {
           invoke: {
             src: 'fetchUserAttributes',
-            ...handleFetchUserAttributesResponse,
+            onDone: [
+              {
+                cond: 'hasPasskeyRegistrationPrompts',
+                actions: 'setFetchedUserAttributes',
+                target: 'checkPasskeys',
+              },
+              {
+                actions: 'setFetchedUserAttributes',
+                target: 'evaluatePasskeyPrompt',
+              },
+            ],
+            onError: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: '#signInActor.resolved',
+            },
           },
+        },
+        checkPasskeys: {
+          invoke: {
+            src: async () => {
+              try {
+                const result = await listWebAuthnCredentials();
+                return result.credentials && result.credentials.length > 0;
+              } catch {
+                return false;
+              }
+            },
+            onDone: {
+              actions: 'setHasExistingPasskeys',
+              target: 'evaluatePasskeyPrompt',
+            },
+            onError: {
+              actions: 'clearHasExistingPasskeys',
+              target: 'evaluatePasskeyPrompt',
+            },
+          },
+        },
+        evaluatePasskeyPrompt: {
+          always: [
+            {
+              cond: 'shouldPromptPasskeyRegistration',
+              target: '#signInActor.passkeyPrompt',
+            },
+            {
+              cond: 'shouldVerifyAttribute',
+              actions: [
+                'setShouldVerifyUserAttributeStep',
+                'setUnverifiedUserAttributes',
+              ],
+              target: '#signInActor.resolved',
+            },
+            {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: '#signInActor.resolved',
+            },
+          ],
         },
         resendSignUpCode: {
           invoke: {
@@ -144,43 +231,69 @@ export function signInActor({ services }: SignInMachineOptions) {
               on: {
                 CHANGE: { actions: 'handleInput' },
                 FEDERATED_SIGN_IN: { target: '#signInActor.federatedSignIn' },
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
+                SHOW_AUTH_METHODS: {
+                  actions: 'setUsernameSignIn',
+                  target: 'selectMethod',
+                },
+                SUBMIT: [
+                  {
+                    cond: 'shouldSelectAuthMethod',
+                    actions: 'handleSubmit',
+                    target: 'selectMethod',
+                  },
+                  {
+                    actions: 'handleSubmit',
+                    target: 'submit',
+                  },
+                ],
+              },
+            },
+            selectMethod: {
+              entry: [
+                'sendUpdate',
+                'setSelectAuthMethodStep',
+                'setUsernameSignIn',
+              ],
+              on: {
+                SELECT_METHOD: {
+                  actions: 'setSelectedAuthMethod',
+                  target: 'submit',
+                },
+                SUBMIT: {
+                  actions: ['handleSubmit', 'setSelectedAuthMethodFromForm'],
+                  target: 'submit',
+                },
+                SIGN_IN: {
+                  target: 'edit',
+                },
               },
             },
             submit: {
               tags: 'pending',
               entry: ['clearError', 'sendUpdate', 'setUsernameSignIn'],
               exit: 'clearFormValues',
-              invoke: { src: 'handleSignIn', ...handleSignInResponse },
+              invoke: {
+                src: 'handleSignIn',
+                onDone: handleSignInResponse.onDone,
+                onError: [
+                  {
+                    cond: 'shouldReturnToSelectMethod',
+                    actions: 'setRemoteError',
+                    target: 'selectMethod',
+                  },
+                  handleSignInResponse.onError,
+                ],
+              },
             },
           },
         },
         confirmSignIn: {
-          initial: 'edit',
-          exit: [
+          ...getDefaultConfirmSignInState([
             'clearChallengeName',
             'clearFormValues',
             'clearError',
             'clearTouched',
-          ],
-          states: {
-            edit: {
-              entry: 'sendUpdate',
-              on: {
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SIGN_IN: '#signInActor.signIn',
-                CHANGE: { actions: 'handleInput' },
-              },
-            },
-            submit: {
-              tags: 'pending',
-              entry: ['clearError', 'sendUpdate'],
-              invoke: {
-                src: 'confirmSignIn',
-                ...handleSignInResponse,
-              },
-            },
-          },
+          ]),
         },
         forceChangePassword: {
           entry: 'sendUpdate',
@@ -255,21 +368,36 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         setupTotp: {
-          initial: 'edit',
-          exit: ['clearFormValues', 'clearError', 'clearTouched'],
-          states: {
-            edit: {
-              entry: 'sendUpdate',
-              on: {
-                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
-                SIGN_IN: '#signInActor.signIn',
-                CHANGE: { actions: 'handleInput' },
-              },
+          ...getDefaultConfirmSignInState([
+            'clearFormValues',
+            'clearError',
+            'clearTouched',
+          ]),
+        },
+        setupEmail: {
+          ...getDefaultConfirmSignInState([
+            'clearFormValues',
+            'clearError',
+            'clearTouched',
+          ]),
+        },
+        selectMfaType: {
+          ...getDefaultConfirmSignInState([
+            'clearFormValues',
+            'clearError',
+            'clearTouched',
+          ]),
+        },
+        passkeyPrompt: {
+          entry: 'sendUpdate',
+          on: {
+            SUBMIT: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: 'resolved',
             },
-            submit: {
-              tags: 'pending',
-              entry: ['sendUpdate', 'clearError'],
-              invoke: { src: 'confirmSignIn', ...handleSignInResponse },
+            SKIP: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: 'resolved',
             },
           },
         },
@@ -297,14 +425,61 @@ export function signInActor({ services }: SignInMachineOptions) {
           return resetPassword({ username });
         },
         handleResendSignUpCode({ username }) {
-          return resendSignUpCode({ username });
+          return services.handleResendSignUpCode({ username });
         },
-        handleSignIn({ formValues, username }) {
-          const { password } = formValues;
-          return services.handleSignIn({ username, password });
+        resendSignInCode({
+          username,
+          selectedAuthMethod,
+          availableAuthMethods,
+          preferredChallenge,
+        }) {
+          // Resend code by calling signIn again with the same parameters
+          const method =
+            selectedAuthMethod ??
+            preferredChallenge ??
+            availableAuthMethods?.[0] ??
+            'PASSWORD';
+
+          return services.handleSignIn({
+            username,
+            options: {
+              authFlowType: 'USER_AUTH',
+              preferredChallenge: method,
+            },
+          });
         },
-        confirmSignIn({ formValues }) {
-          const { confirmation_code: challengeResponse } = formValues;
+        handleSignIn({
+          formValues,
+          username,
+          selectedAuthMethod,
+          availableAuthMethods,
+          preferredChallenge,
+        }) {
+          // Determine which method to use
+          const method =
+            selectedAuthMethod ??
+            preferredChallenge ??
+            availableAuthMethods?.[0] ??
+            'PASSWORD';
+
+          if (method === 'PASSWORD') {
+            // Traditional password flow
+            const { password } = formValues;
+            return services.handleSignIn({ username, password });
+          } else {
+            // Passwordless flow using USER_AUTH
+            return services.handleSignIn({
+              username,
+              options: {
+                authFlowType: 'USER_AUTH',
+                preferredChallenge: method,
+              },
+            });
+          }
+        },
+        confirmSignIn({ formValues, step }) {
+          const formValuesKey = getConfirmSignInFormValuesKey(step);
+          const { [formValuesKey]: challengeResponse } = formValues;
           return services.handleConfirmSignIn({ challengeResponse });
         },
         async handleForceChangePassword({ formValues }) {
@@ -315,6 +490,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             // destructure and toss UI confirm_password field
             // to prevent error from sending to confirmSignIn
             confirm_password,
+            username,
             ...userAttributes
           } = formValues;
 

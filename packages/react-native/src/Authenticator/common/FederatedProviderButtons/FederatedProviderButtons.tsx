@@ -1,16 +1,13 @@
 import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
-import {
-  SocialProvider,
-  authenticatorTextUtil,
-  capitalize,
-} from '@aws-amplify/ui';
+import type { SocialProvider } from '@aws-amplify/ui';
+import { authenticatorTextUtil, capitalize } from '@aws-amplify/ui';
 
 import { Divider } from '../../../primitives';
 import { useTheme } from '../../../theme';
 import { FederatedProviderButton } from '../FederatedProviderButton';
-import { FederatedProviderButtonsProps } from './types';
+import type { FederatedProviderButtonsProps } from './types';
 import { icons } from '../../../assets';
 import { getThemedStyles } from './styles';
 
@@ -23,7 +20,7 @@ export default function FederatedProviderButtons({
   socialProviders,
   style,
   toFederatedSignIn,
-}: FederatedProviderButtonsProps): JSX.Element | null {
+}: FederatedProviderButtonsProps): React.JSX.Element | null {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

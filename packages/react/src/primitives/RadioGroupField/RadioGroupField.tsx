@@ -6,8 +6,9 @@ import { ComponentClassName } from '@aws-amplify/ui';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Fieldset } from '../Fieldset';
 import { Flex } from '../Flex';
-import { RadioGroupContext, RadioGroupContextType } from './context';
-import {
+import type { RadioGroupContextType } from './context';
+import { RadioGroupContext } from './context';
+import type {
   BaseRadioGroupFieldProps,
   RadioGroupFieldProps,
   ForwardRefPrimitive,

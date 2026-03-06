@@ -10,7 +10,8 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const {
   getDeliveryMessageText,
@@ -22,7 +23,7 @@ const {
 export function ConfirmSignUp({
   className,
   variation,
-}: RouteProps): JSX.Element {
+}: RouteProps): React.JSX.Element {
   const { isPending, resendCode, codeDeliveryDetails } = useAuthenticator(
     (context) => [
       context.isPending,
@@ -97,7 +98,7 @@ const DefaultHeader = () => {
 
 ConfirmSignUp.Header = DefaultHeader;
 
-ConfirmSignUp.Footer = function Footer(): JSX.Element {
+ConfirmSignUp.Footer = function Footer(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

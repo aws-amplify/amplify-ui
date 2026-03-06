@@ -6,6 +6,7 @@
 '@aws-amplify/ui-react-core': patch
 '@aws-amplify/ui-react-native': patch
 '@aws-amplify/ui-react-liveness': patch
+'@aws-amplify/ui-react-ai': patch
 ---
 
 Version bump for all public packages

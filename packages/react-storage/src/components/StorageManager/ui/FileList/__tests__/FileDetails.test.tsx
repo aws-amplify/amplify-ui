@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { ComponentClassName } from '@aws-amplify/ui';
+import { ComponentClassName, humanFileSize } from '@aws-amplify/ui';
 
 import { UploadDetails } from '../FileDetails';
 import { UploadDetailsProps } from '../types';
-import { humanFileSize } from '../../../utils';
 
 const fileDetailsProps: UploadDetailsProps = {
   displayName: 'Test',

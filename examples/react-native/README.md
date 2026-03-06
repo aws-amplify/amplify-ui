@@ -186,6 +186,54 @@ import { MY_ENV_VARIABLE } from '@env';
 
 If the example app is not picking up changes to the values in _.env_ close Metro and reset the cache (see troubleshooting section).
 
+## URI Scheme
+
+The example app default URI Scheme is set to `fed-auth-example://`.
+
+To update for local testing run from the example app root:
+
+```sh
+# remove default
+npx uri-scheme remove fed-auth-example
+
+# add new schems
+npx uri-scheme add my-scheme
+```
+
+- delete the app from your iOS simulator/Android emulator
+- rebuild the example app by run the respective build command(s) from the example app root:
+
+```sh
+# iOS
+yarn run-ios
+
+# OR
+# Android
+yarn run-android
+```
+
+To test the scheme:
+
+- ensure the example app is installed on an iOS simulator or Android emulator
+- start the example app
+
+```sh
+yarn workspace @aws-amplify/ui-react-native-example dev
+```
+
+- in a seperate terminal window, launch the app with the URI by running:
+
+```sh
+# iOS
+npx uri-scheme open -i my-scheme://
+
+# OR
+# Android
+npx uri-scheme open -a my-scheme://
+```
+
+> see https://github.com/expo/expo/tree/main/packages/uri-scheme#readme for additional info
+
 ## Troubleshooting
 
 ### Cleaning the Metro Cache

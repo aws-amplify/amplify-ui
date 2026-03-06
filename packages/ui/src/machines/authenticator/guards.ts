@@ -1,17 +1,18 @@
-import {
+import type {
   FetchUserAttributesOutput,
   ResetPasswordOutput,
   SignInOutput,
   SignUpOutput,
 } from 'aws-amplify/auth';
 
-import { MachineOptions } from 'xstate';
+import type { MachineOptions } from 'xstate';
 
-import { AuthActorContext, AuthEvent } from './types';
+import type { AuthActorContext, AuthEvent, Step } from './types';
 
-const SIGN_IN_STEP_MFA_CONFIRMATION: string[] = [
+const SIGN_IN_STEP_MFA_CONFIRMATION: Step[] = [
   'CONFIRM_SIGN_IN_WITH_SMS_CODE',
   'CONFIRM_SIGN_IN_WITH_TOTP_CODE',
+  'CONFIRM_SIGN_IN_WITH_EMAIL_CODE',
 ];
 
 // response next step guards
@@ -71,6 +72,15 @@ const shouldConfirmSignIn = ({ step }: AuthActorContext) =>
 const shouldSetupTotp = ({ step }: AuthActorContext) =>
   step === 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP';
 
+const shouldSetupEmail = ({ step }: AuthActorContext) =>
+  step === 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP';
+
+const shouldSelectMfaType = ({ step }: AuthActorContext) =>
+  [
+    'CONTINUE_SIGN_IN_WITH_MFA_SELECTION',
+    'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION',
+  ].includes(step);
+
 const shouldResetPassword = ({ step }: AuthActorContext) =>
   step === 'RESET_PASSWORD';
 
@@ -82,11 +92,21 @@ const shouldConfirmSignUp = ({ step }: AuthActorContext) =>
 
 // miscellaneous guards
 const shouldVerifyAttribute = (
-  _: AuthActorContext,
-  { data }: AuthEvent
+  context: AuthActorContext,
+  event: AuthEvent
 ): boolean => {
-  const { phone_number_verified, email_verified } =
-    data as FetchUserAttributesOutput;
+  // Try to get data from event first (for backward compatibility), then from context
+  const data = (event.data || context.fetchedUserAttributes) as
+    | FetchUserAttributesOutput
+    | undefined;
+
+  if (!data) return false;
+
+  const { email, phone_number, phone_number_verified, email_verified } = data;
+
+  // if neither email nor phone_number exist
+  // there is nothing to verify
+  if (!email && !phone_number) return false;
 
   // email/phone_verified is returned as a string
   const emailNotVerified =
@@ -113,11 +133,82 @@ const shouldVerifyAttribute = (
 const isUserAlreadyConfirmed = (_: AuthActorContext, { data }: AuthEvent) =>
   data.message === 'User is already confirmed.';
 
+// passwordless guards
+const shouldSelectAuthMethod = ({
+  availableAuthMethods,
+  preferredChallenge,
+  selectedAuthMethod,
+}: AuthActorContext) => {
+  // Show selection if:
+  // 1. Multiple methods available
+  // 2. AND either no preferredChallenge OR selectedAuthMethod is explicitly cleared (null)
+  const hasMultipleMethods =
+    availableAuthMethods && availableAuthMethods.length > 1;
+  const shouldShowSelection =
+    !preferredChallenge || selectedAuthMethod === null;
+
+  return hasMultipleMethods && shouldShowSelection;
+};
+
+const shouldPromptPasskeyRegistration = ({
+  passwordless,
+  hasExistingPasskeys,
+}: AuthActorContext) => {
+  const { passkeyRegistrationPrompts } = passwordless || {};
+
+  if (!passkeyRegistrationPrompts) {
+    return false;
+  }
+
+  // Don't prompt if user already has passkeys
+  if (hasExistingPasskeys) {
+    return false;
+  }
+
+  if (typeof passkeyRegistrationPrompts === 'boolean') {
+    return passkeyRegistrationPrompts;
+  }
+
+  return passkeyRegistrationPrompts.afterSignin === 'ALWAYS';
+};
+
+const shouldPromptPasskeyRegistrationAfterSignup = ({
+  passwordless,
+  hasExistingPasskeys,
+}: AuthActorContext) => {
+  const { passkeyRegistrationPrompts } = passwordless || {};
+
+  if (!passkeyRegistrationPrompts) {
+    return false;
+  }
+
+  // Don't prompt if user already has passkeys
+  if (hasExistingPasskeys) {
+    return false;
+  }
+
+  if (typeof passkeyRegistrationPrompts === 'boolean') {
+    return passkeyRegistrationPrompts;
+  }
+
+  return passkeyRegistrationPrompts.afterSignup === 'ALWAYS';
+};
+
+const hasPasskeyRegistrationPrompts = ({ passwordless }: AuthActorContext) =>
+  passwordless?.passkeyRegistrationPrompts != null;
+
+const shouldReturnToSelectMethod = ({
+  selectedAuthMethod,
+  step,
+}: AuthActorContext) =>
+  selectedAuthMethod != null && step === 'SELECT_AUTH_METHOD';
+
 const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   hasCompletedAttributeConfirmation,
   hasCompletedResetPassword,
   hasCompletedSignIn,
   hasCompletedSignUp,
+  hasPasskeyRegistrationPrompts,
   isConfirmSignUpStep,
   isConfirmUserAttributeStep,
   isResetPasswordStep,
@@ -131,8 +222,14 @@ const GUARDS: MachineOptions<AuthActorContext, AuthEvent>['guards'] = {
   shouldConfirmSignUpFromSignIn,
   shouldResetPassword,
   shouldResetPasswordFromSignIn,
+  shouldReturnToSelectMethod,
+  shouldSelectAuthMethod,
   shouldSetupTotp,
+  shouldSetupEmail,
+  shouldSelectMfaType,
   shouldVerifyAttribute,
+  shouldPromptPasskeyRegistration,
+  shouldPromptPasskeyRegistrationAfterSignup,
 };
 
 export default GUARDS;

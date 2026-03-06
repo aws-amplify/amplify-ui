@@ -4,13 +4,13 @@ import { classNames } from '@aws-amplify/ui';
 import {
   ComponentClassName,
   classNameModifierByFlag,
-  isTypedFunction,
+  isFunction,
 } from '@aws-amplify/ui';
 
-import { ForwardRefPrimitive, Primitive } from '../types';
+import type { ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
 import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
-import { BaseTabsItemProps, TabsItemProps } from './types';
+import type { BaseTabsItemProps, TabsItemProps } from './types';
 import { TabsContext } from './TabsContext';
 import { WHITESPACE_VALUE } from './constants';
 
@@ -25,7 +25,7 @@ const TabsItemPrimitive: Primitive<TabsItemProps, 'button'> = (
   }
   const isActive = activeTab === value;
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (isTypedFunction(onClick)) {
+    if (isFunction(onClick)) {
       onClick?.(e);
     }
     setActiveTab(value);

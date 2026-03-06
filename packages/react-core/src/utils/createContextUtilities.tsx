@@ -36,7 +36,7 @@ type CreateContextUtilitiesReturn<ContextType, ContextName extends string> = {
     : Key extends `use${string}`
     ? (params?: HookParams) => ContextType
     : Key extends `${string}Context`
-    ? React.Context<ContextType | undefined>
+    ? React.Context<ContextType>
     : never;
 };
 
@@ -89,7 +89,7 @@ type CreateContextUtilitiesReturn<ContextType, ContextName extends string> = {
 export default function createContextUtilities<
   ContextType,
   ContextName extends string = string,
-  Message extends string | undefined = string | undefined
+  Message extends string | undefined = string | undefined,
 >(
   options: ContextOptions<ContextType, ContextName, Message>
 ): CreateContextUtilitiesReturn<ContextType, ContextName> {
@@ -99,7 +99,11 @@ export default function createContextUtilities<
     throw new Error(INVALID_OPTIONS_MESSAGE);
   }
 
+  const contextDisplayName = `${contextName}Context`;
+  const providerDisplayName = `${contextName}Provider`;
+
   const Context = React.createContext<ContextType | undefined>(defaultValue);
+  Context.displayName = contextDisplayName;
 
   function Provider(props: React.PropsWithChildren<ContextType>) {
     const { children, ...context } = props;
@@ -113,8 +117,7 @@ export default function createContextUtilities<
     return <Context.Provider value={value}>{children}</Context.Provider>;
   }
 
-  Provider.displayName = `${contextName}Provider`;
-
+  Provider.displayName = providerDisplayName;
   return {
     [`use${contextName}`]: function (params?: HookParams) {
       const context = React.useContext(Context);
@@ -125,7 +128,7 @@ export default function createContextUtilities<
 
       return context;
     },
-    [`${contextName}Provider`]: Provider,
-    [`${contextName}Context`]: Context,
+    [providerDisplayName]: Provider,
+    [contextDisplayName]: Context,
   } as CreateContextUtilitiesReturn<ContextType, ContextName>;
 }

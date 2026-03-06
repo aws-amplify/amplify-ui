@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { StrictTheme } from '../../theme';
+import type { StrictTheme } from '../../theme';
 
 import { getLineHeight } from '../../utils';
-import { HeadingStyles } from './types';
+import type { HeadingStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): HeadingStyles => {
   const {

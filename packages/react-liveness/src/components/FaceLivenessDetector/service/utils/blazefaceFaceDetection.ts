@@ -1,7 +1,6 @@
 import { ready, setBackend } from '@tensorflow/tfjs-core';
+import type { FaceDetector, Keypoint } from '@tensorflow-models/face-detection';
 import {
-  FaceDetector,
-  Keypoint,
   SupportedModels,
   createDetector,
 } from '@tensorflow-models/face-detection';
@@ -12,7 +11,8 @@ import '@tensorflow/tfjs-backend-cpu';
 import { jitteredExponentialRetry } from '@aws-amplify/core/internals/utils';
 
 import { isWebAssemblySupported } from './support';
-import { FaceDetection, Face, Coordinate } from '../types';
+import type { Face, Coordinate } from '../types';
+import { FaceDetection } from '../types';
 
 type BlazeFaceModelBackend = 'wasm' | 'cpu';
 

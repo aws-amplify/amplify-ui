@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { Placeholder } from '../Placeholder';
+import {
+  CSS_VAR_END_COLOR,
+  CSS_VAR_START_COLOR,
+  Placeholder,
+} from '../Placeholder';
 import { Text } from '../../Text';
 import { ComponentClassName } from '@aws-amplify/ui';
 
@@ -14,6 +18,8 @@ describe('Placeholder:', () => {
       true
     );
     expect(placeholder.dataset['size']).toBeUndefined();
+    expect(placeholder.dataset['startColor']).toBeUndefined();
+    expect(placeholder.dataset['endColor']).toBeUndefined();
   });
 
   it('should render size classes for Placeholder', async () => {
@@ -83,6 +89,25 @@ describe('Placeholder:', () => {
     expect(placeholder2).toHaveClass(`${ComponentClassName['Placeholder']}`);
     expect(placeholder3).toHaveClass(
       `${ComponentClassName['Placeholder']}--large`
+    );
+  });
+
+  it('can apply startColor and endColor styling via props', async () => {
+    const startColor = 'green';
+    const endColor = 'gray';
+    render(
+      <Placeholder
+        startColor={startColor}
+        endColor={endColor}
+        testId="placeholderId"
+      />
+    );
+    const placeholder = await screen.findByTestId('placeholderId');
+    expect(placeholder.style.getPropertyValue(CSS_VAR_START_COLOR)).toBe(
+      startColor
+    );
+    expect(placeholder.style.getPropertyValue(CSS_VAR_END_COLOR)).toBe(
+      endColor
     );
   });
 

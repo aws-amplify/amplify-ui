@@ -4,6 +4,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-in-federated',
+  standalone: false,
   templateUrl: 'sign-in-federated.component.html',
 })
 export class SignInFederatedComponent {

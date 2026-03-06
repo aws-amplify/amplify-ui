@@ -9,14 +9,15 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const { getAccountRecoveryInfoText, getSkipText } = authenticatorTextUtil;
 
 export const ConfirmVerifyUser = ({
   className,
   variation,
-}: RouteProps): JSX.Element => {
+}: RouteProps): React.JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -63,6 +64,6 @@ ConfirmVerifyUser.Header = function Header() {
   return <Heading level={3}>{getAccountRecoveryInfoText()}</Heading>;
 };
 
-ConfirmVerifyUser.Footer = function Footer(): JSX.Element | null {
+ConfirmVerifyUser.Footer = function Footer(): React.JSX.Element | null {
   return null;
 };

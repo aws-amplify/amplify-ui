@@ -138,9 +138,12 @@ When('I type a new {string}', async (field: string) => {
   );
 });
 
-When('I select my country code with status {string}', (status: string) => {
-  // do nothing, React-Native phone number field does not support country code selection yet
-});
+When(
+  'I update my country code from {string} to {string}',
+  (initialCode: string, nextCode: string) => {
+    // do nothing, React Native phone number field does not support country code selection
+  }
+);
 
 Then('I will be redirected to the confirm forgot password page', async () => {
   await expect(element(by.text('New Password')).atIndex(0)).toBeVisible();
@@ -197,8 +200,12 @@ When('I click the {string} button', async (name: string) => {
   }
 });
 
-When('I click the {string} radio button', async (label: string) => {
-  await element(by.id('amplify__radio-button__container')).tap();
+When('I click the {string} radio button', async (name: string) => {
+  await element(
+    by
+      .text(new RegExp(`^${name}.*$`, 'i'))
+      .withAncestor(by.id('amplify__radio-group__container'))
+  ).tap();
 });
 
 Then(

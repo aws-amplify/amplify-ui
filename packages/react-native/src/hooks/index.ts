@@ -1,6 +1,4 @@
 export { useDeprecationWarning } from './useDeprecationWarning';
-export {
-  DeviceOrientation,
-  useDeviceOrientation,
-} from './useDeviceOrientation';
+export type { DeviceOrientation } from './useDeviceOrientation';
+export { useDeviceOrientation } from './useDeviceOrientation';
 export { usePressableContainerStyles } from './usePressableContainerStyles';

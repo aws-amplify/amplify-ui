@@ -1,11 +1,11 @@
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
-import { isNil } from '@aws-amplify/ui';
-
-import { RenderNothing } from '@aws-amplify/ui-react-core';
-import { useInAppMessaging } from '../useInAppMessaging';
-import { UseMessage, UseMessageParams } from './types';
-import { getContentProps, getPositionProp } from './utils';
 import { notifyMessageInteraction } from 'aws-amplify/in-app-messaging';
+import { isNil } from '@aws-amplify/ui';
+import { RenderNothing } from '@aws-amplify/ui-react-core';
+
+import { useInAppMessaging } from '../../context';
+import type { UseMessage, UseMessageParams } from './types';
+import { getContentProps, getPositionProp } from './utils';
 
 export const EMPTY_PROPS = Object.freeze({});
 

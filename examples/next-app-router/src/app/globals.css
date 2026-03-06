@@ -1,0 +1,7 @@
+@import '@aws-amplify/ui-react/styles/reset.css';
+@import '@aws-amplify/ui-react/styles.css';
+
+[data-amplify-theme] {
+  background-color: var(--amplify-colors-background-primary);
+  color: var(--amplify-colors-font-primary);
+}

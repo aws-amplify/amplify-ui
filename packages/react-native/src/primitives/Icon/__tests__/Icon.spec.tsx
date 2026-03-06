@@ -5,8 +5,9 @@ import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import { useTheme } from '../../../theme';
 import { getThemedStyles } from '../styles';
 import Icon from '../Icon';
-import { IconProps, iconSizes } from '..';
-import { Size } from '../types';
+import type { IconProps } from '..';
+import { iconSizes } from '..';
+import type { Size } from '../types';
 
 // use empty mockImplementation to turn off console output
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();

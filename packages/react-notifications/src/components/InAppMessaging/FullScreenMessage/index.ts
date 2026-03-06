@@ -1,2 +1,2 @@
 export { FullScreenMessage } from './FullScreenMessage';
-export { FullScreenMessageProps } from './types';
+export type { FullScreenMessageProps } from './types';

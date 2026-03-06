@@ -3,11 +3,12 @@
 /// <reference types="../../support/commands" />
 
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
-import { get, escapeRegExp } from 'lodash';
+import { escapeRegExp, get } from 'lodash';
 
 let language = 'en-US';
 let window = null;
 let stub = null;
+export const randomFileName = `fileName${Math.random() * 10000}`;
 
 const getRoute = (routeMatcher: { headers: { [key: string]: string } }) => {
   return `${routeMatcher.headers?.['X-Amz-Target'] || 'route'}`;
@@ -65,6 +66,14 @@ Given("I'm running the docs page", () => {
   cy.visit('/');
 });
 
+Given('I intercept requests to host including {string}', (host: string) => {
+  cy.intercept({ url: '**' }, (req) => {
+    if (req.headers.host?.includes(host)) {
+      req.alias = host;
+    }
+  });
+});
+
 Given(
   'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {
@@ -94,6 +103,31 @@ Given(
     cy.intercept(routeMatcher, { fixture }).as(getRoute(routeMatcher));
     cy.wait(getWaitRoute(routeMatcher)).then((interception) => {
       assert.isNotNull(interception, 'API call confirmed');
+    });
+  }
+);
+
+Given(
+  'I intercept a {string} request to {string}',
+  (method: string, endpoint: string) => {
+    cy.intercept(method, endpoint).as(`${method}_REQUEST`);
+  }
+);
+
+Then(
+  'I confirm the {string} request has a status of {string}',
+  (method: string, statusCode: string) => {
+    cy.wait(`@${method}_REQUEST`)
+      .its('response.statusCode')
+      .should('eq', +statusCode);
+  }
+);
+
+Then(
+  'I confirm the {string} request was made to host containing {string}',
+  (request: string, hostValue: string) => {
+    cy.wait(`@${request}`).then((interception) => {
+      expect(interception.request.headers.host).to.include(hostValue);
     });
   }
 );
@@ -197,6 +231,12 @@ Given(
   }
 );
 
+Given('I expect an exception', () => {
+  Cypress.on('uncaught:exception', () => {
+    return false;
+  });
+});
+
 When('Sign in was called with {string}', (username: string) => {
   let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
   stub = null;
@@ -223,10 +263,15 @@ When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
 
-const typeInInputHandler = (field: string, value: string) => {
-  cy.findInputField(field).type(value);
-};
-When('I type a new {string} with value {string}', typeInInputHandler);
+When('I type a new {string} with value {string}', cy.typeInInputHandler);
+
+When('I type a new {string} with random value', (field: string) => {
+  cy.typeInInputHandler(field, randomFileName);
+});
+
+When('I lose focus on {string} input', (field: string) => {
+  cy.findInputField(field).blur();
+});
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
@@ -238,10 +283,57 @@ When('I click the {string}', (id: string) => {
   cy.findByTestId(id).click();
 });
 
+When('I click the element with id attribute {string}', (id: string) => {
+  cy.get(`#${id}`).click({ force: true });
+});
+
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+    timeout: 5000,
   }).click();
+});
+
+Then('I press the {string} key', (key: string) => {
+  cy.get('body').type(key);
+});
+
+When('I click the button containing {string}', cy.clickButtonWithText);
+
+When('I click the button with label {string}', (ariaLabel: string) => {
+  cy.findByLabelText(ariaLabel).click();
+});
+
+When('I click the button containing random name', () => {
+  cy.clickButtonWithText(randomFileName);
+});
+
+When('I click the first button containing {string}', (name: string) => {
+  cy.findAllByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  })
+    .first()
+    .click();
+});
+
+Then('I see the button containing {string}', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).should('exist');
+});
+
+Then('I do not see the button containing {string}', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  }).should('not.exist');
+});
+
+Then('I see the first button containing {string}', (name: string) => {
+  cy.findAllByRole('button', {
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
+  })
+    .first()
+    .should('exist');
 });
 
 Then('I see the {string} button', (name: string) => {
@@ -254,6 +346,18 @@ Then('I do not see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).should('not.exist');
+});
+
+When('I click the {string} menuitem', (label: string) => {
+  cy.findByRole('menuitem', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).click();
+});
+
+Then('I see the {string} menuitem', (label: string) => {
+  cy.findByRole('menuitem', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).should('exist');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -269,7 +373,11 @@ When('I click the {string} checkbox', (label: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
-  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click();
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
+    // We have to force this click because the radio button isn't visible by default
+    // and instead has ::before decoration.
+    force: true,
+  });
 });
 
 When('I reload the page', () => {
@@ -280,10 +388,25 @@ Then('I see tab {string}', (search: string) => {
   cy.findAllByRole('tab').first().should('be.visible').contains(search);
 });
 
-Then('I see {string}', (message: string) => {
+Then('I see {string}', cy.doesDocumentContainText);
+
+Then('I see {string} or {string}', (text1: string, text2: string) => {
+  cy.get('body').should('satisfy', ($body) => {
+    const bodyText = $body.text();
+    return bodyText.includes(text1) || bodyText.includes(text2);
+  });
+});
+
+Then('I see {string} files with random names', (count: string) => {
+  for (let i = 1; i <= parseInt(count); i++) {
+    cy.doesDocumentContainText(`${randomFileName}-${i}`);
+  }
+});
+
+Then('I do not see {string}', (message: string) => {
   cy.findByRole('document')
     .contains(new RegExp(escapeRegExp(message), 'i'))
-    .should('exist');
+    .should('not.exist');
 });
 
 Then('I see {string} element', (id: string) => {
@@ -296,6 +419,10 @@ Then('I see placeholder {string}', (message: string) => {
 
 Then('I see the {string} image', (alt: string) => {
   cy.findByAltText(alt).should('exist');
+});
+
+Then('I see video with label {string}', (label: string) => {
+  cy.get(`video[aria-label="${label}"]`).should('exist');
 });
 
 Then('I see {string} as a {string} field', (label: string, type: string) => {
@@ -349,6 +476,41 @@ Then('the {string} button is disabled', (name: string) => {
   }).should('be.disabled');
 });
 
+Then('the {string} button is enabled', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).should('not.be.disabled');
+});
+
+When('I wait {int} seconds', (seconds: number) => {
+  cy.wait(seconds * 1000);
+});
+
+Then('the table should have {string} rows only', (value: string) => {
+  cy.get('table')
+    .find('tbody tr')
+    .filter(':visible')
+    .should('have.length', parseInt(value));
+});
+
+Then('the table should have {string} rows', (value: string) => {
+  cy.get('table').find('tbody tr').should('have.length', value);
+});
+
+Then(
+  'the {string} table should have {string} rows',
+  (tableSelector: string, value: string) => {
+    cy.get(tableSelector)
+      .find('tbody tr')
+      .filter(':visible')
+      .should('have.length', parseInt(value));
+  }
+);
+
+When('I click the first checkbox in the table', () => {
+  cy.get('table tbody input[type="checkbox"]').first().click({ force: true });
+});
+
 Then('the {string} field is invalid', (name: string) => {
   cy.findInputField(name)
     .then(($el) => $el.get(0).checkValidity())
@@ -375,16 +537,19 @@ Then(
 
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findInputField('Confirmation Code').type('123456');
+  cy.findInputField('Confirmation Code').clear().type('123456');
 });
 
-When('I type a custom password from label {string}', (custom) => {
+When('I type a custom password from label {string}', (custom: string) => {
   cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
 });
 
-When('I type a custom confirm password from label {string}', (custom) => {
-  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
-});
+When(
+  'I type a custom confirm password from label {string}',
+  (custom: string) => {
+    cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+  }
+);
 
 When('I type a valid SMS confirmation code', () => {
   // This should be intercepted & mocked
@@ -392,16 +557,19 @@ When('I type a valid SMS confirmation code', () => {
 });
 
 When('I type an invalid confirmation code', () => {
-  cy.findInputField('Confirmation Code').type('0000');
+  cy.findInputField('Confirmation Code').clear().type('0000');
 });
 
 When('I see one code input', () => {
   cy.get('input').should('have.length', 1);
 });
 
-When('I see {string} as the {string} input', (custom, order) => {
-  cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
-});
+When(
+  'I see {string} as the {string} input',
+  (custom: string, order: number) => {
+    cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
+  }
+);
 
 When('I dispatch {string} event', (eventName: string) => {
   if (!window) {
@@ -476,6 +644,13 @@ When('I type my new password', () => {
   cy.findInputField('New Password').type(Cypress.env('VALID_PASSWORD'));
 });
 
+When(
+  'I see input with placeholder {string} and type {string}',
+  (name: string, value: string) => {
+    cy.findByPlaceholderText(name).type(value);
+  }
+);
+
 Then('I click the submit button', () => {
   /**
    * Submit button text differs on React/Vue vs Angular. Testing for both for
@@ -484,6 +659,10 @@ Then('I click the submit button', () => {
   cy.findByRole('button', {
     name: new RegExp(`^((submit)|(send code))$`, 'i'),
   }).click();
+});
+
+Then('I click the label containing text {string}', (labelText: string) => {
+  cy.contains('label', labelText).should('be.visible').click({ force: true });
 });
 
 Then('I confirm {string} error is accessible in password field', () => {
@@ -549,4 +728,49 @@ Then('I see the {string} radio button checked', (label: string) => {
   cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).should(
     'be.checked'
   );
+});
+
+When('I upload {string} files with random names', (count: string) =>
+  cy.fileInputUpload(randomFileName, parseInt(count))
+);
+
+When(
+  'I upload a folder {string} with {string} files with random names',
+  (folderName: string, count: string) =>
+    cy.fileInputUpload(`${folderName}/${randomFileName}`, parseInt(count))
+);
+
+When('A network failure occurs', () => {
+  cy.intercept('', (req) => {
+    req.destroy();
+  });
+});
+
+Then('I see an error message for network failure', () => {
+  cy.get('body', { timeout: 10000 }).should(($body) => {
+    const text = $body.text();
+    expect(text).to.match(
+      /Something went wrong|Failed to fetch|Error|Network error|Unable to load/i
+    );
+  });
+});
+
+Then('I see the {string} link', (name: string) => {
+  cy.findByText(name).should('exist');
+});
+
+When('I click the {string} link', (name: string) => {
+  cy.findByText(name).click();
+});
+
+Then('I see the {string} message', (name: string) => {
+  cy.findByText(name).should('exist');
+});
+
+When('I go back to the previous page', () => {
+  cy.go('back');
+});
+
+When('I go forward to the next page', () => {
+  cy.go('forward');
 });

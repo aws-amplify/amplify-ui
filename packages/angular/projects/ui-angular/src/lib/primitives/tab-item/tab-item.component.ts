@@ -2,6 +2,7 @@ import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'amplify-tab-item',
+  standalone: false,
   templateUrl: './tab-item.component.html',
 })
 export class TabItemComponent {

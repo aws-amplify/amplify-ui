@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { ImageDimensions, useMessageProps } from '../../hooks';
+import type { ImageDimensions } from '../../hooks';
+import { useMessageProps } from '../../hooks';
 import { MessageWrapper } from '../MessageWrapper';
 import { MessageLayout } from '../MessageLayout';
 
 import { getStyles, positionStyle } from './styles';
-import { BannerMessageProps } from './types';
+import type { BannerMessageProps } from './types';
 
 export default function BannerMessage({
   position = 'top',
   ...props
-}: BannerMessageProps): JSX.Element | null {
+}: BannerMessageProps): React.JSX.Element | null {
   const messageProps = useMessageProps(
     props,
     (imageDimensions: ImageDimensions) =>

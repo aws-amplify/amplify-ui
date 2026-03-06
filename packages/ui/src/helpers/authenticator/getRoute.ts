@@ -1,8 +1,8 @@
-import {
+import type {
   AuthActorState,
   AuthMachineState,
 } from '../../machines/authenticator/types';
-import { AuthenticatorRoute } from './facade';
+import type { AuthenticatorRoute } from './facade';
 
 export type GetRoute = (
   state: AuthMachineState,
@@ -42,6 +42,14 @@ export const getRoute = (
     case actorState?.matches('setupTotp.edit'):
     case actorState?.matches('setupTotp.submit'):
       return 'setupTotp';
+    case actorState?.matches('signIn.submit'):
+      return actorState?.context.selectedAuthMethod != null
+        ? 'signInSelectAuthFactor'
+        : 'signIn';
+    case actorState?.matches('signIn.selectMethod'):
+      return 'signInSelectAuthFactor';
+    case actorState?.matches('passkeyPrompt'):
+      return 'passkeyPrompt';
     case actorState?.matches('signIn'):
       return 'signIn';
     case actorState?.matches('signUp'):
@@ -57,6 +65,10 @@ export const getRoute = (
       return 'verifyUser';
     case actorState?.matches('confirmVerifyUserAttribute'):
       return 'confirmVerifyUser';
+    case actorState?.matches('setupEmail'):
+      return 'setupEmail';
+    case actorState?.matches('selectMfaType'):
+      return 'selectMfaType';
     case state.matches('getCurrentUser'):
     case actorState?.matches('fetchUserAttributes'):
       /**

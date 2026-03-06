@@ -3,7 +3,7 @@
  * and context.
  */
 
-import {
+import type {
   AuthActorContext,
   AuthActorState,
   AuthMachineState,

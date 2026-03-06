@@ -1,2 +1,2 @@
 export { RouteContainer } from './RouteContainer';
-export { RouteContainerProps, RouteProps } from './types';
+export type { RouteContainerProps, RouteProps } from './types';

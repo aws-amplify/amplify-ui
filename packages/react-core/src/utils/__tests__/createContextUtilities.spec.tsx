@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import createContextUtilities, {
   INVALID_OPTIONS_MESSAGE,
@@ -15,6 +15,9 @@ const defaultValue: Stuff = { items: { '1': 1, '2': 2 }, things: 1 };
 const errorMessage = '`useStuff` must be used in a `StuffProvider`';
 
 describe('createContextUtilities', () => {
+  // turn off console.error logging for unhappy path test case
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+
   it('utility hook exposes the expected values of a defined defaultValue', () => {
     const { useStuff } = createContextUtilities({
       contextName,
@@ -57,16 +60,14 @@ describe('createContextUtilities', () => {
   });
 
   it('utility hook throws an error when no defaultValue is provided and used outside its context', () => {
-    const errorMessage = '`useStuff` ust be used in a `StuffProvider`';
+    const errorMessage = '`useStuff` must be used in a `StuffProvider`';
 
     const { useStuff } = createContextUtilities<Stuff>({
       contextName,
       errorMessage,
     });
 
-    const { result } = renderHook(() => useStuff());
-
-    expect(result.error?.message).toStrictEqual(errorMessage);
+    expect(() => renderHook(useStuff)).toThrow(errorMessage);
   });
 
   it('utility hook throws a custom error when provided', () => {
@@ -79,11 +80,9 @@ describe('createContextUtilities', () => {
 
     const customMessage = '`useStuff` must be used in a `SecretProvider`';
 
-    const { result } = renderHook(() =>
-      useStuff({ errorMessage: customMessage })
-    );
-
-    expect(result.error?.message).toStrictEqual(customMessage);
+    expect(() =>
+      renderHook(() => useStuff({ errorMessage: customMessage }))
+    ).toThrow(customMessage);
   });
 
   it('utility hook throws default error when a custom message is not provided', () => {
@@ -96,8 +95,8 @@ describe('createContextUtilities', () => {
 
     const errorMessage = '`useStuff` must be used in a `SecretProvider`';
 
-    const { result } = renderHook(() => useStuff({ errorMessage }));
-
-    expect(result.error?.message).toStrictEqual(errorMessage);
+    expect(() => renderHook(() => useStuff({ errorMessage }))).toThrow(
+      errorMessage
+    );
   });
 });

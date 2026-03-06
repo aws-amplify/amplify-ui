@@ -11,8 +11,16 @@ The Authenticator has an option to hide the sign up page including the `Create A
   ```
 </InlineFilter>
 <InlineFilter filters={['react']}>
-  ```tsx{3} 
-  <Authenticator hideSignUp />
+  **`Authenticator` Example:**
+  ```tsx{3}
+  <Authenticator hideSignUp>
+    <App />
+  </Authenticator>
+  ```
+  
+  **`withAuthenticator` Example:**
+  ```tsx{3}
+  withAuthenticator(App, { hideSignUp: true });
   ```
 </InlineFilter>
 <InlineFilter filters={['vue']}>
@@ -26,6 +34,17 @@ The Authenticator has an option to hide the sign up page including the `Create A
     </authenticator>
   </template>
   ```
+</InlineFilter>
+
+<InlineFilter filters={['svelte']}>
+```html{1}
+<Authenticator hideSignUp>
+  {#snippet children({ user, signOut })}
+    <h1>Hello {user.username}!</h1>
+    <button onclick={signOut}>Sign Out</button>
+  {/snippet}
+</Authenticator>
+```
 </InlineFilter>
 
 <Example>

@@ -6,8 +6,13 @@ import {
   spawn,
 } from 'xstate';
 
-import { AuthFormFields, PasswordSettings } from '../../types';
-import { AuthEvent, AuthContext, ActorDoneData, InitialStep } from './types';
+import type { AuthFormFields, PasswordSettings } from '../../types';
+import type {
+  AuthEvent,
+  AuthContext,
+  ActorDoneData,
+  InitialStep,
+} from './types';
 import { isEmptyObject } from '../../utils';
 
 import actions from './actions';
@@ -21,27 +26,43 @@ import {
 } from './actors';
 
 import { defaultServices } from './defaultServices';
+import { getAvailableAuthMethods } from './utils';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
 };
 
-const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => ({
-  ...context.actorDoneData,
-  step: context?.actorDoneData?.step ?? defaultStep,
+const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => {
+  const availableAuthMethods = getAvailableAuthMethods(
+    context.passwordlessCapabilities,
+    context.config?.passwordless?.hiddenAuthMethods
+  );
 
-  // initialize empty objects on actor start
-  formValues: {},
-  touched: {},
-  validationError: {},
+  // Determine effective preferred challenge: component prop takes precedence over backend config
+  const preferredChallenge =
+    context.config?.passwordless?.preferredAuthMethod ??
+    context.passwordlessCapabilities?.preferredChallenge;
 
-  // values included on `context.config` that should be available in actors
-  formFields: context.config?.formFields,
-  loginMechanisms: context.config?.loginMechanisms,
-  passwordSettings: context.config?.passwordSettings,
-  signUpAttributes: context.config?.signUpAttributes,
-  socialProviders: context.config?.socialProviders,
-});
+  return {
+    ...context.actorDoneData,
+    step: context?.actorDoneData?.step ?? defaultStep,
+
+    // initialize empty objects on actor start
+    formValues: {},
+    touched: {},
+    validationError: {},
+
+    // values included on `context.config` that should be available in actors
+    formFields: context.config?.formFields,
+    loginMechanisms: context.config?.loginMechanisms,
+    passwordSettings: context.config?.passwordSettings,
+    signUpAttributes: context.config?.signUpAttributes,
+    socialProviders: context.config?.socialProviders,
+    availableAuthMethods,
+    preferredChallenge,
+    passwordless: context.config?.passwordless,
+  };
+};
 
 const { choose, stop } = xStateActions;
 
@@ -149,6 +170,8 @@ export function createAuthenticatorMachine(
           },
           on: {
             FORGOT_PASSWORD: 'forgotPasswordActor',
+            SELECT_METHOD: { actions: 'forwardToActor' },
+            SHOW_AUTH_METHODS: { actions: 'forwardToActor' },
             SIGN_IN: 'signInActor',
             SIGN_UP: 'signUpActor',
             'done.invoke.signInActor': [
@@ -303,7 +326,7 @@ export function createAuthenticatorMachine(
           { cond: 'hasActor', actions: forwardTo(({ actorRef }) => actorRef) },
         ]),
         setActorDoneData: assign({
-          actorDoneData: (context, event): ActorDoneData => ({
+          actorDoneData: (_, event): ActorDoneData => ({
             challengeName: event.data.challengeName,
             codeDeliveryDetails: event.data.codeDeliveryDetails,
             missingAttributes: event.data.missingAttributes,
@@ -312,9 +335,12 @@ export function createAuthenticatorMachine(
             step: event.data.step,
             totpSecretCode: event.data.totpSecretCode,
             unverifiedUserAttributes: event.data.unverifiedUserAttributes,
+            allowedMfaTypes: event.data.allowedMfaTypes,
           }),
         }),
         applyAmplifyConfig: assign({
+          passwordlessCapabilities: (_, { data: cliConfig }) =>
+            cliConfig.passwordlessCapabilities,
           config(context, { data: cliConfig }) {
             // Prefer explicitly configured settings over default CLI values\
             const {
@@ -325,6 +351,7 @@ export function createAuthenticatorMachine(
               formFields: _formFields,
               passwordSettings = cliConfig.passwordFormat ??
                 ({} as PasswordSettings),
+              passwordless,
             } = context.config;
 
             // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.
@@ -340,6 +367,7 @@ export function createAuthenticatorMachine(
               initialState,
               loginMechanisms,
               passwordSettings,
+              passwordless,
               signUpAttributes,
               socialProviders,
             };

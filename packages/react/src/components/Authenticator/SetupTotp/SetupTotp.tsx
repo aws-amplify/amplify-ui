@@ -12,7 +12,8 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
 
 const logger = new Logger('SetupTotp-logger');
 
@@ -24,7 +25,7 @@ const { getSetupTotpText, getCopiedText, getLoadingText } =
 export const SetupTotp = ({
   className,
   variation,
-}: RouteProps): JSX.Element => {
+}: RouteProps): React.JSX.Element => {
   const { totpSecretCode, isPending, username, QRFields } = useAuthenticator(
     (context) => [context.isPending, context.totpSecretCode, context.username]
   );
@@ -125,11 +126,11 @@ export const SetupTotp = ({
   );
 };
 
-SetupTotp.Header = function Header(): JSX.Element {
+SetupTotp.Header = function Header(): React.JSX.Element {
   return <Heading level={3}>{getSetupTotpText()}</Heading>;
 };
 
-SetupTotp.Footer = function Footer(): JSX.Element {
+SetupTotp.Footer = function Footer(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

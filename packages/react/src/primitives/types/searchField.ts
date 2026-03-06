@@ -1,8 +1,8 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { FieldGroupIconButtonProps } from './fieldGroupIcon';
-import { BaseTextFieldProps } from './textField';
-import { ElementType, PrimitiveProps } from './view';
+import type { FieldGroupIconButtonProps } from './fieldGroupIcon';
+import type { BaseTextFieldProps } from './textField';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseSearchFieldProps extends BaseTextFieldProps {

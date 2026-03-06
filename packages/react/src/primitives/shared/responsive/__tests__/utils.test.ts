@@ -1,5 +1,5 @@
 import { WebDesignToken } from '@aws-amplify/ui';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { useTheme } from '../../../../hooks/useTheme';
 import { Breakpoints, ValueBreakpoints } from '../../../types/responsive';

@@ -5,8 +5,8 @@ import {
   StorageManager,
   StorageManagerProps,
 } from '@aws-amplify/ui-react-storage';
-import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 const processFile: StorageManagerProps['processFile'] = ({ file, key }) => {

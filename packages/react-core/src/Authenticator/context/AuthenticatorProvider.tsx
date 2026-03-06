@@ -1,10 +1,10 @@
-import React, { ReactNode, useContext, useEffect, useMemo } from 'react';
+import type { ReactNode } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { useInterpret } from '@xstate/react';
 
 import { getCurrentUser } from 'aws-amplify/auth';
+import type { AuthStatus, AuthMachineHubHandler } from '@aws-amplify/ui';
 import {
-  AuthStatus,
-  AuthMachineHubHandler,
   createAuthenticatorMachine,
   defaultAuthHubHandler,
   listenToAuthHub,
@@ -24,7 +24,7 @@ export default function AuthenticatorProvider({
   children,
 }: {
   children: ReactNode;
-}): JSX.Element {
+}): React.JSX.Element {
   // `authStatus` is exposed by `useAuthenticator` but should not be derived directly from the
   // state machine as the machine only updates on `Authenticator` initiated events, which
   // leads to scenarios where the state machine `authStatus` gets "stuck". For exmample,

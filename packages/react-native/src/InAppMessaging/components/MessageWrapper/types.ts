@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import type { ReactNode } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 
 export interface MessageWrapperProps {
   children: ReactNode;

@@ -1,14 +1,16 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const deDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Zurücksetzen des Accounts benötigt einen verifizierten Account',
   'Add your Profile': 'Ihr Profil hinzufügen',
   'Add your Website': 'Ihre Website hinzufügen',
+  'Authenticator App (TOTP)': 'Authentifikator-App (TOTP)',
   'Back to Sign In': 'Zurück zur Anmeldung',
   'Change Password': 'Passwort ändern',
   Changing: 'Ändern von',
   Code: 'Code',
+  'Confirm Email Code': 'E-Mail-Code bestätigen',
   'Confirm Password': 'Passwort bestätigen',
   'Please confirm your Password': 'Bitte bestätigen Sie Ihr Passwort',
   'Confirm Sign Up': 'Registrierung bestätigen',
@@ -21,7 +23,8 @@ export const deDict: AuthenticatorDictionary = {
   'Create Account': 'Account erstellen',
   'Creating Account': 'Account wird erstellt',
   'Dismiss alert': 'Warnung verwerfen',
-  Email: 'Email',
+  Email: 'E-Mail',
+  'Email Message': 'E-Mail-Nachricht',
   'Enter your Birthdate': 'Geben Sie Ihr Geburtsdatum ein',
   'Enter your code': 'Geben Sie Ihren Code ein',
   'Enter your Confirmation Code': 'Geben Sie Ihren Bestätigungs-Code ein',
@@ -33,15 +36,20 @@ export const deDict: AuthenticatorDictionary = {
   'Enter your Nickname': 'Geben Sie Ihren Spitznamen ein',
   'Enter your Password': 'Geben Sie Ihr Passwort ein',
   'Enter your password': 'Geben Sie Ihr Passwort ein',
-  'Enter your email': 'Geben Sie Ihre e-mail ein',
+  'Enter your email': 'Geben Sie Ihre E-Mail ein',
   'Enter your phone number': 'Geben Sie Ihre Telefonnummer ein',
-  'Enter your Preferred Username': 'Geben Sie Ihren bevorzugten Benutzernamen ein',
+  'Enter your Preferred Username':
+    'Geben Sie Ihren bevorzugten Benutzernamen ein',
   'Enter your username': 'Geben Sie Ihren Benutzernamen ein',
   'Forgot password?': 'Passwort vergessen?',
   'Forgot your password?': 'Passwort vergessen? ',
   'Hide password': 'Passwort verbergen',
-  'It may take a minute to arrive': 'Es kann eine Minute dauern, bis er ankommt',
+  'It may take a minute to arrive':
+    'Es kann eine Minute dauern, bis er ankommt',
   Loading: 'Wird geladen',
+  'Multi-Factor Authentication': 'Multifaktor-Authentifizierung',
+  'Multi-Factor Authentication Setup':
+    'Einrichtung der Multifaktor-Authentifizierung',
   'New password': 'Neues Passwort',
   or: 'oder',
   Password: 'Passwort',
@@ -49,9 +57,11 @@ export const deDict: AuthenticatorDictionary = {
   'Resend Code': 'Code erneut senden',
   'Reset your Password': 'Zurücksetzen des Passworts',
   'Reset your password': 'Zurücksetzen des passworts',
+  'Select MFA Type': 'MFA-Typ auswählen',
   'Send code': 'Code senden',
   'Send Code': 'Code senden',
   Sending: 'Wird gesendet',
+  'Setup Email': 'E-Mail einrichten',
   'Setup TOTP': 'TOTP einrichten',
   'Show password': 'Passwort anzeigen',
   'Sign in to your account': 'Melden Sie sich mit Ihrem Account an',
@@ -65,10 +75,11 @@ export const deDict: AuthenticatorDictionary = {
   Skip: 'Überspringen',
   Submit: 'Abschicken',
   Submitting: 'Wird gesendet',
+  'Text Message (SMS)': 'Textnachricht (SMS)',
   Username: 'Benutzername',
   'Verify Contact': 'Kontakt verifizieren',
   Verify: 'Verifizieren',
-  'We Emailed You': 'Email wurde versendet',
+  'We Emailed You': 'E-Mail wurde versendet',
   'We Sent A Code': 'Wir haben einen Code gesendet',
   'We Texted You': 'Wir haben Ihnen eine SMS gesendet',
   'Your code is on the way. To log in, enter the code we emailed to':
@@ -80,7 +91,7 @@ export const deDict: AuthenticatorDictionary = {
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
-    'Ein Account mit dieser Email existiert bereits.',
+    'Ein Account mit dieser E-Mail existiert bereits.',
   'Confirm a Code': 'Code bestätigen',
   'Confirm Sign In': 'Anmeldung bestätigen',
   'Create account': 'Hier registrieren',
@@ -89,6 +100,8 @@ export const deDict: AuthenticatorDictionary = {
   'Forgot Password': 'Passwort vergessen',
   'Have an account? ': 'Schon registriert? ',
   'Incorrect username or password':
+    'Falscher Benutzername oder falsches Passwort',
+  'Incorrect username or password.':
     'Falscher Benutzername oder falsches Passwort',
   'Invalid password format': 'Ungültiges Passwort-Format',
   'Invalid phone number format': `Ungültiges Telefonummern-Format. Benutze eine Nummer im Format: +12345678900`,

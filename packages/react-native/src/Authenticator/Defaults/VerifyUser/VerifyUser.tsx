@@ -5,10 +5,10 @@ import {
   DefaultContent,
   DefaultFooter,
   DefaultHeader,
-  DefaultRadioFormFields,
+  DefaultVerifyUserFormFields,
 } from '../../common';
 import { useFieldValues } from '../../hooks';
-import { DefaultVerifyUserProps } from '../types';
+import type { DefaultVerifyUserProps } from '../types';
 
 const COMPONENT_NAME = 'VerifyUser';
 
@@ -27,7 +27,7 @@ const VerifyUser = ({
   skipVerification,
   validationErrors,
   ...rest
-}: DefaultVerifyUserProps): JSX.Element => {
+}: DefaultVerifyUserProps): React.JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
@@ -68,7 +68,7 @@ const VerifyUser = ({
 };
 
 VerifyUser.Footer = DefaultFooter;
-VerifyUser.FormFields = DefaultRadioFormFields;
+VerifyUser.FormFields = DefaultVerifyUserFormFields;
 VerifyUser.Header = DefaultHeader;
 
 VerifyUser.displayName = COMPONENT_NAME;

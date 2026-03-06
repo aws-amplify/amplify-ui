@@ -1,9 +1,13 @@
-import {
+import type {
   AuthenticatorLegacyFields,
   AuthenticatorMachineContext,
 } from '../../types';
-import { UseAuthenticator } from '../types';
+import type { UseAuthenticator } from '../types';
 
+const allowedMfaTypes = [
+  'EMAIL',
+  'TOTP',
+] as AuthenticatorMachineContext['allowedMfaTypes'];
 const authStatus = 'unauthenticated';
 const challengeName = 'CUSTOM_CHALLENGE';
 const codeDeliveryDetails =
@@ -16,6 +20,8 @@ const isPending = false;
 const QRFields = null;
 const resendCode = jest.fn();
 const route = 'idle';
+const toShowAuthMethods = jest.fn();
+const selectAuthMethod = jest.fn();
 const skipVerification = jest.fn();
 const signOut = jest.fn();
 const socialProviders = [] as AuthenticatorMachineContext['socialProviders'];
@@ -32,15 +38,20 @@ const user = { username: 'username', userId: 'userId' };
 const validationErrors = {};
 
 export const mockMachineContext: AuthenticatorMachineContext = {
+  allowedMfaTypes,
   authStatus,
+  availableAuthMethods: undefined,
   challengeName,
   codeDeliveryDetails,
   error,
   hasValidationErrors,
   initializeMachine,
   isPending,
+  preferredChallenge: undefined,
   resendCode,
   route,
+  selectAuthMethod,
+  selectedAuthMethod: undefined,
   signOut,
   submitForm,
   updateForm,
@@ -53,10 +64,11 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   toFederatedSignIn,
   toForgotPassword,
   totpSecretCode,
-
   unverifiedUserAttributes,
   username: 'george',
   validationErrors,
+  toShowAuthMethods,
+  loginMechanism: undefined,
 };
 
 export const mockUseAuthenticatorOutput: UseAuthenticator = {

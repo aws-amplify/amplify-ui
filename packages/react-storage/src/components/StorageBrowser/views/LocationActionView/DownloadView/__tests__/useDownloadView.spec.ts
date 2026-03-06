@@ -1,0 +1,269 @@
+import { act, renderHook } from '@testing-library/react';
+
+import type { FileDataItem } from '../../../../actions';
+import { useLocationItems } from '../../../../locationItems/context';
+import { useStore } from '../../../../store';
+import { INITIAL_STATUS_COUNTS, Task } from '../../../../tasks';
+import { useAction } from '../../../../useAction';
+
+import { useDownloadView } from '../useDownloadView';
+
+jest.mock('../../../../fileItems');
+jest.mock('../../../../locationItems/context');
+jest.mock('../../../../store');
+jest.mock('../../../../useAction');
+
+const fileDataItems: FileDataItem[] = [
+  {
+    key: 'pretend-prefix/test-file.txt',
+    fileKey: 'test-file.txt',
+    lastModified: new Date(),
+    id: 'id-1',
+    size: 10,
+    type: 'FILE',
+  },
+  {
+    key: 'pretend-prefix/deeply-nested/test-file.txt',
+    fileKey: 'test-file.txt',
+    lastModified: new Date(),
+    id: 'id-2',
+    size: 10,
+    type: 'FILE',
+  },
+];
+
+const mockLocationItemsState = { fileDataItems };
+
+describe('useDownloadView', () => {
+  const mockUseAction = jest.mocked(useAction);
+  const mockUseLocationItems = jest.mocked(useLocationItems);
+  const mockUseStore = jest.mocked(useStore);
+
+  const mockCancel = jest.fn();
+  const mockStoreDispatch = jest.fn();
+  const mockLocationItemsDispatch = jest.fn();
+  const mockHandleDownload = jest.fn();
+  const mockReset = jest.fn();
+
+  beforeEach(() => {
+    mockUseLocationItems.mockReturnValue([
+      mockLocationItemsState,
+      mockLocationItemsDispatch,
+    ]);
+    mockUseStore.mockReturnValue([
+      {
+        actionType: 'DOWNLOAD',
+        location: {
+          current: {
+            prefix: 'test-prefix/',
+            bucket: 'bucket',
+            id: 'id',
+            permissions: ['get'],
+            type: 'PREFIX',
+          },
+          path: '',
+          key: 'test-prefix/',
+        },
+      },
+      mockStoreDispatch,
+    ]);
+
+    mockUseAction.mockReturnValue([
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        reset: mockReset,
+        statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
+        tasks: [
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item', id: 'id' },
+            cancel: mockCancel,
+            message: 'test-message',
+            progress: undefined,
+          },
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item2', id: 'id2' },
+            cancel: mockCancel,
+            message: 'test-message',
+            progress: undefined,
+          },
+          {
+            status: 'QUEUED',
+            data: { key: 'test-item3', id: 'id3' },
+            cancel: mockCancel,
+            message: 'test-message',
+            progress: undefined,
+          },
+        ],
+      },
+      mockHandleDownload,
+    ]);
+  });
+
+  afterEach(jest.clearAllMocks);
+
+  it('should return the correct initial state', () => {
+    const { result } = renderHook(() => useDownloadView());
+
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        onActionCancel: expect.any(Function),
+        onActionExit: expect.any(Function),
+        onActionStart: expect.any(Function),
+        tasks: expect.any(Array),
+      })
+    );
+
+    expect(result.current.statusCounts).toEqual({
+      CANCELED: 0,
+      COMPLETE: 0,
+      FAILED: 0,
+      LOADED: 0,
+      FINISHING: 0,
+      OVERWRITE_PREVENTED: 0,
+      PENDING: 0,
+      QUEUED: 3,
+      TOTAL: 3,
+    });
+  });
+
+  it('should call processTasks when onActionStart is called', () => {
+    const { result } = renderHook(() => useDownloadView());
+
+    act(() => {
+      result.current.onActionStart();
+    });
+
+    expect(mockHandleDownload).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call cancel on tasks when onActionCancel is called', () => {
+    const { result } = renderHook(() => useDownloadView());
+
+    act(() => {
+      result.current.onActionCancel();
+    });
+
+    expect(mockCancel).toHaveBeenCalledTimes(3);
+  });
+
+  it('should reset state when onActionExit is called', () => {
+    const mockOnExit = jest.fn();
+    const { result } = renderHook(() =>
+      useDownloadView({ onExit: mockOnExit })
+    );
+
+    act(() => {
+      result.current.onActionExit();
+    });
+
+    expect(mockOnExit).toHaveBeenCalledTimes(1);
+    expect(mockLocationItemsDispatch).toHaveBeenCalledTimes(1);
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
+      type: 'RESET_LOCATION_ITEMS',
+    });
+    expect(mockStoreDispatch).toHaveBeenCalledTimes(1);
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
+      type: 'RESET_ACTION_TYPE',
+    });
+  });
+
+  it('provides the unmodified value of `fileDataItems` to `useAction` as `items`', () => {
+    renderHook(() => useDownloadView());
+
+    expect(mockUseAction).toHaveBeenCalledTimes(1);
+    expect(mockUseAction).toHaveBeenCalledWith(
+      'download',
+      expect.objectContaining({ items: fileDataItems })
+    );
+  });
+
+  it('should not call handleProcess when current location is null', () => {
+    mockUseStore.mockReturnValue([
+      {
+        actionType: 'DOWNLOAD',
+        location: { current: undefined, path: '', key: '' },
+      },
+      mockStoreDispatch,
+    ]);
+
+    const { result } = renderHook(() => useDownloadView());
+
+    act(() => {
+      result.current.onActionStart();
+    });
+
+    expect(mockHandleDownload).not.toHaveBeenCalled();
+  });
+
+  it('should handle tasks without cancel function in onActionCancel', () => {
+    mockUseAction.mockReturnValue([
+      {
+        isProcessing: false,
+        isProcessingComplete: false,
+        reset: mockReset,
+        statusCounts: INITIAL_STATUS_COUNTS,
+        tasks: [
+          { status: 'QUEUED', data: { key: 'test', id: 'id' } },
+          {
+            status: 'QUEUED',
+            data: { key: 'test2', id: 'id2' },
+            cancel: mockCancel,
+          },
+        ],
+      },
+      mockHandleDownload,
+    ]);
+
+    const { result } = renderHook(() => useDownloadView());
+
+    act(() => {
+      result.current.onActionCancel();
+    });
+
+    expect(mockCancel).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not call onExit when not provided', () => {
+    const { result } = renderHook(() => useDownloadView());
+
+    act(() => {
+      result.current.onActionExit();
+    });
+
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
+      type: 'RESET_LOCATION_ITEMS',
+    });
+    expect(mockStoreDispatch).toHaveBeenCalledWith({
+      type: 'RESET_ACTION_TYPE',
+    });
+  });
+
+  it('should remove task when onTaskRemove is called', () => {
+    const { result } = renderHook(() => useDownloadView());
+
+    const mockTask = { data: { id: 'test-id' } } as Task<FileDataItem>;
+
+    act(() => {
+      result.current.onTaskRemove?.(mockTask);
+    });
+
+    expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
+      type: 'REMOVE_LOCATION_ITEM',
+      id: 'test-id',
+    });
+  });
+
+  it('should use EMPTY_ITEMS when fileDataItems is undefined', () => {
+    mockUseLocationItems.mockReturnValue([{}, mockLocationItemsDispatch]);
+
+    renderHook(() => useDownloadView());
+
+    expect(mockUseAction).toHaveBeenCalledWith(
+      'download',
+      expect.objectContaining({ items: [] })
+    );
+  });
+});

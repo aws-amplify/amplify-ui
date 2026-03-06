@@ -1,5 +1,5 @@
 import { groupLog } from '../../utils';
-import { GetRoute } from './getRoute';
+import type { GetRoute } from './getRoute';
 
 /**
  * @internal Not to be used in production

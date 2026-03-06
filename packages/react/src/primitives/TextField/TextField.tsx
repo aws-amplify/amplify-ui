@@ -8,7 +8,7 @@ import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import {
+import type {
   ForwardRefPrimitive,
   Primitive,
   BaseTextFieldProps,

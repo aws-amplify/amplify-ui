@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { LabelPositions } from '../types/field';
+import type { LabelPositions } from '../types/field';
 
 export interface RadioGroupContextType {
   name: string;

@@ -4,10 +4,10 @@
  * `useAuthenticator` hook/composable/service.
  */
 
-import { Sender } from 'xstate';
-import { AuthUser } from 'aws-amplify/auth';
+import type { Sender } from 'xstate';
+import type { AuthUser } from 'aws-amplify/auth';
 
-import {
+import type {
   FederatedProvider,
   LoginMechanism,
   SocialProvider,
@@ -15,12 +15,13 @@ import {
   ValidationError,
 } from '../../types';
 
-import {
+import type {
   AuthActorContext,
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
+  AuthMFAType,
   ChallengeName,
   NavigableRoute,
   V5CodeDeliveryDetails,
@@ -39,8 +40,12 @@ export type AuthenticatorRoute =
   | 'forceNewPassword'
   | 'idle'
   | 'forgotPassword'
+  | 'passkeyPrompt'
   | 'setup'
+  | 'signInSelectAuthFactor'
   | 'signOut'
+  | 'selectMfaType'
+  | 'setupEmail'
   | 'setupTotp'
   | 'signIn'
   | 'signUp'
@@ -51,13 +56,18 @@ type AuthenticatorValidationErrors = ValidationError;
 export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
+  allowedMfaTypes: AuthMFAType[] | undefined;
   authStatus: AuthStatus;
+  availableAuthMethods: string[] | undefined;
   challengeName: ChallengeName | undefined;
   codeDeliveryDetails: V5CodeDeliveryDetails;
   error: string;
   hasValidationErrors: boolean;
   isPending: boolean;
+  loginMechanism: LoginMechanism | undefined;
+  preferredChallenge: string | undefined;
   route: AuthenticatorRoute;
+  selectedAuthMethod: string | undefined;
   socialProviders: SocialProvider[];
   totpSecretCode: string | null;
   unverifiedUserAttributes: UnverifiedUserAttributes;
@@ -69,8 +79,10 @@ interface AuthenticatorServiceContextFacade {
 type SendEventAlias =
   | 'initializeMachine'
   | 'resendCode'
+  | 'selectAuthMethod'
   | 'signOut'
   | 'submitForm'
+  | 'toShowAuthMethods'
   | 'updateForm'
   | 'updateBlur'
   | 'toFederatedSignIn'
@@ -89,6 +101,7 @@ export interface AuthenticatorServiceFacade
     AuthenticatorServiceContextFacade {}
 
 interface NextAuthenticatorServiceContextFacade {
+  allowedMfaTypes: AuthMFAType[] | undefined;
   challengeName: ChallengeName | undefined;
   codeDeliveryDetails: V5CodeDeliveryDetails | undefined;
   errorMessage: string | undefined;
@@ -136,8 +149,10 @@ export const getSendEventAliases = (
   return {
     initializeMachine: sendToMachine('INIT'),
     resendCode: sendToMachine('RESEND'),
+    selectAuthMethod: sendToMachine('SELECT_METHOD'),
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),
+    toShowAuthMethods: sendToMachine('SHOW_AUTH_METHODS'),
     updateForm: sendToMachine('CHANGE'),
     updateBlur: sendToMachine('BLUR'),
 
@@ -172,16 +187,22 @@ export const getServiceContextFacade = (
 ): AuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
+    allowedMfaTypes,
+    availableAuthMethods,
     challengeName,
     codeDeliveryDetails,
+    preferredChallenge,
     remoteError: error,
+    selectedAuthMethod,
     validationError: validationErrors,
     totpSecretCode = null,
     unverifiedUserAttributes,
     username,
   } = actorContext;
 
-  const { socialProviders = [] } = state.context?.config ?? {};
+  const { socialProviders = [], loginMechanisms } = state.context?.config ?? {};
+
+  const loginMechanism = loginMechanisms?.[0];
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
@@ -211,13 +232,18 @@ export const getServiceContextFacade = (
   })(route);
 
   const facade = {
+    allowedMfaTypes,
     authStatus,
+    availableAuthMethods,
     challengeName,
     codeDeliveryDetails,
     error,
     hasValidationErrors,
     isPending,
+    loginMechanism,
+    preferredChallenge,
     route,
+    selectedAuthMethod,
     socialProviders,
     totpSecretCode,
     unverifiedUserAttributes,
@@ -242,6 +268,7 @@ export const getNextServiceContextFacade = (
 ): NextAuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as AuthActorContext;
   const {
+    allowedMfaTypes,
     challengeName,
     codeDeliveryDetails,
     remoteError: errorMessage,
@@ -262,6 +289,7 @@ export const getNextServiceContextFacade = (
   const route = getRoute(state, actorState) as AuthenticatorRoute;
 
   return {
+    allowedMfaTypes,
     challengeName,
     codeDeliveryDetails,
     errorMessage,

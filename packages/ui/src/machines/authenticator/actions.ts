@@ -1,4 +1,4 @@
-import {
+import type {
   FetchUserAttributesOutput,
   ResendSignUpCodeOutput,
   ResetPasswordOutput,
@@ -7,10 +7,12 @@ import {
   SignUpOutput,
 } from 'aws-amplify/auth';
 
-import { actions as xStateActions, MachineOptions } from 'xstate';
+import type { MachineOptions } from 'xstate';
+import { actions as xStateActions } from 'xstate';
 import { trimValues } from '../../helpers';
+import { DefaultTexts, translate } from '../../i18n/translations';
 
-import {
+import type {
   AuthEvent,
   AuthActorContext,
   ResetPasswordStep,
@@ -29,7 +31,12 @@ const clearActorDoneData = assign({ actorDoneData: undefined });
 const clearChallengeName = assign({ challengeName: undefined });
 const clearMissingAttributes = assign({ missingAttributes: undefined });
 const clearError = assign({ remoteError: undefined });
-const clearFormValues = assign({ formValues: {} });
+const clearFormValues = assign({
+  formValues: (context: AuthActorContext) => ({
+    // Preserve username for passwordless flows to avoid "username is required" errors
+    username: context.formValues?.username,
+  }),
+});
 const clearTouched = assign({ touched: {} });
 const clearUser = assign({ user: undefined });
 const clearValidationError = assign({ validationError: {} });
@@ -42,6 +49,12 @@ const setTotpSecretCode = assign({
     const { sharedSecret } = (data.nextStep?.totpSetupDetails ??
       {}) as AuthTOTPSetupDetails;
     return sharedSecret;
+  },
+});
+
+const setAllowedMfaTypes = assign({
+  allowedMfaTypes: (_, { data }: AuthEvent) => {
+    return data.nextStep?.allowedMFATypes;
   },
 });
 
@@ -59,11 +72,23 @@ const setConfirmAttributeCompleteStep = assign({
 const setChallengeName = assign({
   challengeName: (_, { data }: AuthEvent): ChallengeName | undefined => {
     const { signInStep } = (data as SignInOutput).nextStep;
-    return signInStep === 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
-      ? 'SMS_MFA'
-      : signInStep === 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
-      ? 'SOFTWARE_TOKEN_MFA'
-      : undefined;
+
+    switch (signInStep) {
+      case 'CONFIRM_SIGN_IN_WITH_SMS_CODE':
+        return 'SMS_MFA';
+      case 'CONFIRM_SIGN_IN_WITH_TOTP_CODE':
+        return 'SOFTWARE_TOKEN_MFA';
+      case 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE':
+        return 'EMAIL_OTP';
+      case 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION':
+      case 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP':
+      case 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP':
+        return 'MFA_SETUP';
+      case 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION':
+        return 'SELECT_MFA_TYPE';
+      default:
+        return undefined;
+    }
   },
 });
 
@@ -134,7 +159,35 @@ const setRemoteError = assign({
     if (data.name === 'NoUserPoolError') {
       return `Configuration error (see console) – please contact the administrator`;
     }
-    return data?.message || data;
+
+    const message = data?.message || '';
+
+    // Handle USER_AUTH flow not enabled error
+    if (message.includes('USER_AUTH flow not enabled')) {
+      return translate(DefaultTexts.PASSWORDLESS_NOT_ENABLED);
+    }
+
+    // Handle cannot send code error
+    if (message.includes('Cannot send code to either')) {
+      return translate(DefaultTexts.CODE_DELIVERY_FAILED);
+    }
+
+    // Handle invalid/wrong verification code
+    if (message.includes('Invalid code or auth state')) {
+      return translate(DefaultTexts.VERIFICATION_CODE_INVALID);
+    }
+
+    // Handle expired verification code
+    if (message.includes('session is expired')) {
+      return translate(DefaultTexts.VERIFICATION_CODE_EXPIRED);
+    }
+
+    // Handle passkey authentication canceled
+    if (message.includes('ceremony has been canceled')) {
+      return translate(DefaultTexts.PASSKEY_AUTHENTICATION_CANCELED);
+    }
+
+    return message || data;
   },
 });
 
@@ -152,7 +205,8 @@ type OutputWithDetails =
   | ResetPasswordOutput
   | ResendSignUpCodeOutput
   | SendUserAttributeVerificationCodeOutput
-  | SignUpOutput;
+  | SignUpOutput
+  | SignInOutput;
 const setCodeDeliveryDetails = assign({
   codeDeliveryDetails: (_, { data }: { data: OutputWithDetails }) => {
     if (
@@ -189,8 +243,15 @@ const handleBlur = assign({
 });
 
 const setUnverifiedUserAttributes = assign({
-  unverifiedUserAttributes: (_, { data }: AuthEvent) => {
-    const { email, phone_number } = data as FetchUserAttributesOutput;
+  unverifiedUserAttributes: (
+    context: AuthActorContext,
+    { data }: AuthEvent
+  ) => {
+    // Use fetchedUserAttributes from context if data is not provided
+    const attributes = data || context.fetchedUserAttributes;
+    if (!attributes) return {};
+
+    const { email, phone_number } = attributes as FetchUserAttributesOutput;
 
     const unverifiedUserAttributes = {
       ...(email && { email }),
@@ -211,11 +272,40 @@ const setSelectedUserAttribute = assign({
 // Maps to unexposed `ConfirmSignUpSignUpStep`
 const setConfirmSignUpSignUpStep = assign({ step: 'CONFIRM_SIGN_UP' });
 
+// Passwordless actions
+const setSelectedAuthMethod = assign({
+  selectedAuthMethod: (_, { data }: AuthEvent) => data.method,
+});
+
+const setSelectedAuthMethodFromForm = assign({
+  selectedAuthMethod: (_, { data }: AuthEvent) => {
+    // Extract method from form data if present, default to PASSWORD for form submissions
+    return data?.__authMethod || 'PASSWORD';
+  },
+});
+
+const setSelectAuthMethodStep = assign({
+  step: 'SELECT_AUTH_METHOD',
+});
+
+const setFetchedUserAttributes = assign({
+  fetchedUserAttributes: (_, event: any) => event.data,
+});
+
+const setHasExistingPasskeys = assign({
+  hasExistingPasskeys: (_, event: any) => event.data,
+});
+
+const clearHasExistingPasskeys = assign({
+  hasExistingPasskeys: false,
+});
+
 const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   clearActorDoneData,
   clearChallengeName,
   clearError,
   clearFormValues,
+  clearHasExistingPasskeys,
   clearMissingAttributes,
   clearSelectedUserAttribute,
   clearTouched,
@@ -224,9 +314,12 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   handleBlur,
   handleInput,
   handleSubmit,
+  setAllowedMfaTypes,
   setChallengeName,
   setCodeDeliveryDetails,
+  setFetchedUserAttributes,
   setFieldErrors,
+  setHasExistingPasskeys,
   setMissingAttributes,
   setNextResetPasswordStep,
   setNextSignInStep,
@@ -234,6 +327,9 @@ const ACTIONS: MachineOptions<AuthActorContext, AuthEvent>['actions'] = {
   setRemoteError,
   setConfirmAttributeCompleteStep,
   setConfirmSignUpSignUpStep,
+  setSelectAuthMethodStep,
+  setSelectedAuthMethod,
+  setSelectedAuthMethodFromForm,
   setShouldVerifyUserAttributeStep,
   setSelectedUserAttribute,
   setSignInStep,

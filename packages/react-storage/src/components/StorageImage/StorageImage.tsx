@@ -44,16 +44,18 @@ const getDeprecationMessage = ({
 
 export const StorageImage = ({
   accessLevel,
+  bucket,
   className,
   fallbackSrc,
   identityId,
   imgKey,
   path,
+  loadingElement,
   onStorageGetError,
   onGetUrlError,
   validateObjectExistence = true,
   ...rest
-}: StorageImageProps | StorageImagePathProps): JSX.Element => {
+}: StorageImageProps | StorageImagePathProps): React.JSX.Element | null => {
   const hasImgkey = !!imgKey;
   const hasPath = !!path;
   const hasDeprecatedOptions = !!accessLevel || !!identityId;
@@ -82,14 +84,27 @@ export const StorageImage = ({
       onError,
       options: {
         accessLevel,
+        bucket,
         targetIdentityId: identityId,
         validateObjectExistence,
       },
     }),
-    [accessLevel, imgKey, identityId, onError, path, validateObjectExistence]
+    [
+      accessLevel,
+      bucket,
+      imgKey,
+      identityId,
+      onError,
+      path,
+      validateObjectExistence,
+    ]
   );
 
-  const { url } = useGetUrl(input);
+  const { url, isLoading } = useGetUrl(input);
+
+  if (isLoading) {
+    return !loadingElement ? null : <>{loadingElement}</>;
+  }
 
   return (
     <Image

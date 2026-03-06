@@ -3,9 +3,9 @@ import React from 'react';
 import { ComponentClassName } from '@aws-amplify/ui';
 import { Alert, View } from '@aws-amplify/ui-react';
 
-import { FileStatus } from '../../types';
+import { FileStatus } from '../../../FileUploader/types';
 import { FileControl } from './FileControl';
-import { FileListProps } from './types';
+import type { FileListProps } from './types';
 
 export function FileList({
   displayText,
@@ -18,7 +18,7 @@ export function FileList({
   onPause,
   showThumbnails,
   maxFileCount,
-}: FileListProps): JSX.Element | null {
+}: FileListProps): React.JSX.Element | null {
   if (files.length < 1) {
     return null;
   }

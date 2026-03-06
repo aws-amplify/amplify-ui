@@ -1,6 +1,0 @@
-dist
-lib
-.watchmanconfig
-
-# ignore jest generated coverage directory
-coverage 

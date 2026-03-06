@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@aws-amplify/auth-with-email-mfa",
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "AWS_REGION=us-east-2 npx @aws-amplify/backend-cli@latest generate outputs --branch gen2-auth-with-email-mfa --app-id d3lukld24augjv"
+  }
+}

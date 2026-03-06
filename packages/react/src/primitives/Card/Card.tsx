@@ -4,7 +4,7 @@ import * as React from 'react';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
-import {
+import type {
   BaseCardProps,
   CardProps,
   ForwardRefPrimitive,

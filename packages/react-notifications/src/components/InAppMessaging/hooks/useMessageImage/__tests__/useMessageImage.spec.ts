@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 
 import useMessageImage from '../useMessageImage';
@@ -36,17 +36,15 @@ describe('useMessageImage', () => {
       }
     } as unknown as ImageConstructor;
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useMessageImage(image)
-    );
+    const { result } = renderHook(() => useMessageImage(image));
 
     expect(result.current.hasRenderableImage).toBe(false);
     expect(result.current.isImageFetching).toBe(true);
 
-    await waitForNextUpdate();
-
-    expect(result.current.hasRenderableImage).toBe(true);
-    expect(result.current.isImageFetching).toBe(false);
+    await waitFor(() => {
+      expect(result.current.hasRenderableImage).toBe(true);
+      expect(result.current.isImageFetching).toBe(false);
+    });
   });
 
   it('handles an image load error event as expected', async () => {
@@ -60,19 +58,17 @@ describe('useMessageImage', () => {
       }
     } as unknown as ImageConstructor;
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useMessageImage(image)
-    );
+    const { result } = renderHook(() => useMessageImage(image));
 
     expect(result.current.hasRenderableImage).toBe(false);
     expect(result.current.isImageFetching).toBe(true);
 
-    await waitForNextUpdate();
-
-    expect(errorSpy).toHaveBeenCalledTimes(1);
-    expect(errorSpy).toHaveBeenCalledWith(`Image failed to load: ${src}`);
-    expect(result.current.hasRenderableImage).toBe(false);
-    expect(result.current.isImageFetching).toBe(false);
+    await waitFor(() => {
+      expect(errorSpy).toHaveBeenCalledTimes(1);
+      expect(errorSpy).toHaveBeenCalledWith(`Image failed to load: ${src}`);
+      expect(result.current.hasRenderableImage).toBe(false);
+      expect(result.current.isImageFetching).toBe(false);
+    });
   });
 
   it('handles an image load abort event as expected', async () => {
@@ -86,19 +82,17 @@ describe('useMessageImage', () => {
       }
     } as unknown as ImageConstructor;
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useMessageImage(image)
-    );
+    const { result } = renderHook(() => useMessageImage(image));
 
     expect(result.current.hasRenderableImage).toBe(false);
     expect(result.current.isImageFetching).toBe(true);
 
-    await waitForNextUpdate();
-
-    expect(errorSpy).toHaveBeenCalledTimes(1);
-    expect(errorSpy).toHaveBeenCalledWith(`Image load aborted: ${src}`);
-    expect(result.current.hasRenderableImage).toBe(false);
-    expect(result.current.isImageFetching).toBe(false);
+    await waitFor(() => {
+      expect(errorSpy).toHaveBeenCalledTimes(1);
+      expect(errorSpy).toHaveBeenCalledWith(`Image load aborted: ${src}`);
+      expect(result.current.hasRenderableImage).toBe(false);
+      expect(result.current.isImageFetching).toBe(false);
+    });
   });
 
   it('handles an undefined argument as expected', () => {

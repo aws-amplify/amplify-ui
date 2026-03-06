@@ -1,0 +1,153 @@
+.amplify-avatar {
+  // Internal vars to make it easier to change the colors
+  // in relation to the variation (filled, default, outline)
+  --avatar-color: var(--amplify-components-avatar-color);
+  --avatar-background-color: var(--amplify-components-avatar-background-color);
+  --avatar-filled-background-color: var(--amplify-components-avatar-color);
+  --avatar-filled-color: var(--amplify-components-avatar-background-color);
+  --avatar-border-color: var(--amplify-components-avatar-border-color);
+  --avatar-size: var(--amplify-components-avatar-width);
+
+  --amplify-components-icon-height: 100%;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--avatar-color);
+  background-color: var(--avatar-background-color);
+  font-weight: var(--amplify-components-avatar-font-weight);
+  font-size: var(--amplify-components-avatar-font-size);
+  width: var(--amplify-components-avatar-width);
+  height: var(--amplify-components-avatar-height);
+  overflow: hidden;
+  border-radius: var(--amplify-components-avatar-border-radius);
+
+  // Variations
+  &--filled {
+    background-color: var(--avatar-filled-background-color);
+    color: var(--avatar-filled-color);
+  }
+
+  &--outlined {
+    border-width: var(--amplify-components-avatar-border-width);
+    border-style: solid;
+    padding: var(--amplify-components-avatar-border-width);
+    border-color: var(--avatar-border-color);
+    background-color: transparent;
+    color: var(--avatar-color);
+  }
+
+  // Sizes
+  &--small {
+    --avatar-size: var(--amplify-components-avatar-small-width);
+    width: var(--amplify-components-avatar-small-width);
+    height: var(--amplify-components-avatar-small-height);
+    font-size: var(--amplify-components-avatar-small-font-size);
+  }
+  &--large {
+    --avatar-size: var(--amplify-components-avatar-large-width);
+    width: var(--amplify-components-avatar-large-width);
+    height: var(--amplify-components-avatar-large-height);
+    font-size: var(--amplify-components-avatar-large-font-size);
+  }
+
+  // Color themes
+  &--warning {
+    --avatar-border-color: var(
+      --amplify-components-avatar-warning-border-color
+    );
+    --avatar-background-color: var(
+      --amplify-components-avatar-warning-background-color
+    );
+    --avatar-color: var(--amplify-components-avatar-warning-color);
+    --avatar-filled-background-color: var(
+      --amplify-components-avatar-warning-color
+    );
+    --avatar-filled-color: var(
+      --amplify-components-avatar-warning-background-color
+    );
+    --amplify-components-loader-stroke-filled: var(
+      --amplify-components-avatar-warning-color
+    );
+  }
+
+  &--error {
+    --avatar-border-color: var(--amplify-components-avatar-error-border-color);
+    --avatar-background-color: var(
+      --amplify-components-avatar-error-background-color
+    );
+    --avatar-color: var(--amplify-components-avatar-error-color);
+    --avatar-filled-background-color: var(
+      --amplify-components-avatar-error-color
+    );
+    --avatar-filled-color: var(
+      --amplify-components-avatar-error-background-color
+    );
+    --amplify-components-loader-stroke-filled: var(
+      --amplify-components-avatar-error-color
+    );
+  }
+
+  &--info {
+    --avatar-border-color: var(--amplify-components-avatar-info-border-color);
+    --avatar-background-color: var(
+      --amplify-components-avatar-info-background-color
+    );
+    --avatar-color: var(--amplify-components-avatar-info-color);
+    --avatar-filled-background-color: var(
+      --amplify-components-avatar-info-color
+    );
+    --avatar-filled-color: var(
+      --amplify-components-avatar-info-background-color
+    );
+
+    --amplify-components-loader-stroke-filled: var(
+      --amplify-components-avatar-info-color
+    );
+  }
+
+  &--success {
+    --avatar-border-color: var(
+      --amplify-components-avatar-success-border-color
+    );
+    --avatar-background-color: var(
+      --amplify-components-avatar-success-background-color
+    );
+    --avatar-color: var(--amplify-components-avatar-success-color);
+    --avatar-filled-background-color: var(
+      --amplify-components-avatar-success-color
+    );
+    --avatar-filled-color: var(
+      --amplify-components-avatar-success-background-color
+    );
+
+    --amplify-components-loader-stroke-filled: var(
+      --amplify-components-avatar-success-color
+    );
+  }
+
+  // elements
+  &__icon {
+    // makes aligning the actual icon element, which is an
+    // inline-block element, centered
+    display: flex;
+    font-size: calc(var(--avatar-size) * 0.6);
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__loader {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    // This will make the empty part of the loader not show up
+    stroke: transparent;
+  }
+}

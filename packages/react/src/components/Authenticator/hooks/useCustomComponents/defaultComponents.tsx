@@ -6,12 +6,14 @@ import { SetupTotp } from '../../SetupTotp';
 import { ConfirmSignIn } from '../../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmVerifyUser, VerifyUser } from '../../VerifyUser';
 import { ConfirmResetPassword, ForgotPassword } from '../../ForgotPassword';
+import { SelectMfaType } from '../../SelectMfaType';
+import { SetupEmail } from '../../SetupEmail';
 
 // use the very generic name of Components as this is a temporary interface and is not exported
 interface Components {
-  Footer?: () => JSX.Element | null;
-  FormFields?: () => JSX.Element | null;
-  Header?: () => JSX.Element | null;
+  Footer?: () => React.JSX.Element | null;
+  FormFields?: () => React.JSX.Element | null;
+  Header?: () => React.JSX.Element | null;
 }
 
 export interface DefaultComponents extends Omit<Components, 'FormFields'> {
@@ -21,6 +23,8 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
   ConfirmVerifyUser?: Omit<Components, 'FormFields'>;
   ForceNewPassword?: Components;
   ForgotPassword?: Omit<Components, 'FormFields'>;
+  SelectMfaType?: Omit<Components, 'FormFields'>;
+  SetupEmail?: Omit<Components, 'FormFields'>;
   SetupTotp?: Omit<Components, 'FormFields'>;
   SignIn?: Omit<Components, 'FormFields'>;
   SignUp?: Components;
@@ -29,7 +33,7 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
 
 export const defaultComponents: DefaultComponents = {
   // @ts-ignore
-  Header: (): JSX.Element => null,
+  Header: (): React.JSX.Element => null,
   SignIn: {
     Header: SignIn.Header,
     Footer: SignIn.Footer,
@@ -42,6 +46,14 @@ export const defaultComponents: DefaultComponents = {
   ConfirmSignUp: {
     Header: ConfirmSignUp.Header,
     Footer: ConfirmSignUp.Footer,
+  },
+  SelectMfaType: {
+    Header: SelectMfaType.Header,
+    Footer: SelectMfaType.Footer,
+  },
+  SetupEmail: {
+    Header: SetupEmail.Header,
+    Footer: SetupEmail.Footer,
   },
   SetupTotp: {
     Header: SetupTotp.Header,
@@ -74,5 +86,5 @@ export const defaultComponents: DefaultComponents = {
     Footer: ForgotPassword.Footer,
   },
   // @ts-ignore
-  Footer: (): JSX.Element => null,
+  Footer: (): React.JSX.Element => null,
 };

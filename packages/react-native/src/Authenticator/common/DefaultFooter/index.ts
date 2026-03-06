@@ -1,2 +1,2 @@
 export { default as DefaultFooter } from './DefaultFooter';
-export { DefaultFooterProps } from './types';
+export type { DefaultFooterProps } from './types';

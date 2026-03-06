@@ -1,7 +1,7 @@
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { CSSLayoutStyleProps, ResponsiveStyle } from './style';
-import { BaseViewProps, PrimitiveProps, ElementType } from './view';
+import type { CSSLayoutStyleProps, ResponsiveStyle } from './style';
+import type { BaseViewProps, PrimitiveProps, ElementType } from './view';
 
 export interface FlexContainerStyleProps extends CSSLayoutStyleProps {
   /**

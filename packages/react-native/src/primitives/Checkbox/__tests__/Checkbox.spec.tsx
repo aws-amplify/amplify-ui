@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, renderHook } from '@testing-library/react-native';
-import { ImageStyle, ViewStyle } from 'react-native';
+import type { ImageStyle, ViewStyle } from 'react-native';
 
 import Checkbox from '../Checkbox';
 import { useTheme } from '../../../theme';

@@ -1,4 +1,4 @@
-import { Breakpoint } from '../primitives/types/responsive';
+import type { Breakpoint } from '../primitives/types/responsive';
 import { getValueAtCurrentBreakpoint } from '../primitives/shared/responsive/utils';
 import { useBreakpoint } from '../primitives/shared/responsive/useBreakpoint';
 import { useTheme } from './useTheme';

@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 
 import { useBreakpointValue } from '../useBreakpointValue';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import MatchMediaMock from 'jest-matchmedia-mock';
 import * as React from 'react';
 import { getMediaQueries } from '../../primitives/shared/responsive/getMediaQueries';
@@ -30,7 +30,7 @@ const defaultBreakpoint = 'base';
 // map over output of getMediaQueries to get an array formatted to be printable by jest.each
 const mediaQueries: [
   MediaQueryBreakpoint['breakpoint'],
-  MediaQueryBreakpoint
+  MediaQueryBreakpoint,
 ][] = getMediaQueries({
   breakpoints: defaultTheme.breakpoints.values,
 }).map((mediaQuery) => [mediaQuery.breakpoint, mediaQuery]);

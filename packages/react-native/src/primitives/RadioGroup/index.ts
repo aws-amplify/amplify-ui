@@ -1,2 +1,2 @@
 export { default as RadioGroup } from './RadioGroup';
-export { RadioGroupProps, RadioGroupStyles } from './types';
+export type { RadioGroupProps, RadioGroupStyles } from './types';

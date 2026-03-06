@@ -3,7 +3,7 @@ import React from 'react';
 import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
 import { TextField } from '../TextField';
-import { PhoneNumberFieldProps } from './types';
+import type { PhoneNumberFieldProps } from './types';
 
 export default function PhoneNumberField({
   disabled,
@@ -11,7 +11,7 @@ export default function PhoneNumberField({
   labelStyle,
   style,
   ...rest
-}: PhoneNumberFieldProps): JSX.Element {
+}: PhoneNumberFieldProps): React.JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 

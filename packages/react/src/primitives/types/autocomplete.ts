@@ -1,7 +1,7 @@
-import * as React from 'react';
+import type * as React from 'react';
 
-import { BaseSearchFieldProps } from './searchField';
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { BaseSearchFieldProps } from './searchField';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface AutocompleteComboboxProps {
   role: React.AriaRole;
@@ -56,7 +56,7 @@ export interface BaseAutocompleteMenuProps extends BaseViewProps {
    * @description
    * A list of Option JSX elements
    */
-  children: JSX.Element[];
+  children: React.JSX.Element[];
 
   /**
    * @description

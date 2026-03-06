@@ -3,12 +3,6 @@
   "compilerOptions": {
     "noImplicitAny": false
   },
-  "include": [
-    "jest.config.ts",
-    "jest.setup.ts",
-    "scripts",
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
-  "exclude": ["node_modules", "rollup.config.ts"]
+  "include": ["*.ts", "*.mjs", "scripts", "src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
 }

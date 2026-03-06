@@ -1,4 +1,4 @@
-import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 type ScrollViewOrientation = 'horizontal' | 'vertical';
 
@@ -9,6 +9,12 @@ export interface BaseScrollViewProps extends BaseViewProps {
    * make the width or height of the ScrollView component smaller than the content.
    */
   orientation?: ScrollViewOrientation;
+
+  /**
+   * @description
+   * Scroll to the end as the children of it change
+   */
+  autoScroll?: 'smooth' | 'instant' | 'auto';
 }
 
 export type ScrollViewProps<Element extends ElementType = 'div'> =

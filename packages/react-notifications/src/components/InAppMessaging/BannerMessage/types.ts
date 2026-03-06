@@ -1,5 +1,5 @@
-import { BannerMessageCommonProps } from '@aws-amplify/ui-react-core-notifications';
-import { MessageOverrideStyle } from '../hooks';
+import type { BannerMessageCommonProps } from '@aws-amplify/ui-react-core-notifications';
+import type { MessageOverrideStyle } from '../hooks';
 
 type BannerMessageAlignment = 'left' | 'center' | 'right';
 

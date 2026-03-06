@@ -6,7 +6,7 @@ import { useTheme } from '../../../theme';
 import { RADIO_DOT_PROPORTION } from '../getRadioDimensions';
 import Radio, { CONTAINER_TEST_ID, DOT_TEST_ID } from '../Radio';
 import { getThemedStyles } from '../styles';
-import { Size } from '../types';
+import type { Size } from '../types';
 
 const sizes: Size[] = ['small', 'medium', 'large'];
 

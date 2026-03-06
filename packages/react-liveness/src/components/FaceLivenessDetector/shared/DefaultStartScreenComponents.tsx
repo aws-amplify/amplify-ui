@@ -5,7 +5,7 @@ import { RecordingIcon } from './';
 import { LivenessIconWithPopover } from './LivenessIconWithPopover';
 import { CancelButton as CancelButtonComponent } from './CancelButton';
 import { LivenessClassNames } from '../types/classNames';
-import { CheckScreenComponents } from './FaceLivenessErrorModal';
+import type { CheckScreenComponents } from './FaceLivenessErrorModal';
 
 export type FaceLivenessDetectorComponents = StartScreenComponents &
   CheckScreenComponents;
@@ -26,7 +26,7 @@ export const DefaultPhotosensitiveWarning = ({
   headingText,
   infoText,
   labelText,
-}: DefaultPhotosensitiveWarningProps): JSX.Element => {
+}: DefaultPhotosensitiveWarningProps): React.JSX.Element => {
   return (
     <Flex
       className={`${ComponentClassName.Alert} ${LivenessClassNames.StartScreenWarning}`}
@@ -49,7 +49,7 @@ interface DefaultRecordingIconProps {
 
 export const DefaultRecordingIcon = ({
   recordingIndicatorText,
-}: DefaultRecordingIconProps): JSX.Element => {
+}: DefaultRecordingIconProps): React.JSX.Element => {
   return (
     <View className={LivenessClassNames.RecordingIconContainer}>
       <RecordingIcon>{recordingIndicatorText}</RecordingIcon>
@@ -63,7 +63,7 @@ interface CancelButtonProps {
 
 export const DefaultCancelButton = ({
   cancelLivenessCheckText,
-}: CancelButtonProps): JSX.Element => {
+}: CancelButtonProps): React.JSX.Element => {
   return (
     <View className={LivenessClassNames.CancelContainer}>
       <CancelButtonComponent

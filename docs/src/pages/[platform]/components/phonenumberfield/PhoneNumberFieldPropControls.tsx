@@ -45,7 +45,7 @@ export type PhoneNumberFieldPropControlsProps = PhoneNumberFieldProps & {
 };
 
 interface PhoneNumberFieldPropControlsInterface {
-  (props: PhoneNumberFieldPropControlsProps): JSX.Element;
+  (props: PhoneNumberFieldPropControlsProps): React.JSX.Element;
 }
 
 export const PhoneNumberFieldPropControls: PhoneNumberFieldPropControlsInterface =

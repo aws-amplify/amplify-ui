@@ -1,0 +1,106 @@
+import type {
+  FileData,
+  FileDataItem,
+  LocationData,
+  LocationItemData,
+} from '../../actions';
+
+import type { ActionListItem } from '../../components/composables/ActionsList';
+import type { FilePreviewProps } from '../../components/composables/FilePreview';
+import type { LocationState } from '../../store';
+import type { FilePreviewState } from '../hooks/useFilePreview';
+
+import type { ListViewProps } from '../types';
+
+export interface LocationDetailViewState {
+  actionItems: ActionListItem[];
+  activeFile: FileData | undefined;
+  activeFileHasNext: boolean;
+  activeFileHasPrev: boolean;
+  actionType: string | undefined;
+  downloadErrorMessage: string | undefined;
+  /**
+   * Selected items (files and folders)
+   */
+  dataItems: LocationItemData[] | undefined;
+  /**
+   * @deprecated Use dataItems instead. Will be removed in v4.0.0
+   */
+  fileDataItems: FileDataItem[] | undefined;
+  hasDownloadError: boolean;
+  hasError: boolean;
+  hasExhaustedSearch: boolean;
+  hasNextPage: boolean;
+  highestPageVisited: number;
+  isLoading: boolean;
+  isSearchSubfoldersEnabled: boolean;
+  location: LocationState;
+  message: string | undefined;
+  onActionExit: () => void;
+  onActionSelect: (actionType: string) => void;
+  onDownload: (fileItem: FileDataItem) => void;
+  onDropFiles: (files: File[]) => void;
+  onNavigate: (location: LocationData, path?: string) => void;
+  onNavigateHome: () => void;
+  onPaginate: (page: number) => void;
+  onRefresh: () => void;
+  onSearch: () => void;
+  onSearchClear: () => void;
+  onSearchQueryChange: (value: string) => void;
+  onRetryFilePreview: () => void;
+  onSelect: (isSelected: boolean, item: LocationItemData) => void;
+  onSelectActiveFile: (file?: FileData | 'prev' | 'next') => void;
+  onToggleSearchSubfolders: () => void;
+  onToggleSelectAll: () => void;
+  page: number;
+  pageItems: LocationItemData[];
+  searchQuery: string;
+  filePreviewState: FilePreviewState;
+  filePreviewEnabled: boolean;
+}
+
+export interface LocationDetailViewProps extends ListViewProps {
+  onActionSelect?: (type: string) => void;
+  onExit?: () => void;
+}
+
+export interface LocationDetailViewProviderProps
+  extends LocationDetailViewState {
+  children?: React.ReactNode;
+}
+
+export interface LocationDetailViewType {
+  (
+    props: {
+      children?: React.ReactNode;
+      className?: string;
+    } & LocationDetailViewProps
+  ): React.JSX.Element | null;
+  displayName: string;
+  Provider: (props: LocationDetailViewProviderProps) => React.JSX.Element;
+  ActionsList: () => React.JSX.Element | null;
+  DropZone: (props: { children: React.ReactNode }) => React.JSX.Element | null;
+  LoadingIndicator: () => React.JSX.Element | null;
+  LocationItemsTable: () => React.JSX.Element | null;
+  Message: () => React.JSX.Element | null;
+  Navigation: () => React.JSX.Element | null;
+  Pagination: () => React.JSX.Element | null;
+  Refresh: () => React.JSX.Element | null;
+  Search: () => React.JSX.Element | null;
+  SearchSubfoldersToggle: () => React.JSX.Element | null;
+  Title: () => React.JSX.Element | null;
+  FilePreview: (props: FilePreviewProps) => React.JSX.Element | null;
+}
+
+export interface InitialValues {
+  pageSize?: number;
+  delimiter?: string;
+}
+
+export interface UseLocationDetailViewOptions {
+  initialValues?: InitialValues;
+  onActionSelect?: (actionType: string) => void;
+  onExit?: () => void;
+  onNavigate?: (location: LocationData, path?: string) => void;
+  pageSize?: number;
+}

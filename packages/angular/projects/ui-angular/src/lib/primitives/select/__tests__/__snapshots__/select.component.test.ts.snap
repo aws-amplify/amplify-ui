@@ -1,9 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`amplify-form-select renders as expected 1`] = `
-<div
-  id="root0"
->
+<div>
   <label
     class="amplify-label amplify-visually-hidden"
     for="mock-id-0"

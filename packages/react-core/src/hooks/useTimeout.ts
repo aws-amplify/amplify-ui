@@ -1,5 +1,5 @@
 import React from 'react';
-import { isTypedFunction } from '@aws-amplify/ui';
+import { isFunction } from '@aws-amplify/ui';
 
 export default function useTimeout({
   callback,
@@ -15,7 +15,7 @@ export default function useTimeout({
   }, [callback]);
 
   React.useEffect(() => {
-    if (!isTypedFunction(storedCallback.current) || !delay) {
+    if (!isFunction(storedCallback.current) || !delay) {
       return;
     }
 

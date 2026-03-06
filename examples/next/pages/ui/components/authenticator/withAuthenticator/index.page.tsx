@@ -4,9 +4,9 @@ import {
   withAuthenticator,
   WithAuthenticatorProps,
 } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 
 interface Props extends WithAuthenticatorProps {

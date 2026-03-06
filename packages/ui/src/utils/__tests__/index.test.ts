@@ -12,7 +12,6 @@ import {
   isObject,
   isSet,
   isString,
-  isTypedFunction,
   isUndefined,
   sanitizeNamespaceImport,
   templateJoin,
@@ -315,19 +314,6 @@ describe('classNameModifierByFlag', () => {
   it('should return empty string with a false flag value passed in', () => {
     expect(classNameModifierByFlag(myClass, modifier, false)).toEqual('');
   });
-});
-
-describe('isTypedFunction', () => {
-  it('returns `true` when the value param is a function', () => {
-    expect(isTypedFunction(() => null)).toBe(true);
-  });
-
-  it.each(['string', null, undefined, true, false])(
-    'returns `false` when the value param is %s',
-    (value) => {
-      expect(isTypedFunction(value)).toBe(false);
-    }
-  );
 });
 
 describe('templateJoin', () => {

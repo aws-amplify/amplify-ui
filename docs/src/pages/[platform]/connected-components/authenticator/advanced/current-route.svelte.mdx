@@ -1,0 +1,42 @@
+import RoutesList from './routes-list.mdx';
+
+You can use `useAuthenticator` composable to access `route` string that represents the current `authState`. They can be one of:
+
+<RoutesList />
+
+```html
+<script lang="ts">
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-svelte';
+  const { authenticator } = $derived(useAuthenticator());
+</script>
+
+<Authenticator />
+{#if authenticator.route === 'authenticated'}
+  <button onclick={authenticator.signOut}>Sign out</button>
+{/if}
+```
+
+### Authentication Check
+
+If you just need to check if you're authenticated or not, you can use the more straightforward `useAuthenticator` composable to access the `authStatus` string. The `authStatus` string can represent the following states:
+
+- `configuring`
+- `authenticated`
+- `unauthenticated`
+
+> The `configuring` state only occurs when the `Authenticator` is first loading.
+
+```html
+<script lang="ts">
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-svelte';
+  const { authenticator } = $derived(useAuthenticator());
+</script>
+
+<Authenticator />
+{#if authenticator.authStatus === 'configuring'}
+  <button onclick={authenticator.signOut}>Loading...</button>
+{/if}
+{#if authenticator.authStatus === 'authenticated'}
+  <button onclick={authenticator.signOut}>Sign out</button>
+{/if}
+```

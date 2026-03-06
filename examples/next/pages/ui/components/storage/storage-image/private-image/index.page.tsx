@@ -4,13 +4,12 @@ import { Amplify } from 'aws-amplify';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import {
   Button,
-  Text,
   Loader,
+  Text,
   useAuthenticator,
   withAuthenticator,
 } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
-import '@aws-amplify/ui-react/styles.css';
 import amplifyOutputs from './amplify_outputs';
 
 Amplify.configure(amplifyOutputs);

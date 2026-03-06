@@ -4,7 +4,7 @@ exports[`useControlledField returns the expected values in the happy path 1`] = 
 {
   "errorMessage": undefined,
   "hasError": false,
-  "invalid": true,
+  "invalid": false,
   "isDirty": false,
   "isTouched": false,
   "name": "test-field",

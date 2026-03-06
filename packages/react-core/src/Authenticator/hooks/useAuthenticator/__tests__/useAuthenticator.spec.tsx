@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook, WrapperComponent } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import * as AuthModule from 'aws-amplify/auth';
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
@@ -37,6 +37,13 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   toSignIn: jest.fn(),
   toSignUp: jest.fn(),
   skipVerification: jest.fn(),
+  allowedMfaTypes: ['EMAIL', 'TOTP'],
+  selectAuthMethod: jest.fn(),
+  availableAuthMethods: undefined,
+  toShowAuthMethods: jest.fn(),
+  loginMechanism: undefined,
+  preferredChallenge: undefined,
+  selectedAuthMethod: undefined,
 };
 
 const getServiceFacadeSpy = jest
@@ -58,7 +65,7 @@ jest.mock('../utils');
 const getComparatorSpy = jest.spyOn(utils, 'getComparator');
 const getQRFieldsSpy = jest.spyOn(utils, 'getQRFields');
 
-const Wrapper: WrapperComponent<{ children?: React.ReactNode }> = ({
+const Wrapper: React.ComponentType<{ children?: React.ReactNode }> = ({
   children,
 }) => <AuthenticatorProvider>{children}</AuthenticatorProvider>;
 
@@ -73,44 +80,42 @@ describe('useAuthenticator', () => {
   });
 
   it('throws an error when used outside an AuthenticatorProvider', () => {
-    const { result } = renderHook(useAuthenticator);
+    // turn off console.error logging for unhappy path test case
+    jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(result.error?.message).toBe(USE_AUTHENTICATOR_ERROR);
+    expect(() => renderHook(useAuthenticator)).toThrow(USE_AUTHENTICATOR_ERROR);
   });
 
   it('returns the expected values', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useAuthenticator(), {
+    const { result } = renderHook(() => useAuthenticator(), {
       wrapper: Wrapper,
     });
 
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(getServiceFacadeSpy).toHaveBeenCalled();
 
-    expect(getServiceFacadeSpy).toHaveBeenCalled();
-
-    expect(result.current).toMatchSnapshot();
+      expect(result.current).toMatchSnapshot();
+    });
   });
 
   it('calls getComparator with the selector argument', async () => {
     const mockSelector = jest.fn();
 
-    const { waitForNextUpdate } = renderHook(
-      () => useAuthenticator(mockSelector),
-      { wrapper: Wrapper }
-    );
+    renderHook(() => useAuthenticator(mockSelector), { wrapper: Wrapper });
 
-    await waitForNextUpdate();
-
-    expect(getComparatorSpy).toHaveBeenLastCalledWith(mockSelector);
+    await waitFor(() => {
+      expect(getComparatorSpy).toHaveBeenLastCalledWith(mockSelector);
+    });
   });
 
   it('does not call getComparator when no selector argument passed', async () => {
-    const { waitForNextUpdate } = renderHook(() => useAuthenticator(), {
+    renderHook(() => useAuthenticator(), {
       wrapper: Wrapper,
     });
 
-    await waitForNextUpdate();
-
-    expect(getComparatorSpy).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(getComparatorSpy).not.toHaveBeenCalled();
+    });
   });
 
   it('calls getQRFields only for the setupTotp route', async () => {
@@ -119,12 +124,9 @@ describe('useAuthenticator', () => {
       route: 'signIn',
     });
 
-    const { rerender, waitForNextUpdate } = renderHook(
-      () => useAuthenticator(),
-      {
-        wrapper: Wrapper,
-      }
-    );
+    const { rerender } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
 
     expect(getQRFieldsSpy).toHaveBeenCalledTimes(0);
 
@@ -133,9 +135,9 @@ describe('useAuthenticator', () => {
       route: 'setupTotp',
     });
 
-    await waitForNextUpdate();
-
-    expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
+    });
 
     getServiceFacadeSpy.mockReturnValueOnce({
       ...mockServiceFacade,
@@ -144,6 +146,50 @@ describe('useAuthenticator', () => {
 
     rerender();
 
-    expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('initializes passwordless authentication fields correctly', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.selectAuthMethod).toBeDefined();
+      expect(result.current.toShowAuthMethods).toBeDefined();
+      expect(typeof result.current.selectAuthMethod).toBe('function');
+      expect(typeof result.current.toShowAuthMethods).toBe('function');
+    });
+  });
+
+  it('calls selectAuthMethod when invoked', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.selectAuthMethod).toBeDefined();
+    });
+
+    const mockMethod = { method: 'EMAIL_OTP' };
+    result.current.selectAuthMethod(mockMethod);
+
+    expect(mockServiceFacade.selectAuthMethod).toHaveBeenCalledWith(mockMethod);
+  });
+
+  it('calls toShowAuthMethods when invoked', async () => {
+    const { result } = renderHook(() => useAuthenticator(), {
+      wrapper: Wrapper,
+    });
+
+    await waitFor(() => {
+      expect(result.current.toShowAuthMethods).toBeDefined();
+    });
+
+    result.current.toShowAuthMethods();
+
+    expect(mockServiceFacade.toShowAuthMethods).toHaveBeenCalled();
   });
 });

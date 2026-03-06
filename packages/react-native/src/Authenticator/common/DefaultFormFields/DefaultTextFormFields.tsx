@@ -5,7 +5,7 @@ import { getErrors } from '@aws-amplify/ui';
 
 import Field from './Field';
 import { FieldErrors } from './FieldErrors';
-import {
+import type {
   // DefaultTextFormFieldsComponent,
   DefaultTextFormFieldsProps,
 } from './types';
@@ -19,7 +19,7 @@ const DefaultTextFormFields = ({
   isPending = false,
   style,
   validationErrors,
-}: DefaultTextFormFieldsProps): JSX.Element => {
+}: DefaultTextFormFieldsProps): React.JSX.Element => {
   const formFields = (fields ?? []).map(({ name, type, ...field }) => {
     const errors = validationErrors ? getErrors(validationErrors?.[name]) : [];
 

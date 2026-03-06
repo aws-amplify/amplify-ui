@@ -87,6 +87,9 @@
         --amplify-components-table-row-striped-background-color
       );
     }
+    .amplify-table__row.amplify-storage-browser__table-row_active:nth-child(odd) {
+      background-color: var(--amplify-colors-background-info)
+    }
   }
 
   &__caption {

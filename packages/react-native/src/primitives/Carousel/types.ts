@@ -1,4 +1,4 @@
-import { ListRenderItem, StyleProp, ViewStyle } from 'react-native';
+import type { ListRenderItem, StyleProp, ViewStyle } from 'react-native';
 
 export interface CarouselProps<T> {
   data: ReadonlyArray<T>;
@@ -14,6 +14,7 @@ export interface CarouselPageIndicatorProps {
   activeStyle?: StyleProp<ViewStyle>;
   currentIndex: number | null;
   inactiveStyle?: StyleProp<ViewStyle>;
+  indicatorTestId?: string;
   numberOfItems: number;
   style?: StyleProp<ViewStyle>;
 }

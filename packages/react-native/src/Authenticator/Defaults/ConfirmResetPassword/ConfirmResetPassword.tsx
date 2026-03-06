@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmResetPasswordProps } from '../types';
+import type { DefaultConfirmResetPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmResetPassword';
 
@@ -30,7 +30,7 @@ const ConfirmResetPassword = ({
   resendCode,
   validationErrors,
   ...rest
-}: DefaultConfirmResetPasswordProps): JSX.Element => {
+}: DefaultConfirmResetPasswordProps): React.JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,

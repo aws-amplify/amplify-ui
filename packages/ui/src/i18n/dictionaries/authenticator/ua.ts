@@ -1,12 +1,14 @@
-import { AuthenticatorDictionary } from './types';
+import type { AuthenticatorDictionary } from './types';
 
 export const uaDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Відновлення облікового запису потребує контактної інформації',
+  'Authenticator App (TOTP)': 'Додаток автентифікації (TOTP)',
   'Back to Sign In': 'Назад на сторінку входу',
   'Change Password': 'Змінити пароль',
   Changing: 'Змінюємо',
   Code: 'Код',
+  'Confirm Email Code': 'Підтвердити код електронної пошти',
   'Confirm Password': 'Підтвердіть пароль',
   'Confirm Sign Up': 'Підтвердіть реєстрацію',
   'Confirm SMS Code': 'Підтвердіть SMS код',
@@ -19,6 +21,7 @@ export const uaDict: AuthenticatorDictionary = {
   'Creating Account': 'Реєструємо',
   'Dismiss alert': 'Відхилити сповіщення',
   Email: 'Email',
+  'Email Message': 'Повідомлення електронної пошти',
   'Enter your code': 'Введіть код',
   'Enter your Email': 'Введіть ваш email',
   'Enter your phone number': 'Введіть ваш номер телефону',
@@ -28,6 +31,9 @@ export const uaDict: AuthenticatorDictionary = {
   'Hide password': 'Сховати пароль',
   'It may take a minute to arrive': 'Доставка може тривати хвилину',
   Loading: 'Загружаємо',
+  'Multi-Factor Authentication': 'Багатофакторна автентифікація',
+  'Multi-Factor Authentication Setup':
+    'Налаштування багатофакторної автентифікації',
   'New password': 'Новий пароль',
   or: 'або',
   Password: 'Пароль',
@@ -35,9 +41,11 @@ export const uaDict: AuthenticatorDictionary = {
   'Resend Code': 'Відправити код повторно',
   'Reset your password': 'Скинути пароль',
   'Reset your Password': 'Скинути пароль',
+  'Select MFA Type': 'Виберіть тип MFA',
   'Send code': 'Відправити код',
   'Send Code': 'Відправити код',
   Sending: 'Відправляємо',
+  'Setup Email': 'Налаштувати електронну пошту',
   'Setup TOTP': 'Налаштувати TOTP',
   'Show password': 'Показати пароль',
   'Sign in to your account': 'Увійти у ваш обліковий запис',
@@ -51,6 +59,7 @@ export const uaDict: AuthenticatorDictionary = {
   Skip: 'Пропустити',
   Submit: 'Відправити',
   Submitting: 'Відправляємо',
+  'Text Message (SMS)': 'Текстове повідомлення (SMS)',
   Username: 'Імʼя користувача',
   'Verify Contact': 'Підтвердити Контакт',
   Verify: 'Підтвердити',

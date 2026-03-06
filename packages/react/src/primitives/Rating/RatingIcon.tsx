@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { classNames, ComponentClassName } from '@aws-amplify/ui';
-import { Property } from 'csstype';
+import type { Property } from 'csstype';
 
-import { StyleToken } from '../types/style';
+import type { StyleToken } from '../types/style';
 import { View } from '../View';
 
 interface RatingIconProps {

@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { createTheme, WebTheme } from '@aws-amplify/ui';
-import { ColorMode } from './ThemeProvider';
+import type { WebTheme } from '@aws-amplify/ui';
+import { createTheme } from '@aws-amplify/ui';
+import type { ColorMode } from './ThemeProvider';
 
 export interface ThemeContextType {
   theme: WebTheme;

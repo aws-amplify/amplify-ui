@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { UsePaginationProps, UsePaginationResult } from '../types/pagination';
+import type {
+  UsePaginationProps,
+  UsePaginationResult,
+} from '../types/pagination';
 
 export const usePagination = (
   props: UsePaginationProps

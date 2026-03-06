@@ -1,7 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { authenticatorTextUtil, V6AuthDeliveryMedium } from '@aws-amplify/ui';
+import type { V6AuthDeliveryMedium } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { ConfirmSignUp } from '..';
 
 const props = {

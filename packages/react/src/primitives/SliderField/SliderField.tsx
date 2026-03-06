@@ -1,12 +1,8 @@
 import { classNames } from '@aws-amplify/ui';
-import * as RadixSlider from '@radix-ui/react-slider';
+import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
 import * as React from 'react';
 
-import {
-  classNameModifierByFlag,
-  isFunction,
-  sanitizeNamespaceImport,
-} from '@aws-amplify/ui';
+import { classNameModifierByFlag, isFunction } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
@@ -14,8 +10,11 @@ import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { BaseSliderFieldProps, SliderFieldProps } from '../types/sliderField';
+import type { ForwardRefPrimitive, Primitive } from '../types/view';
+import type {
+  BaseSliderFieldProps,
+  SliderFieldProps,
+} from '../types/sliderField';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
@@ -24,10 +23,6 @@ import { primitiveWithForwardRef } from '../utils/primitiveWithForwardRef';
 import { createSpaceSeparatedIds } from '../utils/createSpaceSeparatedIds';
 import { DESCRIPTION_SUFFIX, ERROR_SUFFIX } from '../../helpers/constants';
 import { getUniqueComponentId } from '../utils/getUniqueComponentId';
-
-// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
-// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
-const { Range, Root, Thumb, Track } = sanitizeNamespaceImport(RadixSlider);
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';
@@ -98,16 +93,10 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
     [onChange]
   );
 
-  const renderedValue = React.useMemo(() => {
-    const formattedValue = isFunction(formatValue)
-      ? formatValue(currentValue)
-      : currentValue;
-    return typeof formatValue === 'string' ? (
-      <View as="span">{formattedValue}</View>
-    ) : (
-      formattedValue
-    );
-  }, [currentValue, formatValue]);
+  const realValue = isControlled ? value : currentValue;
+  const formattedValue = isFunction(formatValue)
+    ? formatValue(realValue)
+    : realValue;
 
   const isVertical = orientation === 'vertical';
   const componentClasses = classNames(
@@ -145,7 +134,13 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         visuallyHidden={labelHidden}
       >
         <View as="span">{label}</View>
-        {!isValueHidden ? renderedValue : null}
+        {!isValueHidden ? (
+          typeof formatValue === 'string' ? (
+            <View as="span">{formattedValue}</View>
+          ) : (
+            formattedValue
+          )
+        ) : null}
       </Label>
       <FieldDescription
         id={descriptionId}

@@ -3,21 +3,31 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
+import { Text } from '../../../primitives/Text';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields } from '../shared/FormFields';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
-import { RouteContainer, RouteProps } from '../RouteContainer';
+import type { RouteProps } from '../RouteContainer';
+import { RouteContainer } from '../RouteContainer';
+import { isOtpChallenge } from '../utils';
 
-const { getChallengeText } = authenticatorTextUtil;
+const { getChallengeText, getDeliveryMessageText, getDeliveryMethodText } =
+  authenticatorTextUtil;
 
 export const ConfirmSignIn = ({
   className,
   variation,
-}: RouteProps): JSX.Element => {
-  const { isPending } = useAuthenticator((context) => [context.isPending]);
+}: RouteProps): React.JSX.Element => {
+  const { isPending, challengeName, codeDeliveryDetails } = useAuthenticator(
+    (context) => [
+      context.isPending,
+      context.challengeName,
+      context.codeDeliveryDetails,
+    ]
+  );
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -29,6 +39,9 @@ export const ConfirmSignIn = ({
       },
     },
   } = useCustomComponents();
+
+  const showDeliveryMessage =
+    isOtpChallenge(challengeName) && codeDeliveryDetails;
 
   return (
     <RouteContainer className={className} variation={variation}>
@@ -43,6 +56,12 @@ export const ConfirmSignIn = ({
           <Header />
 
           <Flex direction="column">
+            {showDeliveryMessage && (
+              <Text className="amplify-authenticator__subtitle">
+                {getDeliveryMessageText(codeDeliveryDetails)}
+              </Text>
+            )}
+
             <FormFields />
             <RemoteErrorMessage />
           </Flex>
@@ -56,15 +75,30 @@ export const ConfirmSignIn = ({
 };
 
 function Header() {
-  const { challengeName } = useAuthenticator(({ challengeName }) => [
-    challengeName,
-  ]);
+  const { challengeName, codeDeliveryDetails } = useAuthenticator(
+    ({ challengeName, codeDeliveryDetails }) => [
+      challengeName,
+      codeDeliveryDetails,
+    ]
+  );
 
-  return <Heading level={3}>{getChallengeText(challengeName)}</Heading>;
+  const showDeliveryMethod =
+    isOtpChallenge(challengeName) && codeDeliveryDetails;
+
+  return (
+    <>
+      <Heading level={3}>{getChallengeText(challengeName)}</Heading>
+      {showDeliveryMethod && (
+        <Heading level={5}>
+          {getDeliveryMethodText(codeDeliveryDetails)}
+        </Heading>
+      )}
+    </>
+  );
 }
 
 ConfirmSignIn.Header = Header;
-ConfirmSignIn.Footer = function Footer(): JSX.Element {
+ConfirmSignIn.Footer = function Footer(): React.JSX.Element {
   // @ts-ignore
   return null;
 };

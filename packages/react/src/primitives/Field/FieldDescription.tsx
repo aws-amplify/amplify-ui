@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { classNames } from '@aws-amplify/ui';
 
-import { BaseFieldDescriptionProps } from '../types';
+import type { BaseFieldDescriptionProps } from '../types';
 import { Text } from '../Text';
 import { ComponentClassName } from '@aws-amplify/ui';
 

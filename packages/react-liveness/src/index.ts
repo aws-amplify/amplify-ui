@@ -1,10 +1,9 @@
-export {
-  FaceLivenessDetector,
+export type {
   FaceLivenessDetectorProps,
-  FaceLivenessDetectorCore,
   FaceLivenessDetectorCoreProps,
   AwsCredentialProvider,
   AwsCredentials,
   AwsTemporaryCredentials,
   ErrorState,
 } from './components';
+export { FaceLivenessDetector, FaceLivenessDetectorCore } from './components';

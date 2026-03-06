@@ -5,39 +5,28 @@
   "devDependencies": {
     "@supercharge/promise-pool": "^2.4.0",
     "commander": "^10.0.1",
+    "esbuild-register": "^3.6.0",
     "json": "^11.0.0",
-    "strip-json-comments-cli": "^2.0.2"
+    "strip-json-comments-cli": "^3.0.0"
+  },
+  "resolutions": {
+    "esbuild": "^0.25.0"
   },
   "scripts": {
+    "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts",
+    "pull": "./environments/pull-environments.sh",
+    "test:web": "yarn --cwd e2e test:web",
     "setup:react": "./scripts/setup-mega-app.sh",
-    "setup:react:cra": "./scripts/setup-mega-app.sh -B cra",
-    "setup:react:next": "./scripts/setup-mega-app.sh -B next",
-    "setup:react:vite": "./scripts/setup-mega-app.sh -B vite",
+    "setup:react:next": "./scripts/setup-mega-app.sh --build-tool next",
+    "setup:react:vite": "./scripts/setup-mega-app.sh --build-tool vite",
     "setup:angular": "./scripts/setup-mega-app.sh -F angular",
-    "setup:angular:cli": "./scripts/setup-mega-app.sh -F angular -B angular-cli",
+    "setup:angular:angular-cli": "./scripts/setup-mega-app.sh -F angular --build-tool angular-cli",
     "setup:vue": "./scripts/setup-mega-app.sh -F vue",
-    "setup:vue:cli": "./scripts/setup-mega-app.sh -F vue -B vue-cli",
-    "setup:vue:vite": "./scripts/setup-mega-app.sh -F vue -B vite",
-    "setup:vue:nuxt": "./scripts/setup-mega-app.sh -F vue -B nuxt",
+    "setup:vue:vue-cli": "./scripts/setup-mega-app.sh -F vue --build-tool vue-cli",
+    "setup:vue:vite": "./scripts/setup-mega-app.sh -F vue --build-tool vite",
+    "setup:vue:nuxt": "./scripts/setup-mega-app.sh -F vue --build-tool nuxt",
     "setup:react-native": "./scripts/setup-mega-app.sh -F react-native",
     "setup:react-native:cli": "./scripts/setup-mega-app.sh -F react-native -B cli",
-    "setup:react-native:expo": "./scripts/setup-mega-app.sh -F react-native -B expo",
-    "react-latest-cra-latest-ts": "npm run setup:react:cra -- -P yarn",
-    "react-latest-next-latest-ts": "npm run setup:react:next",
-    "react-latest-vite-latest-ts": "npm run setup:react:vite",
-    "react-16-cra-latest-ts": "npm run setup:react:cra -- -f 16",
-    "react-latest-cra-latest-js": "npm run setup:react:cra -- -l js",
-    "react-18-next-12-ts": "npm run setup:react:next -- -f 18 -b 12",
-    "react-latest-vite-2-ts": "npm run setup:react:vite -- -b 2",
-    "angular-latest-angular-cli-latest-ts": "npm run setup:angular:cli",
-    "angular-14-angular-cli-14-ts": "npm run setup:angular:cli -- -f 14 -b 14 -n angular-14-angular-cli-14-ts",
-    "vue-3-vue-cli-latest-ts": "npm run setup:vue:cli -- -f 3 -P yarn",
-    "vue-latest-vite-latest-ts": "npm run setup:vue:vite",
-    "vue-latest-vite-3-ts": "npm run setup:vue:vite -- -b 3",
-    "vue-latest-nuxt-latest-ts": "npm run setup:vue:nuxt",
-    "rnlatestclilatesttsios": "npm run setup:react-native:cli -- -A ios -n rnLatestCliLatestTsIos",
-    "rnlatestclilatesttsandroid": "npm run setup:react-native:cli -- -A android -n rnLatestCliLatestTsAndroid",
-    "rnlatestexpolatesttsandroid": "npm run setup:react-native:expo -- -A android -n rnLatestExpoLatestTsAndroid",
-    "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts"
+    "setup:react-native:expo": "./scripts/setup-mega-app.sh -F react-native -B expo"
   }
 }

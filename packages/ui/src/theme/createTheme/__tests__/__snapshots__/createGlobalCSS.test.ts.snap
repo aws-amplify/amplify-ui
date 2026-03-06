@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@aws-amplify/ui createGlobalCSS should handle psuedo-states 1`] = `
+".bar:active { background-color:#ff9900;  }
+.bar { background-color:#bada55;  }
+"
+`;
+
+exports[`@aws-amplify/ui createGlobalCSS should work with design tokens 1`] = `
+".bar:active { background-color:var(--amplify-colors-blue-40);  }
+.bar { background-color:var(--amplify-colors-blue-20);  }
+"
+`;
+
+exports[`@aws-amplify/ui createGlobalCSS should work with regular styles 1`] = `
+".foo { background-color:red;  }
+button > .icon { color:blueviolet;  }
+"
+`;

@@ -1,16 +1,20 @@
-import { SocialProvider } from '../../types';
-import {
+import type { LoginMechanism, SocialProvider } from '../../types';
+import type {
+  AuthMFAType,
   ChallengeName,
   V5CodeDeliveryDetails,
 } from '../../machines/authenticator/types';
 import { translate, DefaultTexts } from '../../i18n';
-import { AuthenticatorRoute } from './facade';
+import type { AuthenticatorRoute } from './facade';
+import { defaultTexts } from '../../i18n/dictionaries';
 
 /**
  * ConfirmSignIn
  */
 const getChallengeText = (challengeName?: ChallengeName): string => {
   switch (challengeName) {
+    case 'EMAIL_OTP':
+      return translate(DefaultTexts.CONFIRM_EMAIL);
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
     case 'SOFTWARE_TOKEN_MFA':
@@ -79,6 +83,46 @@ const getSignInWithFederationText = (
   );
 };
 
+/**
+ * SelectMfaType
+ */
+const getSelectMfaTypeByChallengeName = (
+  challengeName?: ChallengeName
+): string => {
+  if (challengeName === 'MFA_SETUP') {
+    return translate(DefaultTexts.MFA_SETUP_SELECTION);
+  }
+
+  return translate(DefaultTexts.MFA_SELECTION);
+};
+
+const getUsernameLabelByLoginMechanism = (
+  loginMechanism?: LoginMechanism
+): string => {
+  switch (loginMechanism) {
+    case 'email':
+      return translate(DefaultTexts.EMAIL_ADDRESS);
+    case 'phone_number':
+      return translate(DefaultTexts.PHONE_NUMBER);
+    case 'username':
+    default:
+      return translate(DefaultTexts.USERNAME);
+  }
+};
+
+const getMfaTypeLabelByValue = (mfaType: AuthMFAType): string => {
+  switch (mfaType) {
+    case 'EMAIL':
+      return translate(defaultTexts.EMAIL_OTP);
+    case 'SMS':
+      return translate(defaultTexts.SMS_MFA);
+    case 'TOTP':
+      return translate(defaultTexts.SOFTWARE_TOKEN_MFA);
+    default:
+      return translate(mfaType);
+  }
+};
+
 export const authenticatorTextUtil = {
   /** Shared */
   getBackToSignInText: () => translate(DefaultTexts.BACK_SIGN_IN),
@@ -86,6 +130,7 @@ export const authenticatorTextUtil = {
   getChangingText: () => translate(DefaultTexts.CHANGING_PASSWORD),
   getConfirmText: () => translate(DefaultTexts.CONFIRM),
   getConfirmingText: () => translate(DefaultTexts.CONFIRMING),
+  getContinueText: () => translate(DefaultTexts.CONTINUE),
   getCopyText: () => translate(DefaultTexts.UPPERCASE_COPY),
   getHidePasswordText: () => translate(DefaultTexts.HIDE_PASSWORD),
   getLoadingText: () => translate(DefaultTexts.LOADING),
@@ -114,6 +159,12 @@ export const authenticatorTextUtil = {
   /** SignUp */
   getCreatingAccountText: () => translate(DefaultTexts.CREATING_ACCOUNT),
   getCreateAccountText: () => translate(DefaultTexts.CREATE_ACCOUNT),
+  getCreateAccountWithEmailText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_EMAIL_OTP),
+  getCreateAccountWithPasswordText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_PASSWORD),
+  getCreateAccountWithSmsText: () =>
+    translate(DefaultTexts.CREATE_ACCOUNT_WITH_SMS_OTP),
 
   /** ConfirmSignUp */
   getDeliveryMessageText,
@@ -124,6 +175,9 @@ export const authenticatorTextUtil = {
 
   /** ForgotPassword */
   getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
+
+  /** SetupEmail */
+  getSetupEmailText: () => translate(DefaultTexts.SETUP_EMAIL),
 
   /** SetupTotp */
   getSetupTotpText: () => translate(DefaultTexts.SETUP_TOTP),
@@ -138,11 +192,44 @@ export const authenticatorTextUtil = {
   /** FederatedSignIn */
   getSignInWithFederationText,
 
+  /** SelectMfaType */
+  getMfaTypeLabelByValue,
+  getSelectMfaTypeByChallengeName,
+  getSelectMfaTypeText: () => translate(DefaultTexts.SELECT_MFA_TYPE),
+
   /** VerifyUser */
   getSkipText: () => translate(DefaultTexts.SKIP),
   getVerifyText: () => translate(DefaultTexts.VERIFY),
   getVerifyContactText: () => translate(DefaultTexts.VERIFY_CONTACT),
   getAccountRecoveryInfoText: () => translate(DefaultTexts.VERIFY_HEADING),
+
+  /** Passwordless */
+  getPasskeyPromptHeadingText: () =>
+    translate(DefaultTexts.PASSKEY_PROMPT_HEADING),
+  getPasskeyPromptDescriptionText: () =>
+    translate(DefaultTexts.PASSKEY_PROMPT_DESCRIPTION),
+  getCreatePasskeyText: () => translate(DefaultTexts.CREATE_PASSKEY),
+  getRegisteringText: () => translate(DefaultTexts.REGISTERING),
+  getContinueWithoutPasskeyText: () =>
+    translate(DefaultTexts.CONTINUE_WITHOUT_PASSKEY),
+  getPasskeyCreatedSuccessText: () =>
+    translate(DefaultTexts.PASSKEY_CREATED_SUCCESS),
+  getPasskeyRegisteredText: () => translate(DefaultTexts.PASSKEY_REGISTERED),
+  getPasskeyRegistrationFailedText: () =>
+    translate(DefaultTexts.PASSKEY_REGISTRATION_FAILED),
+  getPasskeyLabelText: () => translate(DefaultTexts.PASSKEY_LABEL),
+  getExistingPasskeysText: () => translate(DefaultTexts.EXISTING_PASSKEYS),
+  getSetupAnotherPasskeyText: () =>
+    translate(DefaultTexts.SETUP_ANOTHER_PASSKEY),
+  getSignInWithPasswordText: () =>
+    translate(DefaultTexts.SIGN_IN_WITH_PASSWORD),
+  getSignInWithEmailText: () => translate(DefaultTexts.SIGN_IN_WITH_EMAIL),
+  getSignInWithSmsText: () => translate(DefaultTexts.SIGN_IN_WITH_SMS),
+  getSignInWithPasskeyText: () => translate(DefaultTexts.SIGN_IN_WITH_PASSKEY),
+  getOtherSignInOptionsText: () =>
+    translate(DefaultTexts.OTHER_SIGN_IN_OPTIONS),
+  getEnterUsernameFirstText: () => translate(DefaultTexts.ENTER_USERNAME_FIRST),
+  getUsernameLabelByLoginMechanism,
 
   /** Validations */
   // TODO: add defaultText

@@ -7,7 +7,7 @@ name: Version Packages
 
 on:
   push:
-    branches: [main]
+    branches: [main, hotfix]
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
@@ -28,7 +28,7 @@ jobs:
         uses: ./.github/actions/has-changesets
       - name: Setup Node.js 20
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: 20
           cache: 'yarn'
@@ -39,8 +39,12 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Create or update Version Packages PR
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
-        uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
+        uses: changesets/action@aba318e9165b45b7948c60273e0b72fce0a64eb9 #v1.4.7
         with:
           version: yarn bumpVersions
+          # Use the current branch as the base for the PR
+          base: ${{ github.ref_name }}
+          # Custom title based on branch
+          title: 'Version Packages (${{ github.ref_name }})'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

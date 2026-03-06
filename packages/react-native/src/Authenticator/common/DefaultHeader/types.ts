@@ -1,3 +1,3 @@
-import { HeadingProps } from '../../../primitives/Heading';
+import type { HeadingProps } from '../../../primitives/Heading';
 
 export interface DefaultHeaderProps extends HeadingProps {}

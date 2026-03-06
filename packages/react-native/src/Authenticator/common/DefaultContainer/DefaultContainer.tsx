@@ -6,7 +6,7 @@ import { useTheme } from '../../../theme';
 import { platform } from '../../../utils';
 
 import { getThemedStyles } from './styles';
-import { ContainerProps } from './types';
+import type { ContainerProps } from './types';
 
 // prevent bounce when `ScrollView` content is less than height of screnn
 const ALWAYS_BOUNCE_VERTICAL = false;
@@ -26,7 +26,7 @@ export default function DefaultContainer({
   scrollViewContentContainerStyle,
   style,
   ...rest
-}: ContainerProps): JSX.Element | null {
+}: ContainerProps): React.JSX.Element | null {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
 

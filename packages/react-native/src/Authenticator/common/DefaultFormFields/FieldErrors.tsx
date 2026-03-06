@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { FieldErrorsProps } from './types';
+import type { FieldErrorsProps } from './types';
 
 export const FieldErrors = ({
   errors,
   errorStyle,
   style,
-}: FieldErrorsProps): JSX.Element | null => {
+}: FieldErrorsProps): React.JSX.Element | null => {
   if (!errors || !errors.length) {
     return null;
   }

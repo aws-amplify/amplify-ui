@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@aws-amplify/ui createComponentCSS can use custom primitives 1`] = `
+"[data-amplify-theme="test"] .amplify-chip { padding-inline:var(--amplify-space-xs);  padding-block:var(--amplify-space-xs);  border-radius:var(--amplify-radii-small);  }
+[data-amplify-theme="test"] .amplify-chip { --color:red; }
+[data-amplify-theme="test"] .amplify-chip--primary:hover { background:pink;  color:var(--amplify-colors-font-primary);  }
+[data-amplify-theme="test"] .amplify-chip--primary { background:red;  }
+[data-amplify-theme="test"] .amplify-chip--primary { --color:blue; }
+[data-amplify-theme="test"] .amplify-chip__icon { font-size:var(--amplify-font-sizes-xl);  color:var(--color);  }
+"
+`;
+
+exports[`@aws-amplify/ui createComponentCSS should pass through raw values 1`] = `
+"[data-amplify-theme="test"] .amplify-badge { background-color:pink;  border-radius:var(--amplify-radii-small);  }
+[data-amplify-theme="test"] .amplify-badge--small { border-radius:0;  }
+"
+`;
+
+exports[`@aws-amplify/ui createComponentCSS should work with a theme as a function or an object 1`] = `
+"[data-amplify-theme="test"] .amplify-testing { padding:20px;  }
+"
+`;
+
+exports[`@aws-amplify/ui createComponentCSS should work with a theme as a function or an object 2`] = `
+"[data-amplify-theme="test"] .amplify-testing { padding:20px;  }
+"
+`;
+
+exports[`@aws-amplify/ui createComponentCSS should work with built-in components 1`] = `
+"[data-amplify-theme="test"] .amplify-avatar:hover { background-color:blue;  }
+[data-amplify-theme="test"] .amplify-avatar:hover { --bgColor:var(--amplify-colors-secondary-20); }
+[data-amplify-theme="test"] .amplify-avatar { display:inline-flex;  align-content:center;  box-sizing:content-box;  border-radius:99rem;  width:1rem;  height:1rem;  background-color:var(--amplify-colors-background-tertiary);  color:var(--amplify-colors-font-primary);  padding:var(--amplify-space-xs);  }
+[data-amplify-theme="test"] .amplify-avatar { --bgColor:var(--amplify-colors-primary-20); }
+[data-amplify-theme="test"] .amplify-avatar--small { padding:var(--amplify-space-xxs);  }
+[data-amplify-theme="test"] .amplify-avatar--large:hover {  }
+[data-amplify-theme="test"] .amplify-avatar--large { padding:var(--amplify-space-small);  }
+[data-amplify-theme="test"] .amplify-avatar__icon { background-color:white;  }
+
+@media (prefers-color-scheme: dark) {
+[data-amplify-theme="test"][data-amplify-color-mode="system"] .amplify-avatar { --bgColor:pink; }
+
+}
+[data-amplify-theme="test"][data-amplify-color-mode="dark"] .amplify-avatar { --bgColor:pink; }
+
+@media (min-width: 992px) {
+  
+}@media (max-width: 1250px) {
+  
+}"
+`;
+
+exports[`@aws-amplify/ui createComponentCSS should work with custom tokens 1`] = `
+"[data-amplify-theme="test"] .amplify-avatar { background-color:var(--amplify-colors-hot-pink-10);  }
+"
+`;

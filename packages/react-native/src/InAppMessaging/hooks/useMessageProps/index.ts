@@ -1,5 +1,5 @@
 export { default as useMessageProps } from './useMessageProps';
-export {
+export type {
   GetDefaultStyle,
   MessageComponentStyles,
   MessageDefaultStyle,

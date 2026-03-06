@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useSelector } from '@xstate/react';
 
 import { getMockedFunction } from '../../__mocks__/utils';

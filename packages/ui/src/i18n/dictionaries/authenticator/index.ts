@@ -3,6 +3,7 @@ export { deDict } from './de';
 export { enDict } from './en';
 export { esDict } from './es';
 export { frDict } from './fr';
+export { huDict } from './hu';
 export { itDict } from './it';
 export { jaDict } from './ja';
 export { krDict } from './kr';
@@ -17,6 +18,7 @@ export { trDict } from './tr';
 export { ruDict } from './ru';
 export { heDict } from './he';
 export { uaDict } from './ua';
+export { thDict } from './th';
 
 // default text phrases
 export { defaultTexts } from './defaultTexts';

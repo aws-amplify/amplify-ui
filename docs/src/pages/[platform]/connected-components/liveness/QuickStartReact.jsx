@@ -6,9 +6,7 @@ export function LivenessQuickStartReact() {
   const [loading, setLoading] = React.useState(true);
   const [createLivenessApiData, setCreateLivenessApiData] =
     React.useState(null);
-
-  React.useEffect(() => {
-    const fetchCreateLiveness = async () => {
+  const fetchCreateLiveness = async () => {
       /*
        * This should be replaced with a real call to your own backend API
        */
@@ -18,8 +16,9 @@ export function LivenessQuickStartReact() {
 
       setCreateLivenessApiData(data);
       setLoading(false);
-    };
+  };
 
+  React.useEffect(() => {
     fetchCreateLiveness();
   }, []);
 
@@ -46,6 +45,24 @@ export function LivenessQuickStartReact() {
     }
   };
 
+  // Use a ref to track if we're currently handling an error
+  const isHandlingError = React.useRef(false);
+
+  const handleError = async (error) => {
+      console.error('Liveness error:', error);
+
+      // Simple infinite loop prevention
+      if (isHandlingError.current) return;
+      isHandlingError.current = true;
+      setLoading(true);
+
+      // Create a new session for retry - sessions are single-use
+      await fetchCreateLiveness();
+
+      // Reset error handling flag
+      isHandlingError.current = false;
+  };
+
   return (
     <ThemeProvider>
       {loading ? (
@@ -55,9 +72,7 @@ export function LivenessQuickStartReact() {
           sessionId={createLivenessApiData.sessionId}
           region="us-east-1"
           onAnalysisComplete={handleAnalysisComplete}
-          onError={(error) => {
-            console.error(error);
-          }}
+          onError={handleError}
         />
       )}
     </ThemeProvider>

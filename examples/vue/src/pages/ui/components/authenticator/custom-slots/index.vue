@@ -69,6 +69,12 @@ const formFields = {
       isRequired: false,
     },
   },
+  setupEmail: {
+    email: {
+      label: 'New Label',
+      placeholder: 'Enter your Email Address:',
+    }
+  }
 };
 </script>
 
@@ -136,7 +142,10 @@ const formFields = {
 
     <template v-slot:footer>
       <div style="padding: var(--amplify-space-large); text-align: center">
-        <p class="amplify-text" style="color: var(--amplify-colors-neutral-80)">
+        <p
+          class="amplify-text"
+          style="color: var(--amplify-colors-neutral-80)"
+        >
           © All Rights Reserved
         </p>
       </div>
@@ -204,6 +213,26 @@ const formFields = {
     </template>
 
     <template v-slot:confirm-reset-password-footer>
+      <div>Footer Information</div>
+    </template>
+
+    <template v-slot:select-mfa-type-header>
+      <h3 class="amplify-heading">
+        Select Desired MFA Type
+      </h3>
+    </template>
+
+    <template v-slot:select-mfa-type-footer>
+      <div>Footer Information</div>
+    </template>
+
+    <template v-slot:setup-email-header>
+      <h3 class="amplify-heading">
+        Email MFA Setup
+      </h3>
+    </template>
+
+    <template v-slot:setup-email-footer>
       <div>Footer Information</div>
     </template>
 

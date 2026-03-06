@@ -1,6 +1,6 @@
 import merge from 'lodash/merge.js';
 
-import {
+import type {
   AuthFormData,
   AuthTouchData,
   PasswordSettings,

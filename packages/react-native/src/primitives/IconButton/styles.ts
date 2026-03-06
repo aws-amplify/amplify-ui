@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { StrictTheme } from '../../theme';
-import { IconButtonStyles } from './types';
+import type { StrictTheme } from '../../theme';
+import type { IconButtonStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): IconButtonStyles => {
   const {

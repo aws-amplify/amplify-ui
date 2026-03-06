@@ -1,4 +1,4 @@
-import {
+import type {
   DesignTokenValues,
   OutputVariantKey,
   RecursiveDesignToken,
@@ -9,7 +9,7 @@ type ShadowSize = 'small' | 'medium' | 'large';
 
 export type Shadows<
   Output extends OutputVariantKey = unknown,
-  Platform = unknown
+  Platform = unknown,
 > = DesignTokenValues<ShadowSize, ShadowValue, Output, Platform> &
   RecursiveDesignToken<ShadowValue, Output, Platform>;
 

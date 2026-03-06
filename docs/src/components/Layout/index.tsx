@@ -46,12 +46,22 @@ export default function Page({
           ...document.querySelectorAll(
             `${nextRootSelector} h2[id], ${nextRootSelector} h3[id]`
           ),
-        ].map((node: HTMLElement) => ({
-          id: node.id,
-          label: node.innerText,
-          level: node.nodeName,
-          top: node.offsetTop,
-        }))
+        ].reduce(
+          (
+            acc: { id: string; label: string; level: string; top: number }[],
+            node: HTMLElement
+          ) =>
+            // remove non-visible nodes that are excluded from rendering by `FilterChildren`
+            !node.checkVisibility()
+              ? acc
+              : acc.concat({
+                  id: node.id,
+                  label: node.innerText,
+                  level: node.nodeName,
+                  top: node.offsetTop,
+                }),
+          []
+        )
       );
     });
     updateHeaders(); // with static rendering the mutation observer is no longer triggered on initial page view because the content has already been rendered

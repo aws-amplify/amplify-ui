@@ -1,0 +1,271 @@
+import type { TransferProgressEvent } from 'aws-amplify/storage';
+import type { LocationAccess as AccessGrantLocation } from '../../storage-internal';
+
+import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from './constants';
+import type {
+  ActionInputConfig,
+  FileData,
+  FileDataItem,
+  FileItem,
+  ListLocationsExcludeOptions,
+  LocationData,
+  LocationPermissions,
+  LocationType,
+} from './types';
+
+import { Amplify } from 'aws-amplify';
+
+export const getBucketRegion = (
+  bucketName: string,
+  fallbackRegion: string
+): string => {
+  try {
+    const config = Amplify.getConfig()?.Storage?.S3;
+
+    if (!config?.buckets || typeof config.buckets !== 'object') {
+      return fallbackRegion;
+    }
+
+    for (const bucketConfig of Object.values(config.buckets)) {
+      if (bucketConfig.bucketName === bucketName && bucketConfig.region) {
+        return bucketConfig.region;
+      }
+    }
+
+    return fallbackRegion;
+  } catch (error) {
+    return fallbackRegion;
+  }
+};
+
+export const constructBucket = ({
+  bucket: bucketName,
+  region: globalRegion,
+}: Pick<ActionInputConfig, 'bucket' | 'region'>): {
+  bucketName: string;
+  region: string;
+} => {
+  const bucketRegion = getBucketRegion(bucketName, globalRegion);
+  return { bucketName, region: bucketRegion };
+};
+
+export const parseAccessGrantLocation = (
+  location: AccessGrantLocation
+): LocationData => {
+  const { permission, scope, type } = location;
+  if (!scope.startsWith('s3://')) {
+    throw new Error(`Invalid scope: ${scope}`);
+  }
+
+  const id = crypto.randomUUID();
+
+  // remove default path
+  const slicedScope = scope.slice(5);
+  let bucket, prefix;
+
+  switch (type) {
+    case 'BUCKET': {
+      // { scope: 's3://bucket/*', type: 'BUCKET', },
+      bucket = slicedScope.slice(0, -2);
+      prefix = '';
+      break;
+    }
+    case 'PREFIX': {
+      // { scope: 's3://bucket/path/*', type: 'PREFIX', },
+      bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
+      prefix = `${slicedScope.slice(bucket.length + 1, -1)}`;
+      break;
+    }
+    case 'OBJECT': {
+      // { scope: 's3://bucket/path/to/object', type: 'OBJECT', },
+      bucket = slicedScope.slice(0, slicedScope.indexOf('/'));
+      prefix = slicedScope.slice(bucket.length + 1);
+      break;
+    }
+    default: {
+      throw new Error(`Invalid location type: ${type}`);
+    }
+  }
+
+  let permissions: LocationPermissions;
+  switch (permission) {
+    case 'READ':
+      permissions = ['get', 'list'];
+      break;
+    case 'READWRITE':
+      permissions = ['delete', 'get', 'list', 'write'];
+      break;
+    case 'WRITE':
+      permissions = ['delete', 'write'];
+      break;
+    default:
+      throw new Error(`Invalid location permission: ${permission}`);
+  }
+
+  return { bucket, id, permissions: permissions, prefix, type };
+};
+
+const isSamePermissions = (
+  permissionsToExclude: LocationPermissions,
+  locationPermissions: LocationPermissions
+) => {
+  if (permissionsToExclude.length !== locationPermissions.length) {
+    return false;
+  }
+  const sortedLocationPermissions = locationPermissions.sort();
+  return permissionsToExclude
+    .sort()
+    .every(
+      (permission, index) => permission === sortedLocationPermissions[index]
+    );
+};
+
+const isSameType = (
+  typeToExclude: LocationType | LocationType[],
+  locationType: LocationType
+) =>
+  typeof typeToExclude === 'string'
+    ? typeToExclude === locationType
+    : typeToExclude.includes(locationType);
+
+export const shouldExcludeLocation = (
+  { permissions, type }: LocationData,
+  exclude?: ListLocationsExcludeOptions
+): boolean => {
+  const excludedByPermssions = !!(
+    exclude?.exactPermissions &&
+    isSamePermissions(exclude.exactPermissions, permissions)
+  );
+
+  const excludedByType = !!(exclude?.type && isSameType(exclude.type, type));
+
+  return excludedByPermssions || excludedByType;
+};
+
+/**
+ * Determines if permissions1 is a strict superset (broader) of permissions2.
+ * Returns true only if permissions1 contains all permissions from permissions2
+ * AND has more permissions.
+ */
+const hasBroaderPermissions = (
+  permissions1: LocationPermissions,
+  permissions2: LocationPermissions
+): boolean => {
+  // permissions1 must have more permissions (strict superset, not equal)
+  if (permissions1.length <= permissions2.length) {
+    return false;
+  }
+
+  // permissions1 must contain all permissions from permissions2
+  return permissions2.every((perm) => permissions1.includes(perm));
+};
+
+/**
+ * Deduplicates locations with the same bucket and prefix.
+ * Only deduplicates when one location's permissions are a superset of another's.
+ * This prevents deduplication of incompatible grants like READ + WRITE.
+ *
+ * Examples:
+ * - READ + READWRITE → Keep READWRITE (superset)
+ * - READ + READ → Keep first (identical)
+ * - READ + WRITE → Keep both (not superset, need separate locations)
+ */
+export const deduplicateLocations = (
+  locations: LocationData[]
+): LocationData[] => {
+  // Group locations by bucket:prefix
+  const locationGroups = new Map<string, LocationData[]>();
+
+  for (const location of locations) {
+    const key = `${location.bucket}:${location.prefix}`;
+    const group = locationGroups.get(key) ?? [];
+    group.push(location);
+    locationGroups.set(key, group);
+  }
+
+  // For each group, keep only non-redundant locations
+  const result: LocationData[] = [];
+
+  for (const group of locationGroups.values()) {
+    if (group.length === 1) {
+      result.push(group[0]);
+      continue;
+    }
+
+    // Find locations that are not subsets of any other location in the group
+    const nonRedundant: LocationData[] = [];
+
+    for (const location of group) {
+      // Check if this location is a subset of any other location
+      const isSubsetOfAnother = group.some((other) => {
+        if (other === location) return false;
+        return hasBroaderPermissions(other.permissions, location.permissions);
+      });
+
+      if (!isSubsetOfAnother) {
+        // Check if we already have an identical permission set
+        const isDuplicate = nonRedundant.some((existing) => {
+          const sortedNew = [...location.permissions].sort().join(',');
+          const sortedExisting = [...existing.permissions].sort().join(',');
+          return sortedNew === sortedExisting;
+        });
+
+        if (!isDuplicate) {
+          nonRedundant.push(location);
+        }
+      }
+    }
+
+    result.push(...nonRedundant);
+  }
+
+  return result;
+};
+
+export const getFilteredLocations = (
+  locations: AccessGrantLocation[],
+  exclude?: ListLocationsExcludeOptions
+): LocationData[] =>
+  locations.reduce(
+    (filteredLocations: LocationData[], location: AccessGrantLocation) => {
+      const parsedLocation = parseAccessGrantLocation(location);
+
+      const isNonFolderLikePrefix =
+        !parsedLocation.prefix.endsWith('/') &&
+        parsedLocation.type === 'PREFIX';
+
+      if (isNonFolderLikePrefix) {
+        return filteredLocations;
+      }
+
+      if (!shouldExcludeLocation(parsedLocation, exclude)) {
+        filteredLocations.push(parsedLocation);
+      }
+
+      return filteredLocations;
+    },
+    []
+  );
+
+export const getFileKey = (key: string): string =>
+  key.slice(key.lastIndexOf('/') + 1, key.length);
+
+export const createFileDataItem = (data: FileData): FileDataItem => ({
+  ...data,
+  fileKey: getFileKey(data.key),
+});
+
+export const isFileItem = (value: unknown): value is FileItem =>
+  !!(value as FileItem).file;
+
+export const isFileDataItem = (item: unknown): item is FileDataItem =>
+  !!(item as FileDataItem).fileKey;
+
+export const getProgress = ({
+  totalBytes,
+  transferredBytes,
+}: TransferProgressEvent): number | undefined =>
+  totalBytes ? transferredBytes / totalBytes : undefined;
+
+export const isMultipartUpload = (file: File): boolean =>
+  file.size > MULTIPART_UPLOAD_THRESHOLD_BYTES;

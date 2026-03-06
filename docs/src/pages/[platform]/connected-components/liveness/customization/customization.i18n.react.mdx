@@ -4,5 +4,7 @@ import { Alert } from '@aws-amplify/ui-react';
 
 The text in FaceLivenessDetector is defined as string resources in the component's [displayText.ts file](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/displayText.ts). These values can be translated/overwritten by following the example below:
 
+<Alert role="none" title="Face Movement Challenge" variation="warning">Note that the PhotosensitiveWarning and its related text (`photosensitivityWarningBodyText`, `photosensitivityWarningHeadingText`, `photosensitivityWarningInfoText`, `photosensitivityWarningLabelText`) will not appear when the Face Movement Challenge is used, regardless of any overrides made.</Alert>
+
 ```tsx file=./Customizationi18n.tsx
 ```

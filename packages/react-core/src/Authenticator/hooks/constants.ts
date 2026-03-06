@@ -1,4 +1,4 @@
-import {
+import type {
   AuthenticatorRouteComponentKey,
   AuthenticatorRouteComponentName,
 } from './types';
@@ -10,6 +10,8 @@ export const COMPONENT_ROUTE_KEYS: AuthenticatorRouteComponentKey[] = [
   'confirmVerifyUser',
   'forceNewPassword',
   'forgotPassword',
+  'selectMfaType',
+  'setupEmail',
   'setupTotp',
   'signIn',
   'signUp',
@@ -23,6 +25,8 @@ export const COMPONENT_ROUTE_NAMES: AuthenticatorRouteComponentName[] = [
   'ConfirmVerifyUser',
   'ForceNewPassword',
   'ForgotPassword',
+  'SelectMfaType',
+  'SetupEmail',
   'SetupTotp',
   'SignIn',
   'SignUp',

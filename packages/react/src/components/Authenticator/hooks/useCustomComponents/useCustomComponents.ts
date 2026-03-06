@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DefaultComponents } from './defaultComponents';
+import type { DefaultComponents } from './defaultComponents';
 
 export interface ComponentsProviderProps {
   components?: DefaultComponents;

@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultForgotPasswordProps } from '../types';
+import type { DefaultForgotPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ForgotPassword';
 const {
@@ -28,7 +28,7 @@ const ForgotPassword = ({
   toSignIn,
   validationErrors,
   ...rest
-}: DefaultForgotPasswordProps): JSX.Element => {
+}: DefaultForgotPasswordProps): React.JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

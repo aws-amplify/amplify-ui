@@ -3,7 +3,7 @@ import { fireEvent, render } from '@testing-library/react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { TextFieldOptionsType } from '../../../hooks';
+import type { TextFieldOptionsType } from '../../../hooks';
 import { ForceNewPassword } from '..';
 
 const props = {

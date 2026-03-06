@@ -1,6 +1,6 @@
 import { createMachine } from 'xstate';
 
-import { AuthEvent, SignOutContext } from '../types';
+import type { AuthEvent, SignOutContext } from '../types';
 import { signOut } from 'aws-amplify/auth';
 
 export const signOutActor = () => {

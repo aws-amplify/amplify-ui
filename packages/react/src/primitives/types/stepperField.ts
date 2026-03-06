@@ -1,5 +1,5 @@
-import { BaseTextFieldProps } from '../types/textField';
-import { ElementType, PrimitiveProps } from './view';
+import type { BaseTextFieldProps } from '../types/textField';
+import type { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
 export interface BaseStepperFieldProps extends BaseTextFieldProps {

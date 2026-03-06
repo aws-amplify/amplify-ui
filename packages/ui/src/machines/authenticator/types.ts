@@ -1,7 +1,7 @@
-import { State } from 'xstate';
-import { AuthUser } from 'aws-amplify/auth';
+import type { State } from 'xstate';
+import type { AuthUser } from 'aws-amplify/auth';
 
-import {
+import type {
   LoginMechanism,
   SignUpAttribute,
   SocialProvider,
@@ -13,12 +13,34 @@ import {
   PasswordSettings,
 } from '../../types';
 
-import { defaultServices } from './defaultServices';
+import type { defaultServices } from './defaultServices';
+
+// Passwordless authentication types
+export type AuthMethod = 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN';
+
+export interface PasswordlessCapabilities {
+  emailOtpEnabled: boolean;
+  smsOtpEnabled: boolean;
+  webAuthnEnabled: boolean;
+  preferredChallenge?: AuthMethod;
+}
+
+export interface PasswordlessSettings {
+  hiddenAuthMethods?: AuthMethod[];
+  preferredAuthMethod?: AuthMethod;
+  passkeyRegistrationPrompts?:
+    | {
+        afterSignin?: 'ALWAYS' | 'NEVER';
+        afterSignup?: 'ALWAYS' | 'NEVER';
+      }
+    | boolean;
+}
 
 // copied from JS v6 types
 export type ChallengeName =
   | 'SMS_MFA'
   | 'SOFTWARE_TOKEN_MFA'
+  | 'EMAIL_OTP'
   | 'SELECT_MFA_TYPE'
   | 'MFA_SETUP'
   | 'PASSWORD_VERIFIER'
@@ -27,6 +49,9 @@ export type ChallengeName =
   | 'DEVICE_PASSWORD_VERIFIER'
   | 'ADMIN_NO_SRP_AUTH'
   | 'NEW_PASSWORD_REQUIRED';
+
+// JS v6 Mfa Types
+export type AuthMFAType = 'SMS' | 'TOTP' | 'EMAIL';
 
 /**
  * `AuthDeliveryMedium` is deeply nested in the v6 types, added this as utility
@@ -81,6 +106,8 @@ export type AuthEventTypes =
   | 'RESEND'
   | 'FORGOT_PASSWORD'
   | 'AUTO_SIGN_IN_FAILURE'
+  | 'SELECT_METHOD'
+  | 'SHOW_AUTH_METHODS'
   | 'SIGN_IN_WITH_REDIRECT'
   | 'SIGN_IN'
   | 'SIGN_OUT'
@@ -114,6 +141,7 @@ export interface ActorDoneData {
   totpSecretCode?: string;
   username?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
+  allowedMfaTypes?: AuthMFAType[];
 }
 
 /**
@@ -121,6 +149,7 @@ export interface ActorDoneData {
  */
 export interface AuthContext {
   actorRef?: any;
+  availableAuthMethods?: AuthMethod[];
   config?: {
     loginMechanism?: LoginMechanism;
     loginMechanisms?: LoginMechanism[];
@@ -129,23 +158,30 @@ export interface AuthContext {
     formFields?: AuthFormFields;
     initialState?: 'signIn' | 'signUp' | 'forgotPassword';
     passwordSettings?: PasswordSettings;
+    passwordless?: PasswordlessSettings;
   };
   services?: Partial<typeof defaultServices>;
   user?: AuthUser;
   // data returned from actors when they finish and reach their final state
   actorDoneData?: ActorDoneData;
   hasSetup?: boolean;
+  passwordlessCapabilities?: PasswordlessCapabilities;
 }
 
 // maps to `initialState`
 export type InitialStep = 'FORGOT_PASSWORD' | 'SIGN_IN' | 'SIGN_UP';
 
 export type SignInStep =
+  | 'SELECT_AUTH_METHOD'
+  | 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE'
   | 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
   | 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
   | 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
   | 'CONFIRM_SIGN_UP'
   | 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
+  | 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION'
   | 'RESET_PASSWORD'
   | 'SIGN_IN_COMPLETE'; // 'DONE'
 
@@ -163,7 +199,7 @@ export type UserAttributeStep =
   | 'CONFIRM_ATTRIBUTE_WITH_CODE'
   | 'CONFIRM_ATTRIBUTE_COMPLETE'; // 'DONE'
 
-type Step =
+export type Step =
   | InitialStep
   | SignInStep
   | SignUpStep
@@ -181,6 +217,7 @@ interface BaseFormContext {
   step: Step;
   totpSecretCode?: string;
   unverifiedUserAttributes?: UnverifiedUserAttributes;
+  allowedMfaTypes?: AuthMFAType[];
 
   // kept in memory for submission to relevnat APIs
   username?: string;
@@ -195,6 +232,14 @@ interface BaseFormContext {
   passwordSettings?: PasswordSettings;
   socialProviders: Required<AuthContext>['config']['socialProviders'];
   signUpAttributes?: SignUpAttribute[];
+
+  // passwordless authentication
+  selectedAuthMethod?: AuthMethod;
+  availableAuthMethods?: AuthMethod[];
+  preferredChallenge?: AuthMethod;
+  passwordless?: PasswordlessSettings;
+  hasExistingPasskeys?: boolean;
+  fetchedUserAttributes?: Record<string, unknown>;
 
   // form state key/values
   formFields?: AuthFormFields;

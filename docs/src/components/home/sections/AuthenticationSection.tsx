@@ -133,12 +133,32 @@ function App() {
 
 export default App;
 `,
+  svelte: `<script lang="ts">
+  import { Amplify } from 'aws-amplify';
+  import { Authenticator } from '@aws-amplify/ui-svelte'
+  import "@aws-amplify/ui-svelte/styles.css";
+  // on gen1
+  import awsconfig from './aws-exports';
+  // on gen2
+  import awsconfig from './amplify-output.json';
+
+  Amplify.configure(awsconfig);
+</script>
+
+<Authenticator>
+  {#snippet children({ user, signOut })}
+    <h1>Hello {user.username}!</h1>
+    <button onclick={signOut}>Sign Out</button>
+  {/snippet}
+</Authenticator>
+`,
 };
 
 const languages = {
   react: 'jsx',
   angular: 'javascript', // is this the best primsa language?
   vue: 'javascript',
+  svelte: 'html',
   flutter: 'dart',
   'react-native': 'jsx',
 };
@@ -147,6 +167,7 @@ const fileName = {
   react: 'index.tsx',
   angular: 'index.html',
   vue: 'index.vue',
+  svelte: 'index.svelte',
   flutter: 'main.dart',
   'react-native': 'App.jsx',
 };

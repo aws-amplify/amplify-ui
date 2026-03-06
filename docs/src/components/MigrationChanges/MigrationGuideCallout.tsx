@@ -19,7 +19,7 @@ export const MigrationGuideCallout = ({ framework }) => {
     <Alert
       role="none"
       variation="info"
-      heading={`@aws-amplify/ui-${framework} v${PREV_MAJOR_VERSIONS[framework]}`}
+      heading={`@aws-amplify/ui-${framework} version ${PREV_MAJOR_VERSIONS[framework]}`}
     >
       The <code>@aws-amplify/ui-{framework}</code> package is currently on
       version {CURRENT_MAJOR_VERSIONS[framework]}. Working with

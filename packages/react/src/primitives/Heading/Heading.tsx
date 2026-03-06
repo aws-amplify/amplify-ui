@@ -3,7 +3,7 @@ import { classNames } from '@aws-amplify/ui';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassName } from '@aws-amplify/ui';
-import {
+import type {
   ForwardRefPrimitive,
   BaseHeadingProps,
   HeadingProps,

@@ -7,9 +7,11 @@ import { useMessageProps } from '../hooks';
 import { MessageLayout } from '../MessageLayout';
 
 import { BLOCK_CLASS } from './constants';
-import { BannerMessageProps } from './types';
+import type { BannerMessageProps } from './types';
 
-export function BannerMessage(props: BannerMessageProps): JSX.Element | null {
+export function BannerMessage(
+  props: BannerMessageProps
+): React.JSX.Element | null {
   const messageProps = useMessageProps(props);
   const shouldBeFullWidth = useBreakpointValue([true, true, false]);
   const { shouldRenderMessage, styles } = messageProps;

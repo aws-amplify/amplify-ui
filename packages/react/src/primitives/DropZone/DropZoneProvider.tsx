@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { DragState } from './types';
+
+type DragState = 'accept' | 'reject' | 'inactive';
 
 const DropZoneContext = React.createContext<DragState>('inactive');
 
@@ -9,7 +10,7 @@ const DropZoneProvider = ({
 }: {
   value: DragState;
   children?: React.ReactNode;
-}): JSX.Element => {
+}): React.JSX.Element => {
   return (
     <DropZoneContext.Provider value={value}>
       {children}

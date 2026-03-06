@@ -36,7 +36,7 @@ body:
         - In-App Messaging
         - Liveness
         - Primitive components
-        - Storage (Storage Manager)
+        - Storage
         - Other
     validations:
       required: true

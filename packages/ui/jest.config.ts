@@ -1,4 +1,4 @@
-import { Config } from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   collectCoverage: true,
@@ -8,8 +8,6 @@ const config: Config = {
     '!<rootDir>/src/index.ts',
     // ignore internal `debugUtils` from coverage thresholds
     '!<rootDir>/**/debugUtils.ts',
-    // ignore coverage for style-dictionary type declaration file
-    '!<rootDir>/src/theme/types/style-dictionary.d.ts',
   ],
   coverageThreshold: {
     global: {

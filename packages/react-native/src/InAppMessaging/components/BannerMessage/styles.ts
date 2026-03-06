@@ -1,6 +1,6 @@
-import { ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
 
-import { GetDefaultStyle } from '../../hooks';
+import type { GetDefaultStyle } from '../../hooks';
 import {
   BORDER_RADIUS_BASE,
   COLOR_BLACK,
@@ -22,7 +22,7 @@ import {
   SPACING_MEDIUM,
   SPACING_SMALL,
 } from '../../constants';
-import { BannerMessagePositionStyle } from './types';
+import type { BannerMessagePositionStyle } from './types';
 
 export const positionStyle: BannerMessagePositionStyle = {
   bottom: {
