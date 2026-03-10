@@ -73,6 +73,8 @@
     ]
   },
   "resolutions": {
+    "@typescript-eslint/parser": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@smithy/config-resolver": "^4.4.5",
     "@react-native-community/cli": "^17.0.1",
     "**/@react-native-community/**/fast-xml-parser": "^5.3.6",
@@ -192,6 +194,10 @@
     }
   },
   "dependencies": {
+    "@eslint/compat": "^2.0.3",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9.39.4",
+    "globals": "^17.4.0",
     "minimatch": "3.1.4"
   }
 }
