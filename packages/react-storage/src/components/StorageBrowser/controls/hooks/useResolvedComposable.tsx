@@ -12,11 +12,10 @@ export function useResolvedComposable<
 ): (props: React.ComponentProps<T>) => React.JSX.Element {
   const { composables } = useComposables();
   const Composable = React.useMemo(() => {
-    const ResolvedComposable = (props: React.ComponentProps<T>) => {
+    function ResolvedComposable(props: React.ComponentProps<T>) {
       const Resolved = composables?.[name] ?? DefaultComposable;
       return <Resolved {...props} />;
-    };
-    ResolvedComposable.displayName = name;
+    }
     return ResolvedComposable;
   }, [composables, DefaultComposable, name]);
 

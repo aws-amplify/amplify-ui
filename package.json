@@ -75,6 +75,8 @@
   "resolutions": {
     "@typescript-eslint/parser": "^8.57.0",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "@smithy/config-resolver": "^4.4.5",
     "@react-native-community/cli": "^17.0.1",
     "**/@react-native-community/**/fast-xml-parser": "^5.3.6",

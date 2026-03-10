@@ -6,5 +6,5 @@ export {
   defaultActionViewConfigs,
   isDefaultActionViewType,
 } from './defaults';
-export * from './types';
+export type * from './types';
 export { getActionConfigs } from './utils';

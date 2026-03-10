@@ -14,7 +14,7 @@ export const getPaginatedLocations = ({
       if (Number(nextToken) > items.length) {
         return { items: [], nextToken: undefined };
       }
-      const start = -nextToken;
+      const start = parseInt(nextToken, 10);
       const end = start + pageSize < 0 ? start + pageSize : undefined;
 
       return {

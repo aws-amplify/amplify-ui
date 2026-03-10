@@ -18,7 +18,7 @@ export function resolveMaxFileSize(
       if (typeof result === 'number') {
         return result;
       }
-    } catch (error) {
+    } catch {
       //
     }
   }
