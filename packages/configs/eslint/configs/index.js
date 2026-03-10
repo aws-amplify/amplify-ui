@@ -21,7 +21,6 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 2,
     '@typescript-eslint/member-ordering': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-extra-semi': 'error',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/no-redundant-type-constituents': 'off',
     '@typescript-eslint/no-unused-expressions': [
