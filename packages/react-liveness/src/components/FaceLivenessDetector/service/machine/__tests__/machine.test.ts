@@ -265,6 +265,23 @@ describe('Liveness Machine', () => {
     expect(mockComponentProps.onUserCancel).toHaveBeenCalledTimes(1);
   });
 
+  it('should stop camera tracks on CANCEL when stream is active', async () => {
+    transitionToCameraCheck(service);
+    await flushPromises(); // let camera initialize so videoMediaStream is set
+
+    service.send('CANCEL');
+    await flushPromises();
+
+    expect(service.state.value).toStrictEqual({
+      initCamera: 'waitForDOMAndCameraDetails',
+    });
+    expect(mockComponentProps.onUserCancel).toHaveBeenCalledTimes(1);
+
+    // freezeStream should stop the camera tracks on cancel
+    const tracks = mockVideoMediaStream.getTracks();
+    expect(tracks[0].stop).toHaveBeenCalled();
+  });
+
   describe('cameraCheck', () => {
     it('should reach waitForDOMAndCameraDetails state on checkVirtualCameraAndGetStream success', async () => {
       transitionToCameraCheck(service);
