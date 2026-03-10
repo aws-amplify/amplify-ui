@@ -21,7 +21,7 @@
     "build:dist": "rollup --config",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build --watch",
-    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
     "typecheck": "tsc --noEmit"
   },
