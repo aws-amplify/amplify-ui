@@ -69,7 +69,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
     ? getUniqueComponentId(stableId, ERROR_SUFFIX)
     : undefined;
   const ariaDescribedBy = createSpaceSeparatedIds([errorId, descriptionId]);
-  const disabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
+  const disabled = isFieldsetDisabled ?? isDisabled;
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 

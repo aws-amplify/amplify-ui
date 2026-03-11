@@ -35,7 +35,7 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
 
   // Fieldsets that are nested within a disabled Fieldset should
   // also be disabled.
-  const shouldBeDisabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
+  const shouldBeDisabled = isFieldsetDisabled ?? isDisabled;
   const value = React.useMemo(
     () => ({
       isFieldsetDisabled: shouldBeDisabled,

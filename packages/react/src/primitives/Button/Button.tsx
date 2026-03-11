@@ -46,9 +46,8 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       : undefined;
 
   const { isFieldsetDisabled } = useFieldset();
-  const shouldBeDisabled = isFieldsetDisabled
-    ? isFieldsetDisabled
-    : isDisabled ?? isLoading ?? rest['disabled'];
+  const shouldBeDisabled =
+    isFieldsetDisabled ?? isDisabled ?? isLoading ?? rest['disabled'];
 
   const componentClasses = classNames(
     ComponentClassName.Button,

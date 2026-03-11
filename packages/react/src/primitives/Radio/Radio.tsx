@@ -43,9 +43,9 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   } = useRadioGroupContext();
   const { isFieldsetDisabled } = useFieldset();
 
-  const shouldBeDisabled = isFieldsetDisabled
-    ? isFieldsetDisabled
-    : isGroupDisabled || isDisabled || (isReadOnly && defaultValue !== value);
+  const shouldBeDisabled =
+    isFieldsetDisabled ??
+    (isGroupDisabled || isDisabled || (isReadOnly && defaultValue !== value));
 
   // for controlled component
   const checked =
@@ -55,9 +55,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   const defaultChecked =
     defaultValue !== undefined ? value === defaultValue : undefined;
 
-  const labelPosition = radioLabelPosition
-    ? radioLabelPosition
-    : groupLabelPosition;
+  const labelPosition = radioLabelPosition ?? groupLabelPosition;
   return (
     <Flex
       as="label"
