@@ -47,7 +47,7 @@ describe('PromptList', () => {
     // mocking setInput, so here we are grabbing what the mock was called with
     // (a function) and calling that function to ensure
     // this component would update the input state properly
-    const setInputCall = mockSetInput.mock.calls[0][0] as Function;
+    const setInputCall = mockSetInput.mock.calls[0][0] as typeof mockSetInput;
     const result = setInputCall({ text: 'previous text' });
     expect(result).toEqual({ text: 'Prompt 1' });
   });
