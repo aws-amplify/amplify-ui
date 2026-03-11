@@ -7,7 +7,7 @@
     "build": "next build",
     "clean": "rimraf node_modules .next",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.15.1",
