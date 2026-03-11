@@ -56,7 +56,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
           detectorModelUrl: this.faceModelUrl,
         }
       );
-    } catch (e) {
+    } catch {
       throw new Error(
         'There was an error loading the blazeface model. If you are using a custom blazeface model url ensure that it is a fully qualified url that returns a json file.'
       );
@@ -116,7 +116,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
         }
       }, []);
       this.modelBackend = 'wasm';
-    } catch (e) {
+    } catch {
       throw new Error(
         'There was an error loading the TFJS WASM backend. If you are using a custom WASM path ensure that it ends with "/" and that it is not the full URL as @tensorflow/tfjs-backend-wasm will append the wasm binary file name. Read more: https://github.com/tensorflow/tfjs/blob/master/tfjs-backend-wasm/src/backend_wasm.ts#L475.'
       );
