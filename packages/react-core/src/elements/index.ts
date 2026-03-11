@@ -6,4 +6,4 @@ export {
 export { default as withBaseElementProps } from './withBaseElementProps';
 export { ElementsProvider } from './ElementsContext';
 export { isComponent, isForwardRefExoticComponent } from './utils';
-export * from './types';
+export type * from './types';
