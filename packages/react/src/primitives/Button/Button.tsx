@@ -45,9 +45,9 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       ? `${variation ?? 'outlined'}--${colorTheme}`
       : undefined;
 
-  const { isFieldsetDisabled } = useFieldset();
-  const shouldBeDisabled =
-    isFieldsetDisabled ?? isDisabled ?? isLoading ?? rest['disabled'];
+  const { isFieldsetDisabled: shouldBeDisabled } = useFieldset(
+    isDisabled ?? isLoading ?? rest['disabled']
+  );
 
   const componentClasses = classNames(
     ComponentClassName.Button,

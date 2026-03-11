@@ -49,8 +49,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
     defaultChecked,
     isDisabled,
   });
-  const { isFieldsetDisabled } = useFieldset();
-  const shouldBeDisabled = isFieldsetDisabled ?? isDisabled;
+  const { isFieldsetDisabled: shouldBeDisabled } = useFieldset(isDisabled);
 
   const fieldId = useStableId(id);
 

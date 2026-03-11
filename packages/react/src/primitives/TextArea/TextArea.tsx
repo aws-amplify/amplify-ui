@@ -30,14 +30,14 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
     classNameModifierByFlag(ComponentClassName.Textarea, 'error', hasError),
     className
   );
-  const { isFieldsetDisabled } = useFieldset();
+  const { isFieldsetDisabled } = useFieldset(isDisabled);
 
   return (
     <View
       aria-invalid={hasError}
       as="textarea"
       className={componentClasses}
-      disabled={isFieldsetDisabled ?? isDisabled}
+      disabled={isFieldsetDisabled}
       readOnly={isReadOnly}
       ref={ref}
       required={isRequired}

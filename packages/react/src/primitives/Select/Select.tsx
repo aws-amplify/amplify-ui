@@ -49,7 +49,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     className
   );
   const icons = useIcons('select');
-  const { isFieldsetDisabled } = useFieldset();
+  const { isFieldsetDisabled } = useFieldset(isDisabled);
 
   return (
     <View className={ComponentClassName.SelectWrapper}>
@@ -63,7 +63,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
             ? DEFAULT_PLACEHOLDER_VALUE
             : defaultValue
         }
-        isDisabled={isFieldsetDisabled ?? isDisabled}
+        isDisabled={isFieldsetDisabled}
         multiple={isMultiple}
         size={selectSize}
         required={isRequired}
