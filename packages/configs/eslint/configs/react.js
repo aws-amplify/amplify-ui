@@ -25,6 +25,7 @@ module.exports = {
 
     // react hook rules
     'react-hooks/refs': 'off',
+    'react-hooks/static-components': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
   },
