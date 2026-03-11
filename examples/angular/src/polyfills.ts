@@ -45,6 +45,7 @@
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import 'zone.js'; // Included with Angular CLI.
 (window as any).Zone['__zone_symbol__ignoreConsoleErrorUncaughtError'] = true;
 

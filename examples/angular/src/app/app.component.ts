@@ -14,8 +14,8 @@ export class AppComponent {
   constructor() {
     // This exists to expose `Amplify` & its categories on `window` for e2e testing
     if (typeof window !== 'undefined') {
-      (window as any)['Amplify'] = Amplify;
-      (window as any)['Hub'] = Hub;
+      (window as Window)['Amplify'] = Amplify;
+      (window as Window)['Hub'] = Hub;
     }
   }
 }
