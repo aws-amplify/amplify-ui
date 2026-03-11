@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SetupEmailComponent renders as expected 1`] = `
 <div>
@@ -57,6 +57,7 @@ exports[`SetupEmailComponent renders as expected 1`] = `
             
             
           </div>
+          
         </amplify-form-field>
         
         

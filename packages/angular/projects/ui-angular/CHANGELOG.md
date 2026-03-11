@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 5.3.2
+
+### Patch Changes
+
+- [#6897](https://github.com/aws-amplify/amplify-ui/pull/6897) [`c311a7459f72478f91e939b49742788c2dc93711`](https://github.com/aws-amplify/amplify-ui/commit/c311a7459f72478f91e939b49742788c2dc93711) Thanks [@soberm](https://github.com/soberm)! - fix(angular): add null guard to FormFieldComponent for Angular
+
+- Updated dependencies [[`d7c34c609830395d09f078902de1c17aa5674d5f`](https://github.com/aws-amplify/amplify-ui/commit/d7c34c609830395d09f078902de1c17aa5674d5f)]:
+  - @aws-amplify/ui@6.15.2
+
 ## 5.3.1
 
 ### Patch Changes

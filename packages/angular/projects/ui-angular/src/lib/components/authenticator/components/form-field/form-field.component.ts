@@ -39,11 +39,11 @@ export class FormFieldComponent {
   }
 
   isPasswordField(): boolean {
-    return this.formField.type === 'password';
+    return this.formField?.type === 'password';
   }
 
   isPhoneField(): boolean {
-    return this.formField.type === 'tel';
+    return this.formField?.type === 'tel';
   }
 
   hasError(): boolean {

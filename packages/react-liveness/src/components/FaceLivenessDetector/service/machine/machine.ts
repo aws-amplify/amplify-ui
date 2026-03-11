@@ -489,7 +489,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         ],
       },
       userCancel: {
-        entry: ['cleanUpResources', 'callUserCancelCallback', 'resetContext'],
+        entry: [
+          'cleanUpResources',
+          'callUserCancelCallback',
+          'freezeStream',
+          'resetContext',
+        ],
         always: { target: 'initCamera' },
       },
     },

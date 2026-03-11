@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.2
+
+### Patch Changes
+
+- [#6896](https://github.com/aws-amplify/amplify-ui/pull/6896) [`e51fdca297119e0f694e6fc8e89d1e7c32915cba`](https://github.com/aws-amplify/amplify-ui/commit/e51fdca297119e0f694e6fc8e89d1e7c32915cba) Thanks [@pranavosu](https://github.com/pranavosu)! - fix(liveness): stop camera stream on user cancel
+
+- Updated dependencies [[`d7c34c609830395d09f078902de1c17aa5674d5f`](https://github.com/aws-amplify/amplify-ui/commit/d7c34c609830395d09f078902de1c17aa5674d5f)]:
+  - @aws-amplify/ui@6.15.2
+  - @aws-amplify/ui-react@6.15.2
+
 ## 3.6.1
 
 ### Patch Changes
