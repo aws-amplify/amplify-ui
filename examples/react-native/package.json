@@ -8,7 +8,7 @@
     "dev": "react-native start",
     "ios": "react-native run-ios",
     "ios:pod-install": "pod install --project-directory=./ios",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint .",
     "test": "jest"
   },
   "dependencies": {
