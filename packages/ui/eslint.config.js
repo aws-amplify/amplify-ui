@@ -7,7 +7,6 @@ const _import = require('eslint-plugin-import');
 const { fixupPluginRules } = require('@eslint/compat');
 
 const tsParser = require('@typescript-eslint/parser');
-const js = require('@eslint/js');
 
 module.exports = defineConfig([
   {
