@@ -3,10 +3,15 @@ import { render } from '@testing-library/react';
 
 import { INITIAL_STATUS_COUNTS } from '../../../../tasks';
 import { LocationData } from '../../../../actions';
+import * as Config from '../../../../configuration';
 
 import * as UseUploadViewModule from '../useUploadView';
 import { UploadViewState } from '../types';
 import { UploadView } from '../UploadView';
+
+jest.spyOn(Config, 'usePaginationConfig').mockReturnValue({
+  pageSize: 10,
+});
 
 jest.mock('../../../../displayText', () => ({
   useDisplayText: () => ({

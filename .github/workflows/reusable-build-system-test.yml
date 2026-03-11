@@ -95,7 +95,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: ${{ matrix.node-version }}
           cache: ${{ matrix.pkg-manager }}
@@ -104,7 +104,7 @@ jobs:
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v4.0.2 https://github.com/aws-actions/configure-aws-credentials/commit/e3dd6a429d7300a6a4c196c26e071d42e0343502
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}

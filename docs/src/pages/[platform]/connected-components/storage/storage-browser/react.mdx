@@ -14,6 +14,7 @@ import {
   CustomFilePreview,
   CustomUIFilePreview,
   ComponentOverride,
+  Pagination,
 } from './examples'
 
 
@@ -283,6 +284,20 @@ interface Config {
 </Example>
 
 ## Customization
+
+### Pagination
+
+Control the number of items displayed per page in file and folder listings using the `pageSize` prop. Defaults to 100 items per page.
+
+<Example>
+  <Pagination />
+  <ExampleCode>
+    ```jsx file=./examples/Pagination.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+The `pageSize` applies to the Locations, Location Detail, and Upload views. The value must be a positive integer; invalid values fall back to the default with a console warning.
 
 ### Theming
 

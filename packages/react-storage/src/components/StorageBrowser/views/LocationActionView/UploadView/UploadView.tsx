@@ -26,7 +26,10 @@ export const UploadView: UploadViewType = ({ className, ...props }) => {
   const state = useUploadView(props);
 
   return (
-    <ViewElement className={classNames(STORAGE_BROWSER_BLOCK, className)}>
+    <ViewElement
+      className={classNames(STORAGE_BROWSER_BLOCK, className)}
+      data-testid="UPLOAD_VIEW"
+    >
       <UploadViewProvider {...state}>
         <ActionExitControl />
         <TitleControl />

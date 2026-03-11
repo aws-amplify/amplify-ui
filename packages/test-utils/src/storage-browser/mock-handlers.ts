@@ -104,7 +104,7 @@ export class MockHandlers {
   };
 
   delete: DefaultHandlers['delete'] = ({ data: { key, fileKey } }) => {
-    const prefix = key.slice(0, -fileKey.length);
+    const prefix = key.slice(0, -(fileKey?.length ?? 0));
 
     this.#locationItems[prefix] = this.#locationItems[prefix].filter(
       (item) => item.key !== key
