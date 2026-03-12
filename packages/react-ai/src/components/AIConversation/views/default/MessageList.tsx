@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as React from 'react';
 import { Avatar, Placeholder, Text, View, Button } from '@aws-amplify/ui-react';
 import { MessageControl } from '../Controls/MessagesControl';
@@ -88,16 +87,6 @@ const Message = ({ message }: { message: ConversationMessage }) => {
   const variant = React.useContext(MessageVariantContext);
   const { isLoading } = message;
 
-  console.log('[AMPLIFY-AI-MESSAGE] 💬 Message component render', {
-    messageId: message.id,
-    role: message.role,
-    isLoading,
-    contentLength: message.content?.[0]?.text?.length || 0,
-    hasAvatar: !!avatars,
-    variant,
-    timestamp: new Date().toISOString()
-  });
-
   const avatar = message.role === 'assistant' ? avatars?.ai : avatars?.user;
   return (
     <RoleContext.Provider value={message.role}>
@@ -132,13 +121,6 @@ export const MessageList: Required<ControlsContextProps>['MessageList'] = ({
   messages,
 }) => {
   const isLoading = React.useContext(LoadingContext);
-  
-  console.log('[AMPLIFY-AI-MESSAGELIST] 📋 MessageList render', {
-    totalMessages: messages?.length || 0,
-    isLoading,
-    timestamp: new Date().toISOString()
-  });
-
   const messagesWithRenderableContent =
     messages?.filter((message) =>
       message.content.some(
@@ -149,25 +131,6 @@ export const MessageList: Required<ControlsContextProps>['MessageList'] = ({
           content.toolUse?.name.startsWith(RESPONSE_COMPONENT_PREFIX)
       )
     ) ?? [];
-
-  console.log('[AMPLIFY-AI-MESSAGELIST] 🔍 Filtered renderable messages', {
-    originalCount: messages?.length || 0,
-    renderableCount: messagesWithRenderableContent.length,
-    filteredOut: (messages?.length || 0) - messagesWithRenderableContent.length
-  });
-
-  // Log each message details
-  messagesWithRenderableContent.forEach((message, index) => {
-    console.log('[AMPLIFY-AI-MESSAGELIST] 💬 Message details', {
-      index,
-      messageId: message.id,
-      role: message.role,
-      contentLength: message.content?.[0]?.text?.length || 0,
-      isLoading: message.isLoading,
-      hasContent: !!message.content?.length,
-      contentPreview: message.content?.[0]?.text?.substring(0, 100) + '...'
-    });
-  });
 
   return (
     <View className={ComponentClassName.AIConversationMessageList}>

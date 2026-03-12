@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import type {
   Conversation,
@@ -86,26 +85,10 @@ export function createUseAIConversation<
 
     React.useEffect(() => {
       async function initialize() {
-        console.log('[AMPLIFY-AI-CONVERSATION] 🚀 Initialize effect started', {
-          routeName,
-          conversationId: id,
-          initRef: initRef.current,
-          timestamp: new Date().toISOString()
-        });
-
         // We don't want to run the effect multiple times
         // because that could create multiple conversation records
-        if (hasStarted(initRef.current)) {
-          console.log('[AMPLIFY-AI-CONVERSATION] ⏭️ Initialize already started, skipping', {
-            initRef: initRef.current
-          });
-          return;
-        }
+        if (hasStarted(initRef.current)) return;
         initRef.current = 'initialLoading';
-
-        console.log('[AMPLIFY-AI-CONVERSATION] 🔄 Setting loading state', {
-          hasExistingId: !!id
-        });
 
         // Only show component loading state if we are
         // actually loading messages
@@ -116,27 +99,11 @@ export function createUseAIConversation<
           });
         }
 
-        console.log('[AMPLIFY-AI-CONVERSATION] 📡 Making conversation API call', {
-          action: id ? 'get' : 'create',
-          conversationId: id
-        });
-
         const { data: conversation, errors } = id
           ? await clientRoute.get({ id })
           : await clientRoute.create();
 
-        console.log('[AMPLIFY-AI-CONVERSATION] 📡 Conversation API response', {
-          hasConversation: !!conversation,
-          hasErrors: !!errors,
-          conversationId: conversation?.id,
-          errorCount: errors?.length || 0
-        });
-
         if (errors ?? !conversation) {
-          console.error('[AMPLIFY-AI-CONVERSATION] ❌ Conversation initialization failed', {
-            errors,
-            hasConversation: !!conversation
-          });
           setClientState({
             ...ERROR_STATE,
             data: { messages: [] },
@@ -144,35 +111,20 @@ export function createUseAIConversation<
           });
         } else {
           if (id) {
-            console.log('[AMPLIFY-AI-CONVERSATION] 📚 Loading existing messages', {
-              conversationId: conversation.id
-            });
             const { data: messages } = await exhaustivelyListMessages({
               conversation,
-            });
-            console.log('[AMPLIFY-AI-CONVERSATION] 📚 Messages loaded', {
-              messageCount: messages.length,
-              conversationId: conversation.id
             });
             setClientState({
               ...INITIAL_STATE,
               data: { messages, conversation },
             });
           } else {
-            console.log('[AMPLIFY-AI-CONVERSATION] 🆕 New conversation created', {
-              conversationId: conversation.id
-            });
             setClientState({
               ...INITIAL_STATE,
               data: { conversation, messages: [] },
             });
           }
           initRef.current = 'initialized';
-          
-          console.log('[AMPLIFY-AI-CONVERSATION] ✅ Initialize completed successfully', {
-            conversationId: conversation.id,
-            messageCount: id ? 'loaded from existing' : 0
-          });
         }
       }
 
@@ -186,11 +138,6 @@ export function createUseAIConversation<
           errorInfo: null,
           errorType: '',
         };
-
-        console.error('[AMPLIFY-AI-CONVERSATION] ❌ Route validation failed', {
-          routeName,
-          error: error.message
-        });
 
         setClientState({
           ...ERROR_STATE,
@@ -221,18 +168,6 @@ export function createUseAIConversation<
 
       const subscription = conversation.onStreamEvent({
         next: (event) => {
-          console.log('[AMPLIFY-AI-STREAM] 📨 Stream event received', {
-            eventType: event.contentBlockDoneAtIndex ? 'contentBlockDone' : 
-                      event.stopReason ? 'stopReason' : 'contentDelta',
-            contentBlockIndex: event.contentBlockIndex,
-            contentBlockDeltaIndex: event.contentBlockDeltaIndex,
-            contentBlockDoneAtIndex: event.contentBlockDoneAtIndex,
-            stopReason: event.stopReason,
-            conversationId: event.conversationId,
-            messageId: event.id,
-            timestamp: new Date().toISOString()
-          });
-
           const {
             // messages have a content block array,
             // this is the index of the content block that was updated
@@ -251,40 +186,21 @@ export function createUseAIConversation<
           // return early for content blocks being done
           // or conversation turn being over
           if (contentBlockDoneAtIndex) {
-            console.log('[AMPLIFY-AI-STREAM] ✅ Content block completed', {
-              contentBlockIndex,
-              contentBlockDoneAtIndex,
-              conversationId
-            });
             return;
           }
 
           // stop reason will signify end of conversation turn
           if (stopReason) {
-            console.log('[AMPLIFY-AI-STREAM] 🛑 Stream completed', {
-              stopReason,
-              conversationId,
-              messageId: id,
-              totalContentBlocks: contentBlocksRef.current?.length || 0
-            });
-
             // remove loading state from streamed message
             setClientState((prev) => {
-              const updatedMessages = prev.data.messages.map((message) => ({
-                ...message,
-                isLoading: false,
-              }));
-              
-              console.log('[AMPLIFY-AI-STREAM] 🔄 Removing loading state', {
-                messageCount: updatedMessages.length,
-                conversationId
-              });
-
               return {
                 ...prev,
                 data: {
                   ...prev.data,
-                  messages: updatedMessages,
+                  messages: prev.data.messages.map((message) => ({
+                    ...message,
+                    isLoading: false,
+                  })),
                 },
               };
             });
@@ -298,7 +214,6 @@ export function createUseAIConversation<
             });
             // clear out the stream cache
             contentBlocksRef.current = undefined;
-            console.log('[AMPLIFY-AI-STREAM] 🧹 Stream cache cleared');
             return;
           }
 
@@ -306,11 +221,6 @@ export function createUseAIConversation<
           // so lets create the contentBlocks ref or else we will
           // add the incoming event to the right content content block
           if (!contentBlocksRef.current) {
-            console.log('[AMPLIFY-AI-STREAM] 🆕 First stream event, initializing content blocks', {
-              contentBlockIndex,
-              contentBlockDeltaIndex,
-              conversationId
-            });
             contentBlocksRef.current = [[event]];
           } else {
             // place the incoming event in the right content block
@@ -319,28 +229,12 @@ export function createUseAIConversation<
             // can have multiple events/chunks
             const currentBlock = contentBlocksRef.current[contentBlockIndex];
             if (!currentBlock) {
-              console.log('[AMPLIFY-AI-STREAM] 📝 Creating new content block', {
-                contentBlockIndex,
-                contentBlockDeltaIndex,
-                totalBlocks: contentBlocksRef.current.length
-              });
               contentBlocksRef.current[contentBlockIndex] = [event];
             } else {
               // Direct index assignment: idempotent, handles out-of-order and duplicates
               if (contentBlockDeltaIndex !== undefined) {
-                console.log('[AMPLIFY-AI-STREAM] 📝 Adding content delta to existing block', {
-                  contentBlockIndex,
-                  contentBlockDeltaIndex,
-                  blockSize: currentBlock.length,
-                  eventText: event.text?.substring(0, 50) + '...'
-                });
                 currentBlock[contentBlockDeltaIndex] = event;
               } else {
-                console.log('[AMPLIFY-AI-STREAM] 📝 Pushing content to existing block', {
-                  contentBlockIndex,
-                  blockSize: currentBlock.length,
-                  eventText: event.text?.substring(0, 50) + '...'
-                });
                 currentBlock.push(event);
               }
             }
@@ -355,14 +249,6 @@ export function createUseAIConversation<
               role: 'assistant',
               isLoading: true,
             };
-
-            console.log('[AMPLIFY-AI-STREAM] 🔄 Updating message state', {
-              messageId: id,
-              contentLength: message.content?.[0]?.text?.length || 0,
-              contentPreview: message.content?.[0]?.text?.substring(0, 100) + '...',
-              totalContentBlocks: contentBlocksRef.current?.length || 0,
-              conversationId
-            });
 
             // Match by message ID instead of assuming last message
             const existingIndex = prev.data.messages.findIndex(
@@ -412,21 +298,8 @@ export function createUseAIConversation<
 
     const handleSendMessage = React.useCallback(
       (input: SendMesageParameters) => {
-        console.log('[AMPLIFY-AI-SEND] 🚀 Send message initiated', {
-          hasConversation: !!conversation,
-          conversationId: conversation?.id,
-          contentLength: input.content?.[0]?.text?.length || 0,
-          contentPreview: input.content?.[0]?.text?.substring(0, 100) + '...',
-          timestamp: new Date().toISOString()
-        });
-
         const { content } = input;
         if (conversation) {
-          console.log('[AMPLIFY-AI-SEND] 📝 Adding optimistic messages to state', {
-            conversationId: conversation.id,
-            currentMessageCount: clientState.data.messages.length
-          });
-
           setClientState((prevState) => ({
             ...prevState,
             data: {
@@ -452,11 +325,6 @@ export function createUseAIConversation<
               ],
             },
           }));
-
-          console.log('[AMPLIFY-AI-SEND] 📡 Calling conversation.sendMessage', {
-            conversationId: conversation.id
-          });
-
           conversation.sendMessage(input);
         } else {
           const error = {
@@ -464,11 +332,6 @@ export function createUseAIConversation<
             errorInfo: null,
             errorType: '',
           };
-
-          console.error('[AMPLIFY-AI-SEND] ❌ Send message failed - no conversation', {
-            error: error.message
-          });
-
           setClientState((prev) => ({
             ...prev,
             ...ERROR_STATE,
