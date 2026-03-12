@@ -28,6 +28,7 @@ module.exports = defineConfig([
   globalIgnores([
     '**/eslint.config.js',
     '**/.lintstagedrc.js',
+    '**/rollup.config.mjs',
     '**/coverage',
     '**/dist',
     '**/node_modules',

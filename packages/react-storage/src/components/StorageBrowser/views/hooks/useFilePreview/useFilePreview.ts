@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useEffect, useState } from 'react';
 import type { FileData } from '../../../actions';
 
 import { determineFileType } from '../../utils/files/fileType';
@@ -107,7 +107,9 @@ export function useFilePreview({
     activeFile,
   ]);
 
-  getFilePreview();
+  useEffect(() => {
+    getFilePreview();
+  }, [getFilePreview, activeFile]);
 
   return useMemo(() => {
     if (filePreviewContext === false || !enabled) {

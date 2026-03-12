@@ -38,7 +38,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-storage\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "yarn typecheck && eslint --concurrency auto .",
+    "lint": "yarn typecheck && eslint .",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
