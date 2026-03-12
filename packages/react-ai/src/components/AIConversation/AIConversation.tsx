@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as React from 'react';
 
 import { Flex, ScrollView } from '@aws-amplify/ui-react';
@@ -35,6 +36,13 @@ function AIConversationBase({
   messages,
   ...rest
 }: AIConversationBaseProps): React.JSX.Element {
+  console.log('[AMPLIFY-AI-COMPONENT] 🎨 AIConversation render', {
+    messageCount: messages?.length || 0,
+    hasAvatars: !!avatars,
+    hasControls: !!controls,
+    timestamp: new Date().toISOString()
+  });
+
   useSetUserAgent({
     componentName: 'AIConversation',
     packageName: 'react-ai',
@@ -61,6 +69,11 @@ function AIConversationBase({
   };
 
   const scrollProps = useConversationScrollProps(messages);
+
+  console.log('[AMPLIFY-AI-COMPONENT] 📜 Scroll props calculated', {
+    hasScrollProps: !!scrollProps,
+    messageCount: messages?.length || 0
+  });
 
   return (
     <AIConversationProvider {...providerProps}>
