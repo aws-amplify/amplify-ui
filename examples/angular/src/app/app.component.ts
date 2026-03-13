@@ -14,7 +14,9 @@ export class AppComponent {
   constructor() {
     // This exists to expose `Amplify` & its categories on `window` for e2e testing
     if (typeof window !== 'undefined') {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       (window as any)['Amplify'] = Amplify;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       (window as any)['Hub'] = Hub;
     }
   }

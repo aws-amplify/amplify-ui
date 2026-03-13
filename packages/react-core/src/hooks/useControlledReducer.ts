@@ -38,9 +38,7 @@ export default function useControlledReducer<
     }
   }, [hasUncontrolledStateChanged, onStateChange, uncontrolledState]);
 
-  const state = controlledStateRef.current
-    ? controlledStateRef.current
-    : uncontrolledState;
+  const state = controlledStateRef.current ?? uncontrolledState;
 
   return React.useMemo(() => [state, dispatch], [state]);
 }

@@ -28,7 +28,7 @@ describe('validateStoreProps', () => {
     // use `jest.isolateModules` to reset module state between tests
     jest.isolateModules(() => {
       // disable the below linting rules as they do not play well with `require` statements
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-require-imports
       validateStoreProps = require('../validateStoreProps').default;
     });
   });

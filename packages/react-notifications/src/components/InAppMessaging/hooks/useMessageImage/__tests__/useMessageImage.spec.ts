@@ -4,8 +4,8 @@ import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import useMessageImage from '../useMessageImage';
 
 type ImageConstructor = new (
-  width?: number | undefined,
-  height?: number | undefined
+  width?: number,
+  height?: number
 ) => HTMLImageElement;
 
 // use empty mockImplementation to turn off console output

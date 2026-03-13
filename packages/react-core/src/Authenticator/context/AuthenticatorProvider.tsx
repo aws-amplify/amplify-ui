@@ -53,7 +53,7 @@ export default function AuthenticatorProvider({
   const service = useInterpret(createAuthenticatorMachine);
 
   const value = useMemo(
-    () => (!parentProviderVal ? { authStatus, service } : parentProviderVal),
+    () => parentProviderVal ?? { authStatus, service },
     [authStatus, parentProviderVal, service]
   );
 

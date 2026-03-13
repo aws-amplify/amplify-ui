@@ -44,11 +44,9 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
         Developers may include children content for Message.Dismiss, in which case
         we should not show our accessibly hidden label.
       */}
-      {children ? (
-        children
-      ) : (
+      {children ?? (
         <VisuallyHidden>
-          {dismissLabel ? dismissLabel : ComponentText.Message.dismissLabel}
+          {dismissLabel ?? ComponentText.Message.dismissLabel}
         </VisuallyHidden>
       )}
     </Button>

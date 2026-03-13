@@ -204,7 +204,7 @@ export class AuthenticatorService implements OnDestroy {
     try {
       await getCurrentUser();
       this._authStatus = 'authenticated';
-    } catch (e) {
+    } catch {
       this._authStatus = 'unauthenticated';
     }
   }

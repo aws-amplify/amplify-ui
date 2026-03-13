@@ -3,7 +3,12 @@ declare module 'style-dictionary/lib/utils/deepExtend' {
   // https://github.com/amzn/style-dictionary/blob/main/lib/utils/deepExtend.js#L18-L22
   export default function deepExtend(
     objects: (object | undefined)[],
-    collision?: Function,
+    collision?: (opts: {
+      target: object;
+      copy: object;
+      path: string[];
+      key: string;
+    }) => void,
     path?: string[]
   ): object;
 }

@@ -9,7 +9,7 @@
     "build": "ng build --configuration production",
     "clean": "rimraf dist node_modules",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "eslint .",
     "e2e": "ng e2e"
   },
   "dependencies": {
@@ -37,7 +37,6 @@
     "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "7.11.0",
     "@typescript-eslint/parser": "7.11.0",
-    "eslint": "8.57.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.16",

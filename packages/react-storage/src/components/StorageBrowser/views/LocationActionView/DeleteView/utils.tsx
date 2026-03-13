@@ -127,7 +127,7 @@ export const countFilesInFolder = async (
     }
 
     return fileCount;
-  } catch (error) {
+  } catch {
     return 0;
   }
 };

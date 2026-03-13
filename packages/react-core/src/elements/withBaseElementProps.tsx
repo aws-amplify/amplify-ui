@@ -1,6 +1,7 @@
 import React from 'react';
 import type { BaseElementWithRef, ElementRefType } from './types';
 
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /**
  * @internal @unstable
  *
@@ -16,13 +17,13 @@ import type { BaseElementWithRef, ElementRefType } from './types';
  * type InputElementPropKey = 'onChange' | 'type';
  *
  * // create `InputElement` base with `type` generic and extended `props` key
- * export const InputElement = defineBaseElementWithRef<"input", InputElementPropKey>({
+ * export const InputElement = withBaseElementProps<"input", InputElementPropKey>({
  *   type: "input",
  *   displayName: "Input",
  * });
  *
  * // extend base `InputElement` with default input `type` of `checkbox`
- * const CheckboxElement = withBaseElementProps(Input, {
+ * const CheckboxElement = withBaseElementProps(InputElement, {
  *   className: 'submit-toggle__checkbox',
  *   type: 'checkbox',
  * });

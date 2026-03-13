@@ -33,7 +33,7 @@ export const getBucketRegion = (
     }
 
     return fallbackRegion;
-  } catch (error) {
+  } catch {
     return fallbackRegion;
   }
 };
