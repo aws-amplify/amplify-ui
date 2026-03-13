@@ -26,7 +26,6 @@
   },
   "files": [
     "dist",
-    "patches",
     "LICENSE"
   ],
   "scripts": {
@@ -36,7 +35,7 @@
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint .",
-    "prebuild": "rimraf dist && patch-package",
+    "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
     "test:watch": "yarn test --watch",
@@ -76,7 +75,6 @@
     "jest-websocket-mock": "^2.4.1",
     "jest-when": "^3.5.1",
     "mock-socket": "^9.2.1",
-    "patch-package": "~8.0.1",
     "web-streams-polyfill": "^3.2.1"
   },
   "size-limit": [

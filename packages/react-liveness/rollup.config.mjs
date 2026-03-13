@@ -31,7 +31,7 @@ const config = defineConfig([
       commonjs(),
       externals({
         include: /^@aws-amplify/,
-        exclude: ['@tensorflow-models/face-detection', '@mediapipe/face_detection'],
+        exclude: ['@tensorflow-models/face-detection'],
       }),
       resolve(),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
@@ -51,7 +51,7 @@ const config = defineConfig([
       commonjs(),
       externals({
         include: /^@aws-amplify/,
-        exclude: ['@tensorflow-models/face-detection', '@mediapipe/face_detection'],
+        exclude: ['@tensorflow-models/face-detection'],
       }),
       resolve(),
       typescript({
