@@ -142,22 +142,6 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
-      - name: Restore ui/dist cache
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
-        id: restore-ui-cache
-        with:
-          path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ inputs.commit }}
-
-      - name: Restore ${{ matrix.package }}/dist cache
-        id: restore-package-cache
-        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0 https://github.com/actions/cache/commit/1bd1e32a3bdc45362d1e726936510720a7c30a57
-        with:
-          path: ./packages/${{ matrix.package }}/dist
-          key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
@@ -165,7 +149,6 @@ jobs:
           skip-cypress-binary: false
 
       - name: Build @aws-amplify/ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
       - name: Build react-core package
@@ -177,7 +160,6 @@ jobs:
         run: yarn react-core-notifications build
 
       - name: Build ${{ matrix.package }} package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
 
       - name: Build react-notifications package
