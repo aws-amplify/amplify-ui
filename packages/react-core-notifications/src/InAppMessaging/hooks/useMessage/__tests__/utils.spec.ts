@@ -60,7 +60,7 @@ describe('getContentProps', () => {
       ...baseContent,
       primaryButton: {
         title: primaryButton.title,
-        onAction: expect.any(Function) as Function,
+        onAction: expect.any(Function),
       },
     });
   });
@@ -75,7 +75,7 @@ describe('getContentProps', () => {
       ...baseContent,
       secondaryButton: {
         title: secondaryButton.title,
-        onAction: expect.any(Function) as Function,
+        onAction: expect.any(Function),
       },
     });
   });

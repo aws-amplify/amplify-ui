@@ -24,6 +24,10 @@ module.exports = {
     'react/static-property-placement': ['error', 'static public field'],
 
     // react hook rules
+    'react-hooks/refs': 'off',
+    'react-hooks/immutability': 'off',
+    'react-hooks/static-components': 'off',
+    'react-hooks/set-state-in-effect': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
   },

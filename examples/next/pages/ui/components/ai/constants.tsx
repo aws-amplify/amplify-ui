@@ -23,7 +23,7 @@ export const ACTIONS = [
         height="20px"
       />
     ),
-    // eslint-disable-next-line no-console -- This is a mock handler
+
     handler: () => console.log('Heart clicked'),
   },
   {
@@ -35,7 +35,7 @@ export const ACTIONS = [
         height="20px"
       />
     ),
-    // eslint-disable-next-line no-console -- This is a mock handler
+
     handler: () => console.log('Star clicked'),
   },
 ];
@@ -169,7 +169,9 @@ export const AVATARS = {
   ai: {
     username: 'Raven',
     avatar: (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
+        alt="Avatar of the user Raven"
         src={convertBufferToBase64(
           new Uint8Array([
             137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0,

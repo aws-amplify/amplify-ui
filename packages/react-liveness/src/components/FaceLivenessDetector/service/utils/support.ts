@@ -7,7 +7,7 @@ export function isWebAssemblySupported(): boolean {
       !!window.WebAssembly &&
       (!!window.WebAssembly.compile || !!window.WebAssembly.compileStreaming)
     );
-  } catch (e) {
+  } catch {
     return false;
   }
 }

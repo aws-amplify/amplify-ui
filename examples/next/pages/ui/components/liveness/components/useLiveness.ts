@@ -16,10 +16,6 @@ export function useLiveness(challengeType: string) {
   const [isLivenessActive, setLivenessActive] = useState(false);
   const [getLivenessResponse, setGetLivenessResponse] = useState(null);
 
-  useEffect(() => {
-    mutate();
-  }, [challengeType]);
-
   const {
     data: createLivenessSessionApiData,
     error: createLivenessSessionApiError,
@@ -43,6 +39,10 @@ export function useLiveness(challengeType: string) {
       revalidateOnFocus: false,
     }
   );
+
+  useEffect(() => {
+    mutate();
+  }, [challengeType, mutate]);
 
   const handleCreateLivenessSession = () => {
     setLivenessActive(true);

@@ -27,10 +27,10 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
   },
   ref
 ) => {
-  const minX = viewBox.minX ? viewBox.minX : defaultViewBox.minX;
-  const minY = viewBox.minY ? viewBox.minY : defaultViewBox.minY;
-  const width = viewBox.width ? viewBox.width : defaultViewBox.width;
-  const height = viewBox.height ? viewBox.height : defaultViewBox.height;
+  const minX = viewBox.minX ?? defaultViewBox.minX;
+  const minY = viewBox.minY ?? defaultViewBox.minY;
+  const width = viewBox.width ?? defaultViewBox.width;
+  const height = viewBox.height ?? defaultViewBox.height;
 
   // An icon can be drawn in 3 ways:
   // 1. Pass it children which should be valid SVG elements

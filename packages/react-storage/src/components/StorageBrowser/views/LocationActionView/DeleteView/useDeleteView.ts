@@ -77,7 +77,7 @@ export const useDeleteView = (
           try {
             const totalCount = await countFilesInFolder(folder.key, config);
             folderCountsRef.current.set(folder.id, totalCount);
-          } catch (error) {
+          } catch {
             folderCountsRef.current.set(folder.id, null);
           }
         })

@@ -283,7 +283,6 @@ export type OutputVariantKey = 'default' | 'optional' | 'required' | unknown;
  * Return interface with all types optional for custom theme input
  */
 // see https://github.com/typescript-eslint/typescript-eslint/issues/9811
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type OptionalDesignTokenProperties<Keys extends Property> = Partial<{
   [Key in Keys]?: DesignToken<TokenProperties[Key]>;
 }>;
@@ -292,7 +291,6 @@ type OptionalDesignTokenProperties<Keys extends Property> = Partial<{
  * Return interface with all types required for strict theme output
  */
 // see https://github.com/typescript-eslint/typescript-eslint/issues/9811
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type RequiredDesignTokenProperties<Keys extends TokenProperty> = {
   [Key in Keys]: WebDesignToken<TokenProperties[Key]>;
 };
@@ -301,7 +299,6 @@ type RequiredDesignTokenProperties<Keys extends TokenProperty> = {
  * Return interface with all types required for strict theme output
  */
 // see https://github.com/typescript-eslint/typescript-eslint/issues/9811
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type DefaultDesignTokenProperties<Keys extends TokenProperty> = Required<{
   [Key in Keys]: DesignToken<TokenProperties[Key]>;
 }>;

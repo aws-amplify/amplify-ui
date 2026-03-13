@@ -124,7 +124,8 @@ function MyFullyCustomPreviewer(props: {
   function getDefaultRenderer(type?: any) {
     switch (type) {
       case 'image':
-        return <img src={filePreview.url} />;
+        // eslint-disable-next-line @next/next/no-img-element
+        return <img alt="Preview of the image" src={filePreview.url} />;
 
       case 'video':
         return <video src={filePreview.url} />;
