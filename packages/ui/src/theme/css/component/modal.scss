@@ -1,0 +1,81 @@
+/* Modal component with highest specificity to override global resets */
+.amplify-modal__overlay.amplify-modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.amplify-modal__content.amplify-modal__content {
+  background-color: var(--amplify-colors-background-primary);
+  padding: var(--amplify-space-large);
+  border-radius: var(--amplify-radii-medium);
+  box-shadow: var(--amplify-shadows-large);
+  max-width: 500px;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.amplify-modal__header.amplify-modal__header {
+  margin-bottom: var(--amplify-space-medium);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amplify-modal__title.amplify-modal__title {
+  font-weight: var(--amplify-font-weights-bold);
+  font-size: var(--amplify-font-sizes-large);
+  margin: 0;
+}
+
+.amplify-modal__close-button.amplify-modal__close-button {
+  background: none;
+  border: none;
+  font-size: var(--amplify-font-sizes-large);
+  cursor: pointer;
+  padding: var(--amplify-space-xs);
+  color: var(--amplify-colors-font-secondary);
+}
+
+.amplify-modal__close-button.amplify-modal__close-button:hover {
+  color: var(--amplify-colors-font-primary);
+}
+
+.amplify-modal__body.amplify-modal__body {
+  margin-bottom: var(--amplify-space-medium);
+  color: var(--amplify-colors-font-primary);
+}
+
+.amplify-modal__footer.amplify-modal__footer {
+  display: flex;
+  gap: var(--amplify-space-xs);
+  justify-content: flex-end;
+}
+
+.amplify-modal__list-title.amplify-modal__list-title {
+  margin-bottom: var(--amplify-space-xs);
+  font-weight: var(--amplify-font-weights-bold);
+  box-sizing: border-box;
+}
+
+.amplify-modal__list.amplify-modal__list {
+  margin: var(--amplify-space-xs) 0;
+  padding-left: var(--amplify-space-medium);
+  max-height: 250px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  list-style: disc;
+}
+
+.amplify-modal__list-item.amplify-modal__list-item {
+  margin-bottom: var(--amplify-space-xxs);
+  box-sizing: border-box;
+}

@@ -18,14 +18,8 @@ jobs:
         framework-version:
           [
             { formatted: latest, value: latest },
-            { formatted: 078, value: 0.78 },
-            { formatted: 077, value: 0.77 },
-            { formatted: 076, value: 0.76 },
-            { formatted: 075, value: 0.75 },
-            { formatted: 074, value: 0.74 },
-            { formatted: 073, value: 0.73 },
-            { formatted: 072, value: 0.72 },
-            { formatted: 071, value: 0.71 },
+            { formatted: 083, value: 0.83.2 },
+            { formatted: 082, value: 0.82.1 },
           ]
         build-tool: [cli, expo]
         build-tool-version: [latest]
@@ -35,77 +29,6 @@ jobs:
         # platform: [ios, android]
         platform: [android]
         logfile: [test.log]
-        exclude:
-          - build-tool: expo
-            platform: ios
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '078', value: '0.78' }
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '077', value: '0.77' }
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '076', value: '0.76' }
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '075', value: '0.75' }
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '074', value: '0.74' }
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '073', value: '0.73' }
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '072', value: '0.72' }
-          - build-tool: expo
-            platform: android
-            framework-version: { formatted: '071', value: '0.71' }
-        include:
-          # Expo makes you specify a version of the SDK that supports a specific version of React Native
-          # https://stackoverflow.com/questions/63463373/create-an-expo-project-with-a-specific-version
-          # Only include officially supported Expo SDK versions: https://docs.expo.dev/versions/latest/
-          - framework: react-native
-            framework-version: { formatted: 077, value: '0.77' }
-            build-tool: expo
-            build-tool-version: 52
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 076, value: '0.76' }
-            build-tool: expo
-            build-tool-version: 52
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 075, value: '0.75' }
-            build-tool: expo
-            build-tool-version: 51
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 074, value: '0.74' }
-            build-tool: expo
-            build-tool-version: 51
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
-          - framework: react-native
-            framework-version: { formatted: 073, value: '0.73' }
-            build-tool: expo
-            build-tool-version: 50
-            platform: android
-            pkg-manager: npm
-            node-version: 20
-            logfile: test.log
 
     env:
       MEGA_APP_NAME: rn${{ matrix.framework-version.formatted }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.platform }}ui${{ inputs.dist-tag }}
@@ -117,7 +40,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v4.0.2 https://github.com/actions/setup-node/commit/60edb5dd545a775178f52524783378180af0d1f8
         with:
           node-version: ${{ matrix.node-version }}
           cache: ${{ matrix.pkg-manager }}

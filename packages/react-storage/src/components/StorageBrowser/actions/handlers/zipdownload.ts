@@ -89,16 +89,14 @@ const zipper: MyZipper = (() => {
   const dataMap = new Map<string, DownloadHandlerData>();
   return {
     addFile: (file, name, data) => {
-      if (!zip) {
-        zip = new JSZip();
-      }
+      zip ??= new JSZip();
       dataMap.set(name, data);
       return new Promise((ok, no) => {
         try {
           zip?.file(name, file);
           ok();
-        } catch (e) {
-          no();
+        } catch (error) {
+          no(error as Error);
         }
       });
     },

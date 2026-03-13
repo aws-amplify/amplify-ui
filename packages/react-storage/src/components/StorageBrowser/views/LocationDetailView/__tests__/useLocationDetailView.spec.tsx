@@ -9,7 +9,7 @@ import {
 } from '../../../actions';
 
 import { useFileItems } from '../../../fileItems';
-import { useLocationItems } from '../../../locationItems';
+import { useLocationItems } from '../../../locationItems/context';
 import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 import { useFilePreview } from '../../hooks/useFilePreview';
@@ -18,13 +18,21 @@ import {
   DEFAULT_LIST_OPTIONS,
   useLocationDetailView,
 } from '../useLocationDetailView';
+import { InitialValues } from '../types';
 
 jest.mock('../../../actions/handlers');
 jest.mock('../../../fileItems');
-jest.mock('../../../locationItems');
+jest.mock('../../../locationItems/context');
 jest.mock('../../../store');
 jest.mock('../../../useAction');
 jest.mock('../../hooks/useFilePreview');
+jest.mock('../../../configuration', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  ...(jest.requireActual('../../../configuration') as object),
+  usePaginationConfig: jest.fn((initialValues: InitialValues) => ({
+    pageSize: initialValues?.pageSize ?? 100,
+  })),
+}));
 
 const folderDataOne: FolderData = {
   id: '1',
@@ -153,7 +161,7 @@ describe('useLocationDetailView', () => {
   afterEach(jest.clearAllMocks);
 
   it('should fetch and set location data on mount', () => {
-    const initialState = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const initialState = { pageSize: EXPECTED_PAGE_SIZE };
     const { result } = renderHook(() => useLocationDetailView(initialState));
 
     // fetches data
@@ -180,7 +188,7 @@ describe('useLocationDetailView', () => {
 
     renderHook(() =>
       useLocationDetailView({
-        initialValues: { pageSize: EXPECTED_PAGE_SIZE },
+        pageSize: EXPECTED_PAGE_SIZE,
       })
     );
 
@@ -201,7 +209,7 @@ describe('useLocationDetailView', () => {
       mockHandleList,
     ]);
 
-    const initialValues = { initialValues: { pageSize: EXPECTED_PAGE_SIZE } };
+    const initialValues = { pageSize: EXPECTED_PAGE_SIZE };
     const { result, rerender } = renderHook(() =>
       useLocationDetailView(initialValues)
     );
@@ -394,7 +402,7 @@ describe('useLocationDetailView', () => {
     });
   });
 
-  it('should set all file items as selected', () => {
+  it('should set all items as selected', () => {
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
 
     mockUseLocationItems.mockReturnValue([
@@ -421,11 +429,11 @@ describe('useLocationDetailView', () => {
 
     expect(mockLocationItemsDispatch).toHaveBeenCalledWith({
       type: 'SET_LOCATION_ITEMS',
-      items: [fileDataOne, fileDataTwo],
+      items: [folderDataOne, fileDataOne, fileDataTwo],
     });
   });
 
-  it('should set all file items as unselected', () => {
+  it('should set all items as unselected', () => {
     const mockDataState = {
       value: {
         items: [folderDataOne, fileDataOne, fileDataTwo],
@@ -448,7 +456,7 @@ describe('useLocationDetailView', () => {
 
     mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
     mockUseLocationItems.mockReturnValue([
-      { fileDataItems: [fileDataItemOne, fileDataItemTwo] },
+      { dataItems: [folderDataOne, fileDataItemOne, fileDataItemTwo] },
       mockLocationItemsDispatch,
     ]);
     mockUseList.mockReturnValue([mockDataState, jest.fn()]);

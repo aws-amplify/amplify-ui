@@ -28,7 +28,7 @@ describe('validateStoreProps', () => {
     // use `jest.isolateModules` to reset module state between tests
     jest.isolateModules(() => {
       // disable the below linting rules as they do not play well with `require` statements
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-require-imports
       validateStoreProps = require('../validateStoreProps').default;
     });
   });
@@ -156,6 +156,32 @@ describe('validateStoreProps', () => {
       '`location`',
       DEPRECATED_SUFFIX
     );
+  });
+
+  it('does not log missing parameters error when prefix is empty string', () => {
+    const locationWithEmptyPrefix = {
+      ...location,
+      prefix: '', // Empty string should be valid for bucket root access
+    };
+
+    validateStoreProps({
+      value: { location: locationWithEmptyPrefix },
+      onValueChange: jest.fn(),
+    });
+
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it('logs missing parameters error when prefix is undefined', () => {
+    validateStoreProps({
+      // @ts-expect-error force invalid location
+      value: { location: { ...location, prefix: undefined } },
+      onValueChange: jest.fn(),
+    });
+
+    const expected = [MISSING_REQUIRED, '`prefix`'];
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(...expected);
   });
 
   it('logs the expected message on change between controlled and uncontrolled mode once', () => {

@@ -1,5 +1,57 @@
 # @aws-amplify/ui-react-storage
 
+## 3.17.1
+
+### Patch Changes
+
+- Updated dependencies [[`d7c34c609830395d09f078902de1c17aa5674d5f`](https://github.com/aws-amplify/amplify-ui/commit/d7c34c609830395d09f078902de1c17aa5674d5f)]:
+  - @aws-amplify/ui@6.15.2
+  - @aws-amplify/ui-react@6.15.2
+  - @aws-amplify/ui-react-core@3.6.2
+
+## 3.17.0
+
+### Minor Changes
+
+- [#6790](https://github.com/aws-amplify/amplify-ui/pull/6790) [`4c3f8259533c1d448a3ee090960c9f6d972a4b10`](https://github.com/aws-amplify/amplify-ui/commit/4c3f8259533c1d448a3ee090960c9f6d972a4b10) Thanks [@ahmedhamouda78](https://github.com/ahmedhamouda78)! - added support for custom page size via a new pageSize prop
+
+### Patch Changes
+
+- Updated dependencies [[`8b2d38cd9da29d159c26070299b4ac4b97419b82`](https://github.com/aws-amplify/amplify-ui/commit/8b2d38cd9da29d159c26070299b4ac4b97419b82)]:
+  - @aws-amplify/ui@6.15.1
+  - @aws-amplify/ui-react@6.15.1
+  - @aws-amplify/ui-react-core@3.6.1
+
+## 3.16.0
+
+### Minor Changes
+
+- [#6834](https://github.com/aws-amplify/amplify-ui/pull/6834) [`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): Folder deletion.
+
+### Patch Changes
+
+- [#6845](https://github.com/aws-amplify/amplify-ui/pull/6845) [`a003cb5507d973834e83f5bd908ebcfb78eff1b8`](https://github.com/aws-amplify/amplify-ui/commit/a003cb5507d973834e83f5bd908ebcfb78eff1b8) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(react-storage): handle empty string prefix in controlled mode
+
+- Updated dependencies [[`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9)]:
+  - @aws-amplify/ui-react-core@3.6.0
+  - @aws-amplify/ui-react@6.15.0
+  - @aws-amplify/ui@6.15.0
+
+## 3.15.0
+
+### Minor Changes
+
+- [#6746](https://github.com/aws-amplify/amplify-ui/pull/6746) [`e45b1fe43edf3e61606ce2e4c8abf2c37973268a`](https://github.com/aws-amplify/amplify-ui/commit/e45b1fe43edf3e61606ce2e4c8abf2c37973268a) Thanks [@bobbor](https://github.com/bobbor)! - feat(storage-manager): add multi-file zipdownload
+
+- [#6775](https://github.com/aws-amplify/amplify-ui/pull/6775) [`b55d7114c4361bcbf9698308e68854c6cfae1f1f`](https://github.com/aws-amplify/amplify-ui/commit/b55d7114c4361bcbf9698308e68854c6cfae1f1f) Thanks [@Simone319](https://github.com/Simone319)! - deduplicate storage browser locations which have broader permissions
+
+### Patch Changes
+
+- Updated dependencies [[`25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7`](https://github.com/aws-amplify/amplify-ui/commit/25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7), [`167714536a6dbe43f918b5c8f3a46afb6f9c66fb`](https://github.com/aws-amplify/amplify-ui/commit/167714536a6dbe43f918b5c8f3a46afb6f9c66fb)]:
+  - @aws-amplify/ui@6.14.0
+  - @aws-amplify/ui-react-core@3.5.0
+  - @aws-amplify/ui-react@6.14.0
+
 ## 3.14.0
 
 ### Minor Changes

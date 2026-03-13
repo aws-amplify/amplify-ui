@@ -1,5 +1,45 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.2
+
+### Patch Changes
+
+- [#6896](https://github.com/aws-amplify/amplify-ui/pull/6896) [`e51fdca297119e0f694e6fc8e89d1e7c32915cba`](https://github.com/aws-amplify/amplify-ui/commit/e51fdca297119e0f694e6fc8e89d1e7c32915cba) Thanks [@pranavosu](https://github.com/pranavosu)! - fix(liveness): stop camera stream on user cancel
+
+- Updated dependencies [[`d7c34c609830395d09f078902de1c17aa5674d5f`](https://github.com/aws-amplify/amplify-ui/commit/d7c34c609830395d09f078902de1c17aa5674d5f)]:
+  - @aws-amplify/ui@6.15.2
+  - @aws-amplify/ui-react@6.15.2
+
+## 3.6.1
+
+### Patch Changes
+
+- Updated dependencies [[`8b2d38cd9da29d159c26070299b4ac4b97419b82`](https://github.com/aws-amplify/amplify-ui/commit/8b2d38cd9da29d159c26070299b4ac4b97419b82)]:
+  - @aws-amplify/ui@6.15.1
+  - @aws-amplify/ui-react@6.15.1
+
+## 3.6.0
+
+### Minor Changes
+
+- [#6834](https://github.com/aws-amplify/amplify-ui/pull/6834) [`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(storage-browser): Folder deletion.
+
+### Patch Changes
+
+- Updated dependencies [[`0401829108ffae82db4fa776c96e8d0075a591b9`](https://github.com/aws-amplify/amplify-ui/commit/0401829108ffae82db4fa776c96e8d0075a591b9)]:
+  - @aws-amplify/ui-react@6.15.0
+  - @aws-amplify/ui@6.15.0
+
+## 3.5.1
+
+### Patch Changes
+
+- [#6744](https://github.com/aws-amplify/amplify-ui/pull/6744) [`d4160ac8c74a02f4c2ab026cb563ff226dd7dd20`](https://github.com/aws-amplify/amplify-ui/commit/d4160ac8c74a02f4c2ab026cb563ff226dd7dd20) Thanks [@bobbor](https://github.com/bobbor)! - feat: Add nextjs 16 compatibility.
+
+- Updated dependencies [[`25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7`](https://github.com/aws-amplify/amplify-ui/commit/25cf1983b7ecf91f7ab7bb1c2cb76a4df252fdf7), [`167714536a6dbe43f918b5c8f3a46afb6f9c66fb`](https://github.com/aws-amplify/amplify-ui/commit/167714536a6dbe43f918b5c8f3a46afb6f9c66fb)]:
+  - @aws-amplify/ui@6.14.0
+  - @aws-amplify/ui-react@6.14.0
+
 ## 3.5.0
 
 ### Minor Changes

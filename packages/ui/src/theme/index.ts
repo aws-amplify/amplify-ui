@@ -20,4 +20,4 @@ export {
 } from './defaultDarkModeOverride';
 export type { ReactNativeTokens } from './tokens';
 export { reactNativeTokens } from './tokens';
-export * from './types';
+export type * from './types';

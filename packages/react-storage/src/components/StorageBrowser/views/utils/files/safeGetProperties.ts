@@ -9,7 +9,7 @@ export async function safeGetProperties(
 ): Promise<GetPropertiesWithPathOutput | {}> {
   try {
     return await getProperties(params);
-  } catch (error) {
+  } catch {
     return {};
   }
 }

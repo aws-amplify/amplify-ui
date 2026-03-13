@@ -306,8 +306,14 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         passkeyPrompt: {
           entry: 'sendUpdate',
           on: {
-            SKIP: { target: 'resolved' },
-            SUBMIT: { target: 'resolved' },
+            SKIP: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: 'resolved',
+            },
+            SUBMIT: {
+              actions: 'setConfirmAttributeCompleteStep',
+              target: 'resolved',
+            },
           },
         },
         resolved: {

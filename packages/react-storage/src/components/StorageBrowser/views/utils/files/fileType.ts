@@ -105,7 +105,7 @@ export function determineFileType(
       if (customResult !== undefined && customResult !== null) {
         return customResult;
       }
-    } catch (error) {
+    } catch {
       //
     }
   }

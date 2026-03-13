@@ -12,5 +12,8 @@ export type {
   FileListFooterProps,
 } from './components';
 export { FileUploader, StorageImage, StorageManager } from './components';
-export type { StorageBrowserProps } from './components/StorageBrowser/StorageBrowserAmplify';
+export type {
+  StorageBrowserProps,
+  StorageBrowserProviderProps,
+} from './components/StorageBrowser/StorageBrowserAmplify';
 export { StorageBrowser } from './components/StorageBrowser/StorageBrowserAmplify';

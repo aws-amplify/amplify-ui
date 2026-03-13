@@ -26,4 +26,4 @@ export { LocationsView } from './LocationsView';
 export type { UseView } from './useView';
 export { useView } from './useView';
 
-export * from './types';
+export type * from './types';

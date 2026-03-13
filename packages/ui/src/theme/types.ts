@@ -5,7 +5,7 @@ import type { Breakpoints } from './breakpoints';
 import type { ComponentsTheme } from './components';
 import type { CSSProperties } from './components/utils';
 
-export * from './tokens/types/designToken';
+export type * from './tokens/types/designToken';
 export type { BorderWidths } from './tokens/borderWidths';
 export type { FontSizes } from './tokens/fontSizes';
 export type { FontWeights } from './tokens/fontWeights';

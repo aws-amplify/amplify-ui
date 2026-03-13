@@ -489,7 +489,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         ],
       },
       userCancel: {
-        entry: ['cleanUpResources', 'callUserCancelCallback', 'resetContext'],
+        entry: [
+          'cleanUpResources',
+          'callUserCancelCallback',
+          'freezeStream',
+          'resetContext',
+        ],
         always: { target: 'initCamera' },
       },
     },
@@ -1036,7 +1041,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         return result;
       },
-      // eslint-disable-next-line @typescript-eslint/require-await
       async openLivenessStreamConnection(context) {
         const { config, disableStartScreen } = context.componentProps!;
         const { credentialProvider, endpointOverride, systemClockOffset } =

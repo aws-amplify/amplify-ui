@@ -13,12 +13,6 @@ function ThemeToggle({ initialValue }: { initialValue: ColorMode }) {
       document
         ?.querySelector('[data-amplify-theme]')
         ?.setAttribute('data-amplify-color-mode', colorMode);
-    } else {
-      setColorMode(
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light'
-      );
     }
   }, [colorMode]);
 

@@ -1,15 +1,55 @@
 import { Then, When, Given } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('I intercept passkey registration prompt', () => {
-  // Mock WebAuthn credential creation
-  cy.window().then((win) => {
-    win.navigator.credentials = {
-      create: cy.stub().resolves({
-        id: 'mock-credential-id',
-        type: 'public-key',
-        rawId: new ArrayBuffer(8),
-      }),
-    } as any;
+  // Disable WebAuthn first to clean up any existing authenticators
+  cy.wrap(
+    Cypress.automation('remote:debugger:protocol', {
+      command: 'WebAuthn.disable',
+      params: {},
+    })
+      .catch(() => {
+        // Ignore error if already disabled
+      })
+      .then(() => {
+        return Cypress.automation('remote:debugger:protocol', {
+          command: 'WebAuthn.enable',
+          params: {},
+        });
+      })
+      .then(() => {
+        return Cypress.automation('remote:debugger:protocol', {
+          command: 'WebAuthn.addVirtualAuthenticator',
+          params: {
+            options: {
+              protocol: 'ctap2',
+              transport: 'internal',
+              hasResidentKey: true,
+              hasUserVerification: true,
+              isUserVerified: true,
+              automaticPresenceSimulation: true,
+            },
+          },
+        });
+      })
+      .then((result: any) => {
+        return result.authenticatorId;
+      })
+  ).as('authenticatorId');
+});
+
+Given('I cleanup passkey mock', () => {
+  cy.get('@authenticatorId').then((authenticatorId) => {
+    Cypress.automation('remote:debugger:protocol', {
+      command: 'WebAuthn.removeVirtualAuthenticator',
+      params: {
+        authenticatorId,
+      },
+    }).then(() => {
+      Cypress.automation('remote:debugger:protocol', {
+        command: 'WebAuthn.disable',
+        params: {},
+      });
+    });
   });
 });
 

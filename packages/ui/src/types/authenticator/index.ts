@@ -1,5 +1,5 @@
-export * from './validator';
+export type * from './validator';
 export * from './user';
 export * from './utils';
-export * from './form';
+export type * from './form';
 export * from './attributes';

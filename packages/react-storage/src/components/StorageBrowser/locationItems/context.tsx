@@ -3,20 +3,31 @@ import React from 'react';
 import { createContextUtilities } from '@aws-amplify/ui-react-core';
 import { noop } from '@aws-amplify/ui';
 
-import type { FileData, FileDataItem } from '../actions';
+import type { FileData, FileDataItem, LocationItemData } from '../actions';
 import { createFileDataItem } from '../actions';
 
 export const DEFAULT_STATE: LocationItemsState = {
+  dataItems: undefined,
   fileDataItems: undefined,
 };
 
 export type LocationItemsAction =
-  | { type: 'SET_LOCATION_ITEMS'; items?: FileData[] }
+  | { type: 'SET_LOCATION_ITEMS'; items?: LocationItemData[] }
   | { type: 'REMOVE_LOCATION_ITEM'; id: string }
   | { type: 'RESET_LOCATION_ITEMS' };
 
 export interface LocationItemsState {
-  fileDataItems: FileDataItem[] | undefined;
+  /**
+   * Selected items (files and folders)
+   * Replaces fileDataItems to support mixed selections
+   */
+  dataItems?: LocationItemData[];
+
+  /**
+   * @deprecated Use dataItems instead
+   * Will be removed in v4.0.0
+   */
+  fileDataItems?: FileDataItem[];
 }
 
 export type HandleLocationItemsAction = (event: LocationItemsAction) => void;
@@ -39,38 +50,50 @@ const locationItemsReducer = (
       const { items } = event;
       if (!items?.length) return prevState;
 
-      if (!prevState.fileDataItems?.length) {
-        return { fileDataItems: items.map(createFileDataItem) };
-      }
+      const nextDataItems = !prevState.dataItems?.length
+        ? items
+        : prevState.dataItems.concat(
+            items.filter(
+              (data) => !prevState.dataItems?.some(({ id }) => id === data.id)
+            )
+          );
 
-      const nextFileDataItems: FileDataItem[] = items?.reduce(
-        (fileDataItems: FileDataItem[], data) =>
-          prevState.fileDataItems?.some(({ id }) => id === data.id)
-            ? fileDataItems
-            : fileDataItems.concat(createFileDataItem(data)),
-        []
-      );
+      const fileItems = items.filter(
+        (item) => item.type === 'FILE'
+      ) as FileData[];
 
-      if (!nextFileDataItems?.length) return prevState;
+      const nextFileDataItems = !prevState.fileDataItems?.length
+        ? fileItems.map(createFileDataItem)
+        : prevState.fileDataItems.concat(
+            fileItems
+              .filter(
+                (data) =>
+                  !prevState.fileDataItems?.some(({ id }) => id === data.id)
+              )
+              .map(createFileDataItem)
+          );
 
       return {
-        fileDataItems: prevState.fileDataItems.concat(nextFileDataItems),
+        dataItems: nextDataItems,
+        fileDataItems: nextFileDataItems,
       };
     }
     case 'REMOVE_LOCATION_ITEM': {
       const { id } = event;
 
-      if (!prevState.fileDataItems) return prevState;
-
-      const fileDataItems = prevState.fileDataItems.filter(
+      const dataItems = prevState.dataItems?.filter((item) => item.id !== id);
+      const fileDataItems = prevState.fileDataItems?.filter(
         (item) => item.id !== id
       );
 
-      if (fileDataItems.length === prevState.fileDataItems.length) {
+      if (
+        dataItems?.length === prevState.dataItems?.length &&
+        fileDataItems?.length === prevState.fileDataItems?.length
+      ) {
         return prevState;
       }
 
-      return { fileDataItems };
+      return { dataItems, fileDataItems };
     }
     case 'RESET_LOCATION_ITEMS': {
       return DEFAULT_STATE;

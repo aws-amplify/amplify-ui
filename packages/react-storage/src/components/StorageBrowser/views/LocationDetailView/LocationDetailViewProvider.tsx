@@ -64,6 +64,7 @@ export function LocationDetailViewProvider({
     filePreviewState,
     filePreviewEnabled,
     onRetryFilePreview,
+    dataItems,
   } = props;
 
   const actionsWithDisplayText = actionItems.map((item) => ({
@@ -133,6 +134,7 @@ export function LocationDetailViewProvider({
           onNavigate,
           onSelect,
           onSelectAll: onToggleSelectAll,
+          dataItems,
         }),
         title: getTitle(location),
         message: messageControlContent,

@@ -39,11 +39,12 @@ export interface LocationsViewType {
   Title: () => React.JSX.Element | null;
 }
 
-interface InitialValues {
+export interface InitialValues {
   pageSize?: number;
 }
 
 export interface UseLocationsViewOptions {
   initialValues?: InitialValues;
   onNavigate?: (location: LocationData) => void;
+  pageSize?: number;
 }

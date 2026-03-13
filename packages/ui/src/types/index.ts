@@ -1,5 +1,5 @@
 export type { DisplayTextTemplate } from './displayText';
-export * from './accountSettings';
+export type * from './accountSettings';
 export * from './authenticator';
 export * from './primitives';
-export * from './util';
+export type * from './util';

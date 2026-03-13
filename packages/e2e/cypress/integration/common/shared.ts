@@ -390,6 +390,13 @@ Then('I see tab {string}', (search: string) => {
 
 Then('I see {string}', cy.doesDocumentContainText);
 
+Then('I see {string} or {string}', (text1: string, text2: string) => {
+  cy.get('body').should('satisfy', ($body) => {
+    const bodyText = $body.text();
+    return bodyText.includes(text1) || bodyText.includes(text2);
+  });
+});
+
 Then('I see {string} files with random names', (count: string) => {
   for (let i = 1; i <= parseInt(count); i++) {
     cy.doesDocumentContainText(`${randomFileName}-${i}`);
@@ -475,8 +482,33 @@ Then('the {string} button is enabled', (name: string) => {
   }).should('not.be.disabled');
 });
 
+When('I wait {int} seconds', (seconds: number) => {
+  cy.wait(seconds * 1000);
+});
+
+Then('the table should have {string} rows only', (value: string) => {
+  cy.get('table')
+    .find('tbody tr')
+    .filter(':visible')
+    .should('have.length', parseInt(value));
+});
+
 Then('the table should have {string} rows', (value: string) => {
   cy.get('table').find('tbody tr').should('have.length', value);
+});
+
+Then(
+  'the {string} table should have {string} rows',
+  (tableSelector: string, value: string) => {
+    cy.get(tableSelector)
+      .find('tbody tr')
+      .filter(':visible')
+      .should('have.length', parseInt(value));
+  }
+);
+
+When('I click the first checkbox in the table', () => {
+  cy.get('table tbody input[type="checkbox"]').first().click({ force: true });
 });
 
 Then('the {string} field is invalid', (name: string) => {

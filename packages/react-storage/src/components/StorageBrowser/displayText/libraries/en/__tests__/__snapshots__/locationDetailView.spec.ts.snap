@@ -116,6 +116,7 @@ exports[`LocationDetailView display text should match snapshot values 1`] = `
   "searchSubmitLabel": "Submit",
   "selectAllFilesLabel": "Select all files",
   "selectFileLabel": "Select file",
+  "selectFolderLabel": "Select folder",
   "tableColumnLastModifiedHeader": "Last modified",
   "tableColumnNameHeader": "Name",
   "tableColumnSizeHeader": "Size",

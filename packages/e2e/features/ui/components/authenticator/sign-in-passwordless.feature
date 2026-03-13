@@ -14,9 +14,10 @@ Feature: Sign In with Passwordless Authentication
     # 1. Use uppercase field names (ChallengeName, ChallengeParameters, Session) to match AWS API format
     # 2. Provide valid JWT tokens in AuthenticationResult (Amplify JS validates token structure)
     # 3. EMAIL_OTP challenge requires CODE_DELIVERY_DELIVERY_MEDIUM and CODE_DELIVERY_DESTINATION parameters
-    Given I intercept passkey registration prompt
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with fixture "initiate-auth-email-otp"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "confirm-sign-in-email-otp"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityService.GetId" } }' with fixture "cognito-identity-get-id"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityService.GetCredentialsForIdentity" } }' with fixture "cognito-identity-get-credentials"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUser" } }' with fixture "Auth.currentAuthenticatedUser-verified-email"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ListWebAuthnCredentials" } }' with fixture "list-webauthn-credentials-empty"
     When I type my "email" with status "CONFIRMED"
@@ -26,6 +27,8 @@ Feature: Sign In with Passwordless Authentication
     Then I see "Code"
     Then I type a valid email confirmation code
     Then I click the "Confirm" button
+    Then I see "Sign in faster with Passkey"
+    Then I click the "Continue without a Passkey" button
     Then I see "Sign out"
 
   @react
@@ -49,3 +52,28 @@ Feature: Sign In with Passwordless Authentication
     Then I see "Sign in with Email"
     Then I click the "Sign in with Email" button
     Then I see "Passwordless authentication is not enabled for this account"
+
+  @react
+  Scenario: Sign in with email OTP and register passkey
+    # This test verifies that after sign-in, the passkey prompt appears and completing
+    # passkey registration properly completes authentication without redirecting to sign-in.
+    # This validates the PR fix where setConfirmAttributeCompleteStep is called.
+    Given I intercept passkey registration prompt
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with fixture "initiate-auth-email-otp"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "confirm-sign-in-email-otp"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityService.GetId" } }' with fixture "cognito-identity-get-id"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityService.GetCredentialsForIdentity" } }' with fixture "cognito-identity-get-credentials"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUser" } }' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ListWebAuthnCredentials" } }' with fixture "list-webauthn-credentials-empty"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.StartWebAuthnRegistration" } }' with fixture "start-webauthn-registration"
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.CompleteWebAuthnRegistration" } }' with fixture "complete-webauthn-registration"
+    When I type my "email" with status "CONFIRMED"
+    Then I click the "Sign in with Email" button
+    Then I type a valid email confirmation code
+    Then I click the "Confirm" button
+    Then I see "Sign in faster with Passkey"
+    Then I click the "Create a Passkey" button
+    Then I see "Passkey created successfully"
+    Then I click the "Continue" button
+    Then I see "Sign out"
+    Then I cleanup passkey mock

@@ -17,6 +17,7 @@ function DemoDivider() {
   return <View style={styles.divider} />;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function DemoCheckbox({ onChange, ...rest }: any) {
   return (
     <Checkbox
@@ -30,6 +31,7 @@ function DemoCheckbox({ onChange, ...rest }: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function DemoRadioGroup({ data, ...rest }: any) {
   return (
     <RadioGroup {...rest} labelStyle={[styles.radioGroupLabel, styles.label]}>

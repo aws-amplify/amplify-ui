@@ -17,8 +17,8 @@ import type {
 import { STATUS_ICONS } from './constants';
 
 export const getFileType = (value: string, fallback = ''): string =>
-  value.lastIndexOf('.') !== -1
-    ? value.slice(value.lastIndexOf('.') + 1)
+  value?.lastIndexOf?.('.') !== -1
+    ? value?.slice(value?.lastIndexOf?.('.') + 1)
     : fallback;
 
 export const getCellName = (value: string): string =>
@@ -46,7 +46,7 @@ export const getFileDataCellFolder = (task: FileDataTask): string => {
     ? task.data.sourceKey
     : task.data.key;
   const { fileKey } = task.data;
-  return targetKey.slice(0, -fileKey.length);
+  return targetKey.slice(0, -fileKey?.length);
 };
 
 export const getUploadCellProgress = ({

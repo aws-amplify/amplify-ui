@@ -77,9 +77,12 @@ describe('Carousel', () => {
   });
 
   it('calls the orientation handler on orientation change', () => {
-    let orientationHandler: Function;
+    let orientationHandler: Parameters<typeof Dimensions.addEventListener>[1];
     const data = [{ key: 1, str: 'qux' }];
-    const window = { width: 350 };
+    const display = {
+      window: { width: 350 },
+      screen: { width: 350 },
+    } as unknown as Parameters<typeof orientationHandler>[0];
     const addEventListenerSpy = jest.spyOn(Dimensions, 'addEventListener');
     // Get a reference to the orientation handler by spying on the `addEventListener` call
     addEventListenerSpy.mockImplementation(((_, handler) => {
@@ -92,14 +95,14 @@ describe('Carousel', () => {
     );
 
     const flatList = UNSAFE_root.children[0] as ReactTestInstance;
-    expect(flatList.props.snapToInterval).not.toBe(window.width);
+    expect(flatList.props.snapToInterval).not.toBe(display.window.width);
 
     // Call the orientation handler with an arbitrary `ScaledSize`
     act(() => {
-      orientationHandler({ window });
+      orientationHandler(display);
     });
 
-    expect(flatList.props.snapToInterval).toBe(window.width);
+    expect(flatList.props.snapToInterval).toBe(display.window.width);
 
     expect(toJSON()).toMatchSnapshot();
   });

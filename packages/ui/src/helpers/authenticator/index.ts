@@ -6,4 +6,4 @@ export * from './form';
 export * from './utils';
 export * from './formFields';
 export * from './textUtil';
-export * from './types';
+export type * from './types';
