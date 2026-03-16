@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.3
+
+### Patch Changes
+
+- [#6911](https://github.com/aws-amplify/amplify-ui/pull/6911) [`e15a05b8771b74f6ddfc94acf9b049542c5e0290`](https://github.com/aws-amplify/amplify-ui/commit/e15a05b8771b74f6ddfc94acf9b049542c5e0290) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(react-liveness): bundle @mediapipe/face_detection for Vite 8.0.0 compatibility
+
 ## 3.6.2
 
 ### Patch Changes
