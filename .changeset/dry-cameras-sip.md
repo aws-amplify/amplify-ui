@@ -2,4 +2,4 @@
 '@aws-amplify/ui-react-liveness': patch
 ---
 
-chore: a changeset for #6903
+fix(react-liveness): bundle @mediapipe/face_detection for Vite 8.0.0 compatibility
