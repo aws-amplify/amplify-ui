@@ -81,7 +81,7 @@
     "@react-native-community/cli": "^17.0.1",
     "**/@react-native-community/**/fast-xml-parser": "^5.3.6",
     "**/@aws-*/**/fast-xml-parser": "^5.3.6",
-    "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "19.2.19",
+    "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "19.2.20",
     "**/@angular-devkit/build-angular/minimatch": "3.1.4",
     "**/@angular-devkit/build-angular/webpack": "^5.76.0",
     "**/@angular-devkit/build-angular/webpack-dev-server/express/path-to-regexp": "0.1.12",
