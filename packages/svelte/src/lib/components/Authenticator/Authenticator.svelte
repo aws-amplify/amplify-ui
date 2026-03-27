@@ -11,8 +11,13 @@
     type SocialProvider,
   } from '@aws-amplify/ui';
   import { type AuthUser } from '@aws-amplify/auth';
+  import type { AmplifyContext } from 'aws-amplify';
 
-  import { useAuth, useAuthenticator } from '../../stores/authenticator.svelte';
+  import {
+    setAmplifyContext,
+    useAuth,
+    useAuthenticator,
+  } from '../../stores/authenticator.svelte';
   import { VERSION } from '../../version';
   import { type Components } from '../../types';
 
@@ -48,6 +53,8 @@
   }
 
   interface AuthenticatorProps {
+    /** AmplifyContext instance returned by `configure()` */
+    context?: AmplifyContext;
     components?: ComponentsProvider;
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
@@ -70,6 +77,7 @@
   }
 
   const {
+    context: amplifyContext,
     components,
     initialState,
     loginMechanisms,
@@ -81,6 +89,11 @@
     formFields,
     children,
   }: AuthenticatorProps = $props();
+
+  // Set AmplifyContext in Svelte component context before useAuth reads it
+  if (amplifyContext) {
+    setAmplifyContext(amplifyContext);
+  }
 
   let clearUserAgent: () => void;
 

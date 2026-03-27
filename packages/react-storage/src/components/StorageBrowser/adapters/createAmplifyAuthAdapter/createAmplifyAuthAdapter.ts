@@ -1,6 +1,5 @@
-import { Amplify } from 'aws-amplify';
+import type { AmplifyContext } from 'aws-amplify';
 import type { AuthSession } from 'aws-amplify/auth';
-import { fetchAuthSession } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
 import type { RegisterAuthListener } from '../../credentials';
@@ -23,18 +22,20 @@ const isTemporaryCredentials = (
 ): value is AWSTemporaryCredentials =>
   !!value?.sessionToken || !!value?.expiration;
 
-export const createAmplifyAuthAdapter = (): StorageBrowserAuthAdapter => {
-  const { bucket, region } = Amplify.getConfig()?.Storage?.S3 ?? {};
+export const createAmplifyAuthAdapter = (
+  ctx: AmplifyContext
+): StorageBrowserAuthAdapter => {
+  const { bucket, region } = ctx.resourcesConfig?.Storage?.S3 ?? {};
   if (!bucket || !region) {
     throw new Error(MISSING_BUCKET_OR_REGION_ERROR);
   }
-  const listLocations = createAmplifyListLocationsHandler();
+  const listLocations = createAmplifyListLocationsHandler(ctx);
 
   const getLocationCredentials = async (): Promise<{
     credentials: AWSTemporaryCredentials;
     identityId: string;
   }> => {
-    const { credentials, identityId } = await fetchAuthSession();
+    const { credentials, identityId } = await ctx.fetchAuthSession();
     if (!isTemporaryCredentials(credentials)) {
       throw new Error(MISSING_TEMPORARY_CREDENTIALS_ERROR);
     }
@@ -54,6 +55,7 @@ export const createAmplifyAuthAdapter = (): StorageBrowserAuthAdapter => {
   };
 
   return {
+    amplifyContext: ctx,
     getLocationCredentials,
     listLocations,
     registerAuthListener,

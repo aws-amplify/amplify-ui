@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useAmplifyContext } from '@aws-amplify/ui-react-core';
 import { createAmplifyAuthAdapter } from './adapters';
 import type {
   StorageBrowserProps as StorageBrowserPropsBase,
@@ -12,8 +13,9 @@ export interface StorageBrowserProviderProps
   extends StorageBrowserProviderPropsBase {}
 
 export function StorageBrowser(props: StorageBrowserProps): React.JSX.Element {
+  const amplifyContext = useAmplifyContext();
   const { StorageBrowser: StorageBrowserComponent } = React.useRef(
-    createStorageBrowser({ config: createAmplifyAuthAdapter() })
+    createStorageBrowser({ config: createAmplifyAuthAdapter(amplifyContext!) })
   ).current;
 
   return <StorageBrowserComponent {...props} />;

@@ -1,9 +1,10 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { InjectionToken, Injectable, OnDestroy, Optional, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Event, interpret, Subscription } from 'xstate';
 
 import { AuthUser, getCurrentUser } from 'aws-amplify/auth';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
+import type { AmplifyContext } from 'aws-amplify';
 import {
   AuthContext,
   AuthenticatorServiceFacade,
@@ -23,6 +24,20 @@ import { AuthSubscriptionCallback } from '../common/types';
 const logger = new Logger('state-machine');
 
 /**
+ * Injection token for providing an AmplifyContext instance.
+ *
+ * Usage:
+ * ```ts
+ * providers: [
+ *   { provide: AMPLIFY_CONTEXT, useValue: configure(outputs) }
+ * ]
+ * ```
+ */
+export const AMPLIFY_CONTEXT = new InjectionToken<AmplifyContext>(
+  'AmplifyContext'
+);
+
+/**
  * AuthenticatorService provides access to the authenticator state and context.
  */
 @Injectable({
@@ -37,8 +52,12 @@ export class AuthenticatorService implements OnDestroy {
   private _hubSubject: Subject<void>;
   private _unsubscribeHub: () => void;
 
-  constructor() {
-    const machine = createAuthenticatorMachine();
+  constructor(
+    @Optional() @Inject(AMPLIFY_CONTEXT) private amplifyContext?: AmplifyContext
+  ) {
+    const machine = createAuthenticatorMachine({
+      amplifyContext: this.amplifyContext,
+    });
     this._authService = interpret(machine).start();
 
     this.getInitialAuthStatus();
@@ -202,7 +221,11 @@ export class AuthenticatorService implements OnDestroy {
 
   private async getInitialAuthStatus(): Promise<void> {
     try {
-      await getCurrentUser();
+      if (this.amplifyContext) {
+        await getCurrentUser(this.amplifyContext);
+      } else {
+        await getCurrentUser(undefined as any);
+      }
       this._authStatus = 'authenticated';
     } catch {
       this._authStatus = 'unauthenticated';

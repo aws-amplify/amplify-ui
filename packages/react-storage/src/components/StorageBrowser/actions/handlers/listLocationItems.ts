@@ -144,7 +144,7 @@ export const listLocationItemsHandler: ListLocationItemsHandler = async (
       },
     };
 
-    const output = await list(listInput);
+    const output = await list(config.amplifyContext!, listInput);
     nextNextToken = output.nextToken;
 
     const items = parseResult(output, prefix);

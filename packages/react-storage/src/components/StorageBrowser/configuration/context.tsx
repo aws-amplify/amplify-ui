@@ -15,12 +15,14 @@ export const { useGetActionInput, GetActionInputContext } =
 
 export function GetActionInputProvider({
   accountId,
+  amplifyContext,
   children,
   customEndpoint,
   region,
 }: GetActionInputProviderProps): React.JSX.Element {
   const value = useGetActionInputCallback({
     accountId,
+    amplifyContext,
     customEndpoint,
     region,
   });

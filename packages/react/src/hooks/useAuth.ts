@@ -5,6 +5,8 @@ import { Hub } from '@aws-amplify/core';
 import type { AuthUser } from 'aws-amplify/auth';
 import { getCurrentUser } from 'aws-amplify/auth';
 
+import { useAmplifyContext } from '@aws-amplify/ui-react-core';
+
 export interface UseAuthResult {
   user?: AuthUser;
   isLoading: boolean;
@@ -18,6 +20,7 @@ export interface UseAuthResult {
  * @internal
  */
 export const useAuth = (): UseAuthResult => {
+  const amplifyContext = useAmplifyContext();
   const [result, setResult] = React.useState<UseAuthResult>({
     error: undefined,
     isLoading: true,
@@ -32,7 +35,7 @@ export const useAuth = (): UseAuthResult => {
     setResult((prevResult) => ({ ...prevResult, isLoading: true }));
 
     try {
-      const user = await getCurrentUser();
+      const user = await getCurrentUser(amplifyContext!);
       setResult({ user, isLoading: false });
     } catch (e) {
       const error = e as Error;

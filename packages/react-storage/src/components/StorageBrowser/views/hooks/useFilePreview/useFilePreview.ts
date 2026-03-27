@@ -42,7 +42,7 @@ export function useFilePreview({
       setFilePreviewContent({
         isLoading: true,
       });
-      const properties = await safeGetProperties({
+      const properties = await safeGetProperties(config.amplifyContext!, {
         path: activeFile.key,
         options: sharedOptions,
       });
@@ -75,7 +75,7 @@ export function useFilePreview({
         return;
       }
 
-      const { url } = await getUrl({
+      const { url } = await getUrl(config.amplifyContext!, {
         path: finalFile.key,
         options: {
           customEndpoint,

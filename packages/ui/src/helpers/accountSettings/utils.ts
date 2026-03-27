@@ -1,3 +1,4 @@
+import type { AmplifyContext } from 'aws-amplify';
 import { updatePassword, deleteUser as deleteAuthUser } from 'aws-amplify/auth';
 
 import { getLogger } from '../utils';
@@ -9,13 +10,13 @@ type ChangePasswordInput = {
   newPassword: string;
 };
 
-export const changePassword = async ({
-  currentPassword,
-  newPassword,
-}: ChangePasswordInput): Promise<void> => {
+export const changePassword = async (
+  ctx: AmplifyContext,
+  { currentPassword, newPassword }: ChangePasswordInput
+): Promise<void> => {
   try {
     logger.debug('calling Auth.updatePassword');
-    await updatePassword({
+    await updatePassword(ctx, {
       oldPassword: currentPassword,
       newPassword,
     });
@@ -27,10 +28,10 @@ export const changePassword = async ({
   }
 };
 
-export const deleteUser = async () => {
+export const deleteUser = async (ctx: AmplifyContext) => {
   try {
     logger.debug('calling Auth.deleteUser');
-    await deleteAuthUser();
+    await deleteAuthUser(ctx);
     logger.debug('Auth.deleteUser was successful');
     return Promise.resolve();
   } catch (e) {

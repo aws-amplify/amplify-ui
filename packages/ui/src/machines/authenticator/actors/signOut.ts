@@ -24,7 +24,7 @@ export const signOutActor = () => {
     },
     {
       services: {
-        signOut: () => signOut(),
+        signOut: ({ amplifyContext: ctx }) => signOut(ctx),
       },
     }
   );

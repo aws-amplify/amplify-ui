@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as Storage from 'aws-amplify/storage';
 
 import { isFunction } from '@aws-amplify/ui';
-import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
+import { useHasValueUpdated, useAmplifyContext } from '@aws-amplify/ui-react-core';
 
 interface UseStorageURLParams {
   key: string;
@@ -18,6 +18,7 @@ export const useStorageURL = ({
   fallbackURL,
   onStorageGetError,
 }: UseStorageURLParams): string | undefined => {
+  const amplifyContext = useAmplifyContext();
   const [url, setURL] = React.useState<string>();
   const hasKeyUpdated = useHasValueUpdated(key);
 
@@ -30,7 +31,7 @@ export const useStorageURL = ({
 
     const input: Storage.GetUrlInput = { key, options };
 
-    Storage.getUrl(input)
+    Storage.getUrl(amplifyContext!, input)
       .then(({ url }) => {
         if (ignore) {
           return;

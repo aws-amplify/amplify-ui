@@ -1,5 +1,6 @@
 import * as React from 'react';
 import type {
+  AmplifyContext,
   AuthenticatorMachineOptions,
   FormFieldComponents,
   FormFieldOptions,
@@ -48,7 +49,10 @@ export type AuthenticatorProps = Partial<
         };
       };
     }
->;
+> & {
+  /** AmplifyContext instance returned by `configure()` */
+  context: AmplifyContext;
+};
 
 interface ReactFormFieldOptions extends FormFieldOptions {
   /** Desired HTML defaultValue type */
@@ -81,7 +85,7 @@ export function AuthenticatorInternal({
   services,
   socialProviders,
   variation,
-}: AuthenticatorProps): React.JSX.Element {
+}: Omit<AuthenticatorProps, 'context'>): React.JSX.Element {
   useDeprecationWarning({
     message:
       'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
@@ -150,9 +154,11 @@ export function Authenticator(props: AuthenticatorProps): React.JSX.Element {
     version: VERSION,
   });
 
+  const { context: amplifyContext, ...rest } = props;
+
   return (
-    <Provider>
-      <AuthenticatorInternal {...props} />
+    <Provider amplifyContext={amplifyContext}>
+      <AuthenticatorInternal {...rest} />
     </Provider>
   );
 }

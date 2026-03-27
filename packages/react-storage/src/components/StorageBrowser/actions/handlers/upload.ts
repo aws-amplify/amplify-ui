@@ -58,7 +58,7 @@ export const uploadHandler: UploadHandler = ({ config, data, options }) => {
     },
   };
 
-  const { cancel, pause, resume, result } = uploadData(input);
+  const { cancel, pause, resume, result } = uploadData(config.amplifyContext!, input);
 
   return {
     ...(isMultipartUpload(file)

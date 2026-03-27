@@ -26,6 +26,7 @@ export interface CreateManagedAuthAdapterInput {
 
 export interface StorageBrowserAuthAdapter {
   accountId?: string;
+  amplifyContext?: import('aws-amplify').AmplifyContext;
   listLocations: ListLocations;
   getLocationCredentials: GetLocationCredentials;
   region: string;

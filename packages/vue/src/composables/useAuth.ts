@@ -1,9 +1,10 @@
 import { createSharedComposable } from '@vueuse/core';
-import { onScopeDispose, reactive, Ref, ref, watchEffect } from 'vue';
+import { inject, onScopeDispose, reactive, Ref, ref, watchEffect } from 'vue';
 import { useActor } from '@xstate/vue';
 import { interpret } from 'xstate';
 
 import { getCurrentUser } from 'aws-amplify/auth';
+import type { AmplifyContext } from 'aws-amplify';
 import {
   AuthInterpreter,
   AuthMachineState,
@@ -17,6 +18,9 @@ import {
 
 import { UseAuth } from '../types';
 
+/** Vue injection key for AmplifyContext */
+export const AMPLIFY_CONTEXT_KEY = Symbol('AmplifyContext');
+
 export const getQRFields = (
   state: AuthMachineState
 ): { totpIssuer?: string; totpUsername?: string } => ({
@@ -24,7 +28,12 @@ export const getQRFields = (
 });
 
 export const useAuth = createSharedComposable((): UseAuth => {
-  const machine = createAuthenticatorMachine();
+  const amplifyContext = inject<AmplifyContext | undefined>(
+    AMPLIFY_CONTEXT_KEY,
+    undefined
+  );
+
+  const machine = createAuthenticatorMachine({ amplifyContext });
   const service: AuthInterpreter = interpret(machine).start();
   const authStatus: Ref<AuthStatus> = ref('configuring');
 
@@ -42,7 +51,11 @@ export const useAuth = createSharedComposable((): UseAuth => {
     defaultAuthHubHandler(data, service, { onSignIn, onSignOut })
   );
 
-  getCurrentUser()
+  const check = amplifyContext
+    ? () => getCurrentUser(amplifyContext)
+    : () => getCurrentUser(undefined as any);
+
+  check()
     .then(() => {
       authStatus.value = 'authenticated';
     })

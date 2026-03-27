@@ -5,9 +5,11 @@ import {
   computed,
   onMounted,
   onUnmounted,
+  provide,
   withDefaults,
 } from 'vue';
 
+import type { AmplifyContext } from 'aws-amplify';
 import {
   AuthFormFields,
   AuthenticatorMachineOptions,
@@ -17,7 +19,11 @@ import {
   setUserAgent,
 } from '@aws-amplify/ui';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import {
+  AMPLIFY_CONTEXT_KEY,
+  useAuth,
+  useAuthenticator,
+} from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
 import { VERSION } from '../version';
 
@@ -35,6 +41,8 @@ import SelectMfaType from './select-mfa-type.vue';
 import SetupEmail from './setup-email.vue'
 
 interface AuthenticatorProps {
+  /** AmplifyContext instance returned by `configure()` */
+  context?: AmplifyContext;
   hideSignUp?: boolean;
   initialState?: AuthenticatorMachineOptions['initialState'];
   loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
@@ -50,6 +58,7 @@ const props = withDefaults(defineProps<AuthenticatorProps>(), {
 });
 
 const {
+  context: amplifyContext,
   initialState,
   loginMechanisms,
   variation,
@@ -59,6 +68,11 @@ const {
   hideSignUp,
   formFields,
 } = toRefs(props);
+
+// Provide AmplifyContext for child composables
+if (amplifyContext?.value) {
+  provide(AMPLIFY_CONTEXT_KEY, amplifyContext.value);
+}
 
 let clearUserAgent: () => void;
 

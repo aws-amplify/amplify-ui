@@ -1,7 +1,7 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
-import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import { useSetUserAgent, useAmplifyContext } from '@aws-amplify/ui-react-core';
 import type { ValidatorOptions } from '@aws-amplify/ui';
 import {
   changePassword,
@@ -54,6 +54,7 @@ function ChangePassword({
   );
   const blurredFields = React.useRef<BlurredFields>([]);
   const { user, isLoading } = useAuth();
+  const amplifyContext = useAmplifyContext();
 
   const isDisabled = getIsDisabled(formValues, validationError);
 
@@ -181,7 +182,7 @@ function ChangePassword({
       setErrorMessage(null);
     }
 
-    changePassword({ currentPassword, newPassword })
+    changePassword(amplifyContext!, { currentPassword, newPassword })
       .then(() => {
         // notify success to the parent
         onSuccess?.();

@@ -25,7 +25,7 @@ import {
   VerifyUser,
 } from './components/index';
 
-import { useAuthenticator } from './composables/useAuth';
+import { useAuthenticator, AMPLIFY_CONTEXT_KEY } from './composables/useAuth';
 
 import './styles.css';
 
@@ -84,6 +84,7 @@ export {
   AmplifyCheckBox,
   AmplifyButton,
   useAuthenticator,
+  AMPLIFY_CONTEXT_KEY,
 };
 
 /**

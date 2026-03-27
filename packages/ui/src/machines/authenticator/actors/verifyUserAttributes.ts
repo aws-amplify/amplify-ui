@@ -12,7 +12,7 @@ import { runValidators } from '../../../validators';
 
 import type { AuthEvent, VerifyUserContext } from '../types';
 import actions from '../actions';
-import { defaultServices } from '../defaultServices';
+import { validateFormPassword, validateConfirmPassword } from '../defaultServices';
 
 export function verifyUserAttributesActor() {
   return createMachine<VerifyUserContext, AuthEvent>(
@@ -93,23 +93,27 @@ export function verifyUserAttributesActor() {
       // sendUpdate is a HOC
       actions: { ...actions, sendUpdate: sendUpdate() },
       services: {
-        sendUserAttributeVerificationCode({ formValues: { unverifiedAttr } }) {
+        sendUserAttributeVerificationCode({
+          formValues: { unverifiedAttr },
+          amplifyContext: ctx,
+        }) {
           const input: SendUserAttributeVerificationCodeInput = {
             userAttributeKey:
               unverifiedAttr as SendUserAttributeVerificationCodeInput['userAttributeKey'],
           };
-          return sendUserAttributeVerificationCode(input);
+          return sendUserAttributeVerificationCode(ctx, input);
         },
         async confirmVerifyUserAttribute({
           formValues: { confirmation_code: confirmationCode },
           selectedUserAttribute,
+          amplifyContext: ctx,
         }) {
           const input: ConfirmUserAttributeInput = {
             confirmationCode,
             userAttributeKey:
               selectedUserAttribute as ConfirmUserAttributeInput['userAttributeKey'],
           };
-          return confirmUserAttribute(input);
+          return confirmUserAttribute(ctx, input);
         },
         async validateFields(context) {
           return runValidators(
@@ -117,8 +121,8 @@ export function verifyUserAttributesActor() {
             context.touched,
             context.passwordSettings,
             [
-              defaultServices.validateFormPassword,
-              defaultServices.validateConfirmPassword,
+              validateFormPassword,
+              validateConfirmPassword,
             ]
           );
         },

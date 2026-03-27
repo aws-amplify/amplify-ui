@@ -5,7 +5,10 @@ import { signOut as _signOut } from 'aws-amplify/auth';
 import type { AuthEventData } from '@aws-amplify/ui';
 
 import type { UseAuthenticator } from '@aws-amplify/ui-react-core';
-import { useAuthenticator as _useAuthenticator } from '@aws-amplify/ui-react-core';
+import {
+  useAuthenticator as _useAuthenticator,
+  useAmplifyContext,
+} from '@aws-amplify/ui-react-core';
 
 // wrap and re-export `useAuthenticator` to replace state machine `signOut` with
 // `aws-amplify/auth` version due to iOS specifc requirements for federated sign
@@ -17,10 +20,6 @@ import { useAuthenticator as _useAuthenticator } from '@aws-amplify/ui-react-cor
 // input utility function to prevent breaking changes in consumers.
 // State machine sign out handling does not pass input to underlying `signOut`
 // call; replicate that behavior here
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const signOut = (data?: AuthEventData) => {
-  _signOut();
-};
 
 // selector utility type to prevent breaking type changes in consumers
 type UseAuthenticatorSelector = Parameters<typeof _useAuthenticator>[0];
@@ -28,5 +27,10 @@ type UseAuthenticatorSelector = Parameters<typeof _useAuthenticator>[0];
 export function useAuthenticator(
   selector?: UseAuthenticatorSelector
 ): UseAuthenticator {
+  const amplifyContext = useAmplifyContext();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const signOut = (data?: AuthEventData) => {
+    _signOut(amplifyContext!);
+  };
   return { ..._useAuthenticator(selector), signOut };
 }

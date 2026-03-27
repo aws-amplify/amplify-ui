@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fetchAuthSession } from 'aws-amplify/auth';
+import { useAmplifyContext } from '@aws-amplify/ui-react-core';
 import type { FaceLivenessDetectorProps as FaceLivenessDetectorPropsFromUi } from './service';
 import FaceLivenessDetectorCore from './FaceLivenessDetectorCore';
 import type { LivenessDisplayText } from './displayText';
@@ -11,17 +11,18 @@ export interface FaceLivenessDetectorProps
   displayText?: LivenessDisplayText;
 }
 
-const credentialProvider = async () => {
-  const { credentials } = await fetchAuthSession();
-  if (!credentials) {
-    throw new Error('No credentials provided');
-  }
-  return credentials;
-};
-
 export default function FaceLivenessDetector(
   props: FaceLivenessDetectorProps
 ): React.JSX.Element {
+  const amplifyContext = useAmplifyContext();
+  const credentialProvider = React.useCallback(async () => {
+    const { credentials } = await amplifyContext!.fetchAuthSession();
+    if (!credentials) {
+      throw new Error('No credentials provided');
+    }
+    return credentials;
+  }, [amplifyContext]);
+
   const { config, ...rest } = props;
   return (
     <FaceLivenessDetectorCore

@@ -44,6 +44,11 @@ export interface StorageBrowserConfig {
   accountId?: string;
 
   /**
+   * @description AmplifyContext instance returned by `configure()`
+   */
+  amplifyContext?: import('aws-amplify').AmplifyContext;
+
+  /**
    * @description custom S3 endpoint used in action handler calls
    */
   customEndpoint?: string;

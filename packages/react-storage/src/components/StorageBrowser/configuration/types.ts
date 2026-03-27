@@ -7,6 +7,7 @@ export type GetActionInput = (location?: LocationData) => ActionInputConfig;
 
 export interface GetActionInputProviderProps {
   accountId?: string;
+  amplifyContext?: import('aws-amplify').AmplifyContext;
   children?: React.ReactNode;
   region: string;
   customEndpoint?: string;

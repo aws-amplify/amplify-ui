@@ -25,11 +25,14 @@ import {
   verifyUserAttributesActor,
 } from './actors';
 
-import { defaultServices } from './defaultServices';
+import { createDefaultServices } from './defaultServices';
 import { getAvailableAuthMethods } from './utils';
+
+import { getCurrentUser } from 'aws-amplify/auth';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
+  amplifyContext: AuthContext['amplifyContext'];
 };
 
 const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => {
@@ -51,6 +54,9 @@ const getActorContext = (context: AuthContext, defaultStep?: InitialStep) => {
     formValues: {},
     touched: {},
     validationError: {},
+
+    // amplify context for auth API calls
+    amplifyContext: context.amplifyContext,
 
     // values included on `context.config` that should be available in actors
     formFields: context.config?.formFields,
@@ -85,11 +91,13 @@ const NEXT_WAIT_CONFIG = {
 };
 
 export function createAuthenticatorMachine(
-  options?: AuthenticatorMachineOptions & {
+  options: AuthenticatorMachineOptions & {
     useNextWaitConfig?: boolean;
   }
 ) {
-  const { useNextWaitConfig, ...overrideConfigServices } = options ?? {};
+  const { useNextWaitConfig, ...overrideConfigServices } = options;
+  const { amplifyContext, ...restOverrideConfigServices } =
+    overrideConfigServices;
   const initConfig = useNextWaitConfig ? NEXT_WAIT_CONFIG : LEGACY_WAIT_CONFIG;
   return createMachine<AuthContext, AuthEvent>(
     {
@@ -97,8 +105,9 @@ export function createAuthenticatorMachine(
       initial: 'idle',
       context: {
         user: undefined,
+        amplifyContext,
         config: {},
-        services: defaultServices,
+        services: createDefaultServices(amplifyContext),
         actorRef: undefined,
         hasSetup: false,
       },
@@ -130,6 +139,10 @@ export function createAuthenticatorMachine(
                     target: 'goToInitialState',
                   },
                 ],
+                onError: {
+                  actions: 'setHasSetup',
+                  target: 'goToInitialState',
+                },
               },
             },
             goToInitialState: {
@@ -410,19 +423,24 @@ export function createAuthenticatorMachine(
         }),
         spawnSignOutActor: assign({
           actorRef: (context) => {
-            const actor = signOutActor().withContext({ user: context?.user });
+            const actor = signOutActor().withContext({
+              user: context?.user,
+              amplifyContext: context?.amplifyContext,
+            });
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
-        configure: assign((_, event) => {
+        configure: assign((context, event) => {
           const { services: customServices, ...config } = !isEmptyObject(
-            overrideConfigServices
+            restOverrideConfigServices
           )
-            ? overrideConfigServices
+            ? restOverrideConfigServices
             : event.data ?? {};
 
+          const baseServices = createDefaultServices(context.amplifyContext);
+
           return {
-            services: { ...defaultServices, ...customServices },
+            services: { ...baseServices, ...customServices },
             config,
           };
         }),
@@ -441,7 +459,9 @@ export function createAuthenticatorMachine(
       },
       services: {
         getAmplifyConfig: ({ services }) => services.getAmplifyConfig(),
-        handleGetCurrentUser: ({ services }) => services.getCurrentUser(),
+        handleGetCurrentUser: ({ amplifyContext: ctx }) => {
+          return getCurrentUser(ctx);
+        },
       },
     }
   );

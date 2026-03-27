@@ -176,7 +176,7 @@ const download = async (
 ) => {
   const { customEndpoint, credentials, accountId } = config;
   const { key } = data;
-  const { url } = await getUrl({
+  const { url } = await getUrl(config.amplifyContext!, {
     path: key,
     options: {
       bucket: constructBucket(config),

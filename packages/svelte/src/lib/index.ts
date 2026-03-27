@@ -7,4 +7,8 @@ export * from './components/primitives';
 export * from './types';
 
 export { useAuthenticator } from './stores/authenticator.svelte';
+export {
+  setAmplifyContext,
+  getAmplifyContext,
+} from './stores/authenticator.svelte';
 export { translations } from '@aws-amplify/ui';

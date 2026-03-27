@@ -42,7 +42,7 @@ export const downloadHandler: DownloadHandler = ({ config, data }): DownloadHand
   const { accountId, credentials, customEndpoint } = config;
   const { key } = data;
 
-  const result = getUrl({
+  const result = getUrl(config.amplifyContext!, {
     path: key,
     options: {
       bucket: constructBucket(config),

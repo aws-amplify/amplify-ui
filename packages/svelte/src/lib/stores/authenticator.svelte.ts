@@ -7,7 +7,8 @@ import {
   getServiceFacade,
   listenToAuthHub,
 } from '@aws-amplify/ui';
-import { onDestroy } from 'svelte';
+import type { AmplifyContext } from 'aws-amplify';
+import { getContext, onDestroy, setContext } from 'svelte';
 import { get, writable, type Writable } from 'svelte/store';
 import { interpret } from 'xstate';
 import { getCurrentUser } from 'aws-amplify/auth';
@@ -15,6 +16,22 @@ import { type AnyFn, type UseAuthenticator } from '../types';
 
 type SharedReturn<T extends AnyFn = AnyFn> = T;
 type StateMachine = ReturnType<typeof createAuthenticatorMachine>;
+
+const AMPLIFY_CONTEXT_KEY = Symbol('AmplifyContext');
+
+/** Set AmplifyContext in Svelte component context */
+export function setAmplifyContext(ctx: AmplifyContext): void {
+  setContext(AMPLIFY_CONTEXT_KEY, ctx);
+}
+
+/** Get AmplifyContext from Svelte component context */
+export function getAmplifyContext(): AmplifyContext | undefined {
+  try {
+    return getContext<AmplifyContext>(AMPLIFY_CONTEXT_KEY);
+  } catch {
+    return undefined;
+  }
+}
 
 const shared = <Fn extends AnyFn>(fn: Fn): SharedReturn<Fn> => {
   let result: ReturnType<Fn>;
@@ -50,11 +67,16 @@ const useService = (logic: StateMachine) => {
 };
 
 export const useAuth = shared(() => {
-  const machine = createAuthenticatorMachine();
+  const amplifyContext = getAmplifyContext();
+  const machine = createAuthenticatorMachine({ amplifyContext });
   const { send, service, state } = useService(machine);
   const authStatus: Writable<AuthStatus> = writable('configuring');
 
-  getCurrentUser()
+  const check = amplifyContext
+    ? () => getCurrentUser(amplifyContext)
+    : () => getCurrentUser(undefined as any);
+
+  check()
     .then(() => {
       authStatus.set('authenticated');
     })

@@ -1,5 +1,6 @@
 import type { State } from 'xstate';
 import type { AuthUser } from 'aws-amplify/auth';
+import type { AmplifyContext } from 'aws-amplify';
 
 import type {
   LoginMechanism,
@@ -13,7 +14,10 @@ import type {
   PasswordSettings,
 } from '../../types';
 
-import type { defaultServices } from './defaultServices';
+import type { DefaultServices } from './defaultServices';
+
+export type { AmplifyContext };
+export type { DefaultServices };
 
 // Passwordless authentication types
 export type AuthMethod = 'PASSWORD' | 'EMAIL_OTP' | 'SMS_OTP' | 'WEB_AUTHN';
@@ -149,6 +153,7 @@ export interface ActorDoneData {
  */
 export interface AuthContext {
   actorRef?: any;
+  amplifyContext: AmplifyContext;
   availableAuthMethods?: AuthMethod[];
   config?: {
     loginMechanism?: LoginMechanism;
@@ -160,7 +165,7 @@ export interface AuthContext {
     passwordSettings?: PasswordSettings;
     passwordless?: PasswordlessSettings;
   };
-  services?: Partial<typeof defaultServices>;
+  services?: Partial<DefaultServices>;
   user?: AuthUser;
   // data returned from actors when they finish and reach their final state
   actorDoneData?: ActorDoneData;
@@ -219,6 +224,9 @@ interface BaseFormContext {
   unverifiedUserAttributes?: UnverifiedUserAttributes;
   allowedMfaTypes?: AuthMFAType[];
 
+  // amplify context for auth API calls
+  amplifyContext?: AmplifyContext;
+
   // kept in memory for submission to relevnat APIs
   username?: string;
   selectedUserAttribute?: string;
@@ -253,7 +261,7 @@ export interface SignInContext extends BaseFormContext, ActorDoneData {}
 export interface SignUpContext extends BaseFormContext, ActorDoneData {}
 export interface VerifyUserContext extends BaseFormContext, ActorDoneData {}
 
-export interface SignOutContext extends Pick<BaseFormContext, 'user'> {}
+export interface SignOutContext extends Pick<BaseFormContext, 'user' | 'amplifyContext'> {}
 
 export type AuthActorContext =
   | SignInContext

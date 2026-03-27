@@ -1,4 +1,5 @@
 import type { TransferProgressEvent } from 'aws-amplify/storage';
+import type { ResourcesConfig } from 'aws-amplify';
 import type { LocationAccess as AccessGrantLocation } from '../../storage-internal';
 
 import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from './constants';
@@ -13,14 +14,13 @@ import type {
   LocationType,
 } from './types';
 
-import { Amplify } from 'aws-amplify';
-
 export const getBucketRegion = (
   bucketName: string,
-  fallbackRegion: string
+  fallbackRegion: string,
+  resourcesConfig?: ResourcesConfig
 ): string => {
   try {
-    const config = Amplify.getConfig()?.Storage?.S3;
+    const config = resourcesConfig?.Storage?.S3;
 
     if (!config?.buckets || typeof config.buckets !== 'object') {
       return fallbackRegion;

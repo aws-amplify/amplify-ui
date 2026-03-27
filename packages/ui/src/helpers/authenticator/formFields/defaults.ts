@@ -80,7 +80,7 @@ const getSignInFormFields = (state: AuthMachineState): FormFields => {
 };
 
 const getSignUpFormFields = (state: AuthMachineState): FormFields => {
-  const { loginMechanisms, signUpAttributes } = state.context.config as {
+  const { loginMechanisms = [], signUpAttributes = [] } = (state.context.config ?? {}) as {
     loginMechanisms: LoginMechanism[];
     signUpAttributes: SignUpAttribute[];
   };

@@ -15,6 +15,8 @@ export type {
 } from './Authenticator';
 export {
   AuthenticatorProvider,
+  AmplifyContextContext,
+  useAmplifyContext,
   isAuthenticatorComponentRouteKey,
   resolveAuthenticatorComponents,
   useAuthenticator,

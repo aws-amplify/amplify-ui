@@ -97,7 +97,7 @@ export const countFilesInFolder = async (
     let hasMoreItems = true;
 
     while (hasMoreItems && fileCount < MAX_FILE_COUNT_LIMIT) {
-      const { items, nextToken: listNextToken } = await list({
+      const { items, nextToken: listNextToken } = await list(config.amplifyContext!, {
         path: folderKey,
         options: {
           bucket,

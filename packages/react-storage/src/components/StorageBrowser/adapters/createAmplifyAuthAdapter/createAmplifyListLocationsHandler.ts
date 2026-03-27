@@ -1,3 +1,4 @@
+import type { AmplifyContext } from 'aws-amplify';
 import type { LocationData } from '../../actions';
 import type { ListPathsOutput } from '../../storage-internal';
 import { listPaths } from '../../storage-internal';
@@ -7,7 +8,9 @@ import { deduplicateLocations } from '../../actions/handlers/utils';
 import { parseAmplifyAuthPermission } from '../permissionParsers';
 import { getPaginatedLocations } from './getPaginatedLocations';
 
-export const createAmplifyListLocationsHandler = (): ListLocations => {
+export const createAmplifyListLocationsHandler = (
+  ctx: AmplifyContext
+): ListLocations => {
   let cachedItems: LocationData[] = [];
 
   return async function listLocations(input: ListLocationsInput) {
@@ -23,7 +26,7 @@ export const createAmplifyListLocationsHandler = (): ListLocations => {
     }
 
     const { locations }: { locations: ListPathsOutput['locations'] } =
-      await listPaths();
+      await listPaths(ctx);
 
     const sanitizedItems: LocationData[] = locations.map(
       ({ bucket, permission, prefix, type }) => {

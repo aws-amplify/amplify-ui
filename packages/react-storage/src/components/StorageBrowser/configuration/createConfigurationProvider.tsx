@@ -21,6 +21,7 @@ export function createConfigurationProvider<
 ): ConfigurationProviderComponent<P> {
   const {
     accountId,
+    amplifyContext,
     ChildComponent,
     displayName,
     region,
@@ -34,6 +35,7 @@ export function createConfigurationProvider<
     <CredentialsProvider {...rest}>
       <GetActionInputProvider
         accountId={accountId}
+        amplifyContext={amplifyContext}
         region={region}
         customEndpoint={customEndpoint}
       >

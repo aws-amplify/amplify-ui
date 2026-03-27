@@ -107,9 +107,9 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         },
         checkPasskeys: {
           invoke: {
-            src: async () => {
+            src: async (context) => {
               try {
-                const result = await listWebAuthnCredentials();
+                const result = await listWebAuthnCredentials(context.amplifyContext);
                 return result.credentials && result.credentials.length > 0;
               } catch {
                 return false;
@@ -334,8 +334,8 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         autoSignIn() {
           return autoSignIn();
         },
-        async fetchUserAttributes() {
-          return fetchUserAttributes();
+        async fetchUserAttributes({ amplifyContext: ctx }) {
+          return fetchUserAttributes(ctx);
         },
         confirmSignUp({ formValues, username }) {
           const { confirmation_code: confirmationCode } = formValues;
@@ -345,8 +345,8 @@ export function signUpActor({ services }: SignUpMachineOptions) {
         resendSignUpCode({ username }) {
           return services.handleResendSignUpCode({ username });
         },
-        signInWithRedirect(_, { data }) {
-          return signInWithRedirect(data);
+        signInWithRedirect({ amplifyContext: ctx }, { data }) {
+          return signInWithRedirect(ctx, data);
         },
         handleSignUp(context) {
           const {

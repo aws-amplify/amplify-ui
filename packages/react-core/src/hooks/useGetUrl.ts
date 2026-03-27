@@ -9,6 +9,8 @@ import { getUrl } from 'aws-amplify/storage';
 
 import { isFunction } from '@aws-amplify/ui';
 
+import { useAmplifyContext } from '../Authenticator/context/AmplifyContextContext';
+
 export type UseGetUrlInput = (GetUrlInput | GetUrlWithPathInput) & {
   onError?: (error: Error) => void;
 };
@@ -24,17 +26,14 @@ const INIT_STATE: UseGetUrlOutput = {
   isLoading: true,
 };
 
-type GetUrl = (
-  input: GetUrlInput | GetUrlWithPathInput
-) => Promise<GetUrlOutput>;
-
 export default function useGetUrl(input: UseGetUrlInput): UseGetUrlOutput {
+  const amplifyContext = useAmplifyContext();
   const [result, setResult] = React.useState(() => INIT_STATE);
   React.useEffect(() => {
     const { onError, ...getUrlInput } = input;
     let ignore = false;
 
-    (getUrl as GetUrl)(getUrlInput)
+    getUrl(amplifyContext!, getUrlInput as GetUrlWithPathInput)
       .then((response) => {
         if (ignore) {
           return;
@@ -57,7 +56,7 @@ export default function useGetUrl(input: UseGetUrlInput): UseGetUrlOutput {
     return () => {
       ignore = true;
     };
-  }, [input]);
+  }, [input, amplifyContext]);
 
   return result;
 }

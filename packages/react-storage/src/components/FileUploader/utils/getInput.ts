@@ -1,4 +1,4 @@
-import { fetchAuthSession } from 'aws-amplify/auth';
+import type { AmplifyContext } from 'aws-amplify';
 import type {
   UploadDataWithPathInput,
   UploadDataInput,
@@ -12,6 +12,7 @@ import type { PathCallback, PathInput } from './uploadFile';
 
 export interface GetInputParams {
   accessLevel: StorageAccessLevel | undefined;
+  amplifyContext?: AmplifyContext;
   bucket?: StorageBucket;
   file: File;
   key: string;
@@ -23,6 +24,7 @@ export interface GetInputParams {
 
 export const getInput = ({
   accessLevel,
+  amplifyContext,
   bucket,
   file,
   key,
@@ -67,7 +69,7 @@ export const getInput = ({
         options: { ...options, accessLevel },
       };
     } else {
-      const { identityId } = await fetchAuthSession();
+      const { identityId } = await amplifyContext!.fetchAuthSession();
       const resolvedPath = `${
         hasCallbackPath ? path({ identityId }) : path
       }${processedKey}`;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useSetUserAgent } from '@aws-amplify/ui-react-core';
+import { useSetUserAgent, useAmplifyContext } from '@aws-amplify/ui-react-core';
 import { deleteUser, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -37,6 +37,7 @@ function DeleteUser({
   const { deleteAccountButtonText } = displayText;
 
   const { user, isLoading } = useAuth();
+  const amplifyContext = useAmplifyContext();
 
   // subcomponents
   const { ErrorMessage, DeleteButton, WarningView } = React.useMemo(
@@ -67,7 +68,7 @@ function DeleteUser({
         await handleDelete(user);
       } else {
         // else, run default deleteUser function.
-        await deleteUser();
+        await deleteUser(amplifyContext!);
       }
       setState('DONE');
       onSuccess?.();

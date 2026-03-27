@@ -12,10 +12,12 @@ export const getErrorMessage = (propertyName: string): string =>
 
 export function useGetActionInputCallback({
   accountId,
+  amplifyContext,
   customEndpoint,
   region,
 }: {
   accountId?: string;
+  amplifyContext?: import('aws-amplify').AmplifyContext;
   customEndpoint?: string;
   region: string;
 }): GetActionInput {
@@ -42,6 +44,7 @@ export function useGetActionInputCallback({
 
       return {
         accountId,
+        amplifyContext,
         bucket,
         credentials: getCredentials({
           permissions,
@@ -51,6 +54,6 @@ export function useGetActionInputCallback({
         customEndpoint,
       };
     },
-    [accountId, current, customEndpoint, getCredentials, key, region]
+    [accountId, amplifyContext, current, customEndpoint, getCredentials, key, region]
   );
 }

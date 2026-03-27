@@ -10,7 +10,7 @@ import {
 
 import { runValidators } from '../../../validators';
 import actions from '../actions';
-import { defaultServices } from '../defaultServices';
+import { validateFormPassword, validateConfirmPassword } from '../defaultServices';
 import guards from '../guards';
 
 import type {
@@ -159,9 +159,9 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         checkPasskeys: {
           invoke: {
-            src: async () => {
+            src: async (context) => {
               try {
-                const result = await listWebAuthnCredentials();
+                const result = await listWebAuthnCredentials(context.amplifyContext);
                 return result.credentials && result.credentials.length > 0;
               } catch {
                 return false;
@@ -418,11 +418,11 @@ export function signInActor({ services }: SignInMachineOptions) {
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        async fetchUserAttributes() {
-          return fetchUserAttributes();
+        async fetchUserAttributes({ amplifyContext: ctx }) {
+          return fetchUserAttributes(ctx);
         },
-        resetPassword({ username }) {
-          return resetPassword({ username });
+        resetPassword({ username, amplifyContext: ctx }) {
+          return resetPassword(ctx, { username });
         },
         handleResendSignUpCode({ username }) {
           return services.handleResendSignUpCode({ username });
@@ -482,7 +482,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { [formValuesKey]: challengeResponse } = formValues;
           return services.handleConfirmSignIn({ challengeResponse });
         },
-        async handleForceChangePassword({ formValues }) {
+        async handleForceChangePassword({ formValues, amplifyContext: ctx }) {
           let {
             password: challengeResponse,
             phone_number,
@@ -509,10 +509,10 @@ export function signInActor({ services }: SignInMachineOptions) {
             options: { userAttributes },
           };
 
-          return confirmSignIn(input);
+          return confirmSignIn(ctx, input);
         },
-        signInWithRedirect(_, { data }) {
-          return signInWithRedirect(data);
+        signInWithRedirect({ amplifyContext: ctx }, { data }) {
+          return signInWithRedirect(ctx, data);
         },
         async validateFields(context) {
           return runValidators(
@@ -520,8 +520,8 @@ export function signInActor({ services }: SignInMachineOptions) {
             context.touched,
             context.passwordSettings,
             [
-              defaultServices.validateFormPassword,
-              defaultServices.validateConfirmPassword,
+              validateFormPassword,
+              validateConfirmPassword,
             ]
           );
         },

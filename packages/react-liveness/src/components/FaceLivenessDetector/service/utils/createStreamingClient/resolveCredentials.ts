@@ -1,4 +1,4 @@
-import { fetchAuthSession } from 'aws-amplify/auth';
+import type { AmplifyContext } from 'aws-amplify';
 import type { AwsCredentialProvider, AwsCredentials } from '../../types';
 
 const isValidCredentialsProvider = (
@@ -24,7 +24,8 @@ const isCredentials = (
  * @returns {Promise<AwsCredentials | AwsCredentialProvider>} `credentials` object or valid `credentialsProvider` callback
  */
 export async function resolveCredentials(
-  credentialsProvider?: AwsCredentialProvider
+  credentialsProvider?: AwsCredentialProvider,
+  amplifyContext?: AmplifyContext
 ): Promise<AwsCredentials | AwsCredentialProvider> {
   const hasValidCredentialsProvider =
     isValidCredentialsProvider(credentialsProvider);
@@ -39,7 +40,7 @@ export async function resolveCredentials(
   }
 
   try {
-    const result = (await fetchAuthSession()).credentials;
+    const result = (await amplifyContext!.fetchAuthSession()).credentials;
     if (isCredentials(result)) {
       return result;
     }

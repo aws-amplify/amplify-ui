@@ -52,7 +52,7 @@ export const deleteHandler: DeleteHandler = ({
     operationCancel?.();
   };
 
-  const operation = remove({
+  const operation = remove(config.amplifyContext!, {
     path: key,
     options: {
       bucket: constructBucket(config),

@@ -1,7 +1,6 @@
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import type { ResourcesConfig } from 'aws-amplify';
-import { Amplify } from 'aws-amplify';
-import { fetchAuthSession } from 'aws-amplify/auth';
+import { useAmplifyContext } from '@aws-amplify/ui-react-core';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
@@ -32,12 +31,13 @@ interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
  */
 const MapView = forwardRef<MapRef, MapViewProps>(
   ({ mapLib, mapStyle, style, ...props }, ref) => {
+    const amplifyContext = useAmplifyContext();
     const geoConfig: GeoConfig['LocationService'] = useMemo(() => {
       return (
-        Amplify.getConfig().Geo?.LocationService ??
+        amplifyContext?.resourcesConfig?.Geo?.LocationService ??
         ({} as GeoConfig['LocationService'])
       );
-    }, []);
+    }, [amplifyContext]);
     const [transformRequest, setTransformRequest] = useState<
       TransformRequestFunction | undefined
     >();
@@ -59,7 +59,7 @@ const MapView = forwardRef<MapRef, MapViewProps>(
      */
     useEffect(() => {
       (async () => {
-        const { credentials } = await fetchAuthSession();
+        const { credentials } = await amplifyContext!.fetchAuthSession();
 
         if (credentials && geoConfig) {
           const { region } = geoConfig;

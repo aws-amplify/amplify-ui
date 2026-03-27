@@ -38,6 +38,7 @@ export default function createProvider<
 ) => React.JSX.Element {
   const {
     accountId,
+    amplifyContext,
     customEndpoint,
     registerAuthListener,
     getLocationCredentials,
@@ -61,6 +62,7 @@ export default function createProvider<
 
   const ConfigurationProvider = createConfigurationProvider({
     accountId,
+    amplifyContext,
     customEndpoint,
     displayName: 'ConfigurationProvider',
     getLocationCredentials,

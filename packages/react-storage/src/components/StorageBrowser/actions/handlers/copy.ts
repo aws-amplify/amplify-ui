@@ -56,7 +56,7 @@ export const copyHandler: CopyHandler = (input) => {
     path: key,
   };
 
-  const result = copy({
+  const result = copy(config.amplifyContext!, {
     source,
     destination,
     options: { locationCredentialsProvider: credentials, customEndpoint },

@@ -3,11 +3,11 @@ import { createMachine, sendUpdate } from 'xstate';
 import { runValidators } from '../../../validators';
 import actions from '../actions';
 import guards from '../guards';
-import { defaultServices } from '../defaultServices';
-import type { AuthEvent, ResetPasswordContext } from '../types';
+import { validateFormPassword, validateConfirmPassword } from '../defaultServices';
+import type { AuthEvent, DefaultServices, ResetPasswordContext } from '../types';
 
 export type ForgotPasswordMachineOptions = {
-  services?: Partial<typeof defaultServices>;
+  services?: Partial<DefaultServices>;
 };
 
 export function forgotPasswordActor({
@@ -189,8 +189,8 @@ export function forgotPasswordActor({
             context.touched,
             context.passwordSettings,
             [
-              defaultServices.validateFormPassword,
-              defaultServices.validateConfirmPassword,
+              validateFormPassword,
+              validateConfirmPassword,
             ]
           );
         },

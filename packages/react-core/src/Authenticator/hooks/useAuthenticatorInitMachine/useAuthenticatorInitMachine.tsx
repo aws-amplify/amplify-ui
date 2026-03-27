@@ -8,7 +8,7 @@ import { useAuthenticator } from '../useAuthenticator';
 export const routeSelector: UseAuthenticatorSelector = ({ route }) => [route];
 
 export default function useAuthenticatorInitMachine(
-  data: AuthenticatorMachineOptions
+  data: Omit<AuthenticatorMachineOptions, 'amplifyContext'>
 ): void {
   const { route, initializeMachine } = useAuthenticator(routeSelector);
 

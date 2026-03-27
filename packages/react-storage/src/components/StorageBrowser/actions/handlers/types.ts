@@ -75,6 +75,7 @@ export interface OptionalFileData
 
 export interface ActionInputConfig {
   accountId?: string;
+  amplifyContext?: import('aws-amplify').AmplifyContext;
   bucket: string;
   credentials: LocationCredentialsProvider;
   customEndpoint?: string;

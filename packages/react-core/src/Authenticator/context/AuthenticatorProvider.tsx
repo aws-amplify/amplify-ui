@@ -3,7 +3,11 @@ import React, { useContext, useEffect, useMemo } from 'react';
 import { useInterpret } from '@xstate/react';
 
 import { getCurrentUser } from 'aws-amplify/auth';
-import type { AuthStatus, AuthMachineHubHandler } from '@aws-amplify/ui';
+import type {
+  AmplifyContext,
+  AuthStatus,
+  AuthMachineHubHandler,
+} from '@aws-amplify/ui';
 import {
   createAuthenticatorMachine,
   defaultAuthHubHandler,
@@ -11,6 +15,7 @@ import {
 } from '@aws-amplify/ui';
 
 import { AuthenticatorContext } from './AuthenticatorContext';
+import { AmplifyContextContext } from './AmplifyContextContext';
 
 type Options = Parameters<AuthMachineHubHandler>[2];
 
@@ -22,8 +27,10 @@ const createHubHandler =
 
 export default function AuthenticatorProvider({
   children,
+  amplifyContext,
 }: {
   children: ReactNode;
+  amplifyContext: AmplifyContext;
 }): React.JSX.Element {
   // `authStatus` is exposed by `useAuthenticator` but should not be derived directly from the
   // state machine as the machine only updates on `Authenticator` initiated events, which
@@ -33,14 +40,16 @@ export default function AuthenticatorProvider({
 
   // only run on first render
   React.useEffect(() => {
-    getCurrentUser()
+    const check = () => getCurrentUser(amplifyContext);
+
+    check()
       .then(() => {
         setAuthStatus('authenticated');
       })
       .catch(() => {
         setAuthStatus('unauthenticated');
       });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Based on use cases, developer might already have added another Provider
@@ -50,7 +59,9 @@ export default function AuthenticatorProvider({
    * TODO(BREAKING): enforce only one provider in App tree
    */
   const parentProviderVal = useContext(AuthenticatorContext);
-  const service = useInterpret(createAuthenticatorMachine);
+  const service = useInterpret(() =>
+    createAuthenticatorMachine({ amplifyContext })
+  );
 
   const value = useMemo(
     () => parentProviderVal ?? { authStatus, service },
@@ -75,8 +86,10 @@ export default function AuthenticatorProvider({
   }, [activeService]);
 
   return (
-    <AuthenticatorContext.Provider value={value}>
-      {children}
-    </AuthenticatorContext.Provider>
+    <AmplifyContextContext.Provider value={amplifyContext}>
+      <AuthenticatorContext.Provider value={value}>
+        {children}
+      </AuthenticatorContext.Provider>
+    </AmplifyContextContext.Provider>
   );
 }

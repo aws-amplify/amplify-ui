@@ -1,5 +1,5 @@
 import type { ResourcesConfig } from 'aws-amplify';
-import { Amplify } from 'aws-amplify';
+import type { AmplifyContext } from 'aws-amplify';
 import { hasSpecialChars } from '../authenticator';
 import type {
   ValidatorOptions,
@@ -9,11 +9,13 @@ import type {
   InputEventType,
 } from '../../types';
 
-// gets password requirement from Amplify.configure data
-export const getPasswordRequirement = (): PasswordRequirement | null => {
-  const config: ResourcesConfig = Amplify.getConfig();
+// gets password requirement from AmplifyContext
+export const getPasswordRequirement = (
+  ctx?: AmplifyContext
+): PasswordRequirement | null => {
+  const config: ResourcesConfig = ctx?.resourcesConfig ?? ({} as ResourcesConfig);
   const passwordSettings = config?.Auth?.Cognito
-    .passwordFormat as PasswordSettings;
+    ?.passwordFormat as PasswordSettings;
 
   if (!passwordSettings) {
     return null;

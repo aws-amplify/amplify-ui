@@ -1,4 +1,9 @@
-export { AuthenticatorProvider, AuthenticatorContext } from './context';
+export {
+  AuthenticatorProvider,
+  AuthenticatorContext,
+  AmplifyContextContext,
+  useAmplifyContext,
+} from './context';
 export type { UseAuthenticator, UseAuthenticatorRoute } from './hooks';
 export {
   resolveAuthenticatorComponents,

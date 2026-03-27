@@ -36,7 +36,7 @@ export const createFolderHandler: CreateFolderHandler = (input) => {
 
   const bucket = constructBucket(config);
 
-  const { result } = uploadData({
+  const { result } = uploadData(config.amplifyContext!, {
     path: key,
     data: '',
     options: {
