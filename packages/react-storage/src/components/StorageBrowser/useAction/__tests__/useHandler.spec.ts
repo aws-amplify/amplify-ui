@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
-import { useGetActionInput } from '../../configuration';
+import { useGetActionInput, useConcurrencyConfig } from '../../configuration';
 import { useProcessTasks } from '../../tasks';
 
 import { useHandler } from '../useHandler';
@@ -10,6 +10,7 @@ jest.mock('../../configuration');
 jest.mock('../../tasks');
 
 const useProcessTasksMock = jest.mocked(useProcessTasks);
+const useConcurrencyConfigMock = jest.mocked(useConcurrencyConfig);
 
 const config = {
   accountId: '123456789012',
@@ -22,6 +23,10 @@ const getConfig = jest.fn(() => config);
 const useGetActionInputMock = jest
   .mocked(useGetActionInput)
   .mockReturnValue(getConfig);
+
+useConcurrencyConfigMock.mockReturnValue({
+  concurrency: DEFAULT_ACTION_CONCURRENCY,
+});
 
 const handler = jest.fn();
 
