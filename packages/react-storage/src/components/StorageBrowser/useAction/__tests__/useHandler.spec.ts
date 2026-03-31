@@ -161,4 +161,27 @@ describe('useHandler', () => {
       onTaskSuccess: input.onTaskSuccess,
     });
   });
+
+  it('uses global concurrency config from useConcurrencyConfig', () => {
+    const customConcurrency = 8;
+    useConcurrencyConfigMock.mockReturnValueOnce({
+      concurrency: customConcurrency,
+    });
+
+    useProcessTasksMock.mockReturnValueOnce([
+      mockBatchState,
+      mockUseProcessDispatch,
+    ]);
+
+    const { result } = renderHook(() => useHandler(handler, { items: [] }));
+
+    const [, dispatch] = result.current;
+    dispatch();
+
+    expect(useConcurrencyConfigMock).toHaveBeenCalledTimes(1);
+    expect(mockUseProcessDispatch).toHaveBeenCalledWith({
+      config,
+      options: { concurrency: customConcurrency },
+    });
+  });
 });

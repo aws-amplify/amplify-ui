@@ -225,12 +225,4 @@ describe('useUploadView', () => {
 
     expect(result.current.isOverwritingEnabled).toBe(true);
   });
-
-  it('should use global concurrency config from context', () => {
-    renderHook(() => useUploadView());
-
-    expect(mockUseAction).toHaveBeenCalledWith('upload', {
-      items: expect.any(Array),
-    });
-  });
 });
