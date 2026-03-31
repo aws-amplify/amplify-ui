@@ -145,7 +145,8 @@
     "**/@changesets/cli/**/js-yaml": "~3.14.2",
     "@tensorflow-models/face-detection/rimraf": "5.0.0",
     "qs": "^6.15.0",
-    "@tootallnate/once": "3.0.1"
+    "@tootallnate/once": "3.0.1",
+    "handlebars": "4.7.9"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
