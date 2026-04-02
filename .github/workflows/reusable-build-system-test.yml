@@ -91,7 +91,7 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v4.1.3 https://github.com/actions/checkout/commit/cd7d8d697e10461458bc61a30d094dc601a8b017
         with:
           persist-credentials: false
       - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
