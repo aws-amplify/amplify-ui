@@ -4,7 +4,6 @@ import type { ConfirmSignUpInput } from 'aws-amplify/auth';
 import {
   autoSignIn,
   signInWithRedirect,
-  fetchUserAttributes,
   listWebAuthnCredentials,
 } from 'aws-amplify/auth';
 
@@ -331,11 +330,15 @@ export function signUpActor({ services }: SignUpMachineOptions) {
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        autoSignIn() {
-          return autoSignIn();
+        async autoSignIn() {
+          try {
+            return await autoSignIn();
+          } catch {
+            return {};
+          }
         },
-        async fetchUserAttributes({ amplifyContext: ctx }) {
-          return fetchUserAttributes(ctx);
+        async fetchUserAttributes() {
+          return {};
         },
         confirmSignUp({ formValues, username }) {
           const { confirmation_code: confirmationCode } = formValues;

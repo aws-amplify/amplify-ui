@@ -459,8 +459,8 @@ export function createAuthenticatorMachine(
       },
       services: {
         getAmplifyConfig: ({ services }) => services.getAmplifyConfig(),
-        handleGetCurrentUser: ({ amplifyContext: ctx }) => {
-          return getCurrentUser(ctx);
+        handleGetCurrentUser: ({ services }) => {
+          return services.getCurrentUser();
         },
       },
     }

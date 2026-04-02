@@ -2,7 +2,6 @@ import { createMachine, sendUpdate } from 'xstate';
 import type { ConfirmSignInInput } from 'aws-amplify/auth';
 import {
   confirmSignIn,
-  fetchUserAttributes,
   listWebAuthnCredentials,
   resetPassword,
   signInWithRedirect,
@@ -418,8 +417,8 @@ export function signInActor({ services }: SignInMachineOptions) {
       actions: { ...actions, sendUpdate: sendUpdate() },
       guards,
       services: {
-        async fetchUserAttributes({ amplifyContext: ctx }) {
-          return fetchUserAttributes(ctx);
+        async fetchUserAttributes() {
+          return {};
         },
         resetPassword({ username, amplifyContext: ctx }) {
           return resetPassword(ctx, { username });
