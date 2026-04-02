@@ -4,26 +4,27 @@ import { zipDownloadHandler } from '../zipdownload';
 import type { DownloadHandlerInput } from '../download';
 
 jest.mock('../../../storage-internal');
-jest.mock(
-  'jszip',
-  () =>
-    class JSZipMock {
-      #file: string | null = null;
-      file(name: string, _file: Blob) {
-        this.#file = name;
-      }
-      async generateAsync(
-        opts: any,
-        onProgress: (o: { percent: number; currentFile: string | null }) => void
-      ) {
-        onProgress?.({ percent: 0, currentFile: this.#file });
-        onProgress?.({ percent: 50, currentFile: this.#file });
-        onProgress?.({ percent: 100, currentFile: this.#file });
-        onProgress?.({ percent: 100, currentFile: null });
-        return Promise.resolve(new Blob());
-      }
-    }
-);
+jest.mock('@zip.js/zip.js', () => {
+  return {
+    configure: jest.fn(),
+    BlobReader: jest.fn(),
+    BlobWriter: jest.fn(),
+    ZipWriter: jest.fn().mockImplementation(() => ({
+      add: jest.fn(
+        (
+          _name: string,
+          _reader: unknown,
+          options?: { onprogress?: (progress: number, total: number) => void }
+        ) => {
+          options?.onprogress?.(50, 100);
+          options?.onprogress?.(100, 100);
+          return Promise.resolve();
+        }
+      ),
+      close: jest.fn(() => Promise.resolve(new Blob())),
+    })),
+  };
+});
 
 const baseInput: DownloadHandlerInput = {
   config: {
@@ -107,7 +108,7 @@ describe('zipDownloadHandler', () => {
 
   it('returns a complete status', async () => {
     const { result } = zipDownloadHandler(baseInput);
-    expect(await result).toEqual({ status: 'LOADED' });
+    expect(await result).toEqual({ status: 'COMPLETE' });
   });
 
   it('calls the progress with statuses', async () => {
