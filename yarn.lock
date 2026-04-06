@@ -20848,7 +20848,7 @@ esbuild-wasm@>=0.23.0:
   resolved "https://registry.npmjs.org/esbuild-wasm/-/esbuild-wasm-0.27.0.tgz"
   integrity sha512-4XpLDOY4sOzqgiezPXDkHTn25cBA1MKN5OTotehoFR7/wTpSYCK76OA8rQfpiuz12G27JpGxxdh+/D9GcNl61w==
 
-esbuild@0.25.4, esbuild@>=0.23.0, esbuild@^0.21.3, esbuild@^0.24.0, esbuild@^0.25.0, esbuild@~0.23.0, esbuild@~0.25.0:
+esbuild@0.25.4, esbuild@>=0.23.0, esbuild@^0.24.0, esbuild@^0.25.0, esbuild@~0.23.0, esbuild@~0.25.0:
   version "0.25.1"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.25.1.tgz"
   integrity sha512-BGO5LtrGC7vxnqucAe/rmvKdJllfGaYWdyABvyMoXQlfYMb2bbRuReWR5tEGE//4LcNJj9XrkovTqNYRFZHAMQ==
@@ -28886,7 +28886,7 @@ postcss-values-parser@^6.0.2:
     is-url-superb "^4.0.0"
     quote-unquote "^1.0.0"
 
-postcss@8.4.31, postcss@8.5.2, postcss@^8.1.10, postcss@^8.2.14, postcss@^8.4.31, postcss@^8.4.33, postcss@^8.4.35, postcss@^8.4.43, postcss@^8.4.47, postcss@^8.4.48, postcss@^8.4.49, postcss@^8.4.5, postcss@^8.5.1, postcss@^8.5.3, postcss@^8.5.6:
+postcss@8.4.31, postcss@8.5.2, postcss@^8.1.10, postcss@^8.2.14, postcss@^8.4.31, postcss@^8.4.33, postcss@^8.4.35, postcss@^8.4.47, postcss@^8.4.48, postcss@^8.4.49, postcss@^8.4.5, postcss@^8.5.1, postcss@^8.5.3, postcss@^8.5.6:
   version "8.5.6"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.5.6.tgz"
   integrity sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==
@@ -30383,7 +30383,7 @@ rollup-plugin-typescript2@^0.31.2:
     resolve "^1.20.0"
     tslib "^2.3.1"
 
-rollup@4.59.0, rollup@^4.20.0, rollup@^4.22.4, rollup@^4.24.0, rollup@^4.34.9, rollup@^4.43.0, rollup@^4.59.0:
+rollup@4.59.0, rollup@^4.22.4, rollup@^4.24.0, rollup@^4.34.9, rollup@^4.43.0, rollup@^4.59.0:
   version "4.60.1"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-4.60.1.tgz#b4aa2bcb3a5e1437b5fad40d43fe42d4bde7a42d"
   integrity sha512-VmtB2rFU/GroZ4oL8+ZqXgSA38O6GR8KSIvWmEFv63pQ0G6KaBH9s07PO8XTXP4vI+3UJUEypOfjkGfmSBBR0w==
@@ -33748,7 +33748,7 @@ vite-plugin-pages@^0.25.0:
     picocolors "^1.0.0"
     yaml "^2.1.1"
 
-vite@6.4.1, vite@^6.4.1:
+vite@6.4.1:
   version "6.4.1"
   resolved "https://registry.npmjs.org/vite/-/vite-6.4.1.tgz"
   integrity sha512-+Oxm7q9hDoLMyJOYfUYBuHQo+dkAloi33apOPP56pzj+vsdJDzr+j1NISE5pyaAuKL4A3UD34qd0lx5+kfKp2g==
@@ -33776,14 +33776,17 @@ vite@6.4.1, vite@^6.4.1:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vite@^5.4.21:
-  version "5.4.21"
-  resolved "https://registry.npmjs.org/vite/-/vite-5.4.21.tgz"
-  integrity sha512-o5a9xKjbtuhY6Bi5S3+HvbRERmouabWbyUcpXXUA1u+GNUKoROi9byOJ8M0nHbHYHkYICiMlqxkg1KkYmm25Sw==
+vite@^6.4.1, vite@^6.4.2:
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-6.4.2.tgz#a4e548ca3a90ca9f3724582cab35e1ba15efc6f2"
+  integrity sha512-2N/55r4JDJ4gdrCvGgINMy+HH3iRpNIz8K6SFwVsA+JbQScLiC+clmAxBgwiSPgcG9U15QmvqCGWzMbqda5zGQ==
   dependencies:
-    esbuild "^0.21.3"
-    postcss "^8.4.43"
-    rollup "^4.20.0"
+    esbuild "^0.25.0"
+    fdir "^6.4.4"
+    picomatch "^4.0.2"
+    postcss "^8.5.3"
+    rollup "^4.34.9"
+    tinyglobby "^0.2.13"
   optionalDependencies:
     fsevents "~2.3.3"
 
