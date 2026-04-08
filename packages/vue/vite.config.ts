@@ -43,6 +43,7 @@ export default defineConfig({
       entry: resolvePath('./src/index.ts'),
       formats: ['es', 'cjs'],
       name: 'ui-vue',
+      cssFileName: 'style',
       fileName: (format: string) =>
         format === 'es' ? 'index.js' : `index.${format}`,
     },
