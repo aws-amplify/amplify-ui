@@ -1,1 +1,1 @@
-export * from './validator';
+export type * from './validator';

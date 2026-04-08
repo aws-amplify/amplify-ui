@@ -1,5 +1,19 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.4
+
+### Patch Changes
+
+- Updated dependencies [[`00c6b6cb4d0dfe4f6389b70da04acdb3f70bde53`](https://github.com/aws-amplify/amplify-ui/commit/00c6b6cb4d0dfe4f6389b70da04acdb3f70bde53), [`aea51618abe852ffedd4375a592cffb976880a66`](https://github.com/aws-amplify/amplify-ui/commit/aea51618abe852ffedd4375a592cffb976880a66)]:
+  - @aws-amplify/ui@6.15.3
+  - @aws-amplify/ui-react@6.15.3
+
+## 3.6.3
+
+### Patch Changes
+
+- [#6911](https://github.com/aws-amplify/amplify-ui/pull/6911) [`e15a05b8771b74f6ddfc94acf9b049542c5e0290`](https://github.com/aws-amplify/amplify-ui/commit/e15a05b8771b74f6ddfc94acf9b049542c5e0290) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(react-liveness): bundle @mediapipe/face_detection for Vite 8.0.0 compatibility
+
 ## 3.6.2
 
 ### Patch Changes

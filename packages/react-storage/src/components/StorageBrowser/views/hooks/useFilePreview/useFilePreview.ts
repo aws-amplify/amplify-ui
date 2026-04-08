@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useEffect, useState } from 'react';
 import type { FileData } from '../../../actions';
 
 import { determineFileType } from '../../utils/files/fileType';
@@ -91,7 +91,7 @@ export function useFilePreview({
         fileData: finalFile,
         url: url.toString(),
       });
-    } catch (error) {
+    } catch {
       setFilePreviewContent({
         isLoading: false,
         ok: false,

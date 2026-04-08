@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "6.15.2",
+  "version": "6.15.3",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -19,6 +19,7 @@
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },
+  "eslint": "./eslint.config.js",
   "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
   "repository": {
@@ -37,7 +38,7 @@
     "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build --watch",
-    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
     "test": "jest",
     "test:watch": "yarn test --watch",
@@ -45,7 +46,7 @@
   },
   "dependencies": {
     "csstype": "^3.1.1",
-    "lodash": "4.17.23",
+    "lodash": "4.18.1",
     "tslib": "^2.5.2"
   },
   "peerDependencies": {

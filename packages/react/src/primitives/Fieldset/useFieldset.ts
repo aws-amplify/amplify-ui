@@ -12,5 +12,12 @@ export const FieldsetContext = React.createContext<FieldsetContextType>({
  * fieldsets and input controls. `useFieldset` passes the disabled state down
  * via context.
  */
-export const useFieldset = (): FieldsetContextType =>
-  React.useContext(FieldsetContext);
+export const useFieldset = (fallback?: boolean): FieldsetContextType => {
+  const ctx = React.useContext(FieldsetContext);
+  let value = ctx.isFieldsetDisabled;
+  // cannot use nullish `??` since isFieldsetDisabled can be `false`
+  if (value === undefined || value === false) {
+    value = fallback;
+  }
+  return { isFieldsetDisabled: value };
+};

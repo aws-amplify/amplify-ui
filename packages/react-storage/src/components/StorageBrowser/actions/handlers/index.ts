@@ -8,4 +8,4 @@ export * from './listLocationItems';
 export * from './listLocations';
 export * from './upload';
 export * from './utils';
-export * from './types';
+export type * from './types';

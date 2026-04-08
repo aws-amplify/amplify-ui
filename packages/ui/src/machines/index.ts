@@ -1,2 +1,2 @@
 export * from './authenticator';
-export * from './authenticator/types';
+export type * from './authenticator/types';

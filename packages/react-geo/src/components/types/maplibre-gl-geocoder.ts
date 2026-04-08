@@ -1,6 +1,9 @@
 // `LocationSearchProps` is based upon the typing specified by maplibre-gl-geocoder:
 // https://github.com/maplibre/maplibre-gl-geocoder/blob/main/lib/index.js#L11-L66
 // TODO: formalize this type in the `maplibre-gl-geocoder` library
+
+// disabling errors for the "Function" type. Should be resolved, when using the lib mentioned above
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 export type LocationSearchProps = {
   /**
    * A bounding box given as an array in the format `[minX, minY, maxX, maxY]`.

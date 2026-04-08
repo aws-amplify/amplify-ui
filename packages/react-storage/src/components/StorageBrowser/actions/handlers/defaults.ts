@@ -5,7 +5,7 @@ import { createFolderHandler } from './createFolder';
 import type { DeleteHandler } from './delete';
 import { deleteHandler } from './delete';
 import type { DownloadHandler } from './download';
-import { zipDownloadHandler } from './zipdownload';
+import { composedDownloadHandler } from './composedDownloadHandler';
 import type { ListLocationItemsHandler } from './listLocationItems';
 import { listLocationItemsHandler } from './listLocationItems';
 import type { UploadHandler } from './upload';
@@ -24,7 +24,7 @@ export const defaultHandlers: DefaultHandlers = {
   copy: copyHandler,
   createFolder: createFolderHandler,
   delete: deleteHandler,
-  download: zipDownloadHandler,
+  download: composedDownloadHandler,
   listLocationItems: listLocationItemsHandler,
   upload: uploadHandler,
 };

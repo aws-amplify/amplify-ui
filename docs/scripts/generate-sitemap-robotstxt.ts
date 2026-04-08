@@ -82,7 +82,6 @@ async function generateSitemap() {
     parser: 'html',
   });
 
-  // eslint-disable-next-line no-sync
   writeFileSync(path.resolve(__dirname, '../public/sitemap.xml'), formatted);
   console.log('🗺 ✅ SiteMap generated.');
 }

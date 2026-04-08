@@ -7,7 +7,7 @@ import type {
 import type { TaskResult, TaskResultStatus } from './types';
 import { isFunction } from '@aws-amplify/ui';
 import { getProgress } from './utils';
-import JSZip from 'jszip';
+import { BlobReader, BlobWriter, ZipWriter } from '@zip.js/zip.js';
 
 type DownloadTaskResult = TaskResult<TaskResultStatus, { url: URL }>;
 
@@ -15,121 +15,54 @@ interface MyZipper {
   addFile: (
     file: Blob,
     name: string,
-    data: DownloadHandlerData
+    options?: {
+      data: DownloadHandlerData;
+      signal?: AbortSignal;
+      onProgress?: (
+        percent: number,
+        key: string,
+        data: DownloadHandlerData
+      ) => void;
+    }
   ) => Promise<void>;
-  getBlobUrl: (
-    onProgress?: (
-      percent: number,
-      key: string,
-      data: DownloadHandlerData
-    ) => void
-  ) => Promise<string>;
+  getBlobUrl: () => Promise<string>;
   destroy: () => void;
 }
 
-const zipProgressManager = ({
-  dataMap,
-  onZipProgress,
-}: {
-  dataMap: Map<string, DownloadHandlerData>;
-  onZipProgress: (
-    file: string,
-    progress: number,
-    data: DownloadHandlerData
-  ) => void;
-}) => {
-  const iter = (() => {
-    let f: string;
-    let i = 0;
-    return (str: string) => {
-      if (!f) {
-        f = str;
-      } else if (str !== f) {
-        ++i;
-        f = str;
-      }
-      return i;
-    };
-  })();
-  const progressMap = new Map<string, number>(
-    Array.from(dataMap.keys()).map((k) => [k, 0])
-  );
-  const total = dataMap.size;
-  dataMap.forEach((data, key) => {
-    onZipProgress(key, 0, data);
-  });
-  return ({
-    percent,
-    currentFile,
-  }: {
-    percent: number;
-    currentFile: string | null;
-  }) => {
-    if (currentFile) {
-      const item = iter(currentFile);
-      const sliceSize = 100 / total; // when 3 this is 33.3%
-      const start = sliceSize * item; // this is 66.6% for last item of 3;
-      // take percent and calculate the percent of the slice
-      const progress = percent - start;
-      const actualPercent = (progress / sliceSize) * 100;
-      progressMap.set(
-        currentFile,
-        Math.max(actualPercent, progressMap.get(currentFile) ?? 0)
-      );
-      onZipProgress(
-        currentFile,
-        progressMap.get(currentFile) as number,
-        dataMap.get(currentFile) as DownloadHandlerData
-      );
-    }
-  };
-};
 const zipper: MyZipper = (() => {
-  let zip: JSZip | null = null;
-  const dataMap = new Map<string, DownloadHandlerData>();
+  let blobWriter: BlobWriter | null = null;
+  let zipWriter: ZipWriter<Blob> | null = null;
+
   return {
-    addFile: (file, name, data) => {
-      if (!zip) {
-        zip = new JSZip();
+    addFile: async (file, name, options) => {
+      const { data, signal, onProgress } = options ?? {};
+      if (!blobWriter) {
+        blobWriter = new BlobWriter('application/zip');
+        zipWriter = new ZipWriter(blobWriter);
       }
-      dataMap.set(name, data);
-      return new Promise((ok, no) => {
-        try {
-          zip?.file(name, file);
-          ok();
-        } catch (e) {
-          no();
-        }
+      await zipWriter!.add(name, new BlobReader(file), {
+        level: 0,
+        signal,
+        onprogress: (progress: number, total: number) => {
+          if (isFunction(onProgress) && data) {
+            onProgress(progress / total, name, data);
+          }
+          return undefined;
+        },
       });
     },
-    getBlobUrl: async (onProgress) => {
-      if (!zip) {
+    getBlobUrl: async () => {
+      if (!zipWriter) {
         throw new Error('no zip');
       }
-      const blob = await zip.generateAsync(
-        {
-          type: 'blob',
-          streamFiles: true,
-          compression: 'DEFLATE',
-          compressionOptions: {
-            level: 5,
-          },
-        },
-        zipProgressManager({
-          dataMap,
-          onZipProgress: (file, progress, data) => {
-            if (isFunction(onProgress)) {
-              onProgress(progress, file, data);
-            }
-          },
-        })
-      );
-      zip = null;
+      const blob = await zipWriter.close();
+      zipWriter = null;
+      blobWriter = null;
       return URL.createObjectURL(blob);
     },
     destroy: () => {
-      dataMap.clear();
-      zip = null;
+      zipWriter = null;
+      blobWriter = null;
     },
   };
 })();
@@ -196,7 +129,19 @@ const download = async (
   });
   const blob = await readBody(response, { config, data, all, options });
   const [filename] = key.split('/').reverse();
-  await zipper.addFile(blob, filename, data);
+  await zipper.addFile(blob, filename, {
+    data,
+    signal: abortController.signal,
+    onProgress: (progress, _name, _data) => {
+      if (isFunction(options?.onProgress)) {
+        options?.onProgress(
+          _data,
+          progress,
+          progress === 1 ? 'COMPLETE' : 'FINISHING'
+        );
+      }
+    },
+  });
   return filename;
 };
 
@@ -217,7 +162,7 @@ const downloadHandler = (() => {
         .then((): DownloadTaskResult => {
           fileDownloadQueue.set(key, true);
           return {
-            status: 'LOADED',
+            status: 'COMPLETE' as const,
           };
         })
         .catch((e): DownloadTaskResult => {
@@ -235,16 +180,7 @@ const downloadHandler = (() => {
           });
           if (done) {
             zipper
-              .getBlobUrl((percent, name, _data) => {
-                if (isFunction(options?.onProgress)) {
-                  const progress = percent / 100;
-                  options?.onProgress(
-                    _data,
-                    progress,
-                    progress === 1 ? 'COMPLETE' : 'FINISHING'
-                  );
-                }
-              })
+              .getBlobUrl()
               .then((blobURL) => {
                 if (blobURL) {
                   zipper.destroy();

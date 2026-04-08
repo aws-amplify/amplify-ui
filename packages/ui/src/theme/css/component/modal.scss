@@ -73,9 +73,12 @@
   overflow-y: auto;
   box-sizing: border-box;
   list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: var(--amplify-space-xxs);
 }
 
 .amplify-modal__list-item.amplify-modal__list-item {
+  display: list-item;
   margin-bottom: var(--amplify-space-xxs);
-  box-sizing: border-box;
 }

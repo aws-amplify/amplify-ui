@@ -16,7 +16,8 @@ const readAllDirectoryEntries = async (
     readBatch = await new Promise<FileSystemEntry[]>((resolve, reject) => {
       try {
         dirReader.readEntries(resolve, reject);
-      } catch (error) {
+      } catch (e) {
+        const error = e as Error;
         reject(error);
       }
     });

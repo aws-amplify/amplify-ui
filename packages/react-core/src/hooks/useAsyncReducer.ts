@@ -73,7 +73,7 @@ export default function useAsyncReducer<T, K>(
   }));
 
   const prevValue = React.useRef(initialValue);
-  const pendingId = React.useRef<Symbol | undefined>();
+  const pendingId = React.useRef<symbol | undefined>();
 
   const { onSuccess, onError } = options ?? {};
 
