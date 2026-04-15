@@ -16,7 +16,10 @@ export const SEARCH_PAGE_SIZE = 1000;
 export type EnhancedListHandlerOptions<TOptions, TItem> = TOptions & {
   refresh?: boolean;
   reset?: boolean;
-  search?: SearchOptions<TItem>;
+  search?: SearchOptions<TItem> & {
+    limit?: number;
+    onProgress?: (progress: { fetchedCount: number }) => void;
+  };
 };
 
 export type EnhancedListHandlerInput<
@@ -45,6 +48,12 @@ export const createEnhancedListHandler = <
 >(
   handler: ListHandler<TInput, ListHandlerOutput<TItem>>
 ): EnhancedListHandler<TInput, TItem> => {
+  let searchCache: {
+    prefix: string;
+    items: TItem[];
+    hasExhaustedSearch: boolean;
+  } | null = null;
+
   return async function listActionHandler(prevState, { options, ...input }) {
     const {
       nextToken: _nextToken,
@@ -55,30 +64,59 @@ export const createEnhancedListHandler = <
     } = options ?? {};
 
     if (reset) {
+      searchCache = null;
       return { items: [], nextToken: undefined };
     }
 
     // collect and filter results on `search`
     if (search) {
-      const items = [];
-      let nextToken = undefined;
-      do {
-        const output = await handler({
-          ...input,
-          options: { ...rest, pageSize: SEARCH_PAGE_SIZE, nextToken },
-        } as TInput);
+      const { limit: searchLimit, onProgress, ...searchOptions } = search;
+      let allItems: TItem[];
+      let hasExhaustedSearch: boolean;
 
-        items.push(...output.items);
-        // eslint-disable-next-line prefer-destructuring
-        nextToken = output.nextToken;
-      } while (nextToken && items.length < SEARCH_LIMIT);
+      if (searchCache && searchCache.prefix === input.prefix && !refresh) {
+        allItems = searchCache.items;
+        ({ hasExhaustedSearch } = searchCache);
+      } else {
+        const items: TItem[] = [];
+        let nextToken = undefined;
+        const limit = searchLimit ?? SEARCH_LIMIT;
+        do {
+          const output = await handler({
+            ...input,
+            options: { ...rest, pageSize: SEARCH_PAGE_SIZE, nextToken },
+          } as TInput);
+
+          items.push(...output.items);
+          // eslint-disable-next-line prefer-destructuring
+          nextToken = output.nextToken;
+
+          onProgress?.({ fetchedCount: items.length });
+        } while (nextToken && items.length < limit);
+
+        allItems = items;
+        hasExhaustedSearch = !!nextToken;
+
+        searchCache = {
+          prefix: input.prefix,
+          items: allItems,
+          hasExhaustedSearch,
+        };
+      }
 
       return {
-        items: searchItems({ items, prefix: input.prefix, options: search }),
-        // search limit reached but we still have a next token
-        hasExhaustedSearch: !!nextToken,
+        items: searchItems({
+          items: allItems,
+          prefix: input.prefix,
+          options: searchOptions,
+        }),
+        hasExhaustedSearch,
         nextToken: undefined,
       };
+    }
+
+    if (refresh) {
+      searchCache = null;
     }
 
     // ignore provided `nextToken` on `refresh`

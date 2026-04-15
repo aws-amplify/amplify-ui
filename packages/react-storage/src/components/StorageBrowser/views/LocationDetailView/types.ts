@@ -55,6 +55,7 @@ export interface LocationDetailViewState {
   page: number;
   pageItems: LocationItemData[];
   searchQuery: string;
+  searchProgress: { fetchedCount: number } | null;
   filePreviewState: FilePreviewState;
   filePreviewEnabled: boolean;
 }

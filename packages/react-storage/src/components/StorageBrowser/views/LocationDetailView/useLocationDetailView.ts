@@ -74,6 +74,9 @@ export const useLocationDetailView = (
   const [locationItems, locationItemsDispatch] = useLocationItems();
   const fileItemsDispatch = useFileItems()[1];
   const [activeFile, setActiveFile] = React.useState<FileData | undefined>();
+  const [searchProgress, setSearchProgress] = React.useState<{
+    fetchedCount: number;
+  } | null>(null);
 
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
@@ -101,6 +104,7 @@ export const useLocationDetailView = (
     currentPage,
     handlePaginate,
     handleReset,
+    hasNextLocalPage,
     highestPageVisited,
     pageItems,
   } = usePaginate({
@@ -118,11 +122,14 @@ export const useLocationDetailView = (
         query,
         filterBy: 'key' as const,
         groupBy: includeSubfolders ? listOptions.delimiter : undefined,
+        onProgress: (progress: { fetchedCount: number }) =>
+          setSearchProgress(progress),
       },
     };
 
     handleReset();
     handleList({ prefix: key, options: searchOptions });
+    setSearchProgress({ fetchedCount: 0 });
 
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
   };
@@ -225,6 +232,12 @@ export const useLocationDetailView = (
     setActiveFile(undefined);
   }, [handleList, handleReset, listOptions, hasInvalidPrefix, key]);
 
+  React.useEffect(() => {
+    if (!isLoading && searchProgress) {
+      setSearchProgress(null);
+    }
+  }, [isLoading, searchProgress]);
+
   const { actionConfigs } = useActionConfigs();
 
   const actionItems = React.useMemo(() => {
@@ -263,7 +276,7 @@ export const useLocationDetailView = (
     fileDataItems,
     hasError,
     hasDownloadError: task?.status === 'FAILED',
-    hasNextPage: !!nextToken,
+    hasNextPage: !!nextToken || hasNextLocalPage,
     highestPageVisited,
     message,
     downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
@@ -274,6 +287,7 @@ export const useLocationDetailView = (
       setActiveFile(undefined);
     },
     searchQuery,
+    searchProgress,
     filePreviewState,
     filePreviewEnabled: !optout,
     hasExhaustedSearch,

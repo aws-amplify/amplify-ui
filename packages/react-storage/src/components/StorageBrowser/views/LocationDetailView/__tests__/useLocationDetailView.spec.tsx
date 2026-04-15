@@ -573,7 +573,12 @@ describe('useLocationDetailView', () => {
       options: {
         ...DEFAULT_LIST_OPTIONS,
         delimiter: '/',
-        search: { filterBy: 'key', query: 'moo' },
+        search: {
+          filterBy: 'key',
+          query: 'moo',
+          groupBy: undefined,
+          onProgress: expect.any(Function),
+        },
       },
       prefix: 'item-b-key/',
     });
@@ -621,7 +626,12 @@ describe('useLocationDetailView', () => {
       options: {
         ...DEFAULT_LIST_OPTIONS,
         delimiter: undefined,
-        search: { filterBy: 'key', query: 'moo', groupBy: '/' },
+        search: {
+          filterBy: 'key',
+          query: 'moo',
+          groupBy: '/',
+          onProgress: expect.any(Function),
+        },
       },
       prefix: 'item-b-key/',
     });
@@ -867,6 +877,115 @@ describe('useLocationDetailView', () => {
       waitFor(() => {
         expect(result.current.activeFile).toBe(undefined);
       });
+    });
+  });
+
+  describe('search pagination and progress', () => {
+    it('should set hasNextPage true when search results span multiple local pages', () => {
+      const manyItems: LocationItemData[] = Array.from(
+        { length: 200 },
+        (_, i) => ({
+          key: `some-prefix/file-${i}.txt`,
+          id: `id-${i}`,
+          type: 'FILE' as const,
+          lastModified: new Date(),
+          size: 1024,
+        })
+      );
+
+      mockUseList.mockReturnValue([
+        {
+          value: { items: manyItems, nextToken: undefined },
+          message: '',
+          hasError: false,
+          isLoading: false,
+        },
+        mockHandleList,
+      ]);
+
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: EXPECTED_PAGE_SIZE })
+      );
+
+      expect(result.current.hasNextPage).toBe(true);
+    });
+
+    it('should paginate through search results locally', () => {
+      const searchItems: LocationItemData[] = Array.from(
+        { length: 10 },
+        (_, i) => ({
+          key: `some-prefix/file-${i}.txt`,
+          id: `id-${i}`,
+          type: 'FILE' as const,
+          lastModified: new Date(),
+          size: 1024,
+        })
+      );
+
+      mockUseList.mockReturnValue([
+        {
+          value: { items: searchItems, nextToken: undefined },
+          message: '',
+          hasError: false,
+          isLoading: false,
+        },
+        mockHandleList,
+      ]);
+
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: EXPECTED_PAGE_SIZE })
+      );
+
+      expect(result.current.pageItems).toEqual(
+        searchItems.slice(0, EXPECTED_PAGE_SIZE)
+      );
+
+      act(() => {
+        result.current.onPaginate(2);
+      });
+
+      expect(result.current.page).toBe(2);
+      expect(result.current.pageItems).toEqual(
+        searchItems.slice(EXPECTED_PAGE_SIZE, EXPECTED_PAGE_SIZE * 2)
+      );
+    });
+
+    it('should expose searchProgress as null initially', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      expect(result.current.searchProgress).toBeNull();
+    });
+
+    it('should pass onProgress callback when searching', () => {
+      mockUseStore.mockReturnValue([mockStoreState, mockStoreDispatch]);
+      const mockDataState = {
+        value: { items: [], nextToken: undefined },
+        message: '',
+        hasError: false,
+        isLoading: false,
+      };
+      const localMockHandleList = jest.fn();
+      mockUseList.mockReturnValue([mockDataState, localMockHandleList]);
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSearchQueryChange('test');
+      });
+
+      act(() => {
+        result.current.onSearch();
+      });
+
+      expect(localMockHandleList).toHaveBeenCalledWith(
+        expect.objectContaining({
+          options: expect.objectContaining({
+            search: expect.objectContaining({
+              onProgress: expect.any(Function),
+            }),
+          }),
+        })
+      );
     });
   });
 });
