@@ -127,7 +127,7 @@ jobs:
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
+          key: ${{ runner.os }}-node24-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
@@ -149,7 +149,7 @@ jobs:
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
+          key: ${{ runner.os }}-node24-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Run E2E tests against ${{ env.MEGA_APP_NAME }} example

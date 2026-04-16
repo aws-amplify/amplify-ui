@@ -127,7 +127,7 @@ jobs:
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node24-cypress-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
@@ -138,7 +138,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node24-nodemodules-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
@@ -673,7 +673,7 @@ jobs:
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node24-cypress-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
@@ -682,7 +682,7 @@ jobs:
         id: restore-puppeteer-cache
         with:
           path: ~/.cache/puppeteer
-          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node24-puppeteer-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
@@ -693,7 +693,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node24-nodemodules-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
