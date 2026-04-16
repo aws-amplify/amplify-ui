@@ -226,3 +226,35 @@ Then(
       });
   }
 );
+
+When('I click the {string} sort header', (columnLabel: string) => {
+  cy.get('.amplify-storage-browser__table-sort-header')
+    .contains(new RegExp(`^${columnLabel}$`, 'i'))
+    .click();
+});
+
+Then('the first table row name should contain {string}', (expected: string) => {
+  cy.get('table tbody tr')
+    .first()
+    .find('td:nth-child(2)')
+    .should('contain.text', expected);
+});
+
+Then(
+  'the table name column values should be in {string} order',
+  (direction: string) => {
+    cy.get('table tbody tr td:nth-child(2)').then(($cells) => {
+      const values = [...$cells].map(
+        (cell) => cell.textContent?.trim().toLowerCase() ?? ''
+      );
+      const sorted = [...values].sort((a, b) =>
+        direction === 'ascending' ? a.localeCompare(b) : b.localeCompare(a)
+      );
+      expect(values).to.deep.equal(sorted);
+    });
+  }
+);
+
+Then('the table should have at least {string} rows', (count: string) => {
+  cy.get('table tbody tr').should('have.length.gte', parseInt(count));
+});
