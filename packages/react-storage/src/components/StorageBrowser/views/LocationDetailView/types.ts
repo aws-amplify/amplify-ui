@@ -9,6 +9,8 @@ import type { ActionListItem } from '../../components/composables/ActionsList';
 import type { FilePreviewProps } from '../../components/composables/FilePreview';
 import type { LocationState } from '../../store';
 import type { FilePreviewState } from '../hooks/useFilePreview';
+import type { SortConfig } from '../hooks/sortItems';
+import type { HeaderKeys } from './getLocationDetailViewTableData/types';
 
 import type { ListViewProps } from '../types';
 
@@ -50,11 +52,13 @@ export interface LocationDetailViewState {
   onRetryFilePreview: () => void;
   onSelect: (isSelected: boolean, item: LocationItemData) => void;
   onSelectActiveFile: (file?: FileData | 'prev' | 'next') => void;
+  onSort: (headerKey: HeaderKeys) => void;
   onToggleSearchSubfolders: () => void;
   onToggleSelectAll: () => void;
   page: number;
   pageItems: LocationItemData[];
   searchQuery: string;
+  sortConfig: SortConfig | undefined;
   searchProgress: { fetchedCount: number } | null;
   filePreviewState: FilePreviewState;
   filePreviewEnabled: boolean;

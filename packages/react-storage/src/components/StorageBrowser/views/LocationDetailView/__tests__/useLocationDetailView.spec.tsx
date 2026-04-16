@@ -988,4 +988,167 @@ describe('useLocationDetailView', () => {
       );
     });
   });
+
+  describe('cross-page sorting', () => {
+    const sortableItems: LocationItemData[] = [
+      folderDataOne,
+      {
+        ...fileDataOne,
+        key: 'some-prefix/charlie.jpg',
+        size: 300,
+        lastModified: new Date('2024-03-15'),
+      },
+      {
+        ...fileDataTwo,
+        key: 'some-prefix/alpha.png',
+        size: 1000,
+        lastModified: new Date('2024-01-01'),
+      },
+      {
+        ...fileDataThree,
+        key: 'some-prefix/beta.doc',
+        size: 500,
+        lastModified: new Date('2024-06-20'),
+      },
+    ];
+
+    beforeEach(() => {
+      mockUseList.mockReturnValue([
+        {
+          value: { items: sortableItems, nextToken: undefined },
+          message: '',
+          hasError: false,
+          isLoading: false,
+        },
+        mockHandleList,
+      ]);
+    });
+
+    it('should return onSort and sortConfig', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      expect(result.current.onSort).toEqual(expect.any(Function));
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should sort items by name across all pages', () => {
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: 2 })
+      );
+
+      expect(result.current.pageItems).toHaveLength(2);
+
+      act(() => {
+        result.current.onSort('name');
+      });
+
+      expect(result.current.sortConfig).toEqual({
+        field: 'name',
+        direction: 'ascending',
+      });
+
+      // folder first (ascending), then files alphabetically
+      const allItems: string[] = [];
+      allItems.push(...result.current.pageItems.map((i) => i.id));
+
+      act(() => {
+        result.current.onPaginate(2);
+      });
+      allItems.push(...result.current.pageItems.map((i) => i.id));
+
+      // folder 1 -> file alpha -> file beta -> file charlie
+      expect(allItems[0]).toBe('1'); // folderDataOne
+    });
+
+    it('should toggle sort direction', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort('name');
+      });
+      expect(result.current.sortConfig?.direction).toBe('ascending');
+
+      act(() => {
+        result.current.onSort('name');
+      });
+      expect(result.current.sortConfig?.direction).toBe('descending');
+    });
+
+    it('should sort by size', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort('size');
+      });
+
+      expect(result.current.sortConfig).toEqual({
+        field: 'size',
+        direction: 'ascending',
+      });
+
+      // folders first, then files sorted by size ascending
+      const fileItems = result.current.pageItems.filter(
+        (i) => i.type === 'FILE'
+      );
+      const sizes = fileItems.map((i) => (i as FileData).size);
+      // 300, 500, 1000 ascending
+      expect(sizes).toEqual([300, 500, 1000]);
+    });
+
+    it('should reset sort on refresh', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort('name');
+      });
+      expect(result.current.sortConfig).toBeDefined();
+
+      act(() => {
+        result.current.onRefresh();
+      });
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should reset sort on navigation', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort('name');
+      });
+      expect(result.current.sortConfig).toBeDefined();
+
+      act(() => {
+        result.current.onNavigate(testLocation.current!);
+      });
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should work with search results', () => {
+      mockUseList.mockReturnValue([
+        {
+          value: {
+            items: sortableItems.filter((i) => i.type === 'FILE'),
+            nextToken: undefined,
+          },
+          message: '',
+          hasError: false,
+          isLoading: false,
+        },
+        mockHandleList,
+      ]);
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort('size');
+      });
+
+      const fileItems = result.current.pageItems.filter(
+        (i) => i.type === 'FILE'
+      );
+      const sizes = fileItems.map((i) => (i as FileData).size);
+      // 300, 500, 1000 ascending
+      expect(sizes).toEqual([300, 500, 1000]);
+    });
+  });
 });

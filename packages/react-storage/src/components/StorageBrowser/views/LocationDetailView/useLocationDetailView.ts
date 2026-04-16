@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
 import { usePaginate } from '../hooks/usePaginate';
+import { useSort } from '../hooks/useSort';
 
 import type {
   DownloadHandlerData,
@@ -91,6 +92,9 @@ export const useLocationDetailView = (
   // set up pagination
   const { items, nextToken, hasExhaustedSearch = false } = value;
 
+  // sort all items before pagination for cross-page sort
+  const { sortedItems, sortConfig, onSort, resetSort } = useSort({ items });
+
   const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
@@ -108,7 +112,7 @@ export const useLocationDetailView = (
     highestPageVisited,
     pageItems,
   } = usePaginate({
-    items,
+    items: sortedItems,
     onPaginate,
     pageSize: listOptions.pageSize,
   });
@@ -213,6 +217,7 @@ export const useLocationDetailView = (
 
     handleReset();
     resetSearch();
+    resetSort();
     handleList({
       prefix: key,
       options: { ...listOptions, refresh: true },
@@ -287,6 +292,7 @@ export const useLocationDetailView = (
       setActiveFile(undefined);
     },
     searchQuery,
+    sortConfig,
     searchProgress,
     filePreviewState,
     filePreviewEnabled: !optout,
@@ -305,6 +311,7 @@ export const useLocationDetailView = (
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
       resetSearch();
+      resetSort();
       storeDispatch({ type: 'CHANGE_LOCATION', location, path });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
       setActiveFile(undefined);
@@ -356,6 +363,7 @@ export const useLocationDetailView = (
       handleList({ prefix: key, options: { ...listOptions, refresh: true } });
       handleReset();
     },
+    onSort,
     onSearchQueryChange,
     onRetryFilePreview: handleRetry,
     onToggleSearchSubfolders,
