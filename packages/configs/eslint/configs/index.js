@@ -1,6 +1,6 @@
 module.exports = {
   env: { node: true },
-  plugins: ['@typescript-eslint', 'import', 'index'],
+  plugins: ['@typescript-eslint', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -53,7 +53,6 @@ module.exports = {
         packageDir: ['.', '../..'],
       },
     ],
-    'index/only-import-export': 'error',
     'max-params': 2,
     'no-alert': 'error',
     'no-console': 'error',

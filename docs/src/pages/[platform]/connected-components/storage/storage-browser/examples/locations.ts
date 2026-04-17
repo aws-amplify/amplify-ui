@@ -1,4 +1,4 @@
-import { ListLocationsOutput } from '@aws-amplify/ui-react-storage/dist/types/components/StorageBrowser/actions';
+import { ListLocationsOutput } from '@aws-amplify/ui-react-storage/browser';
 
 export const locations: ListLocationsOutput['items'] = [
   {

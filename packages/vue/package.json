@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-vue",
-  "version": "4.4.2",
+  "version": "4.4.3",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -38,7 +38,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "6.15.2",
+    "@aws-amplify/ui": "6.15.3",
     "@vueuse/core": "7.5.5",
     "@xstate/vue": "0.8.1",
     "nanoid": "3.3.8",
@@ -52,7 +52,7 @@
     "@rushstack/eslint-patch": "^1.5.1",
     "@testing-library/vue": "^6.6.0",
     "@types/node": "18.8.0",
-    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vue/babel-plugin-jsx": "^1.2.2",
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
@@ -62,8 +62,7 @@
     "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-vue": "^10.0.0",
     "rollup-plugin-typescript2": "^0.31.2",
-    "unplugin-vue-components": "^0.25.0",
-    "vite-jest": "^0.1.4"
+    "unplugin-vue-components": "^0.25.0"
   },
   "peerDependencies": {
     "@aws-amplify/core": "*",
