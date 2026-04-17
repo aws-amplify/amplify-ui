@@ -14,16 +14,29 @@ const {
 } = authenticatorTextUtil;
 
 export const ConfirmSignInFooter = (): React.JSX.Element => {
-  const { isPending, toSignIn, challengeName, resendCode } = useAuthenticator(
-    (context) => [
-      context.isPending,
-      context.toSignIn,
-      context.challengeName,
-      context.resendCode,
-    ]
-  );
+  const {
+    isPending,
+    toSignIn,
+    challengeName,
+    resendCode,
+    selectedAuthMethod,
+    availableAuthMethods,
+  } = useAuthenticator((context) => [
+    context.isPending,
+    context.toSignIn,
+    context.challengeName,
+    context.resendCode,
+    context.selectedAuthMethod,
+    context.availableAuthMethods,
+  ]);
 
-  const showResendCode = isOtpChallenge(challengeName) && resendCode;
+  // Only show "Resend Code" for passwordless (USER_AUTH) flows.
+  // Password-based sign-in does not support resending MFA codes.
+  const hasPasswordlessMethod =
+    !!selectedAuthMethod ||
+    !!availableAuthMethods?.some((m) => m !== 'PASSWORD');
+  const showResendCode =
+    isOtpChallenge(challengeName) && hasPasswordlessMethod && resendCode;
 
   return (
     <Flex direction="column">
