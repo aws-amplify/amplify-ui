@@ -33,7 +33,7 @@ export const ConfirmSignInFooter = (): React.JSX.Element => {
   // Only show "Resend Code" for passwordless (USER_AUTH) flows.
   // Password-based sign-in does not support resending MFA codes.
   const hasPasswordlessMethod =
-    !!selectedAuthMethod ||
+    (!!selectedAuthMethod && selectedAuthMethod !== 'PASSWORD') ||
     !!availableAuthMethods?.some((m) => m !== 'PASSWORD');
   const showResendCode =
     isOtpChallenge(challengeName) && hasPasswordlessMethod && resendCode;
