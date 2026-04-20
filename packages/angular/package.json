@@ -32,7 +32,6 @@
     "@angular/router": "^19.2.20",
     "@testing-library/angular": "^17.0.0",
     "@types/node": "^20",
-    "canvas": "^2.11.2",
     "jest-preset-angular": "^15.0.0",
     "ng-mocks": "^14.14.0",
     "ng-packagr": "^19.0.0",
@@ -40,6 +39,9 @@
     "tslib": "^2.5.2",
     "typescript": "~5.6.0",
     "zone.js": "^0.15.0"
+  },
+  "optionalDependencies": {
+    "canvas": "^3.2.3"
   },
   "workspaces": {
     "nohoist": [
