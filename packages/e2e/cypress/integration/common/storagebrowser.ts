@@ -247,9 +247,21 @@ Then(
       const values = [...$cells].map(
         (cell) => cell.textContent?.trim().toLowerCase() ?? ''
       );
-      const sorted = [...values].sort((a, b) =>
-        direction === 'ascending' ? a.localeCompare(b) : b.localeCompare(a)
-      );
+
+      const folders = values.filter((v) => v.endsWith('/'));
+      const files = values.filter((v) => !v.endsWith('/'));
+
+      const compare = (a: string, b: string) =>
+        direction === 'ascending' ? a.localeCompare(b) : b.localeCompare(a);
+
+      const sortedFolders = [...folders].sort(compare);
+      const sortedFiles = [...files].sort(compare);
+
+      const sorted =
+        direction === 'ascending'
+          ? [...sortedFolders, ...sortedFiles]
+          : [...sortedFiles, ...sortedFolders];
+
       expect(values).to.deep.equal(sorted);
     });
   }
