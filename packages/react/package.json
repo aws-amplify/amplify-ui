@@ -20,12 +20,14 @@
       "require": "./dist/server.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./dist/styles.css": "./dist/styles.css",
     "./styles.layer.css": "./dist/styles.layer.css",
     "./styles/*": "./dist/styles/*",
     "./primitives.json": "./dist/primitives.json"
   },
   "browser": {
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./dist/styles.css": "./dist/styles.css"
   },
   "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
