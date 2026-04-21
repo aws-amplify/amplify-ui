@@ -55,8 +55,8 @@ Feature: Sign In with Email
 
     When I type my "email" with status "UNCONFIRMED"
     Then I type my password
-    Then I click the "Sign in" button
     Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
+    Then I click the "Sign in" button
     Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
