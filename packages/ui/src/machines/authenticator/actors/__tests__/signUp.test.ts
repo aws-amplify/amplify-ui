@@ -195,7 +195,6 @@ describe('signUpActor', () => {
 
   // @todo-migration
   //   TypeError: Cannot destructure property 'codeDeliveryDetails' of '((cov_orv9ttv7g(...).s[75]++) , data.nextStep)' as it is undefined.
-  //   TypeError: Cannot destructure property 'codeDeliveryDetails' of '((cov_orv9ttv7g(...).s[75]++) , data.nextStep)' as it is undefined.
   it.skip('should transition from initial state to resolved', async () => {
     service = interpret(
       signUpActor(signUpMachineProps)
