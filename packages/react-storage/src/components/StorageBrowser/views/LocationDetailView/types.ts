@@ -52,7 +52,7 @@ export interface LocationDetailViewState {
   onRetryFilePreview: () => void;
   onSelect: (isSelected: boolean, item: LocationItemData) => void;
   onSelectActiveFile: (file?: FileData | 'prev' | 'next') => void;
-  onSort: (headerKey: HeaderKeys) => void;
+  onSort: ((headerKey: HeaderKeys) => void) | undefined;
   onToggleSearchSubfolders: () => void;
   onToggleSelectAll: () => void;
   page: number;

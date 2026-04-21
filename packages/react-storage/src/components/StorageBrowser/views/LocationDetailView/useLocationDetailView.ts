@@ -14,7 +14,7 @@ import type {
   LocationItemData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
-import { usePaginationConfig } from '../../configuration';
+import { usePaginationConfig, useSortConfig } from '../../configuration';
 import { useFileItems } from '../../fileItems';
 import { useLocationItems } from '../../locationItems/context';
 import { useStore } from '../../store';
@@ -52,6 +52,7 @@ export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
 ): LocationDetailViewState => {
   const { pageSize: configPageSize } = usePaginationConfig();
+  const { sortScope } = useSortConfig();
   const {
     initialValues = {},
     onExit,
@@ -92,6 +93,8 @@ export const useLocationDetailView = (
   // set up pagination
   const { items, nextToken, hasExhaustedSearch = false } = value;
 
+  const isCrossPageSort = sortScope === 'all';
+
   // sort all items before pagination for cross-page sort
   const { sortedItems, sortConfig, onSort, resetSort } = useSort({ items });
 
@@ -112,7 +115,7 @@ export const useLocationDetailView = (
     highestPageVisited,
     pageItems,
   } = usePaginate({
-    items: sortedItems,
+    items: isCrossPageSort ? sortedItems : items ?? [],
     onPaginate,
     pageSize: listOptions.pageSize,
   });
@@ -292,7 +295,7 @@ export const useLocationDetailView = (
       setActiveFile(undefined);
     },
     searchQuery,
-    sortConfig,
+    sortConfig: isCrossPageSort ? sortConfig : undefined,
     searchProgress,
     filePreviewState,
     filePreviewEnabled: !optout,
@@ -363,7 +366,7 @@ export const useLocationDetailView = (
       handleList({ prefix: key, options: { ...listOptions, refresh: true } });
       handleReset();
     },
-    onSort,
+    onSort: isCrossPageSort ? onSort : undefined,
     onSearchQueryChange,
     onRetryFilePreview: handleRetry,
     onToggleSearchSubfolders,

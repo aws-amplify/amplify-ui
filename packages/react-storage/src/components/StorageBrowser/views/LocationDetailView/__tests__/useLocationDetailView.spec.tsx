@@ -10,6 +10,7 @@ import {
 
 import { useFileItems } from '../../../fileItems';
 import { useLocationItems } from '../../../locationItems/context';
+import { useSortConfig } from '../../../configuration';
 import { LocationState, useStore } from '../../../store';
 import { useAction, useList } from '../../../useAction';
 import { useFilePreview } from '../../hooks/useFilePreview';
@@ -32,6 +33,7 @@ jest.mock('../../../configuration', () => ({
   usePaginationConfig: jest.fn((initialValues: InitialValues) => ({
     pageSize: initialValues?.pageSize ?? 100,
   })),
+  useSortConfig: jest.fn(() => ({ sortScope: 'page' })),
 }));
 
 const folderDataOne: FolderData = {
@@ -990,6 +992,178 @@ describe('useLocationDetailView', () => {
   });
 
   describe('cross-page sorting', () => {
+    const mockUseSortConfig = jest.mocked(useSortConfig);
+
+    const sortableItems: LocationItemData[] = [
+      folderDataOne,
+      {
+        ...fileDataOne,
+        key: 'some-prefix/charlie.jpg',
+        size: 300,
+        lastModified: new Date('2024-03-15'),
+      },
+      {
+        ...fileDataTwo,
+        key: 'some-prefix/alpha.png',
+        size: 1000,
+        lastModified: new Date('2024-01-01'),
+      },
+      {
+        ...fileDataThree,
+        key: 'some-prefix/beta.doc',
+        size: 500,
+        lastModified: new Date('2024-06-20'),
+      },
+    ];
+
+    beforeEach(() => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'all' });
+      mockUseList.mockReturnValue([
+        {
+          value: { items: sortableItems, nextToken: undefined },
+          message: '',
+          hasError: false,
+          isLoading: false,
+        },
+        mockHandleList,
+      ]);
+    });
+
+    afterEach(() => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'page' });
+    });
+
+    it('should return onSort and sortConfig', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      expect(result.current.onSort).toEqual(expect.any(Function));
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should sort items by name across all pages', () => {
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: 2 })
+      );
+
+      expect(result.current.pageItems).toHaveLength(2);
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+
+      expect(result.current.sortConfig).toEqual({
+        field: 'name',
+        direction: 'ascending',
+      });
+
+      // folder first (ascending), then files alphabetically
+      const allItems: string[] = [];
+      allItems.push(...result.current.pageItems.map((i) => i.id));
+
+      act(() => {
+        result.current.onPaginate(2);
+      });
+      allItems.push(...result.current.pageItems.map((i) => i.id));
+
+      // folder 1 -> file alpha -> file beta -> file charlie
+      expect(allItems[0]).toBe('1'); // folderDataOne
+    });
+
+    it('should toggle sort direction', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+      expect(result.current.sortConfig?.direction).toBe('ascending');
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+      expect(result.current.sortConfig?.direction).toBe('descending');
+    });
+
+    it('should sort by size', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('size');
+      });
+
+      expect(result.current.sortConfig).toEqual({
+        field: 'size',
+        direction: 'ascending',
+      });
+
+      // folders first, then files sorted by size ascending
+      const fileItems = result.current.pageItems.filter(
+        (i) => i.type === 'FILE'
+      );
+      const sizes = fileItems.map((i) => (i as FileData).size);
+      // 300, 500, 1000 ascending
+      expect(sizes).toEqual([300, 500, 1000]);
+    });
+
+    it('should reset sort on refresh', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+      expect(result.current.sortConfig).toBeDefined();
+
+      act(() => {
+        result.current.onRefresh();
+      });
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should reset sort on navigation', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+      expect(result.current.sortConfig).toBeDefined();
+
+      act(() => {
+        result.current.onNavigate(testLocation.current!);
+      });
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should work with search results', () => {
+      mockUseList.mockReturnValue([
+        {
+          value: {
+            items: sortableItems.filter((i) => i.type === 'FILE'),
+            nextToken: undefined,
+          },
+          message: '',
+          hasError: false,
+          isLoading: false,
+        },
+        mockHandleList,
+      ]);
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('size');
+      });
+
+      const fileItems = result.current.pageItems.filter(
+        (i) => i.type === 'FILE'
+      );
+      const sizes = fileItems.map((i) => (i as FileData).size);
+      // 300, 500, 1000 ascending
+      expect(sizes).toEqual([300, 500, 1000]);
+    });
+  });
+
+  describe('sortScope option', () => {
+    const mockUseSortConfig = jest.mocked(useSortConfig);
+
     const sortableItems: LocationItemData[] = [
       folderDataOne,
       {
@@ -1024,61 +1198,65 @@ describe('useLocationDetailView', () => {
       ]);
     });
 
-    it('should return onSort and sortConfig', () => {
+    afterEach(() => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'page' });
+    });
+
+    it('should default to page sort (sortScope "page")', () => {
       const { result } = renderHook(() => useLocationDetailView());
 
-      expect(result.current.onSort).toEqual(expect.any(Function));
+      expect(result.current.onSort).toBeUndefined();
       expect(result.current.sortConfig).toBeUndefined();
     });
 
-    it('should sort items by name across all pages', () => {
+    it('should return undefined onSort and sortConfig when sortScope is "page"', () => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'page' });
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      expect(result.current.onSort).toBeUndefined();
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should not sort items across pages when sortScope is "page"', () => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'page' });
+
       const { result } = renderHook(() =>
         useLocationDetailView({ pageSize: 2 })
       );
 
-      expect(result.current.pageItems).toHaveLength(2);
+      // items should come in original order (no cross-page sorting applied)
+      const ids = result.current.pageItems.map((i) => i.id);
+      expect(ids).toEqual([sortableItems[0].id, sortableItems[1].id]);
+    });
+
+    it('should enable cross-page sort when sortScope is "all"', () => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'all' });
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      expect(result.current.onSort).toEqual(expect.any(Function));
+      expect(result.current.sortConfig).toBeUndefined();
 
       act(() => {
-        result.current.onSort('name');
+        result.current.onSort!('name');
       });
 
       expect(result.current.sortConfig).toEqual({
         field: 'name',
         direction: 'ascending',
       });
-
-      // folder first (ascending), then files alphabetically
-      const allItems: string[] = [];
-      allItems.push(...result.current.pageItems.map((i) => i.id));
-
-      act(() => {
-        result.current.onPaginate(2);
-      });
-      allItems.push(...result.current.pageItems.map((i) => i.id));
-
-      // folder 1 -> file alpha -> file beta -> file charlie
-      expect(allItems[0]).toBe('1'); // folderDataOne
     });
 
-    it('should toggle sort direction', () => {
-      const { result } = renderHook(() => useLocationDetailView());
+    it('should sort items across pages when sortScope is "all"', () => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'all' });
+
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: 2 })
+      );
 
       act(() => {
-        result.current.onSort('name');
-      });
-      expect(result.current.sortConfig?.direction).toBe('ascending');
-
-      act(() => {
-        result.current.onSort('name');
-      });
-      expect(result.current.sortConfig?.direction).toBe('descending');
-    });
-
-    it('should sort by size', () => {
-      const { result } = renderHook(() => useLocationDetailView());
-
-      act(() => {
-        result.current.onSort('size');
+        result.current.onSort!('size');
       });
 
       expect(result.current.sortConfig).toEqual({
@@ -1086,69 +1264,13 @@ describe('useLocationDetailView', () => {
         direction: 'ascending',
       });
 
-      // folders first, then files sorted by size ascending
-      const fileItems = result.current.pageItems.filter(
-        (i) => i.type === 'FILE'
-      );
-      const sizes = fileItems.map((i) => (i as FileData).size);
-      // 300, 500, 1000 ascending
-      expect(sizes).toEqual([300, 500, 1000]);
-    });
+      // folders first, then smallest file by size
+      const firstPageItems = result.current.pageItems;
+      expect(firstPageItems).toHaveLength(2);
 
-    it('should reset sort on refresh', () => {
-      const { result } = renderHook(() => useLocationDetailView());
-
-      act(() => {
-        result.current.onSort('name');
-      });
-      expect(result.current.sortConfig).toBeDefined();
-
-      act(() => {
-        result.current.onRefresh();
-      });
-      expect(result.current.sortConfig).toBeUndefined();
-    });
-
-    it('should reset sort on navigation', () => {
-      const { result } = renderHook(() => useLocationDetailView());
-
-      act(() => {
-        result.current.onSort('name');
-      });
-      expect(result.current.sortConfig).toBeDefined();
-
-      act(() => {
-        result.current.onNavigate(testLocation.current!);
-      });
-      expect(result.current.sortConfig).toBeUndefined();
-    });
-
-    it('should work with search results', () => {
-      mockUseList.mockReturnValue([
-        {
-          value: {
-            items: sortableItems.filter((i) => i.type === 'FILE'),
-            nextToken: undefined,
-          },
-          message: '',
-          hasError: false,
-          isLoading: false,
-        },
-        mockHandleList,
-      ]);
-
-      const { result } = renderHook(() => useLocationDetailView());
-
-      act(() => {
-        result.current.onSort('size');
-      });
-
-      const fileItems = result.current.pageItems.filter(
-        (i) => i.type === 'FILE'
-      );
-      const sizes = fileItems.map((i) => (i as FileData).size);
-      // 300, 500, 1000 ascending
-      expect(sizes).toEqual([300, 500, 1000]);
+      // folder comes first, then the smallest file (size 300)
+      expect(firstPageItems[0].type).toBe('FOLDER');
+      expect((firstPageItems[1] as FileData).size).toBe(300);
     });
   });
 });

@@ -6,3 +6,5 @@ export {
   PaginationConfigProvider,
 } from './paginationContext';
 export type { PaginationConfig } from './paginationContext';
+export { useSortConfig, SortConfigProvider } from './sortConfigContext';
+export type { SortScope, SortConfig } from './sortConfigContext';
