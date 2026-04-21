@@ -32,6 +32,7 @@ import type { HeaderKeys } from './getLocationDetailViewTableData/types';
 import { useFilePreview } from '../hooks/useFilePreview';
 
 const DEFAULT_PAGE_SIZE = 100;
+const CROSS_PAGE_SORT_FETCH_SIZE = 1000;
 
 // Default options for tests
 export const DEFAULT_LIST_OPTIONS = {
@@ -63,14 +64,24 @@ export const useLocationDetailView = (
 
   const pageSize = propPageSize ?? configPageSize;
 
+  const isCrossPageSort = sortScope === 'all' || sortScope === 'global';
+  const isGlobalSort = sortScope === 'global';
+
+  // For cross-page sort modes, fetch a larger batch from S3 so there are
+  // multiple display pages to sort across.  The display page size stays at
+  // `pageSize` (the user-configured value).
+  const fetchPageSize = isCrossPageSort
+    ? Math.max(pageSize, CROSS_PAGE_SORT_FETCH_SIZE)
+    : pageSize;
+
   const listOptions = React.useMemo(
     () => ({
       ...initialValues,
       delimiter: '/',
-      pageSize,
+      pageSize: fetchPageSize,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pageSize, initialValues.delimiter, initialValues.pageSize]
+    [fetchPageSize, initialValues.delimiter, initialValues.pageSize]
   );
 
   const [{ location, actionType }, storeDispatch] = useStore();
@@ -99,10 +110,6 @@ export const useLocationDetailView = (
     hasExhaustedFetchAll = false,
   } = value;
 
-  const isCrossPageSort = sortScope === 'all' || sortScope === 'global';
-  const isGlobalSort = sortScope === 'global';
-
-  // track whether we've already fetched all items for global sort
   const hasFetchedAllForSort = React.useRef(false);
   const [sortFetchProgress, setSortFetchProgress] = React.useState<{
     fetchedCount: number;
@@ -142,6 +149,10 @@ export const useLocationDetailView = (
     [onSortBase, isGlobalSort, hasInvalidPrefix, handleList, key, listOptions]
   );
 
+  // For 'page' mode, each S3 page IS the display page, so fetch the next
+  // S3 batch when the user paginates beyond what's loaded.
+  // For cross-page sort modes, all sorting + pagination is local; S3
+  // fetches are not needed on page change.
   const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
@@ -160,8 +171,8 @@ export const useLocationDetailView = (
     pageItems,
   } = usePaginate({
     items: isCrossPageSort ? sortedItems : items ?? [],
-    onPaginate,
-    pageSize: listOptions.pageSize,
+    onPaginate: isCrossPageSort ? undefined : onPaginate,
+    pageSize,
   });
 
   const onSearch = (query: string, includeSubfolders?: boolean) => {
@@ -333,7 +344,9 @@ export const useLocationDetailView = (
     fileDataItems,
     hasError,
     hasDownloadError: task?.status === 'FAILED',
-    hasNextPage: !!nextToken || hasNextLocalPage,
+    hasNextPage: isCrossPageSort
+      ? hasNextLocalPage
+      : !!nextToken || hasNextLocalPage,
     highestPageVisited,
     message,
     downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
