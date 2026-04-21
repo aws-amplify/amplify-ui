@@ -4,14 +4,18 @@ import { createContextUtilities } from '@aws-amplify/ui-react-core';
 /**
  * Controls where sorting is applied in the Storage Browser.
  *
- * - `'all'` — Sort all loaded items before pagination (cross-page sort).
- *   Headers are handled by the view-level `useSort` hook.
  * - `'page'` — Sort only the current display page. Headers are handled
  *   by the table-level local sort inside `useDataTable`.
+ * - `'all'` — Sort all loaded items before pagination (cross-page sort).
+ *   Headers are handled by the view-level `useSort` hook.
+ * - `'global'` — Fetch ALL items from S3 (across all S3 pages, like
+ *   search mode) before sorting. On first sort click, triggers a full
+ *   fetch with progress reporting; subsequent sort changes reuse cached
+ *   data. Cache invalidates on refresh or navigation.
  *
  * @default 'page'
  */
-export type SortScope = 'all' | 'page';
+export type SortScope = 'page' | 'all' | 'global';
 
 export interface SortConfig {
   sortScope: SortScope;

@@ -28,6 +28,7 @@ import type {
   LocationDetailViewState,
   UseLocationDetailViewOptions,
 } from './types';
+import type { HeaderKeys } from './getLocationDetailViewTableData/types';
 import { useFilePreview } from '../hooks/useFilePreview';
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -91,12 +92,55 @@ export const useLocationDetailView = (
     useList('locationItems');
 
   // set up pagination
-  const { items, nextToken, hasExhaustedSearch = false } = value;
+  const {
+    items,
+    nextToken,
+    hasExhaustedSearch = false,
+    hasExhaustedFetchAll = false,
+  } = value;
 
-  const isCrossPageSort = sortScope === 'all';
+  const isCrossPageSort = sortScope === 'all' || sortScope === 'global';
+  const isGlobalSort = sortScope === 'global';
+
+  // track whether we've already fetched all items for global sort
+  const hasFetchedAllForSort = React.useRef(false);
+  const [sortFetchProgress, setSortFetchProgress] = React.useState<{
+    fetchedCount: number;
+  } | null>(null);
 
   // sort all items before pagination for cross-page sort
-  const { sortedItems, sortConfig, onSort, resetSort } = useSort({ items });
+  const {
+    sortedItems,
+    sortConfig,
+    onSort: onSortBase,
+    resetSort,
+  } = useSort({
+    items,
+  });
+
+  const onSortWithGlobalFetch = React.useCallback(
+    (headerKey: HeaderKeys) => {
+      onSortBase(headerKey);
+
+      if (!isGlobalSort || hasFetchedAllForSort.current || hasInvalidPrefix) {
+        return;
+      }
+
+      hasFetchedAllForSort.current = true;
+      setSortFetchProgress({ fetchedCount: 0 });
+      handleList({
+        prefix: key,
+        options: {
+          ...listOptions,
+          fetchAll: {
+            onProgress: (progress: { fetchedCount: number }) =>
+              setSortFetchProgress(progress),
+          },
+        },
+      });
+    },
+    [onSortBase, isGlobalSort, hasInvalidPrefix, handleList, key, listOptions]
+  );
 
   const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
@@ -221,6 +265,8 @@ export const useLocationDetailView = (
     handleReset();
     resetSearch();
     resetSort();
+    hasFetchedAllForSort.current = false;
+    setSortFetchProgress(null);
     handleList({
       prefix: key,
       options: { ...listOptions, refresh: true },
@@ -244,7 +290,10 @@ export const useLocationDetailView = (
     if (!isLoading && searchProgress) {
       setSearchProgress(null);
     }
-  }, [isLoading, searchProgress]);
+    if (!isLoading && sortFetchProgress) {
+      setSortFetchProgress(null);
+    }
+  }, [isLoading, searchProgress, sortFetchProgress]);
 
   const { actionConfigs } = useActionConfigs();
 
@@ -297,9 +346,11 @@ export const useLocationDetailView = (
     searchQuery,
     sortConfig: isCrossPageSort ? sortConfig : undefined,
     searchProgress,
+    sortFetchProgress,
     filePreviewState,
     filePreviewEnabled: !optout,
     hasExhaustedSearch,
+    hasExhaustedFetchAll,
     onRefresh,
     onActionExit: () => {
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
@@ -315,6 +366,8 @@ export const useLocationDetailView = (
       onNavigate?.(location, path);
       resetSearch();
       resetSort();
+      hasFetchedAllForSort.current = false;
+      setSortFetchProgress(null);
       storeDispatch({ type: 'CHANGE_LOCATION', location, path });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
       setActiveFile(undefined);
@@ -366,7 +419,7 @@ export const useLocationDetailView = (
       handleList({ prefix: key, options: { ...listOptions, refresh: true } });
       handleReset();
     },
-    onSort: isCrossPageSort ? onSort : undefined,
+    onSort: isCrossPageSort ? onSortWithGlobalFetch : undefined,
     onSearchQueryChange,
     onRetryFilePreview: handleRetry,
     onToggleSearchSubfolders,

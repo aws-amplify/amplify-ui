@@ -32,6 +32,7 @@ export interface LocationDetailViewState {
   hasDownloadError: boolean;
   hasError: boolean;
   hasExhaustedSearch: boolean;
+  hasExhaustedFetchAll: boolean;
   hasNextPage: boolean;
   highestPageVisited: number;
   isLoading: boolean;
@@ -60,6 +61,7 @@ export interface LocationDetailViewState {
   searchQuery: string;
   sortConfig: SortConfig | undefined;
   searchProgress: { fetchedCount: number } | null;
+  sortFetchProgress: { fetchedCount: number } | null;
   filePreviewState: FilePreviewState;
   filePreviewEnabled: boolean;
 }

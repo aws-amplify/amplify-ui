@@ -13,9 +13,15 @@ import { searchItems } from './searchItems';
 export const SEARCH_LIMIT = 10000;
 export const SEARCH_PAGE_SIZE = 1000;
 
+export interface FetchAllOptions {
+  limit?: number;
+  onProgress?: (progress: { fetchedCount: number }) => void;
+}
+
 export type EnhancedListHandlerOptions<TOptions, TItem> = TOptions & {
   refresh?: boolean;
   reset?: boolean;
+  fetchAll?: FetchAllOptions;
   search?: SearchOptions<TItem> & {
     limit?: number;
     onProgress?: (progress: { fetchedCount: number }) => void;
@@ -32,6 +38,7 @@ export type EnhancedListHandlerInput<
 export interface EnhancedListHandlerOutput<TItem>
   extends ListHandlerOutput<TItem> {
   hasExhaustedSearch?: boolean;
+  hasExhaustedFetchAll?: boolean;
 }
 
 export interface EnhancedListHandler<
@@ -54,18 +61,69 @@ export const createEnhancedListHandler = <
     hasExhaustedSearch: boolean;
   } | null = null;
 
+  let fetchAllCache: {
+    prefix: string;
+    items: TItem[];
+    hasExhaustedFetchAll: boolean;
+  } | null = null;
+
   return async function listActionHandler(prevState, { options, ...input }) {
     const {
       nextToken: _nextToken,
       refresh,
       reset,
+      fetchAll,
       search,
       ...rest
     } = options ?? {};
 
     if (reset) {
       searchCache = null;
+      fetchAllCache = null;
       return { items: [], nextToken: undefined };
+    }
+
+    // fetch all items across all S3 pages (for global sort)
+    if (fetchAll) {
+      const { limit: fetchLimit, onProgress } = fetchAll;
+
+      if (fetchAllCache && fetchAllCache.prefix === input.prefix && !refresh) {
+        return {
+          items: fetchAllCache.items,
+          hasExhaustedFetchAll: fetchAllCache.hasExhaustedFetchAll,
+          nextToken: undefined,
+        };
+      }
+
+      const items: TItem[] = [];
+      let nextToken = undefined;
+      const limit = fetchLimit ?? SEARCH_LIMIT;
+      do {
+        const output = await handler({
+          ...input,
+          options: { ...rest, pageSize: SEARCH_PAGE_SIZE, nextToken },
+        } as TInput);
+
+        items.push(...output.items);
+        // eslint-disable-next-line prefer-destructuring
+        nextToken = output.nextToken;
+
+        onProgress?.({ fetchedCount: items.length });
+      } while (nextToken && items.length < limit);
+
+      const hasExhaustedFetchAll = !!nextToken;
+
+      fetchAllCache = {
+        prefix: input.prefix,
+        items,
+        hasExhaustedFetchAll,
+      };
+
+      return {
+        items,
+        hasExhaustedFetchAll,
+        nextToken: undefined,
+      };
     }
 
     // collect and filter results on `search`
@@ -117,6 +175,7 @@ export const createEnhancedListHandler = <
 
     if (refresh) {
       searchCache = null;
+      fetchAllCache = null;
     }
 
     // ignore provided `nextToken` on `refresh`

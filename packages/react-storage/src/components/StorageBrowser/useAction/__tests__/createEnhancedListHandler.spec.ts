@@ -499,4 +499,285 @@ describe('createEnhancedListHandler', () => {
       expect(result.items).toEqual([{ name: 'a_prefix/apple' }]);
     });
   });
+
+  describe('fetchAll', () => {
+    it('should fetch all pages and return all items', async () => {
+      mockAction
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/item1' }, { name: 'a_prefix/item2' }],
+          nextToken: 'token1',
+        })
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/item3' }],
+          nextToken: null,
+        });
+
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      const result = await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(2);
+      expect(result.items).toEqual([
+        { name: 'a_prefix/item1' },
+        { name: 'a_prefix/item2' },
+        { name: 'a_prefix/item3' },
+      ]);
+      expect(result.nextToken).toBeUndefined();
+      expect(result.hasExhaustedFetchAll).toBe(false);
+    });
+
+    it('should respect custom fetchAll limit', async () => {
+      const batchSize = 300;
+      const customLimit = 500;
+      const batch = Array.from({ length: batchSize }, (_, i) => ({
+        name: `a_prefix/item${i}`,
+      }));
+
+      mockAction
+        .mockResolvedValueOnce({ items: batch, nextToken: 'token1' })
+        .mockResolvedValueOnce({ items: batch, nextToken: 'token2' })
+        .mockResolvedValueOnce({ items: batch, nextToken: 'token3' });
+
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      const result = await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: { limit: customLimit } },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(2);
+      expect(result.items.length).toBe(batchSize * 2);
+      expect(result.hasExhaustedFetchAll).toBe(true);
+    });
+
+    it('should call onProgress after each batch', async () => {
+      mockAction
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/a1' }, { name: 'a_prefix/a2' }],
+          nextToken: 'token1',
+        })
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/a3' }],
+          nextToken: null,
+        });
+
+      const onProgress = jest.fn();
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: { onProgress } },
+      });
+
+      expect(onProgress).toHaveBeenCalledTimes(2);
+      expect(onProgress).toHaveBeenNthCalledWith(1, { fetchedCount: 2 });
+      expect(onProgress).toHaveBeenNthCalledWith(2, { fetchedCount: 3 });
+    });
+
+    it('should cache results and reuse on subsequent fetchAll with same prefix', async () => {
+      mockAction.mockResolvedValueOnce({
+        items: [
+          { name: 'a_prefix/item1' },
+          { name: 'a_prefix/item2' },
+          { name: 'a_prefix/item3' },
+        ],
+        nextToken: null,
+      });
+
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      const result1 = await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(1);
+      expect(result1.items).toHaveLength(3);
+
+      const result2 = await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(1);
+      expect(result2.items).toEqual(result1.items);
+    });
+
+    it('should invalidate cache on refresh', async () => {
+      mockAction
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/item1' }],
+          nextToken: null,
+        })
+        .mockResolvedValueOnce({
+          items: [{ id: 1 }],
+          nextToken: null,
+        })
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/item1' }, { name: 'a_prefix/item2' }],
+          nextToken: null,
+        });
+
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+      expect(mockAction).toHaveBeenCalledTimes(1);
+
+      await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { refresh: true },
+      });
+
+      const result = await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(3);
+      expect(result.items).toEqual([
+        { name: 'a_prefix/item1' },
+        { name: 'a_prefix/item2' },
+      ]);
+    });
+
+    it('should invalidate cache on reset', async () => {
+      mockAction
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/item1' }],
+          nextToken: null,
+        })
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/item1' }, { name: 'a_prefix/item2' }],
+          nextToken: null,
+        });
+
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+      expect(mockAction).toHaveBeenCalledTimes(1);
+
+      await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { reset: true },
+      });
+
+      const result = await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(2);
+      expect(result.items).toEqual([
+        { name: 'a_prefix/item1' },
+        { name: 'a_prefix/item2' },
+      ]);
+    });
+
+    it('should invalidate cache when prefix changes', async () => {
+      mockAction
+        .mockResolvedValueOnce({
+          items: [{ name: 'a/item1' }],
+          nextToken: null,
+        })
+        .mockResolvedValueOnce({
+          items: [{ name: 'b/item1' }, { name: 'b/item2' }],
+          nextToken: null,
+        });
+
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      await handler(prevState, {
+        prefix: 'a/',
+        options: { fetchAll: {} },
+      });
+      expect(mockAction).toHaveBeenCalledTimes(1);
+
+      const result = await handler(prevState, {
+        prefix: 'b/',
+        options: { fetchAll: {} },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(2);
+      expect(result.items).toEqual([{ name: 'b/item1' }, { name: 'b/item2' }]);
+    });
+
+    it('should invalidate cache when refresh is passed with fetchAll', async () => {
+      mockAction
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/item1' }],
+          nextToken: null,
+        })
+        .mockResolvedValueOnce({
+          items: [{ name: 'a_prefix/item1' }, { name: 'a_prefix/item2' }],
+          nextToken: null,
+        });
+
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+      expect(mockAction).toHaveBeenCalledTimes(1);
+
+      const result = await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { refresh: true, fetchAll: {} },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(2);
+      expect(result.items).toEqual([
+        { name: 'a_prefix/item1' },
+        { name: 'a_prefix/item2' },
+      ]);
+    });
+
+    it('should stop when SEARCH_LIMIT is reached', async () => {
+      const mockItems = new Array(SEARCH_LIMIT).fill({
+        name: 'a_prefix/item',
+      });
+      mockAction
+        .mockResolvedValueOnce({
+          items: mockItems.slice(0, SEARCH_LIMIT / 2),
+          nextToken: 'token',
+        })
+        .mockResolvedValueOnce({
+          items: mockItems.slice(SEARCH_LIMIT / 2),
+          nextToken: 'token2',
+        })
+        .mockResolvedValueOnce({
+          items: mockItems,
+          nextToken: 'token3',
+        });
+
+      const handler = createEnhancedListHandler(mockAction as Handler);
+      const prevState = { items: [], nextToken: undefined };
+
+      const result = await handler(prevState, {
+        prefix: 'a_prefix',
+        options: { fetchAll: {} },
+      });
+
+      expect(mockAction).toHaveBeenCalledTimes(2);
+      expect(result.items.length).toBe(SEARCH_LIMIT);
+      expect(result.hasExhaustedFetchAll).toBe(true);
+    });
+  });
 });

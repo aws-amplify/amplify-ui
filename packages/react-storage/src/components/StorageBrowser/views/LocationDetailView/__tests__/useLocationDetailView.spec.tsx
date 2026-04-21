@@ -1273,4 +1273,187 @@ describe('useLocationDetailView', () => {
       expect((firstPageItems[1] as FileData).size).toBe(300);
     });
   });
+
+  describe('sortScope "global"', () => {
+    const mockUseSortConfig = jest.mocked(useSortConfig);
+
+    const sortableItems: LocationItemData[] = [
+      folderDataOne,
+      {
+        ...fileDataOne,
+        key: 'some-prefix/charlie.jpg',
+        size: 300,
+        lastModified: new Date('2024-03-15'),
+      },
+      {
+        ...fileDataTwo,
+        key: 'some-prefix/alpha.png',
+        size: 1000,
+        lastModified: new Date('2024-01-01'),
+      },
+      {
+        ...fileDataThree,
+        key: 'some-prefix/beta.doc',
+        size: 500,
+        lastModified: new Date('2024-06-20'),
+      },
+    ];
+
+    beforeEach(() => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'global' });
+      mockUseList.mockReturnValue([
+        {
+          value: { items: sortableItems, nextToken: undefined },
+          message: '',
+          hasError: false,
+          isLoading: false,
+        },
+        mockHandleList,
+      ]);
+    });
+
+    afterEach(() => {
+      mockUseSortConfig.mockReturnValue({ sortScope: 'page' });
+    });
+
+    it('should return onSort and sortConfig when sortScope is "global"', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      expect(result.current.onSort).toEqual(expect.any(Function));
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should trigger fetchAll on first sort click', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+
+      expect(result.current.sortConfig).toEqual({
+        field: 'name',
+        direction: 'ascending',
+      });
+
+      // handleList should be called with fetchAll option (beyond initial mount call)
+      expect(mockHandleList).toHaveBeenCalledWith(
+        expect.objectContaining({
+          options: expect.objectContaining({
+            fetchAll: expect.objectContaining({
+              onProgress: expect.any(Function),
+            }),
+          }),
+        })
+      );
+    });
+
+    it('should not trigger fetchAll on subsequent sort clicks', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+
+      const callCountAfterFirst = mockHandleList.mock.calls.length;
+
+      act(() => {
+        result.current.onSort!('size');
+      });
+
+      // no additional handleList calls for sort (only direction/field changed)
+      expect(mockHandleList.mock.calls.length).toBe(callCountAfterFirst);
+    });
+
+    it('should sort items across pages', () => {
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: 2 })
+      );
+
+      act(() => {
+        result.current.onSort!('size');
+      });
+
+      expect(result.current.sortConfig).toEqual({
+        field: 'size',
+        direction: 'ascending',
+      });
+
+      // folders first, then smallest file
+      const firstPageItems = result.current.pageItems;
+      expect(firstPageItems).toHaveLength(2);
+      expect(firstPageItems[0].type).toBe('FOLDER');
+      expect((firstPageItems[1] as FileData).size).toBe(300);
+    });
+
+    it('should reset global sort state on refresh', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+      expect(result.current.sortConfig).toBeDefined();
+
+      act(() => {
+        result.current.onRefresh();
+      });
+      expect(result.current.sortConfig).toBeUndefined();
+
+      // after refresh, next sort click should trigger fetchAll again
+      mockHandleList.mockClear();
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+
+      expect(mockHandleList).toHaveBeenCalledWith(
+        expect.objectContaining({
+          options: expect.objectContaining({
+            fetchAll: expect.objectContaining({
+              onProgress: expect.any(Function),
+            }),
+          }),
+        })
+      );
+    });
+
+    it('should reset global sort state on navigation', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      act(() => {
+        result.current.onSort!('name');
+      });
+      expect(result.current.sortConfig).toBeDefined();
+
+      act(() => {
+        result.current.onNavigate(testLocation.current!);
+      });
+      expect(result.current.sortConfig).toBeUndefined();
+    });
+
+    it('should expose sortFetchProgress', () => {
+      const { result } = renderHook(() => useLocationDetailView());
+
+      expect(result.current.sortFetchProgress).toBeNull();
+    });
+
+    it('should expose hasExhaustedFetchAll', () => {
+      mockUseList.mockReturnValue([
+        {
+          value: {
+            items: sortableItems,
+            nextToken: undefined,
+            hasExhaustedFetchAll: true,
+          },
+          message: '',
+          hasError: false,
+          isLoading: false,
+        },
+        mockHandleList,
+      ]);
+
+      const { result } = renderHook(() => useLocationDetailView());
+
+      expect(result.current.hasExhaustedFetchAll).toBe(true);
+    });
+  });
 });
