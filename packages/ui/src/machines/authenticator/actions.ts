@@ -157,7 +157,7 @@ const setFieldErrors = assign({
 const setRemoteError = assign({
   remoteError: (_, { data }: AuthEvent) => {
     if (data.name === 'NoUserPoolError') {
-      return `Configuration error (see console) – please contact the administrator`;
+      return translate(DefaultTexts.CONFIGURATION_ERROR);
     }
 
     const message = data?.message || '';

@@ -6,12 +6,17 @@ export const defaultTexts = {
   CHANGE_PASSWORD: 'Change Password',
   CHANGING_PASSWORD: 'Changing',
   CODE: 'Code',
-  CODE_ARRIVAL: 'It may take a minute to arrive',
+  CODE_ARRIVAL: 'It may take a minute to arrive.',
   CODE_EMAILED:
     'Your code is on the way. To log in, enter the code we emailed to',
-  CODE_SENT: 'Your code is on the way. To log in, enter the code we sent you',
+  CODE_SENT: 'Your code is on the way. To log in, enter the code we sent you.',
   CODE_TEXTED:
     'Your code is on the way. To log in, enter the code we texted to',
+  DELIVERY_MESSAGE_UNKNOWN: 'Your code is on the way. {arrivalMessage}',
+  DELIVERY_MESSAGE_EMAIL:
+    'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}',
+  DELIVERY_MESSAGE_PHONE:
+    'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}',
   CONFIRM_PASSWORD: 'Confirm Password',
   CONFIRM_PASSWORD_PLACEHOLDER: 'Please confirm your Password',
   CONFIRM_RESET_PASSWORD_HEADING: 'Reset your Password',
@@ -24,6 +29,7 @@ export const defaultTexts = {
   CONFIRM: 'Confirm',
   CONFIRMATION_CODE: 'Confirmation Code',
   CONFIRMING: 'Confirming',
+  COPIED: 'COPIED',
   CONTINUE: 'Continue',
   CONTINUE_WITHOUT_PASSKEY: 'Continue without a Passkey',
   CREATE_ACCOUNT: 'Create Account',
@@ -50,10 +56,12 @@ export const defaultTexts = {
   ENTER_USERNAME_FIRST: 'Please enter your username first',
   EXISTING_PASSKEYS: 'Existing Passkeys',
   FAMILY_NAME: 'Family Name',
+  FIELD_REQUIRED: 'This field is required',
   GIVEN_NAME: 'Given Name',
   FORGOT_PASSWORD: 'Forgot Password?',
   FORGOT_YOUR_PASSWORD: 'Forgot your password?',
   HIDE_PASSWORD: 'Hide password',
+  INVALID_EMAIL: 'Please enter a valid email',
   LOADING: 'Loading',
   LOGIN_NAME: 'Username',
   MIDDLE_NAME: 'Middle Name',
@@ -85,6 +93,8 @@ export const defaultTexts = {
   RESET_PASSWORD: 'Reset Password',
   SEND_CODE: 'Send code',
   CODE_DELIVERY_FAILED: 'Unable to send verification code. Please try again.',
+  CONFIGURATION_ERROR:
+    'Configuration error (see console) - please contact the administrator',
   VERIFICATION_CODE_EXPIRED:
     'Your verification code has expired. Please request a new code.',
   VERIFICATION_CODE_INVALID:
@@ -94,6 +104,8 @@ export const defaultTexts = {
   SETUP_ANOTHER_PASSKEY: 'Setup another Passkey',
   SETUP_EMAIL: 'Setup Email',
   SETUP_TOTP: 'Setup TOTP',
+  SETUP_TOTP_INSTRUCTIONS:
+    'Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.',
   SHOW_PASSWORD: 'Show password',
   SIGN_IN_BUTTON: 'Sign in',
   SIGN_IN_TAB: 'Sign In',
