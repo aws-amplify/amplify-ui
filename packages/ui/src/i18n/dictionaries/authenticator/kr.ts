@@ -37,6 +37,7 @@ export const krDict: AuthenticatorDictionary = {
   'Forgot password?': '비밀번호를 잊으셨나요?',
   'Hide password': '비밀번호 숨기기',
   'It may take a minute to arrive': '도착하는 데 1분 정도 걸릴 수 있습니다',
+  'It may take a minute to arrive.': '도착하는 데 1분 정도 걸릴 수 있습니다.',
   Loading: '로딩중',
   'Multi-Factor Authentication': '다중 인증',
   'Multi-Factor Authentication Setup': '다중 인증 설정',
@@ -77,8 +78,16 @@ export const krDict: AuthenticatorDictionary = {
     '코드가 전송 중입니다. 로그인하려면 이메일로 전송한 코드를 입력하세요',
   'Your code is on the way. To log in, enter the code we sent you':
     '코드가 전송 중입니다. 로그인하려면 전송한 코드를 입력하세요',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    '코드가 전송 중입니다. 로그인하려면 전송한 코드를 입력하세요.',
   'Your code is on the way. To log in, enter the code we texted to':
     '코드가 전송 중입니다. 로그인하려면 문자 메시지로 전송한 코드를 입력하세요',
+  'Your code is on the way. {arrivalMessage}':
+    '코드가 전송 중입니다. 로그인하려면 전송한 코드를 입력하세요. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    '코드가 전송 중입니다. 로그인하려면 이메일로 전송한 코드를 입력하세요 {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    '코드가 전송 중입니다. 로그인하려면 문자 메시지로 전송한 코드를 입력하세요 {destination}. {arrivalMessage}',
 
   // Additional translations provided by customers
   Birthdate: '생년월일',

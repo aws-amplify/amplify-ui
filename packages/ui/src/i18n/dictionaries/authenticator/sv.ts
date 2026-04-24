@@ -29,6 +29,7 @@ export const svDict: AuthenticatorDictionary = {
   'Forgot your password?': 'Glömt ditt lösenord? ',
   'Hide password': 'Dölj lösenord',
   'It may take a minute to arrive': 'Det kan ta en minut att komma fram',
+  'It may take a minute to arrive.': 'Det kan ta en minut att komma fram.',
   Loading: 'Laddar',
   'Multi-Factor Authentication': 'Multifaktorautentisering',
   'Multi-Factor Authentication Setup':
@@ -68,8 +69,16 @@ export const svDict: AuthenticatorDictionary = {
     'Din kod är på väg. För att logga in, ange koden vi mejlade till',
   'Your code is on the way. To log in, enter the code we sent you':
     'Din kod är på väg. För att logga in, ange koden vi skickade till dig',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Din kod är på väg. För att logga in, ange koden vi skickade till dig.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Din kod är på väg. För att logga in, ange koden vi sms:ade till',
+  'Your code is on the way. {arrivalMessage}':
+    'Din kod är på väg. För att logga in, ange koden vi skickade till dig. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Din kod är på väg. För att logga in, ange koden vi mejlade till {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Din kod är på väg. För att logga in, ange koden vi sms:ade till {destination}. {arrivalMessage}',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -94,6 +103,7 @@ export const svDict: AuthenticatorDictionary = {
   'Sign Up': 'Registrering',
   'User already exists': 'Användaren finns redan',
   'User does not exist': 'Användaren finns inte',
+  'User does not exist.': 'Användaren finns inte',
   'Username cannot be empty': 'Användarnamnet kan inte vara tomt',
   'We Emailed You': 'Vi har skickat e-post till dig',
   'Please confirm your Password': 'Bekräfta ditt lösenord',

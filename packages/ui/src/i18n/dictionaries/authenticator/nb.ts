@@ -41,6 +41,7 @@ export const nbDict: AuthenticatorDictionary = {
   'Forgot your password?': 'Glemt passordet ditt?',
   'Hide password': 'Skjul passordet',
   'It may take a minute to arrive': 'Det kan ta et minutt for å komme frem',
+  'It may take a minute to arrive.': 'Det kan ta et minutt for å komme frem.',
   Loading: 'Laster inn',
   'Multi-Factor Authentication': 'Flerfaktorautentisering',
   'Multi-Factor Authentication Setup': 'Oppsett av flerfaktorautentisering',
@@ -81,8 +82,16 @@ export const nbDict: AuthenticatorDictionary = {
     'Koden din er på vei. For å logge inn, skriv inn koden vi sendte e-post til',
   'Your code is on the way. To log in, enter the code we sent you':
     'Koden din er på vei. For å logge inn, skriv inn koden vi sendte deg',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Koden din er på vei. For å logge inn, skriv inn koden vi sendte deg.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Koden din er på vei. For å logge inn, skriv inn koden vi sendte tekstmelding til',
+  'Your code is on the way. {arrivalMessage}':
+    'Koden din er på vei. For å logge inn, skriv inn koden vi sendte deg. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Koden din er på vei. For å logge inn, skriv inn koden vi sendte e-post til {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Koden din er på vei. For å logge inn, skriv inn koden vi sendte tekstmelding til {destination}. {arrivalMessage}',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -106,5 +115,6 @@ export const nbDict: AuthenticatorDictionary = {
   'Sign Up': 'Registrering',
   'User already exists': 'Brukeren finnes allerede',
   'User does not exist': 'Brukeren finnes ikke',
+  'User does not exist.': 'Brukeren finnes ikke',
   'Username cannot be empty': 'Brukernavnet kan ikke være tomt',
 };

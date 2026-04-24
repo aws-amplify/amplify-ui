@@ -34,6 +34,8 @@ export const esDict: AuthenticatorDictionary = {
   'Forgot your password?': '¿Olvidó su contraseña?',
   'Hide password': 'Ocultar contraseña',
   'It may take a minute to arrive': 'Es posible que tarde un minuto en llegar',
+  'It may take a minute to arrive.':
+    'Es posible que tarde un minuto en llegar.',
   Loading: 'Cargando',
   'Multi-Factor Authentication': 'Autenticación multifactor',
   'Multi-Factor Authentication Setup':
@@ -74,8 +76,16 @@ export const esDict: AuthenticatorDictionary = {
     'El código está en camino. Para iniciar sesión, escriba el código que hemos enviado por correo electrónico a',
   'Your code is on the way. To log in, enter the code we sent you':
     'El código está en camino. Para iniciar sesión, escriba el código que le hemos enviado',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'El código está en camino. Para iniciar sesión, escriba el código que le hemos enviado.',
   'Your code is on the way. To log in, enter the code we texted to':
     'El código está en camino. Para iniciar sesión, escriba el código que hemos enviado por mensaje de texto a',
+  'Your code is on the way. {arrivalMessage}':
+    'El código está en camino. Para iniciar sesión, escriba el código que le hemos enviado. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'El código está en camino. Para iniciar sesión, escriba el código que hemos enviado por correo electrónico a {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'El código está en camino. Para iniciar sesión, escriba el código que hemos enviado por mensaje de texto a {destination}. {arrivalMessage}',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -85,6 +95,7 @@ export const esDict: AuthenticatorDictionary = {
   'Forgot Password': 'Olvidé mi contraseña',
   'Incorrect username or password.':
     'Nombre de usuario o contraseña incorrecta',
+  'Incorrect username or password': 'Nombre de usuario o contraseña incorrecta',
   'Enter your Family Name': 'Escriba su apellido',
   'Enter your Given Name': 'Escriba su nombre',
   'Given Name': 'Nombre',
@@ -104,6 +115,7 @@ export const esDict: AuthenticatorDictionary = {
   'Sign Up': 'Crear cuenta',
   'User already exists': 'El usuario ya existe',
   'User does not exist.': 'El usuario no existe',
+  'User does not exist': 'El usuario no existe',
   'Username/client id combination not found.': 'El usuario no existe',
   'Username cannot be empty': 'El nombre de usuario no puede estar vacío',
   'Your passwords must match': 'Las contraseñas deben coincidir',

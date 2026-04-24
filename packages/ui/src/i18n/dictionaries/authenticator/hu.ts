@@ -135,6 +135,7 @@ export const huDict: AuthenticatorDictionary = {
   'Text Message (SMS)': 'SMS üzenet',
   'User already exists': 'A felhasználó már létezik',
   'User does not exist': 'Felhasználó nem található',
+  'User does not exist.': 'Felhasználó nem található',
   'User is disabled.': 'A felhasználó le van tiltva.',
   Username: 'Felhasználónév',
   'Username cannot be empty': 'A felhasználónév mező nem lehet üres',
@@ -150,7 +151,15 @@ export const huDict: AuthenticatorDictionary = {
     'A bejelentkezéshez szükséges kód küldése folyamatban van, amelyet a következő e-mail címre küldtünk:',
   'Your code is on the way. To log in, enter the code we sent you':
     'A bejelentkezéshez szükséges kód küldése folyamatban van',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'A bejelentkezéshez szükséges kód küldése folyamatban van.',
   'Your code is on the way. To log in, enter the code we texted to':
     'A bejelentkezéshez szükséges kód küldése folyamatban van, amelyet SMS-ben küldtünk a következő számra:',
+  'Your code is on the way. {arrivalMessage}':
+    'A bejelentkezéshez szükséges kód küldése folyamatban van. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'A bejelentkezéshez szükséges kód küldése folyamatban van, amelyet a következő e-mail címre küldtünk: {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'A bejelentkezéshez szükséges kód küldése folyamatban van, amelyet SMS-ben küldtünk a következő számra: {destination}. {arrivalMessage}',
   'Your passwords must match': 'A jelszavaknak meg kell egyezniük',
 };
