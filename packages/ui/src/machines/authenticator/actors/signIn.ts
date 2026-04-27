@@ -509,7 +509,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             options: { userAttributes },
           };
 
-          return confirmSignIn(input);
+          return (services.handleForceChangePassword ?? confirmSignIn)(input);
         },
         signInWithRedirect(_, { data }) {
           return signInWithRedirect(data);
