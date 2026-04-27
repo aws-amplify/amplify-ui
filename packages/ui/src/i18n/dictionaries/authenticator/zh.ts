@@ -30,6 +30,7 @@ export const zhDict: AuthenticatorDictionary = {
   'Forgot your password?': '忘记密码了？',
   'Hide password': '隐藏密码',
   'It may take a minute to arrive': '可能需要一分钟才能到达',
+  'It may take a minute to arrive.': '可能需要一分钟才能到达。',
   Loading: '正在加载',
   'Multi-Factor Authentication': '多重身份验证',
   'Multi-Factor Authentication Setup': '多重身份验证设置',
@@ -70,8 +71,16 @@ export const zhDict: AuthenticatorDictionary = {
     '您的代码正在发送中。要登录，请输入我们通过电子邮件发送给以下人员的代码：',
   'Your code is on the way. To log in, enter the code we sent you':
     '您的代码正在发送中。要登录，请输入我们发送给您的代码',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    '您的代码正在发送中。要登录，请输入我们发送给您的代码。',
   'Your code is on the way. To log in, enter the code we texted to':
     '您的代码正在发送中。要登录，请输入我们通过短信发送给以下人员的代码：',
+  'Your code is on the way. {arrivalMessage}':
+    '您的代码正在发送中。要登录，请输入我们发送给您的代码。{arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    '您的代码正在发送中。要登录，请输入我们通过电子邮件发送给以下人员的代码：{destination}。{arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    '您的代码正在发送中。要登录，请输入我们通过短信发送给以下人员的代码：{destination}。{arrivalMessage}',
 
   // Additional translations provided by customers
   'Confirm a Code': '确认码',
@@ -87,4 +96,5 @@ export const zhDict: AuthenticatorDictionary = {
   'Sign Up': '注册',
   'User already exists': '用户已经存在',
   'User does not exist': '用户不存在',
+  'User does not exist.': '用户不存在',
 };

@@ -42,6 +42,7 @@ export const ptDict: AuthenticatorDictionary = {
   'Forgot your password?': 'Esqueceu sua senha?',
   'Hide password': 'Esconder a senha',
   'It may take a minute to arrive': 'Pode levar um minuto para chegar',
+  'It may take a minute to arrive.': 'Pode levar um minuto para chegar.',
   Loading: 'Carregando',
   'Multi-Factor Authentication': 'Autenticação multifator',
   'Multi-Factor Authentication Setup':
@@ -83,8 +84,16 @@ export const ptDict: AuthenticatorDictionary = {
     'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos um e-mail',
   'Your code is on the way. To log in, enter the code we sent you':
     'Seu código está a caminho. Para fazer login, insira o código que enviamos para você',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Seu código está a caminho. Para fazer login, insira o código que enviamos para você.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos uma mensagem de texto',
+  'Your code is on the way. {arrivalMessage}':
+    'Seu código está a caminho. Para fazer login, insira o código que enviamos para você. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos um e-mail {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos uma mensagem de texto {destination}. {arrivalMessage}',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -93,6 +102,7 @@ export const ptDict: AuthenticatorDictionary = {
   'Confirm Sign In': 'Confirmar Início de Sessão',
   'Forgot Password': 'Esqueci Minha Senha',
   'Incorrect username or password.': 'Nome de usuário ou senha incorreta',
+  'Incorrect username or password': 'Nome de usuário ou senha incorreta',
   'Invalid password format': 'Formato de senha inválido',
   'Invalid phone number format': 'Formato de número de telefone inválido',
   'Loading...': 'Carregando...',
@@ -106,6 +116,7 @@ export const ptDict: AuthenticatorDictionary = {
   'Sign Up': 'Criar Conta',
   'User already exists': 'Usuário já existe',
   'User does not exist': 'Usuário não existe',
+  'User does not exist.': 'Usuário não existe',
   'Username cannot be empty': 'Nome de usuário não pode estar vazio',
   'Your passwords must match': 'Suas senhas devem ser iguais',
 };

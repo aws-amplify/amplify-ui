@@ -30,6 +30,8 @@ export const itDict: AuthenticatorDictionary = {
   'Hide password': 'Nascondi password',
   'It may take a minute to arrive':
     "L'arrivo potrebbe richiedere qualche minuto",
+  'It may take a minute to arrive.':
+    "L'arrivo potrebbe richiedere qualche minuto.",
   Loading: 'Caricamento in corso',
   'Multi-Factor Authentication': 'Autenticazione a più fattori',
   'Multi-Factor Authentication Setup':
@@ -70,8 +72,16 @@ export const itDict: AuthenticatorDictionary = {
     "Il codice è in arrivo. Per effettuare l'accesso, immetti il codice che ti abbiamo inviato via e-mail",
   'Your code is on the way. To log in, enter the code we sent you':
     'Il codice è in arrivo. Per accedere, immetti il codice che ti abbiamo inviato',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Il codice è in arrivo. Per accedere, immetti il codice che ti abbiamo inviato.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Il codice è in arrivo. Per accedere, immetti il codice che abbiamo inviato tramite SMS',
+  'Your code is on the way. {arrivalMessage}':
+    'Il codice è in arrivo. Per accedere, immetti il codice che ti abbiamo inviato. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    "Il codice è in arrivo. Per effettuare l'accesso, immetti il codice che ti abbiamo inviato via e-mail {destination}. {arrivalMessage}",
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Il codice è in arrivo. Per accedere, immetti il codice che abbiamo inviato tramite SMS {destination}. {arrivalMessage}',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -96,5 +106,6 @@ export const itDict: AuthenticatorDictionary = {
   'Sign Up': 'Registrati',
   'User already exists': 'Utente già esistente',
   'User does not exist': 'Utente inesistente',
+  'User does not exist.': 'Utente inesistente',
   'Username cannot be empty': 'Il nome utente non può essere vuoto',
 };

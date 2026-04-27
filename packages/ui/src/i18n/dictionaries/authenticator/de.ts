@@ -86,8 +86,16 @@ export const deDict: AuthenticatorDictionary = {
     'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir per E-Mail verschickt haben',
   'Your code is on the way. To log in, enter the code we sent you':
     'Ihr Code ist unterwegs. Um sich anzumelden, geben Sie den Code ein, den wir Ihnen gesendet haben',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Ihr Code ist unterwegs. Um sich anzumelden, geben Sie den Code ein, den wir Ihnen gesendet haben.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir per SMS verschickt haben',
+  'Your code is on the way. {arrivalMessage}':
+    'Ihr Code ist unterwegs. Um sich anzumelden, geben Sie den Code ein, den wir Ihnen gesendet haben. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir per E-Mail verschickt haben {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir per SMS verschickt haben {destination}. {arrivalMessage}',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -118,5 +126,6 @@ export const deDict: AuthenticatorDictionary = {
   'Sign Up': 'Registrieren',
   'User already exists': 'Dieser Benutzer existiert bereits',
   'User does not exist': 'Dieser Benutzer existiert nicht',
+  'User does not exist.': 'Dieser Benutzer existiert nicht',
   'Username cannot be empty': 'Benutzername darf nicht leer sein',
 };
