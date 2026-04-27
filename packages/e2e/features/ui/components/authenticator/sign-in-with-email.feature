@@ -53,11 +53,10 @@ Feature: Sign In with Email
 
   Tests that after confirming an unconfirmed account, user is redirected to sign-in screen (not sign-up screen).
 
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "user-not-confirmed-exception"
     When I type my "email" with status "UNCONFIRMED"
     Then I type my password
-    Then I spy request '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
     Then I click the "Sign in" button
-    Then I confirm request '{"headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }'
     Then I see "Confirmation Code"
     Then I type a valid confirmation code
     Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
