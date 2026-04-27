@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 6.15.4
+
+### Patch Changes
+
+- [#6789](https://github.com/aws-amplify/amplify-ui/pull/6789) [`a6470c163288a6dcd928959d41b4cf74e71ddd27`](https://github.com/aws-amplify/amplify-ui/commit/a6470c163288a6dcd928959d41b4cf74e71ddd27) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(authenticator): redirect to sign-in after account confirmation
+
 ## 6.15.3
 
 ### Patch Changes
