@@ -122,6 +122,21 @@ export interface StorageBrowserActions {
 
 export interface StorageBrowserOptions {
   /**
+   * @description Number of concurrent tasks to process for batch actions (upload, download, copy, delete)
+   * @default 4
+   * @example
+   * ```tsx
+   * const { StorageBrowser } = createStorageBrowser({
+   *   config: managedAuthAdapter,
+   *   options: {
+   *     concurrency: 4,
+   *   }
+   * });
+   * ```
+   */
+  concurrency?: number;
+
+  /**
    * @description Overrides default file validation called when selecting files to be uploaded
    * @param {File} file — The file to validate
    * @returns {boolean} — Returns true if `file` is valid, false otherwise
