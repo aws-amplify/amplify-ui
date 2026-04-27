@@ -64,6 +64,8 @@ export function LocationDetailViewProvider({
     filePreviewState,
     filePreviewEnabled,
     onRetryFilePreview,
+    onSort,
+    sortConfig,
     dataItems,
   } = props;
 
@@ -137,6 +139,9 @@ export function LocationDetailViewProvider({
           dataItems,
         }),
         title: getTitle(location),
+        sortState: sortConfig
+          ? { field: sortConfig.field, direction: sortConfig.direction }
+          : undefined,
         message: messageControlContent,
       }}
       onActionSelect={onActionSelect}
@@ -149,6 +154,7 @@ export function LocationDetailViewProvider({
       onSelectActiveFile={onSelectActiveFile}
       onSearchQueryChange={onSearchQueryChange}
       onSearchClear={onSearchClear}
+      onSort={onSort}
       onToggleSearchSubfolders={onToggleSearchSubfolders}
       onRetryFilePreview={onRetryFilePreview}
     >

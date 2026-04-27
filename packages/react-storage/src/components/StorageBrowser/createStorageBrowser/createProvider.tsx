@@ -11,6 +11,7 @@ import {
 import {
   createConfigurationProvider,
   PaginationConfigProvider,
+  SortConfigProvider,
 } from '../configuration';
 import { DisplayTextProvider } from '../displayText';
 import { defaultValidateFile, FileItemsProvider } from '../fileItems';
@@ -88,31 +89,34 @@ export default function createProvider<
     displayText,
     views,
     pageSize,
+    sortScope,
     ...props
   }: StorageBrowserProviderProps) {
     return (
       <StoreProvider {...props}>
         <ConfigurationProvider>
           <PaginationConfigProvider pageSize={pageSize}>
-            <ActionConfigsProvider actionConfigs={actionConfigs}>
-              <ActionHandlersProvider handlers={handlers}>
-                <DisplayTextProvider displayText={displayText}>
-                  <ViewsProvider actions={resolvedActions} views={views}>
-                    <ComponentsProvider composables={composables}>
-                      <LocationItemsProvider>
-                        <FileItemsProvider validateFile={validateFile}>
-                          <FilePreviewProvider<TResolver>
-                            filePreview={filePreview}
-                          >
-                            {children}
-                          </FilePreviewProvider>
-                        </FileItemsProvider>
-                      </LocationItemsProvider>
-                    </ComponentsProvider>
-                  </ViewsProvider>
-                </DisplayTextProvider>
-              </ActionHandlersProvider>
-            </ActionConfigsProvider>
+            <SortConfigProvider sortScope={sortScope}>
+              <ActionConfigsProvider actionConfigs={actionConfigs}>
+                <ActionHandlersProvider handlers={handlers}>
+                  <DisplayTextProvider displayText={displayText}>
+                    <ViewsProvider actions={resolvedActions} views={views}>
+                      <ComponentsProvider composables={composables}>
+                        <LocationItemsProvider>
+                          <FileItemsProvider validateFile={validateFile}>
+                            <FilePreviewProvider<TResolver>
+                              filePreview={filePreview}
+                            >
+                              {children}
+                            </FilePreviewProvider>
+                          </FileItemsProvider>
+                        </LocationItemsProvider>
+                      </ComponentsProvider>
+                    </ViewsProvider>
+                  </DisplayTextProvider>
+                </ActionHandlersProvider>
+              </ActionConfigsProvider>
+            </SortConfigProvider>
           </PaginationConfigProvider>
         </ConfigurationProvider>
       </StoreProvider>

@@ -6,6 +6,7 @@ import { ComponentsProvider } from '../../components';
 import {
   createConfigurationProvider,
   PaginationConfigProvider,
+  SortConfigProvider,
 } from '../../configuration';
 import { DisplayTextProvider } from '../../displayText';
 import { FileItemsProvider } from '../../fileItems';
@@ -30,6 +31,9 @@ jest.mock('../../useAction');
 jest.mock('../../views');
 jest
   .mocked(PaginationConfigProvider)
+  .mockImplementation(({ children }) => <>{children}</>);
+jest
+  .mocked(SortConfigProvider)
   .mockImplementation(({ children }) => <>{children}</>);
 
 const mockActionConfigsProvider = jest
