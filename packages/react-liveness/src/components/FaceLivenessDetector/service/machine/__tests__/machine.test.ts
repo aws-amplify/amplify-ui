@@ -417,7 +417,6 @@ describe('Liveness Machine', () => {
     });
 
     it('should NOT throw DEFAULT_CAMERA_NOT_FOUND_ERROR when localStorage deviceId is stale', async () => {
-      // Simulate a stale camera ID in localStorage
       const staleDeviceId = 'stale-device-id';
       const localStorageMock: Record<string, string> = {
         AmplifyLivenessCameraId: staleDeviceId,
@@ -425,7 +424,7 @@ describe('Liveness Machine', () => {
       jest
         .spyOn(Storage.prototype, 'getItem')
         .mockImplementation((key: string) => localStorageMock[key] ?? null);
-      const removeItemSpy = jest
+      jest
         .spyOn(Storage.prototype, 'removeItem')
         .mockImplementation((key: string) => {
           delete localStorageMock[key];
@@ -437,7 +436,6 @@ describe('Liveness Machine', () => {
         });
 
       // With ideal constraint, getUserMedia should succeed with fallback device
-      // (browser ignores the ideal hint if device not found)
       mockNavigatorMediaDevices.getUserMedia.mockResolvedValueOnce(
         mockVideoMediaStream
       );
@@ -445,18 +443,15 @@ describe('Liveness Machine', () => {
         mockCameraDevice,
       ]);
 
-      // Use default machine (no explicit deviceId in props)
       const localService = interpret(machine);
       transitionToCameraCheck(localService);
 
       await flushPromises();
 
-      // Should succeed — NOT go to permissionDenied
-      expect(localService.state.value).toStrictEqual({
+      expect(localService.getSnapshot()).toStrictEqual({
         initCamera: 'waitForDOMAndCameraDetails',
       });
 
-      // Should have used ideal constraint (not exact)
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
         video: {
           ...mockVideoConstraints,
@@ -465,7 +460,6 @@ describe('Liveness Machine', () => {
         audio: false,
       });
 
-      // Cleanup
       jest.restoreAllMocks();
       localService.stop();
     });

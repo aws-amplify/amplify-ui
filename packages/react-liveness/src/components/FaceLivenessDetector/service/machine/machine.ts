@@ -1048,10 +1048,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           if (isExplicitDeviceId) {
             throw new Error(LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR);
           } else {
-            // eslint-disable-next-line no-console
-            console.warn(
-              `[FaceLivenessDetector] Previously selected camera (${targetDeviceId}) was not found. Using fallback camera.`
-            );
             localStorage.removeItem(CAMERA_ID_KEY);
           }
         }
