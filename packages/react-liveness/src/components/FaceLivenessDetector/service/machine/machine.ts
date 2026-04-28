@@ -950,9 +950,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         let targetDeviceId: string | undefined;
 
+        // Determine if the deviceId was explicitly provided via props (strict match)
+        // or retrieved from localStorage (preferred but not required)
+        const isExplicitDeviceId = !!componentProps?.config?.deviceId;
         let cameraNotFound = false;
-        if (componentProps?.config?.deviceId) {
-          targetDeviceId = componentProps.config.deviceId;
+
+        if (isExplicitDeviceId) {
+          targetDeviceId = componentProps?.config?.deviceId;
         } else {
           targetDeviceId = getLastSelectedCameraId() ?? undefined;
         }
@@ -962,7 +966,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             video: {
               ...videoConstraints,
               ...(targetDeviceId
-                ? { deviceId: { exact: targetDeviceId } }
+                ? {
+                    deviceId: isExplicitDeviceId
+                      ? { exact: targetDeviceId }
+                      : { ideal: targetDeviceId },
+                  }
                 : {}),
             },
             audio: false,
@@ -1034,9 +1042,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           selectableDevices: realVideoDevices,
         };
 
-        // If a specific camera was requested but not found, trigger a specific error
+        // If a previously-saved camera was not found, clear the stale ID and continue.
+        // Only throw an error if the deviceId was explicitly provided via props.
         if (cameraNotFound) {
-          throw new Error(LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR);
+          if (isExplicitDeviceId) {
+            throw new Error(LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR);
+          } else {
+            // eslint-disable-next-line no-console
+            console.warn(
+              `[FaceLivenessDetector] Previously selected camera (${targetDeviceId}) was not found. Using fallback camera.`
+            );
+            localStorage.removeItem(CAMERA_ID_KEY);
+          }
         }
 
         return result;
