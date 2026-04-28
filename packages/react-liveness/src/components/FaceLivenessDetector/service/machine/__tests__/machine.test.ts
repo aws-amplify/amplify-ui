@@ -448,7 +448,7 @@ describe('Liveness Machine', () => {
 
       await flushPromises();
 
-      expect(localService.getSnapshot()).toStrictEqual({
+      expect(localService.state.value).toStrictEqual({
         initCamera: 'waitForDOMAndCameraDetails',
       });
 
