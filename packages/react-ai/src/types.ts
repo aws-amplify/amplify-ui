@@ -67,10 +67,31 @@ export type ToolConfiguration = NonNullable<
   >['toolConfiguration']
 >;
 
+/**
+ * Configuration for Amazon Bedrock Guardrails.
+ * Guardrails enforce safety policies (content filters, denied topics,
+ * sensitive information redaction, etc.) on AI responses.
+ *
+ * @see https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html
+ */
+export interface GuardrailConfiguration {
+  /** The unique identifier of the guardrail. */
+  guardrailIdentifier: string;
+  /** The version of the guardrail. Use "DRAFT" for draft version. */
+  guardrailVersion: string;
+  /**
+   * Whether to enable trace mode for the guardrail.
+   * When enabled, the response will include details about which guardrail
+   * policies were triggered.
+   */
+  trace?: 'enabled' | 'disabled';
+}
+
 export interface SendMesageParameters {
   content: SendMessageContent;
   aiContext?: SendMessageContext;
   toolConfiguration?: ToolConfiguration;
+  guardrailConfiguration?: GuardrailConfiguration;
 }
 
 export type SendMessage = (input: SendMesageParameters) => void;
