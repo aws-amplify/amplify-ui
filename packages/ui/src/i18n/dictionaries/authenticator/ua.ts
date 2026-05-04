@@ -30,6 +30,7 @@ export const uaDict: AuthenticatorDictionary = {
   'Forgot your password?': 'Забули ваш пароль?',
   'Hide password': 'Сховати пароль',
   'It may take a minute to arrive': 'Доставка може тривати хвилину',
+  'It may take a minute to arrive.': 'Доставка може тривати хвилину.',
   Loading: 'Загружаємо',
   'Multi-Factor Authentication': 'Багатофакторна автентифікація',
   'Multi-Factor Authentication Setup':
@@ -70,8 +71,16 @@ export const uaDict: AuthenticatorDictionary = {
     'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми відправили вам на Email',
   'Your code is on the way. To log in, enter the code we sent you':
     'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми вам відправили',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми вам відправили.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми відправили вам текстовим повідомленням',
+  'Your code is on the way. {arrivalMessage}':
+    'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми вам відправили. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми відправили вам на Email {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми відправили вам текстовим повідомленням {destination}. {arrivalMessage}',
 
   // Additional translations
   'An account with the given email already exists.':
@@ -80,6 +89,7 @@ export const uaDict: AuthenticatorDictionary = {
   'Confirm Sign In': 'Підтвердіть вхід',
   'Forgot Password': 'Забули пароль',
   'Incorrect username or password.': 'Невірне імʼя користувача або пароль',
+  'Incorrect username or password': 'Невірне імʼя користувача або пароль',
   'Invalid password format': 'Невірний формат паролю',
   'Invalid phone number format': 'Невірний формат номеру телефону',
   'Loading...': 'Загружаємо...',
@@ -94,6 +104,7 @@ export const uaDict: AuthenticatorDictionary = {
   'Sign Up': 'Зареєструватися',
   'User already exists': 'Користувач вже існує',
   'User does not exist': 'Такий користувач не існує',
+  'User does not exist.': 'Такий користувач не існує',
   'Username cannot be empty': 'Імʼя користувача не може бути пустим',
   'Your passwords must match': 'Паролі мають збігатися',
 };

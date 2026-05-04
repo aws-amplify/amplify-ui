@@ -68,6 +68,7 @@ export const frDict: AuthenticatorDictionary = {
   'We Sent A Code': 'Nous avons envoyé un code',
   'We Texted You': 'Nous vous avons envoyé un SMS',
   'Your code is on the way. To log in, enter the code we sent you': `Votre code est en cours d'envoi. Pour vous connecter, saisissez le code que nous vous avons envoyé`,
+  'Your code is on the way. To log in, enter the code we sent you.': `Votre code est en cours d'envoi. Pour vous connecter, saisissez le code que nous vous avons envoyé.`,
 
   // Additional translations provided by customers
   'Add your Profile': 'Ajoutez votre profil',
@@ -119,6 +120,7 @@ export const frDict: AuthenticatorDictionary = {
   SMS: 'SMS',
   'User already exists': "L'utilisateur existe déjà",
   'User does not exist.': "L'utilisateur n'existe pas",
+  'User does not exist': "L'utilisateur n'existe pas",
   'Username cannot be empty': "Le nom d'utilisateur doit être renseigné",
   'Username/client id combination not found.': "L'utilisateur n'existe pas",
   'We Emailed You': 'Nous vous avons envoyé un code',
@@ -126,6 +128,12 @@ export const frDict: AuthenticatorDictionary = {
     'Votre code est en route. Pour vous connecter entrez le code reçu sur cette adresse email',
   'Your code is on the way. To log in, enter the code we texted to':
     'Votre code est en route. Pour vous connecter entrez le code reçu sur ce numéro de téléphone',
+  'Your code is on the way. {arrivalMessage}':
+    "Votre code est en cours d'envoi. Pour vous connecter, saisissez le code que nous vous avons envoyé. {arrivalMessage}",
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Votre code est en route. Pour vous connecter entrez le code reçu sur cette adresse email {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Votre code est en route. Pour vous connecter entrez le code reçu sur ce numéro de téléphone {destination}. {arrivalMessage}',
   'Your passwords must match': 'Vos mots de passe doivent être identiques',
   'It may take a minute to arrive.': 'Cela peut prendre quelques minutes.',
   Website: 'Site web',

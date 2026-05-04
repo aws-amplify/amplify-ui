@@ -37,14 +37,14 @@ const getDeliveryMessageText = (
   const arrivalMessage = translate(DefaultTexts.CODE_ARRIVAL);
 
   if (!(isEmailMessage || isTextMessage)) {
-    return `${translate(DefaultTexts.CODE_SENT)}. ${arrivalMessage}.`;
+    return translate(DefaultTexts.DELIVERY_MESSAGE_UNKNOWN, { arrivalMessage });
   }
 
-  const instructionMessage = isEmailMessage
-    ? translate(DefaultTexts.CODE_EMAILED)
-    : translate(DefaultTexts.CODE_TEXTED);
+  const key = isEmailMessage
+    ? DefaultTexts.DELIVERY_MESSAGE_EMAIL
+    : DefaultTexts.DELIVERY_MESSAGE_PHONE;
 
-  return `${instructionMessage} ${Destination}. ${arrivalMessage}.`;
+  return translate(key, { destination: Destination, arrivalMessage });
 };
 
 const getDeliveryMethodText = (
@@ -181,13 +181,9 @@ export const authenticatorTextUtil = {
 
   /** SetupTotp */
   getSetupTotpText: () => translate(DefaultTexts.SETUP_TOTP),
-  // TODO: add defaultText for below
   getSetupTotpInstructionsText: () =>
-    translate(
-      'Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.'
-    ),
-  // TODO: add defaultText for "COPIED"
-  getCopiedText: () => translate('COPIED'),
+    translate(DefaultTexts.SETUP_TOTP_INSTRUCTIONS),
+  getCopiedText: () => translate(DefaultTexts.COPIED),
 
   /** FederatedSignIn */
   getSignInWithFederationText,
@@ -232,8 +228,6 @@ export const authenticatorTextUtil = {
   getUsernameLabelByLoginMechanism,
 
   /** Validations */
-  // TODO: add defaultText
-  getInvalidEmailText: () => translate('Please enter a valid email'),
-  // TODO: add defaultText
-  getRequiredFieldText: () => translate('This field is required'),
+  getInvalidEmailText: () => translate(DefaultTexts.INVALID_EMAIL),
+  getRequiredFieldText: () => translate(DefaultTexts.FIELD_REQUIRED),
 } as const; // using `as const` so that keys are strongly typed

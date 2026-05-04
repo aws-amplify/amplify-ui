@@ -83,8 +83,16 @@ export const thDict: AuthenticatorDictionary = {
     'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งไปยังอีเมล',
   'Your code is on the way. To log in, enter the code we sent you':
     'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งให้คุณ',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งให้คุณ',
   'Your code is on the way. To log in, enter the code we texted to':
     'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งไปยัง SMS',
+  'Your code is on the way. {arrivalMessage}':
+    'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งให้คุณ {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งไปยังอีเมล {destination} {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'รหัสของคุณกำลังมา เพื่อเข้าสู่ระบบ กรุณากรอกรหัสที่เราส่งไปยัง SMS {destination} {arrivalMessage}',
 
   // Additional translations
   'An account with the given email already exists.':
@@ -112,5 +120,6 @@ export const thDict: AuthenticatorDictionary = {
   'Sign Up': 'ลงทะเบียน',
   'User already exists': 'ผู้ใช้นี้มีอยู่แล้ว',
   'User does not exist': 'ไม่มีผู้ใช้นี้',
+  'User does not exist.': 'ไม่มีผู้ใช้นี้',
   'Username cannot be empty': 'ต้องใส่ชื่อผู้ใช้งาน',
 };

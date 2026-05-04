@@ -42,6 +42,7 @@ export const enDict: AuthenticatorDictionary = {
   'Forgot your password?': 'Forgot your password?',
   'Hide password': 'Hide password',
   'It may take a minute to arrive': 'It may take a minute to arrive',
+  'It may take a minute to arrive.': 'It may take a minute to arrive.',
   Loading: 'Loading',
   'Multi-Factor Authentication': 'Multi-Factor Authentication',
   'Multi-Factor Authentication Setup': 'Multi-Factor Authentication Setup',
@@ -82,6 +83,14 @@ export const enDict: AuthenticatorDictionary = {
     'Your code is on the way. To log in, enter the code we emailed to',
   'Your code is on the way. To log in, enter the code we sent you':
     'Your code is on the way. To log in, enter the code we sent you',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Your code is on the way. To log in, enter the code we sent you.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Your code is on the way. To log in, enter the code we texted to',
+  'Your code is on the way. {arrivalMessage}':
+    'Your code is on the way. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}',
 };

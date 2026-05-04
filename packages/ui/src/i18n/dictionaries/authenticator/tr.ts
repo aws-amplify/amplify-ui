@@ -44,6 +44,7 @@ export const trDict: AuthenticatorDictionary = {
   'Forgot your password?': 'Şifrenizi mi unuttunuz?',
   'Hide password': 'Şifreyi gizle',
   'It may take a minute to arrive': 'Kodun gelmesi bir dakika sürebilir',
+  'It may take a minute to arrive.': 'Kodun gelmesi bir dakika sürebilir.',
   Loading: 'Yükleniyor',
   'Multi-Factor Authentication': 'Çok Faktörlü Kimlik Doğrulama',
   'Multi-Factor Authentication Setup': 'Çok Faktörlü Kimlik Doğrulama Kurulumu',
@@ -87,8 +88,16 @@ export const trDict: AuthenticatorDictionary = {
     'Kodunuz yolda. Oturum açmak için, gönderdiğimiz e-postadaki kodu girin',
   'Your code is on the way. To log in, enter the code we sent you':
     'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Kodunuz yolda. Oturum açmak için, gönderdiğimiz mesajdaki kodu girin',
+  'Your code is on the way. {arrivalMessage}':
+    'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz e-postadaki kodu girin {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz mesajdaki kodu girin {destination}. {arrivalMessage}',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -106,5 +115,6 @@ export const trDict: AuthenticatorDictionary = {
   'Sign Up': 'Kayıt Ol',
   'User already exists': 'Bu kullanıcı zaten var',
   'User does not exist': 'Böyle bir kullanıcı mevcut değil',
+  'User does not exist.': 'Böyle bir kullanıcı mevcut değil',
   'Username cannot be empty': 'Kullanıcı adı boş olamaz',
 };

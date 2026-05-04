@@ -65,6 +65,8 @@ export const idDict: AuthenticatorDictionary = {
   'We Texted You': 'Kami mengirim SMS kepada Anda',
   'Your code is on the way. To log in, enter the code we sent you':
     'Kode Anda segera hadir. Untuk masuk, masukkan kode yang kami kirimkan kepada Anda',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Kode Anda segera hadir. Untuk masuk, masukkan kode yang kami kirimkan kepada Anda.',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -81,6 +83,7 @@ export const idDict: AuthenticatorDictionary = {
   'Have an account? ': 'Sudah punya akun? ',
   Hello: 'Halo',
   'Incorrect username or password.': 'Nama akun atau kata sandi salah.',
+  'Incorrect username or password': 'Nama akun atau kata sandi salah.',
   'Invalid phone number format': 'Nomor telepon tidak sesuai dengan format.',
   'Invalid verification code provided, please try again.':
     'Kode verifikasi tidak sesuai, mohon coba lagi.',
@@ -102,6 +105,7 @@ export const idDict: AuthenticatorDictionary = {
   SMS: 'SMS',
   'User already exists': 'Akun sudah terdaftar',
   'User does not exist.': 'Akun tidak terdaftar.',
+  'User does not exist': 'Akun tidak terdaftar.',
   'User is disabled.': 'Akun dinonaktifkan.',
   'Username cannot be empty': 'Nama akun tidak boleh kosong',
   'Username/client id combination not found.':
@@ -111,5 +115,11 @@ export const idDict: AuthenticatorDictionary = {
     'Kode anda dalam pengiriman. Untuk masuk, masukkan kode yang kami emailkan ke',
   'Your code is on the way. To log in, enter the code we texted to':
     'Kode anda dalam pengiriman. Untuk masuk, masukkan kode yang kami tuliskan ke',
+  'Your code is on the way. {arrivalMessage}':
+    'Kode Anda segera hadir. Untuk masuk, masukkan kode yang kami kirimkan kepada Anda. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Kode anda dalam pengiriman. Untuk masuk, masukkan kode yang kami emailkan ke {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Kode anda dalam pengiriman. Untuk masuk, masukkan kode yang kami tuliskan ke {destination}. {arrivalMessage}',
   'Your passwords must match': 'Kata sandi harus sama',
 };

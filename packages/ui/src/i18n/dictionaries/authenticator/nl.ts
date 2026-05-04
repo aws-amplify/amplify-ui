@@ -31,6 +31,7 @@ export const nlDict: AuthenticatorDictionary = {
   'Forgot your password?': 'Wachtwoord vergeten? ',
   'Hide password': 'Verberg wachtwoord',
   'It may take a minute to arrive': 'Het kan even duren voordat deze aankomt',
+  'It may take a minute to arrive.': 'Het kan even duren voordat deze aankomt.',
   Loading: 'Laden',
   'Multi-Factor Authentication': 'Multi-Factor Authentication',
   'Multi-Factor Authentication Setup': 'Multi-Factor Authentication instellen',
@@ -73,7 +74,15 @@ export const nlDict: AuthenticatorDictionary = {
     'Uw code is onderweg. Om in te loggen, voer de code in die we gemaild hebben naar',
   'Your code is on the way. To log in, enter the code we sent you':
     'Uw code is onderweg. Om in te loggen, voer de code in die we u hebben gestuurd',
+  'Your code is on the way. To log in, enter the code we sent you.':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we u hebben gestuurd.',
   'Your code is on the way. To log in, enter the code we texted to':
     'Uw code is onderweg. Om in te loggen, voer de code in die we hebben gestuurd naar',
+  'Your code is on the way. {arrivalMessage}':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we u hebben gestuurd. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we gemaild hebben naar {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we hebben gestuurd naar {destination}. {arrivalMessage}',
   'Your passwords must match': 'Je wachtwoorden moeten overeenkomen',
 };
