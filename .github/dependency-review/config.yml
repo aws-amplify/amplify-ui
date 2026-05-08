@@ -19,6 +19,7 @@ allow-licenses:
   - 'ISC'
   - 'JSON'
   - 'MIT'
+  - 'MITNFA'
   - 'MPL-2.0'
   - 'NTP'
   - 'OFL-1.0'
@@ -58,5 +59,3 @@ allow-dependencies-licenses:
   - 'pkg:npm/%2540img/sharp-win32-ia32'
   - 'pkg:npm/%2540img/sharp-win32-x64'
   - 'pkg:npm/unicode-match-property-value-ecmascript@2.2.1'
-  # bowser declares "MIT AND MITNFA"; MITNFA is a benign MIT no-false-attribution variant
-  - 'pkg:npm/bowser@2.14.1'
