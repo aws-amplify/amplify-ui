@@ -24,7 +24,7 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
   },
   {
     name: `onError?`,
-    description: 'Callback called when there is error occured on any step.',
+    description: 'Callback called when an error occurred on any step.',
     type: `(error: LivenessError) => void`,
   },
   {
