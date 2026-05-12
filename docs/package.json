@@ -69,7 +69,7 @@
     "eslint-config-next": "^16.1.5",
     "glob": "^10.5.0",
     "globby": "^13.1.1",
-    "postcss": "^8.4.31",
+    "postcss": "^8.5.10",
     "puppeteer": "^24.4.0",
     "react-markdown": "^8.0.3",
     "ts-node": "^10.9.1"
