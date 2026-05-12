@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.5
+
+### Patch Changes
+
+- [#6970](https://github.com/aws-amplify/amplify-ui/pull/6970) [`9ade838ec307d9a5094784c83afb673cb3dad4ad`](https://github.com/aws-amplify/amplify-ui/commit/9ade838ec307d9a5094784c83afb673cb3dad4ad) Thanks [@soberm](https://github.com/soberm)! - fix(liveness): use ideal constraint for localStorage camera ID to prevent stale deviceId errors
+
+- Updated dependencies [[`3b0710ffddf12cf46315c231fcf2f5d0523e9551`](https://github.com/aws-amplify/amplify-ui/commit/3b0710ffddf12cf46315c231fcf2f5d0523e9551), [`a6470c163288a6dcd928959d41b4cf74e71ddd27`](https://github.com/aws-amplify/amplify-ui/commit/a6470c163288a6dcd928959d41b4cf74e71ddd27)]:
+  - @aws-amplify/ui-react@6.15.4
+  - @aws-amplify/ui@6.15.4
+
 ## 3.6.4
 
 ### Patch Changes
