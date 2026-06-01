@@ -137,8 +137,7 @@ describe(CustomWebSocketFetchHandler.name, () => {
 
       // Start iterating before closing so the iterator is waiting on next()
       const iteratorPromise = (async () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for await (const chunk of responsePayload) {
+        for await (const _ of responsePayload) {
           /** pass */
         }
       })();
@@ -169,8 +168,7 @@ describe(CustomWebSocketFetchHandler.name, () => {
       await server.connected;
 
       const iteratorPromise = (async () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for await (const chunk of responsePayload) {
+        for await (const _ of responsePayload) {
           /** pass */
         }
       })();
