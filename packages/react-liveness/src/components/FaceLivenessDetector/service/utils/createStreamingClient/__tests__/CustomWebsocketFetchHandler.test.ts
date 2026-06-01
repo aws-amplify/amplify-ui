@@ -120,6 +120,101 @@ describe(CustomWebSocketFetchHandler.name, () => {
       expect(handler.sockets[mockUrl].length).toBe(0);
     });
 
+    it('should reject output stream when server closes with abnormal code', async () => {
+      const handler = new CustomWebSocketFetchHandler();
+      const payload = new PassThrough();
+      const server = new WS(mockUrl);
+      const {
+        response: { body: responsePayload },
+      } = await handler.handle(
+        new HttpRequest({
+          body: payload,
+          hostname: mockHostname,
+          protocol: 'ws:',
+        })
+      );
+      await server.connected;
+
+      // Start iterating before closing so the iterator is waiting on next()
+      const iteratorPromise = (async () => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        for await (const chunk of responsePayload) {
+          /** pass */
+        }
+      })();
+
+      // Give the iterator time to call next() and set up reject/resolve
+      await new Promise((r) => setTimeout(r, 0));
+
+      server.close({ code: 4001, reason: 'StreamIdleTimeout', wasClean: true });
+
+      await expect(iteratorPromise).rejects.toThrow(
+        'Server ended the connection unexpectedly (code 4001: StreamIdleTimeout)'
+      );
+    });
+
+    it('should reject output stream when connection drops without close frame (code 1006)', async () => {
+      const handler = new CustomWebSocketFetchHandler();
+      const payload = new PassThrough();
+      const server = new WS(mockUrl);
+      const {
+        response: { body: responsePayload },
+      } = await handler.handle(
+        new HttpRequest({
+          body: payload,
+          hostname: mockHostname,
+          protocol: 'ws:',
+        })
+      );
+      await server.connected;
+
+      const iteratorPromise = (async () => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        for await (const chunk of responsePayload) {
+          /** pass */
+        }
+      })();
+
+      await new Promise((r) => setTimeout(r, 0));
+
+      server.close({ code: 1006, reason: '', wasClean: false });
+
+      await expect(iteratorPromise).rejects.toThrow(
+        'Server ended the connection unexpectedly (code 1006)'
+      );
+    });
+
+    it('should resolve normally when server closes with code 1000', async () => {
+      const handler = new CustomWebSocketFetchHandler();
+      const payload = new PassThrough();
+      const server = new WS(mockUrl);
+      const {
+        response: { body: responsePayload },
+      } = await handler.handle(
+        new HttpRequest({
+          body: payload,
+          hostname: mockHostname,
+          protocol: 'ws:',
+        })
+      );
+      await server.connected;
+
+      const iteratorPromise = (async () => {
+        const chunks: Uint8Array[] = [];
+        for await (const chunk of responsePayload) {
+          chunks.push(chunk);
+        }
+        return chunks;
+      })();
+
+      await new Promise((r) => setTimeout(r, 0));
+
+      server.close({ code: 1000, reason: '', wasClean: true });
+
+      const chunks = await iteratorPromise;
+      expect(chunks).toEqual([]);
+    });
+
     it('should return timeout error if cannot setup ws connection', async () => {
       const originalSetTimeout = globalThis.setTimeout;
 
