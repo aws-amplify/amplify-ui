@@ -219,12 +219,25 @@ export class CustomWebSocketFetchHandler {
       reject(error);
     };
 
-    socket.onclose = () => {
+    socket.onclose = (event: CloseEvent) => {
       this.removeNotUsableSockets(socket.url);
       if (socketErrorOccurred) return;
 
       if (streamError) {
         reject(streamError);
+      } else if (
+        event.code !== WS_CLOSURE_CODE.SUCCESS_CODE &&
+        event.code !== 1001
+      ) {
+        // Server closed the connection with an abnormal code (e.g. 4001
+        // StreamIdleTimeout, 4003 SessionExpired, 1006 abnormal closure).
+        reject(
+          new Error(
+            `Server ended the connection unexpectedly (code ${event.code}` +
+              (event.reason ? `: ${event.reason}` : '') +
+              ')'
+          )
+        );
       } else {
         resolve({
           done: true,
