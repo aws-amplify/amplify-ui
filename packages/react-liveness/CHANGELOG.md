@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.6
+
+### Patch Changes
+
+- [#6998](https://github.com/aws-amplify/amplify-ui/pull/6998) [`d5c132cf5af7092343d8eadfe19cf5e578cf159e`](https://github.com/aws-amplify/amplify-ui/commit/d5c132cf5af7092343d8eadfe19cf5e578cf159e) Thanks [@pranavosu](https://github.com/pranavosu)! - fix(react-liveness): fire onError on server-initiated WebSocket close codes
+
 ## 3.6.5
 
 ### Patch Changes
