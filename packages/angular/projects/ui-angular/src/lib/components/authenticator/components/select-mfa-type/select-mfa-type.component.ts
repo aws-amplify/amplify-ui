@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   getActorContext,
   getFormDataFromEvent,
@@ -21,6 +21,7 @@ const {
   selector: 'amplify-select-mfa-type',
   standalone: false,
   templateUrl: './select-mfa-type.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SelectMfaTypeComponent implements OnInit {
   public headerText: string;
