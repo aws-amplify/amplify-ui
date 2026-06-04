@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import {
   translate,
   countryDialCodes,
@@ -12,6 +12,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   selector: 'amplify-form-field',
   standalone: false,
   templateUrl: './form-field.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class FormFieldComponent {
   @Input() name: string; // name of the input field

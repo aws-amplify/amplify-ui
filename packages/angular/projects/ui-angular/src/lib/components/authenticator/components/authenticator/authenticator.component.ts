@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChildren,
@@ -29,6 +30,7 @@ const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
   templateUrl: './authenticator.component.html',
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AuthenticatorComponent
   implements OnInit, AfterContentInit, OnDestroy
