@@ -1,4 +1,10 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   FormFieldComponents,
   FormFieldsArray,
@@ -13,6 +19,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   selector: 'amplify-base-form-fields',
   standalone: false,
   templateUrl: './base-form-fields.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class BaseFormFieldsComponent implements OnInit {
   @Input() route: FormFieldComponents; // formFields to sort and render

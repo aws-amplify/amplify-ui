@@ -5,6 +5,7 @@ import {
   QueryList,
   Output,
   EventEmitter,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { nanoid } from 'nanoid';
 import { TabItemComponent } from '../tab-item/tab-item.component';
@@ -13,6 +14,7 @@ import { TabItemComponent } from '../tab-item/tab-item.component';
   selector: 'amplify-tabs',
   standalone: false,
   templateUrl: './tabs.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TabsComponent implements AfterContentInit {
   @ContentChildren(TabItemComponent) tabs: QueryList<TabItemComponent>;

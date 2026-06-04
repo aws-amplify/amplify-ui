@@ -1,4 +1,9 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import QRCode from 'qrcode';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
 import {
@@ -25,6 +30,7 @@ const {
   selector: 'amplify-setup-totp',
   standalone: false,
   templateUrl: './setup-totp.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SetupTotpComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';

@@ -4,6 +4,7 @@ import {
   HostBinding,
   Input,
   TemplateRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CustomComponentsService } from '../../services/custom-components.service';
 
@@ -11,6 +12,7 @@ import { CustomComponentsService } from '../../services/custom-components.servic
   selector: 'amplify-slot',
   templateUrl: './amplify-slot.component.html',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AmplifySlotComponent implements AfterContentInit {
   @Input() name: string;

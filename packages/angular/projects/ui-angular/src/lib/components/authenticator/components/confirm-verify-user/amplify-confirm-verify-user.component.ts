@@ -1,4 +1,9 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   FormFieldsArray,
   getFormDataFromEvent,
@@ -12,6 +17,7 @@ const { getAccountRecoveryInfoText, getSkipText, getSubmitText } =
   selector: 'amplify-confirm-verify-user',
   standalone: false,
   templateUrl: './amplify-confirm-verify-user.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ConfirmVerifyUserComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmverifyuser')
