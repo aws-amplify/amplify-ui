@@ -260,6 +260,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   'spawnResponseStreamActor',
                 ],
               },
+              onError: {
+                target: '#livenessMachine.error',
+                actions: 'updateErrorStateForRuntime',
+              },
             },
           },
           waitForSessionInfo: {
@@ -288,6 +292,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             target: 'checkFaceDetectedBeforeStart',
             actions: 'updateFaceMatchBeforeStartDetails',
           },
+          onError: {
+            target: 'error',
+            actions: 'updateErrorStateForRuntime',
+          },
         },
       },
       checkFaceDetectedBeforeStart: {
@@ -305,6 +313,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           onDone: {
             target: 'checkFaceDistanceBeforeRecording',
             actions: 'updateFaceDistanceBeforeRecording',
+          },
+          onError: {
+            target: 'error',
+            actions: 'updateErrorStateForRuntime',
           },
         },
       },
@@ -1093,12 +1105,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { faceDetector } = context.ovalAssociatedParams!;
 
         // initialize models
-        try {
-          await faceDetector!.modelLoadingPromise;
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.log({ err });
-        }
+        await faceDetector!.modelLoadingPromise;
 
         // detect face
         const faceMatchState = await getFaceMatchState(faceDetector!, videoEl!);
@@ -1143,12 +1150,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { faceDetector } = context.ovalAssociatedParams!;
 
         // initialize models
-        try {
-          await faceDetector!.modelLoadingPromise;
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.log({ err });
-        }
+        await faceDetector!.modelLoadingPromise;
 
         // detect face
         const detectedFaces = await faceDetector!.detectFaces(videoEl!);
