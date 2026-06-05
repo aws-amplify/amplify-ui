@@ -202,56 +202,109 @@ export class CustomWebSocketFetchHandler {
     // To notify onclose event that error has occurred.
     let socketErrorOccurred = false;
 
-    // initialize as no-op.
-    let reject: (err?: unknown) => void = () => {};
-    let resolve: (result: IteratorResult<Uint8Array, void>) => void = () => {};
+    // Buffer for messages that arrive before the consumer calls .next().
+    // This prevents dropped messages when the server responds faster than
+    // the client sets up its async iterator (race condition).
+    const messageQueue: Uint8Array[] = [];
+    let waitingResolve:
+      | ((result: IteratorResult<Uint8Array, void>) => void)
+      | null = null;
+    let waitingReject: ((err?: unknown) => void) | null = null;
+    let done = false;
+    let endError: unknown = undefined;
 
     socket.onmessage = (event) => {
-      resolve({
-        done: false,
-        value: new Uint8Array(event.data),
-      });
+      const chunk = new Uint8Array(event.data);
+      if (waitingResolve) {
+        // Consumer is waiting for data — deliver immediately
+        const resolve = waitingResolve;
+        waitingResolve = null;
+        waitingReject = null;
+        resolve({ done: false, value: chunk });
+      } else {
+        // Consumer hasn't called .next() yet — buffer the message
+        messageQueue.push(chunk);
+      }
     };
 
     socket.onerror = (error) => {
       socketErrorOccurred = true;
       socket.close();
-      reject(error);
+      done = true;
+      endError = error;
+      if (waitingReject) {
+        const reject = waitingReject;
+        waitingResolve = null;
+        waitingReject = null;
+        reject(error);
+      }
     };
 
     socket.onclose = (event: CloseEvent) => {
       this.removeNotUsableSockets(socket.url);
       if (socketErrorOccurred) return;
 
+      done = true;
       if (streamError) {
-        reject(streamError);
+        endError = streamError;
       } else if (
         event.code !== WS_CLOSURE_CODE.SUCCESS_CODE &&
         event.code !== 1001
       ) {
         // Server closed the connection with an abnormal code (e.g. 4001
         // StreamIdleTimeout, 4003 SessionExpired, 1006 abnormal closure).
-        reject(
-          new Error(
-            `Server ended the connection unexpectedly (code ${event.code}` +
-              (event.reason ? `: ${event.reason}` : '') +
-              ')'
-          )
+        endError = new Error(
+          `Server ended the connection unexpectedly (code ${event.code}` +
+            (event.reason ? `: ${event.reason}` : '') +
+            ')'
         );
-      } else {
-        resolve({
-          done: true,
-          value: undefined,
-        });
+      }
+
+      if (waitingResolve) {
+        if (endError) {
+          const reject = waitingReject!;
+          waitingResolve = null;
+          waitingReject = null;
+          reject(endError);
+        } else {
+          const resolve = waitingResolve;
+          waitingResolve = null;
+          waitingReject = null;
+          resolve({ done: true, value: undefined });
+        }
       }
     };
 
     const outputStream: AsyncIterable<Uint8Array> = {
       [Symbol.asyncIterator]: () => ({
         next: () => {
+          // If there are buffered messages, deliver the next one immediately
+          if (messageQueue.length > 0) {
+            return Promise.resolve({
+              done: false,
+              value: messageQueue.shift()!,
+            } as IteratorResult<Uint8Array, void>);
+          }
+
+          // If the stream has ended, resolve/reject accordingly
+          if (done) {
+            if (endError) {
+              return Promise.reject(
+                endError instanceof Error
+                  ? endError
+                  : new Error('Stream ended with an error')
+              );
+            }
+            return Promise.resolve({
+              done: true,
+              value: undefined,
+            } as IteratorResult<Uint8Array, void>);
+          }
+
+          // Otherwise wait for the next message or close event
           return new Promise((_resolve, _reject) => {
-            resolve = _resolve;
-            reject = _reject;
+            waitingResolve = _resolve;
+            waitingReject = _reject;
           });
         },
       }),
@@ -274,8 +327,7 @@ export class CustomWebSocketFetchHandler {
       } catch (err) {
         // We don't throw the error here because the send()'s returned
         // would already be settled by the time sending chunk throws error.
-        // Instead, the notify the output stream to throw if there's
-        // exceptions
+        // Instead, notify the output stream to throw if there's exceptions
         if (err instanceof Error) {
           streamError = err;
         }
