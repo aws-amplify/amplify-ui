@@ -1,3 +1,5 @@
+import { CONNECTION_TIMEOUT } from '../utils/constants';
+
 /**
  * The bounding box of a face.
  */
@@ -28,9 +30,28 @@ export abstract class FaceDetection {
   /**
    * Triggers the `loadModels` method and stores
    * the corresponding promise to be awaited later.
+   * Applies a timeout to prevent indefinite hangs if the
+   * network request for model assets stalls.
    */
   triggerModelLoading(): void {
-    this.modelLoadingPromise = this.loadModels();
+    this.modelLoadingPromise = Promise.race([
+      this.loadModels(),
+      new Promise<void>((_, reject) =>
+        setTimeout(
+          () =>
+            reject(
+              new Error(
+                'Face detection model loading timed out. Check your network connection and try again.'
+              )
+            ),
+          // Uses the same 10s timeout as the WebSocket connection phase.
+          // The WASM binary (~425KB) + model (~100KB) should load well
+          // within 10s on any reasonable connection. If it hasn't loaded
+          // by then, the request is likely stalled (not just slow).
+          CONNECTION_TIMEOUT
+        )
+      ),
+    ]);
   }
 
   /**
