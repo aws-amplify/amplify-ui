@@ -26,6 +26,7 @@ export type Coordinate = [number, number];
  */
 export abstract class FaceDetection {
   modelLoadingPromise!: Promise<void>;
+  private _modelLoadTriggered = false;
 
   /**
    * Triggers the `loadModels` method and stores
@@ -34,10 +35,20 @@ export abstract class FaceDetection {
    * network request for model assets stalls.
    */
   triggerModelLoading(): void {
+    if (this._modelLoadTriggered) {
+      return;
+    }
+    this._modelLoadTriggered = true;
+
+    let timeoutId: ReturnType<typeof setTimeout>;
+
     this.modelLoadingPromise = Promise.race([
-      this.loadModels(),
-      new Promise<void>((_, reject) =>
-        setTimeout(
+      this.loadModels().then((result) => {
+        clearTimeout(timeoutId);
+        return result;
+      }),
+      new Promise<void>((_, reject) => {
+        timeoutId = setTimeout(
           () =>
             reject(
               new Error(
@@ -49,8 +60,8 @@ export abstract class FaceDetection {
           // within 10s on any reasonable connection. If it hasn't loaded
           // by then, the request is likely stalled (not just slow).
           CONNECTION_TIMEOUT
-        )
-      ),
+        );
+      }),
     ]);
   }
 
