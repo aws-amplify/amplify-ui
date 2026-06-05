@@ -43,9 +43,10 @@ export abstract class FaceDetection {
     let timeoutId: ReturnType<typeof setTimeout>;
 
     this.modelLoadingPromise = Promise.race([
-      this.loadModels().then((result) => {
+      // `finally` ensures the timeout is cleared whether loadModels
+      // resolves or rejects, preventing a leaked timer on fast failures.
+      this.loadModels().finally(() => {
         clearTimeout(timeoutId);
-        return result;
       }),
       new Promise<void>((_, reject) => {
         timeoutId = setTimeout(
