@@ -117,9 +117,19 @@ export class AuthenticatorComponent
     this.unsubscribeMachine = this.authenticator.subscribe(() => {
       const { route } = this.authenticator;
 
-      if (this.isHandlingHubEvent) {
-        this.changeDetector.detectChanges();
+      /*
+       * Run change detection on every state machine transition.
+       *
+       * The authenticator's state is driven by an xstate machine whose
+       * transitions are not reliably tracked by Angular's change detection.
+       * Previously we relied on zone.js noticing the async work behind these
+       * transitions, but that is no longer guaranteed (e.g. Angular v22+),
+       * which left the view stuck on the initial route. Detecting changes
+       * here ensures the rendered route always matches machine state.
+       */
+      this.changeDetector.detectChanges();
 
+      if (this.isHandlingHubEvent) {
         const initialStateWithDefault = initialState ?? 'signIn';
 
         // We can stop manual change detection if we're back to the initial state
