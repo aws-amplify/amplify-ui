@@ -1,4 +1,4 @@
-import { CreateStorageBrowserInput } from '@aws-amplify/ui-react-storage/dist/types/components/StorageBrowser';
+import { CreateStorageBrowserInput } from '@aws-amplify/ui-react-storage/browser';
 import { locations } from './locations';
 
 export const mockConfig: CreateStorageBrowserInput['config'] = {

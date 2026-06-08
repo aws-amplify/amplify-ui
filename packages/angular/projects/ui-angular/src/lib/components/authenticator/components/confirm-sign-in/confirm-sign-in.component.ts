@@ -1,4 +1,9 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   FormFieldsArray,
   getActorContext,
@@ -15,6 +20,7 @@ const { getConfirmText, getBackToSignInText, getChallengeText } =
   selector: 'amplify-confirm-sign-in',
   standalone: false,
   templateUrl: './confirm-sign-in.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ConfirmSignInComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';

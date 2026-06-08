@@ -1,4 +1,9 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   FormFieldsArray,
@@ -17,6 +22,7 @@ const {
   selector: 'amplify-confirm-reset-password',
   standalone: false,
   templateUrl: './amplify-confirm-reset-password.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ConfirmResetPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';

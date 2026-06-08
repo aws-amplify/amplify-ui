@@ -260,6 +260,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   'spawnResponseStreamActor',
                 ],
               },
+              onError: {
+                target: '#livenessMachine.error',
+                actions: 'updateErrorStateForRuntime',
+              },
             },
           },
           waitForSessionInfo: {
@@ -288,6 +292,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             target: 'checkFaceDetectedBeforeStart',
             actions: 'updateFaceMatchBeforeStartDetails',
           },
+          onError: {
+            target: 'error',
+            actions: 'updateErrorStateForRuntime',
+          },
         },
       },
       checkFaceDetectedBeforeStart: {
@@ -305,6 +313,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           onDone: {
             target: 'checkFaceDistanceBeforeRecording',
             actions: 'updateFaceDistanceBeforeRecording',
+          },
+          onError: {
+            target: 'error',
+            actions: 'updateErrorStateForRuntime',
           },
         },
       },
@@ -950,9 +962,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         let targetDeviceId: string | undefined;
 
+        // Determine if the deviceId was explicitly provided via props (strict match)
+        // or retrieved from localStorage (preferred but not required)
+        const isExplicitDeviceId = !!componentProps?.config?.deviceId;
         let cameraNotFound = false;
-        if (componentProps?.config?.deviceId) {
-          targetDeviceId = componentProps.config.deviceId;
+
+        if (isExplicitDeviceId) {
+          targetDeviceId = componentProps?.config?.deviceId;
         } else {
           targetDeviceId = getLastSelectedCameraId() ?? undefined;
         }
@@ -962,7 +978,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             video: {
               ...videoConstraints,
               ...(targetDeviceId
-                ? { deviceId: { exact: targetDeviceId } }
+                ? {
+                    deviceId: isExplicitDeviceId
+                      ? { exact: targetDeviceId }
+                      : { ideal: targetDeviceId },
+                  }
                 : {}),
             },
             audio: false,
@@ -1034,9 +1054,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           selectableDevices: realVideoDevices,
         };
 
-        // If a specific camera was requested but not found, trigger a specific error
+        // If a previously-saved camera was not found, clear the stale ID and continue.
+        // Only throw an error if the deviceId was explicitly provided via props.
         if (cameraNotFound) {
-          throw new Error(LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR);
+          if (isExplicitDeviceId) {
+            throw new Error(LivenessErrorState.DEFAULT_CAMERA_NOT_FOUND_ERROR);
+          } else {
+            localStorage.removeItem(CAMERA_ID_KEY);
+          }
         }
 
         return result;
@@ -1080,12 +1105,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { faceDetector } = context.ovalAssociatedParams!;
 
         // initialize models
-        try {
-          await faceDetector!.modelLoadingPromise;
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.log({ err });
-        }
+        await faceDetector!.modelLoadingPromise;
 
         // detect face
         const faceMatchState = await getFaceMatchState(faceDetector!, videoEl!);
@@ -1130,12 +1150,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { faceDetector } = context.ovalAssociatedParams!;
 
         // initialize models
-        try {
-          await faceDetector!.modelLoadingPromise;
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.log({ err });
-        }
+        await faceDetector!.modelLoadingPromise;
 
         // detect face
         const detectedFaces = await faceDetector!.detectFaces(videoEl!);

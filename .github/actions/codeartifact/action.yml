@@ -22,7 +22,7 @@ runs:
   using: 'composite'
   steps:
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@master
+      uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
       with:
         role-to-assume: ${{ inputs.role-to-assume }}
         aws-region: us-east-2

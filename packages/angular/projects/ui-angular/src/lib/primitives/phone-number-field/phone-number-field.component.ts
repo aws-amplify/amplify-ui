@@ -1,4 +1,10 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { nanoid } from 'nanoid';
 import { countryDialCodes } from '@aws-amplify/ui';
 
@@ -6,6 +12,7 @@ import { countryDialCodes } from '@aws-amplify/ui';
   selector: 'amplify-phone-number-field',
   standalone: false,
   templateUrl: './phone-number-field.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PhoneNumberFieldComponent implements OnInit {
   @Input() autocomplete = 'new-password';
