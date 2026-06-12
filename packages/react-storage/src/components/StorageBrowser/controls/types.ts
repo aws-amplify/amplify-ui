@@ -5,11 +5,13 @@ import type {
   DataTableProps,
   DataTableSortHeader,
   MessageProps,
+  SortDirection,
 } from '../components';
 import type { ActionConfirmationModalProps } from '../components/composables/ActionConfirmationModal';
 import type { LocationState } from '../store';
 import type { StatusCounts } from '../tasks';
 import type { FilePreviewState } from '../views/hooks/useFilePreview';
+import type { HeaderKeys } from '../views/LocationDetailView/getLocationDetailViewTableData/types';
 
 export interface Controls {
   props: React.ComponentProps<Composables[keyof Composables]>;
@@ -37,6 +39,11 @@ interface PaginationData {
   hasNextPage: boolean;
   highestPageVisited: number;
   page: number;
+}
+
+export interface SortState {
+  field: HeaderKeys;
+  direction: SortDirection;
 }
 
 export interface ControlsContext {
@@ -90,6 +97,7 @@ export interface ControlsContext {
     statusDisplayFailedLabel?: string;
     statusDisplayQueuedLabel?: string;
     tableData?: TableData;
+    sortState?: SortState;
     title?: string;
   };
   onActionCancel?: () => void;
@@ -108,6 +116,7 @@ export interface ControlsContext {
   onSelectActiveFile?: (file?: FileData | 'prev' | 'next') => void;
   onSearchClear?: () => void;
   onSearchQueryChange?: (value: string) => void;
+  onSort?: (headerKey: HeaderKeys) => void;
   onOpenFilePreview?: (f: FileData) => void;
   onCloseFilePreview?: () => void;
   onRetryFilePreview?: () => void;

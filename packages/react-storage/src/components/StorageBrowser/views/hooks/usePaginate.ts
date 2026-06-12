@@ -7,6 +7,7 @@ interface UsePaginateState<T> {
   highestPageVisited: number;
   handlePaginate: (page: number) => void;
   handleReset: () => void;
+  hasNextLocalPage: boolean;
   pageItems: T[];
 }
 
@@ -68,6 +69,7 @@ export const usePaginate = <T>({
         setCurrentPage(page);
       },
       handleReset,
+      hasNextLocalPage: adjustedCurrentPage < totalPages,
       highestPageVisited,
       pageItems,
     };
