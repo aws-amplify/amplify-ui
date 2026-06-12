@@ -79,6 +79,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "@smithy/config-resolver": "^4.4.5",
     "@react-native-community/cli": "^17.0.1",
+    "joi": "^18.2.1",
     "**/@react-native-community/**/fast-xml-parser": "^5.7.2",
     "**/@aws-*/**/fast-xml-parser": "^5.7.2",
     "**/@aws-amplify/ui-angular-example/**/codelyzer/**/@angular/core": "19.2.20",
