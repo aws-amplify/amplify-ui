@@ -421,7 +421,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@19.2.20", "@angular/common@^19.2.20":
+"@angular/common@19.2.20", "@angular/common@^20.3.25":
   version "19.2.20"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-19.2.20.tgz#d5e0a9268018a4b76d89f81204353b724b823092"
   integrity sha512-1M3W3FjUUbVKXDMs+yQpBhnkD/pCe0Jn79rPE5W+EGWWxFoLSyGX+fhnRO5m4c9k66p3nvYrikWQ0ZzMv3M5tw==
