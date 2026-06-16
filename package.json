@@ -155,7 +155,7 @@
     "**/vite-node/vite": "^7.3.2",
     "js-cookie": "^3.0.7",
     "uuid": "^11.1.1",
-    "vite": "^6.4.2"
+    "vite": "^6.4.3"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
@@ -199,7 +199,7 @@
     "ts-morph": "^17.0.0",
     "turbo": "^2.9.14",
     "typescript": "^5.2.2",
-    "vite": "^6.4.2",
+    "vite": "^6.4.3",
     "vue-tsc": "^2.0.7"
   },
   "overrides": {
