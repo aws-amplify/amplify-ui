@@ -1,4 +1,9 @@
-import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   authenticatorTextUtil,
@@ -13,6 +18,7 @@ const { getForgotPasswordText, getSignInText } = authenticatorTextUtil;
   standalone: false,
   templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';

@@ -1,4 +1,9 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getFormDataFromEvent, authenticatorTextUtil } from '@aws-amplify/ui';
 
@@ -8,6 +13,7 @@ const { getChangePasswordText, getBackToSignInText } = authenticatorTextUtil;
   selector: 'amplify-force-new-password',
   standalone: false,
   templateUrl: './force-new-password.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ForceNewPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-forcenewpassword')

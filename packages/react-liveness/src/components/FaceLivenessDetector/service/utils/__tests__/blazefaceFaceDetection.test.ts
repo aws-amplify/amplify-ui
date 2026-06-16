@@ -47,6 +47,11 @@ describe('blazefaceFaceDetection', () => {
     );
     mockIsWebAssemblySupported.mockReturnValue(true);
     mockEstimateFace.mockResolvedValue([MOCK_NORMALIZED_FACE]);
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('can be initialized', () => {
@@ -97,5 +102,72 @@ describe('blazefaceFaceDetection', () => {
     await model.loadModels();
 
     expect(model.modelBackend).toBe('cpu');
+  });
+
+  describe('triggerModelLoading timeout', () => {
+    it('should resolve if model loads within timeout and clear the timer', async () => {
+      const model = new BlazeFaceFaceDetection();
+      // Model loads after a short delay but well within the 10s timeout
+      model.loadModels = () =>
+        new Promise((resolve) => setTimeout(resolve, 500));
+      model.triggerModelLoading();
+
+      // Advance past the model load time but not past the timeout
+      jest.advanceTimersByTime(500);
+
+      await expect(model.modelLoadingPromise).resolves.toBeUndefined();
+
+      // Advance past the 10s timeout — should NOT reject since timer was cleared
+      jest.advanceTimersByTime(10_000);
+      await expect(model.modelLoadingPromise).resolves.toBeUndefined();
+
+      // No leaked timers should remain
+      expect(jest.getTimerCount()).toBe(0);
+    });
+
+    it('should reject with timeout error if model loading stalls', async () => {
+      const model = new BlazeFaceFaceDetection();
+      // Override loadModels to return a promise that never resolves
+      model.loadModels = () => new Promise(() => {});
+      model.triggerModelLoading();
+
+      // Advance past the 10s timeout
+      jest.advanceTimersByTime(10_000);
+
+      await expect(model.modelLoadingPromise).rejects.toThrow(
+        'Face detection model loading timed out'
+      );
+    });
+
+    it('should reject with original error if model loading fails before timeout and clear the timer', async () => {
+      const model = new BlazeFaceFaceDetection();
+      // Model rejects after a short delay, before the 10s timeout
+      model.loadModels = () =>
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('WASM backend failed')), 500)
+        );
+      model.triggerModelLoading();
+
+      jest.advanceTimersByTime(500);
+
+      await expect(model.modelLoadingPromise).rejects.toThrow(
+        'WASM backend failed'
+      );
+
+      // The timeout timer should have been cleared on rejection — no leaked
+      // timers should remain pending.
+      expect(jest.getTimerCount()).toBe(0);
+    });
+
+    it('should not re-trigger loading if already in progress', async () => {
+      const model = new BlazeFaceFaceDetection();
+      const loadModelsSpy = jest.fn().mockResolvedValue(undefined);
+      model.loadModels = loadModelsSpy;
+      model.triggerModelLoading();
+      model.triggerModelLoading();
+      model.triggerModelLoading();
+
+      expect(loadModelsSpy).toHaveBeenCalledTimes(1);
+    });
   });
 });

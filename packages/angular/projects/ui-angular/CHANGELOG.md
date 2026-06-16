@@ -1,5 +1,27 @@
 # @aws-amplify/ui-angular
 
+## 5.3.5
+
+### Patch Changes
+
+- [#7008](https://github.com/aws-amplify/amplify-ui/pull/7008) [`a57f58931cac4d36dc343d30f3fd42617f6d449e`](https://github.com/aws-amplify/amplify-ui/commit/a57f58931cac4d36dc343d30f3fd42617f6d449e) Thanks [@pranavosu](https://github.com/pranavosu)! - fix(ui-angular): render authenticator route changes on Angular v22+
+
+  The Authenticator is driven by an xstate machine, and the component previously
+  relied on zone.js to trigger change detection when the machine transitioned
+  between routes. That implicit behavior is no longer guaranteed on Angular v22+,
+  which left the Authenticator stuck on its initial route and rendered an empty
+  component. Change detection now runs on every machine transition so the rendered
+  route always reflects the current machine state.
+
+- [#7003](https://github.com/aws-amplify/amplify-ui/pull/7003) [`c2c09e66a760049718ecbea7e933b49047f0f6fc`](https://github.com/aws-amplify/amplify-ui/commit/c2c09e66a760049718ecbea7e933b49047f0f6fc) Thanks [@pranavosu](https://github.com/pranavosu)! - This change adds changeDetection: ChangeDetectionStrategy.Default to all components, preserving existing behavior across Angular 19-22+ without any API or behavioral changes for consumers.
+
+## 5.3.4
+
+### Patch Changes
+
+- Updated dependencies [[`a6470c163288a6dcd928959d41b4cf74e71ddd27`](https://github.com/aws-amplify/amplify-ui/commit/a6470c163288a6dcd928959d41b4cf74e71ddd27)]:
+  - @aws-amplify/ui@6.15.4
+
 ## 5.3.3
 
 ### Patch Changes

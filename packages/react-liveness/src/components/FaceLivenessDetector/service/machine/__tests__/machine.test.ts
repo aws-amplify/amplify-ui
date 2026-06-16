@@ -416,6 +416,54 @@ describe('Liveness Machine', () => {
       localService.stop();
     });
 
+    it('should NOT throw DEFAULT_CAMERA_NOT_FOUND_ERROR when localStorage deviceId is stale', async () => {
+      const staleDeviceId = 'stale-device-id';
+      const localStorageMock: Record<string, string> = {
+        AmplifyLivenessCameraId: staleDeviceId,
+      };
+      jest
+        .spyOn(Storage.prototype, 'getItem')
+        .mockImplementation((key: string) => localStorageMock[key] ?? null);
+      jest
+        .spyOn(Storage.prototype, 'removeItem')
+        .mockImplementation((key: string) => {
+          delete localStorageMock[key];
+        });
+      jest
+        .spyOn(Storage.prototype, 'setItem')
+        .mockImplementation((key: string, value: string) => {
+          localStorageMock[key] = value;
+        });
+
+      // With ideal constraint, getUserMedia should succeed with fallback device
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValueOnce(
+        mockVideoMediaStream
+      );
+      mockNavigatorMediaDevices.enumerateDevices.mockResolvedValueOnce([
+        mockCameraDevice,
+      ]);
+
+      const localService = interpret(machine);
+      transitionToCameraCheck(localService);
+
+      await flushPromises();
+
+      expect(localService.state.value).toStrictEqual({
+        initCamera: 'waitForDOMAndCameraDetails',
+      });
+
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
+        video: {
+          ...mockVideoConstraints,
+          deviceId: { ideal: staleDeviceId },
+        },
+        audio: false,
+      });
+
+      jest.restoreAllMocks();
+      localService.stop();
+    });
+
     it('should reach waitForDOMAndCameraDetails state on checkVirtualCameraAndGetStream success when initialStream is not from real device', async () => {
       // Reset mocks to ensure test isolation
       jest.clearAllMocks();

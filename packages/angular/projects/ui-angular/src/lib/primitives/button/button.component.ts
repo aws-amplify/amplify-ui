@@ -1,9 +1,16 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'button[amplify-button]',
   standalone: false,
   templateUrl: './button.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ButtonComponent implements OnInit {
   @Input() type: 'submit' | 'button' = 'button';
