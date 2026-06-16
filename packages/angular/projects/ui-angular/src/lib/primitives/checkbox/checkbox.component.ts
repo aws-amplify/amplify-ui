@@ -1,9 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'amplify-checkbox',
   standalone: false,
   templateUrl: './checkbox.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class CheckboxComponent implements OnInit {
   @Input() defaultChecked = false;

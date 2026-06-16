@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { translate, ComponentClassName } from '@aws-amplify/ui';
 import { nanoid } from 'nanoid';
 import { classNames } from '@aws-amplify/ui';
@@ -7,6 +13,7 @@ import { classNames } from '@aws-amplify/ui';
   selector: 'amplify-password-field',
   standalone: false,
   templateUrl: './password-field.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PasswordFieldComponent {
   @Input() autocomplete = 'new-password';

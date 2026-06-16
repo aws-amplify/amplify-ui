@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
@@ -9,6 +9,7 @@ const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
   selector: 'amplify-federated-sign-in',
   standalone: false,
   templateUrl: './federated-sign-in.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class FederatedSignInComponent implements OnInit {
   public FederatedProviders = FederatedIdentityProviders;
