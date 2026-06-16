@@ -90,7 +90,8 @@
     "joi": "^18.2.1",
     "**/serve/serve-handler/path-to-regexp": "3.3.0",
     "serialize-javascript": "^7.0.5",
-    "@tootallnate/once": "3.0.1"
+    "@tootallnate/once": "3.0.1",
+    "**/@aws-sdk/**/fast-xml-parser": "^4.5.4"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",

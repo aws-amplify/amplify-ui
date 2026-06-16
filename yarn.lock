@@ -1446,11 +1446,11 @@
     tslib "^2.5.0"
 
 "@aws-cdk/aws-service-spec@^0.1.171":
-  version "0.1.186"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-service-spec/-/aws-service-spec-0.1.186.tgz#dd858e1746c726f33984976150ece2799bef1198"
-  integrity sha512-v25C+3CjczIa+T4wF7gJ4rYPq/bX9PW/6GS5bz1tt7aLDpQRyZcKwoaoTK3qICVq7zPjW4lImaan/j4W0JOgnA==
+  version "0.1.187"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-service-spec/-/aws-service-spec-0.1.187.tgz#da1178d0677ac1b2b2ad2fddea45f24568459c05"
+  integrity sha512-uqin3F56YrZg7jldiAahueQs+EMRC/Ve0Na16DTIfAkAQcfqENLQRwA7ZydnzDOg0E61AoKF8HmMMhDL3KttHQ==
   dependencies:
-    "@aws-cdk/service-spec-types" "^0.0.252"
+    "@aws-cdk/service-spec-types" "^0.0.253"
     "@cdklabs/tskb" "^0.0.4"
 
 "@aws-cdk/cdk-assets-lib@^1":
@@ -1525,10 +1525,10 @@
   dependencies:
     "@cdklabs/tskb" "^0.0.4"
 
-"@aws-cdk/service-spec-types@^0.0.252":
-  version "0.0.252"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/service-spec-types/-/service-spec-types-0.0.252.tgz#86d5636d5131f99884e9716c9ed115e9b8259795"
-  integrity sha512-JE0pen79LZHo8GQ01UoSwYSseIbNDuFXX8lPb+tuT5eHjarz1zprXWUaRyE/BeW+RjPJbhHtQOipN5h2qL7jGA==
+"@aws-cdk/service-spec-types@^0.0.253":
+  version "0.0.253"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/service-spec-types/-/service-spec-types-0.0.253.tgz#6b57993c56e4c561dd5820981f319cd105641cfb"
+  integrity sha512-ul3lk2azLjmwDl0sSChYlL43R4RKvpp08EhJ8CGTsSjWHIiggSmtUtUlnr18O04CjYCHunWZkJHwLr27SEwl6w==
   dependencies:
     "@cdklabs/tskb" "^0.0.4"
 
@@ -7465,7 +7465,7 @@
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.4.0.tgz#45814aa329f30e4fe0ba49426f49dfccdd066426"
   integrity sha512-V1JJ1WTRUqHHrOSh597hURcMqVKVGL/ea3kv0gSnEdsEZ0/+VyPghM1lMNGc00z7CIQorSvbKpuJkxvuHbvdbg==
 
-"@nodable/entities@^2.1.0", "@nodable/entities@^2.2.0":
+"@nodable/entities@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@nodable/entities/-/entities-2.2.0.tgz#a1d45a992b022591b1c2b03a77935c939375b642"
   integrity sha512-9uGyhaQavEUMC8AIddIjau4NsnsXhou+j5sBAGojCM1oxmQpVKTWR/9JxABD6UAv12vpIms55fPZKFQEhG6uBg==
@@ -16659,7 +16659,7 @@ fast-xml-builder@1.1.1:
   dependencies:
     path-expression-matcher "^1.1.3"
 
-fast-xml-builder@^1.1.1, fast-xml-builder@^1.1.7, fast-xml-builder@^1.2.0:
+fast-xml-builder@^1.1.1, fast-xml-builder@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/fast-xml-builder/-/fast-xml-builder-1.2.0.tgz#abd2363145a7625d9789ad96da375fabe3cff28c"
   integrity sha512-00aAWieqff+ZJhsXA4g1g7M8k+7AYoMUUHF+/zFb5U6Uv/P0Vl4QZo84/IcufzYalLuEj9928bXN9PbbFzMF0Q==
@@ -16667,19 +16667,12 @@ fast-xml-builder@^1.1.1, fast-xml-builder@^1.1.7, fast-xml-builder@^1.2.0:
     path-expression-matcher "^1.5.0"
     xml-naming "^0.1.0"
 
-fast-xml-parser@4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.4.1.tgz#86dbf3f18edf8739326447bcaac31b4ae7f6514f"
-  integrity sha512-xkjOecfnKGkSsOwtZ5Pz7Us/T6mrbPQrq0nh+aCO5V9nk5NLWmasAHumTKjiPJPWANe+kAZ84Jc8ooJkzZ88Sw==
+fast-xml-parser@4.4.1, fast-xml-parser@5.2.5, fast-xml-parser@5.7.3, fast-xml-parser@^4.0.12, fast-xml-parser@^4.4.1, fast-xml-parser@^4.5.4:
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.5.6.tgz#4ff57d4aca13a2d11aa42ad460495cf00f32b655"
+  integrity sha512-Yd4vkROfJf8AuJrDIVMVmYfULKmIJszVsMv7Vo71aocsKgFxpdlpSHXSaInvyYfgw2PRuObQSW2GFpVMUjxu9A==
   dependencies:
     strnum "^1.0.5"
-
-fast-xml-parser@5.2.5:
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-5.2.5.tgz#4809fdfb1310494e341098c25cb1341a01a9144a"
-  integrity sha512-pfX9uG9Ki0yekDHx2SiuRIyFdyAr1kMIMitPvb0YBo8SUfKvia7w7FIyd/l6av85pFYRhZscS75MwMnbvY+hcQ==
-  dependencies:
-    strnum "^2.1.0"
 
 fast-xml-parser@5.5.2:
   version "5.5.2"
@@ -16689,23 +16682,6 @@ fast-xml-parser@5.5.2:
     fast-xml-builder "^1.1.1"
     path-expression-matcher "^1.1.3"
     strnum "^2.1.2"
-
-fast-xml-parser@5.7.3:
-  version "5.7.3"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-5.7.3.tgz#309b04b08d835defc62ab657a0bb340c0e0fbe6a"
-  integrity sha512-C0AaNuC+mscy6vrAQKAc/rMq+zAPHodfHGZu4sGVehvAQt/JLG1O5zEcYcXSY5zSqr4YVgxsB+pHXTq0i7eDlg==
-  dependencies:
-    "@nodable/entities" "^2.1.0"
-    fast-xml-builder "^1.1.7"
-    path-expression-matcher "^1.5.0"
-    strnum "^2.2.3"
-
-fast-xml-parser@^4.0.12, fast-xml-parser@^4.4.1:
-  version "4.5.6"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.5.6.tgz#4ff57d4aca13a2d11aa42ad460495cf00f32b655"
-  integrity sha512-Yd4vkROfJf8AuJrDIVMVmYfULKmIJszVsMv7Vo71aocsKgFxpdlpSHXSaInvyYfgw2PRuObQSW2GFpVMUjxu9A==
-  dependencies:
-    strnum "^1.0.5"
 
 fast-xml-parser@^5.7.2:
   version "5.9.0"
@@ -26406,7 +26382,7 @@ strnum@^1.0.5:
   resolved "https://registry.yarnpkg.com/strnum/-/strnum-1.1.2.tgz#57bca4fbaa6f271081715dbc9ed7cee5493e28e4"
   integrity sha512-vrN+B7DBIoTTZjnPNewwhx6cBA/H+IS7rfW68n7XxC1y7uoiGQBxaKzqucGUgavX15dJgiGztLJ8vxuEzwqBdA==
 
-strnum@^2.1.0, strnum@^2.1.2, strnum@^2.2.3, strnum@^2.4.0:
+strnum@^2.1.2, strnum@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/strnum/-/strnum-2.4.0.tgz#304881c3299b017855f1934a4ce85bfb60b1ca2a"
   integrity sha512-sHrVyWWdq28RbhjuJdZsA1SnGRJV6NiXbk6AXBxDOsgAcA+lmpUZCYjOdLBxkXMwis6RRe7dlZt4VlIWFVzkmg==
