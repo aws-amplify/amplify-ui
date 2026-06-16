@@ -12,7 +12,7 @@ describe('getRoute', () => {
       matches: function (this: AuthMachineState, targetState: string) {
         return this.value === targetState;
       },
-    } as AuthMachineState;
+    } as unknown as AuthMachineState;
   };
 
   const getActorState = (value = 'unknown') => {
