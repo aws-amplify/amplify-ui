@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
@@ -6,6 +6,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   selector: 'amplify-federated-sign-in-button',
   standalone: false,
   templateUrl: './federated-sign-in-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class FederatedSignInButtonComponent {
   @Input() provider: FederatedIdentityProviders;

@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   FormFieldsArray,
@@ -16,6 +16,7 @@ const {
   selector: 'amplify-confirm-sign-up',
   standalone: false,
   templateUrl: './confirm-sign-up.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ConfirmSignUpComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';

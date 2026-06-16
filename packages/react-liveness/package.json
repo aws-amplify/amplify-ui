@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-liveness",
-  "version": "3.6.6",
+  "version": "3.6.7",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -9,10 +9,12 @@
       "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./dist/styles.css": "./dist/styles.css"
   },
   "browser": {
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./dist/styles.css": "./dist/styles.css"
   },
   "types": "dist/types/index.d.ts",
   "sideEffects": [

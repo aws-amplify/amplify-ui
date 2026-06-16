@@ -746,6 +746,19 @@ When('A network failure occurs', () => {
   });
 });
 
+// Same as 'A network failure occurs', but waits before destroying the request
+// so transient loading states (e.g. the file preview loader shown on retry)
+// stay mounted long enough to be asserted deterministically. Without the
+// delay the destroyed request rejects almost instantly, the loading state
+// flashes for only a few milliseconds, and the assertion races against it.
+When('A network failure occurs after a delay', () => {
+  cy.intercept('', (req) =>
+    Cypress.Promise.delay(1500).then(() => {
+      req.destroy();
+    })
+  );
+});
+
 Then('I see an error message for network failure', () => {
   cy.get('body', { timeout: 10000 }).should(($body) => {
     const text = $body.text();

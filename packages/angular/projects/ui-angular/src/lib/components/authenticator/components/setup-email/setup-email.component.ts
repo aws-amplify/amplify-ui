@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   authenticatorTextUtil,
   classNames,
@@ -15,6 +15,7 @@ const { getConfirmText, getBackToSignInText, getSetupEmailText } =
   selector: 'amplify-setup-email',
   standalone: false,
   templateUrl: './setup-email.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SetupEmailComponent {
   public headerText = getSetupEmailText();

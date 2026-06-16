@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   getActorState,
@@ -26,6 +27,7 @@ const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   standalone: false,
   templateUrl: './verify-user.component.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class VerifyUserComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';

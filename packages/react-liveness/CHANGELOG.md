@@ -1,5 +1,49 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.7
+
+### Patch Changes
+
+- [#7005](https://github.com/aws-amplify/amplify-ui/pull/7005) [`3e28d0d60c45095e30d31dc39211975ad59cd23d`](https://github.com/aws-amplify/amplify-ui/commit/3e28d0d60c45095e30d31dc39211975ad59cd23d) Thanks [@pranavosu](https://github.com/pranavosu)! - fix(react-liveness): add onError handlers and model load timeout to prevent silent stuck state
+
+  Previously, if the BlazeFace model or WASM backend failed to load, the
+  `detectFace` service would throw but the state machine had no `onError`
+  handler for the `detectFaceBeforeStart`, `detectFaceDistanceBeforeRecording`,
+  or `initializeLivenessStream` states. XState would silently stay stuck in that
+  state forever without firing the `onError` callback.
+
+  Additionally, if the CDN request for model assets stalled without rejecting,
+  `modelLoadingPromise` would hang indefinitely with no timeout.
+
+  This change:
+
+  - Adds `onError` transitions to `detectFaceBeforeStart`,
+    `detectFaceDistanceBeforeRecording`, and `initializeLivenessStream` states
+  - Removes the silent catch around `modelLoadingPromise` so model load failures
+    properly propagate as errors instead of causing a downstream TypeError
+  - Adds a 10s timeout to `triggerModelLoading()` so stalled network requests
+    reject instead of hanging forever
+
+- [#7007](https://github.com/aws-amplify/amplify-ui/pull/7007) [`6b22524afa8eacaa5bc945418a1a4e89e36da638`](https://github.com/aws-amplify/amplify-ui/commit/6b22524afa8eacaa5bc945418a1a4e89e36da638) Thanks [@pranavosu](https://github.com/pranavosu)! - fix(react-liveness): clear model load timeout timer on rejection
+
+  The model loading timeout introduced previously only cleared the timer
+  when `loadModels()` resolved (via `.then()`). If `loadModels()` rejected
+  (e.g. a fast CDN failure or WASM compile error), the 10s timer was left
+  running, leaking until it fired. Switched to `.finally()` so the timer is
+  cleared on both resolve and reject paths.
+
+- [#7006](https://github.com/aws-amplify/amplify-ui/pull/7006) [`87b2e20949e5b8083ef63c11965f1e322f3416d1`](https://github.com/aws-amplify/amplify-ui/commit/87b2e20949e5b8083ef63c11965f1e322f3416d1) Thanks [@pranavosu](https://github.com/pranavosu)! - fix(react-liveness): buffer WebSocket messages to prevent dropped server events
+
+  The `CustomWebSocketFetchHandler` async iterator used a single `resolve`
+  function that was initialized as a no-op. If the server sent messages before
+  the consumer called `.next()` on the iterator, those messages were silently
+  dropped. This caused intermittent hangs where the `ServerSessionInformationEvent`
+  was lost and the state machine polled `waitForSessionInfo` forever.
+
+  This change replaces the single resolve/reject pattern with a proper message
+  queue that buffers incoming WebSocket messages until the consumer is ready to
+  receive them.
+
 ## 3.6.6
 
 ### Patch Changes
