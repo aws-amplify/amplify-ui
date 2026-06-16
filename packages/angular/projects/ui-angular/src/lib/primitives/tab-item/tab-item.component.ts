@@ -1,9 +1,15 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'amplify-tab-item',
   standalone: false,
   templateUrl: './tab-item.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TabItemComponent {
   @Input() title: string;

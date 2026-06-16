@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getFormDataFromEvent, authenticatorTextUtil } from '@aws-amplify/ui';
 
@@ -8,6 +8,7 @@ const { getCreateAccountText } = authenticatorTextUtil;
   selector: 'amplify-sign-up',
   standalone: false,
   templateUrl: './sign-up.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SignUpComponent {
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';

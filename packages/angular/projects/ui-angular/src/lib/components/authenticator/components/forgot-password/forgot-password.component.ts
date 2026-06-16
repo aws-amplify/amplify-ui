@@ -1,4 +1,9 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   FormFieldsArray,
@@ -13,6 +18,7 @@ const { getResetYourPasswordText, getSendCodeText, getBackToSignInText } =
   selector: 'amplify-forgot-password',
   standalone: false,
   templateUrl: './forgot-password.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ForgotPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-forgotpassword') dataAttr = '';

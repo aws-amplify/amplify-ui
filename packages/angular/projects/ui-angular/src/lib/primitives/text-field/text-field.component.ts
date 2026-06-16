@@ -1,10 +1,16 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'amplify-text-field',
   standalone: false,
   templateUrl: './text-field.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TextFieldComponent {
   @Input() autocomplete = 'new-password';
