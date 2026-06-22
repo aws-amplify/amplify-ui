@@ -91,11 +91,13 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
         echo 'Y' | vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
     elif [ "$BUILD_TOOL" == 'nuxt' ]; then
-        # nuxi >=3.36 requires an explicit --gitInit/--no-gitInit in non-interactive
-        # terminals (CI). The mega-app is throwaway and needs no git repo, so pass
-        # --no-gitInit to keep `nuxi init` from failing with exit code 2 in CI.
-        echo "npx nuxi@latest init $MEGA_APP_NAME -t v4 --no-gitInit"
-        npx nuxi@latest init $MEGA_APP_NAME -t v4 --no-gitInit
+        # nuxi >=3.36 no longer defaults the interactive prompts in a non-interactive
+        # terminal (CI); it requires them as explicit flags or fails with exit code 2.
+        # Two prompts apply here: --gitInit (the mega-app is throwaway, no git repo
+        # needed -> --no-gitInit) and --packageManager (the rest of build-system-tests
+        # is npm-based -> npm).
+        echo "npx nuxi@latest init $MEGA_APP_NAME -t v4 --no-gitInit --packageManager=npm"
+        npx nuxi@latest init $MEGA_APP_NAME -t v4 --no-gitInit --packageManager=npm
     fi
 fi
 
