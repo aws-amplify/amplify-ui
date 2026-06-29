@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 6.15.5
+
+### Patch Changes
+
+- [#6962](https://github.com/aws-amplify/amplify-ui/pull/6962) [`379f6c05bf36d0341de36441097ddb7984151e9c`](https://github.com/aws-amplify/amplify-ui/commit/379f6c05bf36d0341de36441097ddb7984151e9c) Thanks [@ashuvssut](https://github.com/ashuvssut)! - Fix Metro warnings by explicitly exporting dist CSS entrypoints in package.json. Added `./dist/styles.css` export aliases to prevent Metro from implicitly falling back to file-based resolution.
+
 ## 6.15.4
 
 ### Patch Changes
