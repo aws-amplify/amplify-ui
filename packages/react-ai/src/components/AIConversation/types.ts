@@ -11,6 +11,7 @@ import type { DisplayTextTemplate } from '@aws-amplify/ui';
 import type { AIConversationDisplayText } from './displayText';
 import type {
   ConversationMessage,
+  GuardrailConfiguration,
   SendMessage,
   ResponseComponents,
   TextContentBlock,
@@ -40,6 +41,14 @@ export interface AIConversationInput {
   maxAttachments?: number;
   maxAttachmentSize?: number;
   messageRenderer?: MessageRenderer;
+  /**
+   * Amazon Bedrock Guardrail configuration to apply to every message in
+   * this conversation. Guardrails enforce safety policies such as content
+   * filtering, denied topics, and sensitive information redaction.
+   *
+   * @see https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html
+   */
+  guardrails?: GuardrailConfiguration;
 }
 
 export interface AIConversationProps {
