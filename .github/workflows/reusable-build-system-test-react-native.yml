@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: macos-15-intel
+    # Bound the whole job so a wedged emulator boot can't run until GitHub's 6h hard limit.
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -87,7 +89,7 @@ jobs:
             ~/Library/Android/sdk/build-tools
             ~/Library/Android/sdk/platform-tools
             ~/.android/avd
-          key: ${{ runner.os }}-android-sdk-27-x86_64-snapshot-v1
+          key: ${{ runner.os }}-android-sdk-27-x86_64-snapshot-v2
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 5
 
@@ -126,6 +128,8 @@ jobs:
         run: |
           echo -e "echo \$ANDROID_HOME"
           echo $ANDROID_HOME
+          # macOS runners have no GNU `timeout`; coreutils provides it for the emulator boot-wait guard below (mirrors reusable-e2e.yml).
+          brew install coreutils
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platform-tools" "system-images;android-27;default;x86_64"
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name Pixel_5_API_27 --force --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
 
@@ -133,7 +137,11 @@ jobs:
         if: ${{ matrix.platform == 'android' && steps.android-cache.outputs.cache-hit != 'true' }}
         run: |
           $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
-          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          if ! timeout 420 $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'; then
+            echo "::error::Android emulator did not reach sys.boot_completed within 420s; failing fast instead of hanging until the 6h limit"
+            $ANDROID_HOME/platform-tools/adb devices
+            exit 1
+          fi
           $ANDROID_HOME/platform-tools/adb devices
           # disable spell checker
           $ANDROID_HOME/platform-tools/adb shell settings put secure spell_checker_enabled 0
@@ -148,7 +156,11 @@ jobs:
         if: ${{ matrix.platform == 'android' && steps.android-cache.outputs.cache-hit == 'true' }}
         run: |
           $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port ${{ env.EMULATOR_PORT }} -no-boot-anim -no-audio -snapshot default_boot -gpu host -accel on &
-          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          if ! timeout 420 $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'; then
+            echo "::error::Android emulator did not reach sys.boot_completed within 420s; failing fast instead of hanging until the 6h limit"
+            $ANDROID_HOME/platform-tools/adb devices
+            exit 1
+          fi
           $ANDROID_HOME/platform-tools/adb devices
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
