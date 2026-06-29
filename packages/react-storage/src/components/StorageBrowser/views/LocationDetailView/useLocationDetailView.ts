@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { isFunction, isUndefined } from '@aws-amplify/ui';
 
 import { usePaginate } from '../hooks/usePaginate';
+import { useSort } from '../hooks/useSort';
 
 import type {
   DownloadHandlerData,
@@ -13,7 +14,7 @@ import type {
   LocationItemData,
 } from '../../actions';
 import { useActionConfigs } from '../../actions';
-import { usePaginationConfig } from '../../configuration';
+import { usePaginationConfig, useSortConfig } from '../../configuration';
 import { useFileItems } from '../../fileItems';
 import { useLocationItems } from '../../locationItems/context';
 import { useStore } from '../../store';
@@ -27,6 +28,7 @@ import type {
   LocationDetailViewState,
   UseLocationDetailViewOptions,
 } from './types';
+import type { HeaderKeys } from './getLocationDetailViewTableData/types';
 import { useFilePreview } from '../hooks/useFilePreview';
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -51,6 +53,7 @@ export const useLocationDetailView = (
   options?: UseLocationDetailViewOptions
 ): LocationDetailViewState => {
   const { pageSize: configPageSize } = usePaginationConfig();
+  const { sortScope } = useSortConfig();
   const {
     initialValues = {},
     onExit,
@@ -59,6 +62,9 @@ export const useLocationDetailView = (
   } = options ?? {};
 
   const pageSize = propPageSize ?? configPageSize;
+
+  const isCrossPageSort = sortScope === 'all' || sortScope === 'global';
+  const isGlobalSort = sortScope === 'global';
 
   const listOptions = React.useMemo(
     () => ({
@@ -74,6 +80,9 @@ export const useLocationDetailView = (
   const [locationItems, locationItemsDispatch] = useLocationItems();
   const fileItemsDispatch = useFileItems()[1];
   const [activeFile, setActiveFile] = React.useState<FileData | undefined>();
+  const [searchProgress, setSearchProgress] = React.useState<{
+    fetchedCount: number;
+  } | null>(null);
 
   const { current, key } = location;
   const { permissions, prefix } = current ?? {};
@@ -86,8 +95,55 @@ export const useLocationDetailView = (
     useList('locationItems');
 
   // set up pagination
-  const { items, nextToken, hasExhaustedSearch = false } = value;
+  const {
+    items,
+    nextToken,
+    hasExhaustedSearch = false,
+    hasExhaustedFetchAll = false,
+  } = value;
 
+  const hasFetchedAllForSort = React.useRef(false);
+  const [sortFetchProgress, setSortFetchProgress] = React.useState<{
+    fetchedCount: number;
+  } | null>(null);
+
+  // sort all items before pagination for cross-page sort
+  const {
+    sortedItems,
+    sortConfig,
+    onSort: onSortBase,
+    resetSort,
+  } = useSort({
+    items,
+  });
+
+  const onSortWithGlobalFetch = React.useCallback(
+    (headerKey: HeaderKeys) => {
+      onSortBase(headerKey);
+
+      if (!isGlobalSort || hasFetchedAllForSort.current || hasInvalidPrefix) {
+        return;
+      }
+
+      hasFetchedAllForSort.current = true;
+      setSortFetchProgress({ fetchedCount: 0 });
+      handleList({
+        prefix: key,
+        options: {
+          ...listOptions,
+          fetchAll: {
+            onProgress: (progress: { fetchedCount: number }) =>
+              setSortFetchProgress(progress),
+          },
+        },
+      });
+    },
+    [onSortBase, isGlobalSort, hasInvalidPrefix, handleList, key, listOptions]
+  );
+
+  // For 'page' and 'all' modes, fetch the next S3 batch when the user
+  // paginates beyond what's loaded. For 'global' mode, fetchAll retrieves
+  // everything upfront so S3 fetches on page change are not needed.
   const onPaginate = () => {
     if (hasInvalidPrefix || !nextToken) return;
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
@@ -101,12 +157,13 @@ export const useLocationDetailView = (
     currentPage,
     handlePaginate,
     handleReset,
+    hasNextLocalPage,
     highestPageVisited,
     pageItems,
   } = usePaginate({
-    items,
-    onPaginate,
-    pageSize: listOptions.pageSize,
+    items: isCrossPageSort ? sortedItems : items ?? [],
+    onPaginate: isGlobalSort ? undefined : onPaginate,
+    pageSize,
   });
 
   const onSearch = (query: string, includeSubfolders?: boolean) => {
@@ -118,11 +175,14 @@ export const useLocationDetailView = (
         query,
         filterBy: 'key' as const,
         groupBy: includeSubfolders ? listOptions.delimiter : undefined,
+        onProgress: (progress: { fetchedCount: number }) =>
+          setSearchProgress(progress),
       },
     };
 
     handleReset();
     handleList({ prefix: key, options: searchOptions });
+    setSearchProgress({ fetchedCount: 0 });
 
     locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
   };
@@ -206,6 +266,9 @@ export const useLocationDetailView = (
 
     handleReset();
     resetSearch();
+    resetSort();
+    hasFetchedAllForSort.current = false;
+    setSortFetchProgress(null);
     handleList({
       prefix: key,
       options: { ...listOptions, refresh: true },
@@ -224,6 +287,15 @@ export const useLocationDetailView = (
     handleReset();
     setActiveFile(undefined);
   }, [handleList, handleReset, listOptions, hasInvalidPrefix, key]);
+
+  React.useEffect(() => {
+    if (!isLoading && searchProgress) {
+      setSearchProgress(null);
+    }
+    if (!isLoading && sortFetchProgress) {
+      setSortFetchProgress(null);
+    }
+  }, [isLoading, searchProgress, sortFetchProgress]);
 
   const { actionConfigs } = useActionConfigs();
 
@@ -263,7 +335,9 @@ export const useLocationDetailView = (
     fileDataItems,
     hasError,
     hasDownloadError: task?.status === 'FAILED',
-    hasNextPage: !!nextToken,
+    hasNextPage: isGlobalSort
+      ? hasNextLocalPage
+      : !!nextToken || hasNextLocalPage,
     highestPageVisited,
     message,
     downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
@@ -274,9 +348,13 @@ export const useLocationDetailView = (
       setActiveFile(undefined);
     },
     searchQuery,
+    sortConfig: isCrossPageSort ? sortConfig : undefined,
+    searchProgress,
+    sortFetchProgress,
     filePreviewState,
     filePreviewEnabled: !optout,
     hasExhaustedSearch,
+    hasExhaustedFetchAll,
     onRefresh,
     onActionExit: () => {
       storeDispatch({ type: 'RESET_ACTION_TYPE' });
@@ -291,6 +369,9 @@ export const useLocationDetailView = (
     onNavigate: (location: LocationData, path?: string) => {
       onNavigate?.(location, path);
       resetSearch();
+      resetSort();
+      hasFetchedAllForSort.current = false;
+      setSortFetchProgress(null);
       storeDispatch({ type: 'CHANGE_LOCATION', location, path });
       locationItemsDispatch({ type: 'RESET_LOCATION_ITEMS' });
       setActiveFile(undefined);
@@ -342,6 +423,7 @@ export const useLocationDetailView = (
       handleList({ prefix: key, options: { ...listOptions, refresh: true } });
       handleReset();
     },
+    onSort: isCrossPageSort ? onSortWithGlobalFetch : undefined,
     onSearchQueryChange,
     onRetryFilePreview: handleRetry,
     onToggleSearchSubfolders,

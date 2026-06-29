@@ -9,6 +9,7 @@ import type {
   DataTableNumberDataCell,
 } from '../../components';
 import { useControlsContext } from '../context';
+import type { HeaderKeys } from '../../views/LocationDetailView/getLocationDetailViewTableData/types';
 import { compareButtonData } from './compareFunctions/compareButtonData';
 import { compareDateData } from './compareFunctions/compareDateData';
 import { compareNumberData } from './compareFunctions/compareNumberData';
@@ -34,18 +35,22 @@ const GROUP_ORDER: DataTableDataCell['type'][] = [
 const UNSORTABLE_GROUPS: DataTableDataCell['type'][] = ['checkbox'];
 
 export const useDataTable = (): DataTableProps => {
-  const { data } = useControlsContext();
-  const { isLoading, tableData } = data;
+  const { data, onSort: onCrossPageSort } = useControlsContext();
+  const { isLoading, tableData, sortState: crossPageSortState } = data;
+
+  const hasCrossPageSort = !!onCrossPageSort;
 
   const defaultSortIndex = React.useMemo(
     () => tableData?.headers?.findIndex(({ type }) => type === 'sort') ?? -1,
     [tableData]
   );
 
-  const [sortState, setSortState] = React.useState<SortState>({
+  const [localSortState, setLocalSortState] = React.useState<SortState>({
     index: defaultSortIndex,
     direction: 'ascending',
   });
+
+  const sortState = localSortState;
 
   const mappedHeaders = React.useMemo(
     () =>
@@ -53,12 +58,30 @@ export const useDataTable = (): DataTableProps => {
         const { type } = header;
         switch (type) {
           case 'sort': {
+            const headerKey = (header as { key?: HeaderKeys }).key;
+
+            if (hasCrossPageSort && headerKey) {
+              const isActive = crossPageSortState?.field === headerKey;
+              return {
+                ...header,
+                content: {
+                  ...header.content,
+                  onSort: () => {
+                    onCrossPageSort(headerKey);
+                  },
+                  sortDirection: isActive
+                    ? crossPageSortState.direction
+                    : undefined,
+                },
+              };
+            }
+
             return {
               ...header,
               content: {
                 ...header.content,
                 onSort: () => {
-                  setSortState({
+                  setLocalSortState({
                     index,
                     direction:
                       sortState.index === index
@@ -80,15 +103,25 @@ export const useDataTable = (): DataTableProps => {
           }
         }
       }),
-    [sortState, tableData]
+    [
+      crossPageSortState,
+      hasCrossPageSort,
+      onCrossPageSort,
+      sortState,
+      tableData,
+    ]
   );
 
   const sortedRows = React.useMemo(() => {
-    // Early return if there is no table data
     if (!tableData) {
       return;
     }
-    // Return rows as is if there are no sortable columns
+
+    // When cross-page sort is active, rows are already sorted upstream
+    if (hasCrossPageSort) {
+      return tableData.rows;
+    }
+
     if (sortState.index < 0) {
       return tableData.rows;
     }
@@ -150,7 +183,7 @@ export const useDataTable = (): DataTableProps => {
         });
       })
       .flat();
-  }, [sortState, tableData]);
+  }, [hasCrossPageSort, sortState, tableData]);
 
   return {
     headers: mappedHeaders ?? [],
