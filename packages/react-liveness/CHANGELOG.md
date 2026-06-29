@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.8
+
+### Patch Changes
+
+- [#6962](https://github.com/aws-amplify/amplify-ui/pull/6962) [`379f6c05bf36d0341de36441097ddb7984151e9c`](https://github.com/aws-amplify/amplify-ui/commit/379f6c05bf36d0341de36441097ddb7984151e9c) Thanks [@ashuvssut](https://github.com/ashuvssut)! - Fix Metro warnings by explicitly exporting dist CSS entrypoints in package.json. Added `./dist/styles.css` export aliases to prevent Metro from implicitly falling back to file-based resolution.
+
+- Updated dependencies [[`379f6c05bf36d0341de36441097ddb7984151e9c`](https://github.com/aws-amplify/amplify-ui/commit/379f6c05bf36d0341de36441097ddb7984151e9c)]:
+  - @aws-amplify/ui-react@6.15.5
+
 ## 3.6.7
 
 ### Patch Changes
