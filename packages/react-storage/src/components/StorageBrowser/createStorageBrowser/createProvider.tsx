@@ -11,6 +11,7 @@ import {
 import {
   createConfigurationProvider,
   PaginationConfigProvider,
+  ConcurrencyConfigProvider,
 } from '../configuration';
 import { DisplayTextProvider } from '../displayText';
 import { defaultValidateFile, FileItemsProvider } from '../fileItems';
@@ -77,7 +78,7 @@ export default function createProvider<
     ...components,
   };
 
-  const { validateFile = defaultValidateFile } = options ?? {};
+  const { validateFile = defaultValidateFile, concurrency } = options ?? {};
 
   /**
    * Provides state, configuration and action values that are shared between
@@ -94,25 +95,27 @@ export default function createProvider<
       <StoreProvider {...props}>
         <ConfigurationProvider>
           <PaginationConfigProvider pageSize={pageSize}>
-            <ActionConfigsProvider actionConfigs={actionConfigs}>
-              <ActionHandlersProvider handlers={handlers}>
-                <DisplayTextProvider displayText={displayText}>
-                  <ViewsProvider actions={resolvedActions} views={views}>
-                    <ComponentsProvider composables={composables}>
-                      <LocationItemsProvider>
-                        <FileItemsProvider validateFile={validateFile}>
-                          <FilePreviewProvider<TResolver>
-                            filePreview={filePreview}
-                          >
-                            {children}
-                          </FilePreviewProvider>
-                        </FileItemsProvider>
-                      </LocationItemsProvider>
-                    </ComponentsProvider>
-                  </ViewsProvider>
-                </DisplayTextProvider>
-              </ActionHandlersProvider>
-            </ActionConfigsProvider>
+            <ConcurrencyConfigProvider concurrency={concurrency}>
+              <ActionConfigsProvider actionConfigs={actionConfigs}>
+                <ActionHandlersProvider handlers={handlers}>
+                  <DisplayTextProvider displayText={displayText}>
+                    <ViewsProvider actions={resolvedActions} views={views}>
+                      <ComponentsProvider composables={composables}>
+                        <LocationItemsProvider>
+                          <FileItemsProvider validateFile={validateFile}>
+                            <FilePreviewProvider<TResolver>
+                              filePreview={filePreview}
+                            >
+                              {children}
+                            </FilePreviewProvider>
+                          </FileItemsProvider>
+                        </LocationItemsProvider>
+                      </ComponentsProvider>
+                    </ViewsProvider>
+                  </DisplayTextProvider>
+                </ActionHandlersProvider>
+              </ActionConfigsProvider>
+            </ConcurrencyConfigProvider>
           </PaginationConfigProvider>
         </ConfigurationProvider>
       </StoreProvider>
