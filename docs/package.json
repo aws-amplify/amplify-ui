@@ -3,7 +3,7 @@
   "name": "@aws-amplify/ui-docs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "yarn prebuild && yarn next dev -p 5001",
+    "dev": "yarn prebuild && yarn next dev -p 5001 --webpack",
     "preflutter:build": "yarn flutter:clean",
     "flutter:build": "(cd flutter/authenticator && flutter build web)",
     "postflutter:build": "yarn flutter:copy",

@@ -283,6 +283,79 @@ interface Config {
 </ExampleCode>
 </Example>
 
+### Download Service Worker
+
+The `StorageBrowser` component uses a [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) to enable streaming zip downloads for multi-file selections. This allows downloading large batches of files without memory limitations, as the zip is streamed directly to disk rather than being assembled in memory.
+
+#### Setup
+
+The service worker file must be served from your application's public directory. The `@aws-amplify/ui-react-storage` package includes a CLI tool to copy it for you:
+
+<Example>
+<ExampleCode>
+```bash
+npx copy-serviceworker public
+```
+</ExampleCode>
+</Example>
+
+This copies `download-sw.js` into your `public/` directory, making it available at the root of your application.
+
+#### Framework setup
+
+**Next.js / Vite / Create React App:**
+
+Run the copy command once after installing the package. The file will be served automatically from the `public/` folder.
+
+**Amplify Hosting (amplify.yml):**
+
+Add the copy step to your build spec so the service worker is available on every deploy:
+
+<Example>
+<ExampleCode>
+```yaml
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npx copy-serviceworker public
+    build:
+      commands:
+        - npm run build
+```
+</ExampleCode>
+</Example>
+
+**npm scripts (recommended):**
+
+Add it to your `postinstall` or `prebuild` script so it stays up to date automatically:
+
+<Example>
+<ExampleCode>
+```json
+{
+  "scripts": {
+    "prebuild": "copy-serviceworker public"
+  }
+}
+```
+</ExampleCode>
+</Example>
+
+#### How it works
+
+When a user downloads multiple files, the `StorageBrowser` component:
+
+1. Registers the service worker at `/download-sw.js`
+2. Streams each file from S3 into a zip archive
+3. Delivers the zip via the service worker, enabling streaming to disk without size limits
+
+If the service worker is not available (e.g., unsupported browser, missing file, or insecure context), the component automatically falls back to an in-memory blob-based download.
+
+<Message colorTheme="info" variation="filled" heading="Service Worker scope">
+The service worker is registered with scope `/amplify-storage-download/`. It only intercepts requests within this scope and does not affect other parts of your application.
+</Message>
+
 ## Customization
 
 ### Pagination

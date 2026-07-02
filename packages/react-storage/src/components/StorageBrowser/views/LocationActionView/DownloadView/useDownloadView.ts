@@ -24,6 +24,7 @@ export const useDownloadView = (
 
   const [processState, handleProcess] = useAction('download', {
     items,
+    concurrency: 1,
   });
 
   const { isProcessing, isProcessingComplete, statusCounts, tasks } =
