@@ -20,6 +20,9 @@
     "./styles.css": "./dist/styles.css"
   },
   "types": "dist/types/index.d.ts",
+  "bin": {
+    "copy-serviceworker": "./bin/copy-serviceworker.js"
+  },
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -28,6 +31,7 @@
   },
   "files": [
     "dist",
+    "bin",
     "LICENSE",
     "browser"
   ],
@@ -43,7 +47,7 @@
     "size": "yarn size-limit",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit && tsc --project tsconfig.sw.json --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "6.15.4",
