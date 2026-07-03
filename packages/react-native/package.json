@@ -21,7 +21,7 @@
   "devDependencies": {
     "@aws-amplify/react-native": "^1.0.1",
     "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.2",
+    "@babel/core": "^7.29.6",
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-typescript": "^7.23.2",
     "@react-native-async-storage/async-storage": "*",
