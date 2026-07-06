@@ -328,6 +328,40 @@ describe('zipDownloadHandler', () => {
     expect((globalThis.fetch as jest.Mock).mock.calls.length).toBe(1);
   });
 
+  it('does not resurrect the download when cancelled via the UI cancel button', async () => {
+    // Regression for the cancel-resurrection bug: cancel() must NOT delete the
+    // batch entry synchronously, otherwise the next queued file (concurrency: 1)
+    // builds a fresh batch and downloads files 2..N into a new zip.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { ZipWriter } = require('@zip.js/zip.js');
+    (ZipWriter as jest.Mock).mockClear();
+
+    const file1 = { id: 'c1', key: 'prefix/file-1', fileKey: 'file-1' };
+    const file2 = { id: 'c2', key: 'prefix/file-2', fileKey: 'file-2' };
+    const all = [file1, file2];
+    const base = createBaseInput();
+
+    // Start file 1, then immediately hit the UI cancel button
+    const r1 = zipDownloadHandler({ ...base, data: file1, all });
+    r1.cancel!();
+    expect(await r1.result).toEqual({
+      status: 'CANCELED',
+      message: 'Download cancelled',
+    });
+
+    // File 2 is re-dispatched with the same `all`; it must take the cancelled
+    // early-exit rather than building a new batch.
+    const r2 = zipDownloadHandler({ ...base, data: file2, all });
+    expect(await r2.result).toEqual({
+      status: 'CANCELED',
+      message: 'Download cancelled',
+    });
+
+    // Exactly ONE batch (one ZipWriter) was constructed across both files —
+    // proving file 2 did not resurrect the download.
+    expect((ZipWriter as jest.Mock).mock.calls.length).toBe(1);
+  });
+
   describe('getFolderName logic', () => {
     it('uses parent folder name for nested keys', async () => {
       const input = createBaseInput();

@@ -64,7 +64,19 @@ const reset = (batchKey: string, state: BatchState): void => {
   batchMap.delete(batchKey);
 };
 
-/** Aborts the entire batch and tears down state. Idempotent. */
+/**
+ * Marks the batch cancelled and tears down the active stream, but deliberately
+ * KEEPS the batchMap entry alive. Idempotent.
+ *
+ * The `cancelled` sentinel and the map entry share one key, so deleting the
+ * entry here would erase the very flag the drain path relies on: with
+ * `concurrency: 1`, useProcessTasks re-dispatches each remaining QUEUED file to
+ * the handler on settle. If the entry were gone, those files would miss the
+ * `existingBatch.cancelled` early-exit and build a brand-new batch — resurrecting
+ * the download. Instead we leave a tombstoned entry; the remaining files hit the
+ * early-exit branch and `reset()` runs only once `batchDone === batchTotal`
+ * (in the STEP 1 early-exit or onFileSettled), for both cancel and completion.
+ */
 const cancelBatch = (batchKey: string): void => {
   const state = batchMap.get(batchKey);
   if (!state || state.cancelled) return;
@@ -73,7 +85,13 @@ const cancelBatch = (batchKey: string): void => {
   // Terminate the SW response stream by aborting the writable side of the TransformStream.
   // This errors the readable (transferred to SW), which errors the Response, failing the browser download.
   state.zipWritable.abort('Download cancelled').catch(() => {});
-  reset(batchKey, state);
+  // Stop keepalive pings immediately, but do NOT delete the map entry — the
+  // remaining queued files must still find this (cancelled) batch. The entry is
+  // removed by reset() at the final drain.
+  if (state.keepaliveInterval) {
+    clearInterval(state.keepaliveInterval);
+    state.keepaliveInterval = null;
+  }
 };
 
 // ─── Utilities ───
@@ -156,8 +174,17 @@ const initServiceWorkerStream = (state: BatchState): void => {
         a.click();
         port1.close();
       };
+      // Send the user-facing filename explicitly. `downloadId` embeds Date.now()
+      // to keep the SW's stream-map key unique across batches — that timestamp
+      // must NOT leak into the saved filename. The SW uses `filename` for the
+      // Content-Disposition header so the SW path and the blob-fallback path both
+      // save `${folder}.zip`.
       reg.active.postMessage(
-        { downloadId: state.downloadId, stream: state.zipReadable },
+        {
+          downloadId: state.downloadId,
+          filename: `${state.folder}.zip`,
+          stream: state.zipReadable,
+        },
         [state.zipReadable as unknown as Transferable, port2]
       );
       state.zipReadable = null;

@@ -139,6 +139,32 @@ describe('download-sw', () => {
     );
   });
 
+  it('uses the explicit filename for Content-Disposition, not the timestamped id', () => {
+    // The page keeps a timestamped id unique for the stream map, but sends the
+    // clean user-facing filename separately. The SW must use the filename so the
+    // saved file is e.g. "photos.zip", not "photos-1720080000000.zip".
+    const stream = new ReadableStream();
+    const downloadId = 'photos-1720080000000.zip';
+    messageHandler()({
+      origin: ORIGIN,
+      data: { downloadId, filename: 'photos.zip', stream },
+      ports: [{ postMessage: jest.fn() }],
+    });
+
+    const respondWith = jest.fn();
+    fetchHandler()({
+      request: {
+        url: `https://localhost/amplify-storage-download/${downloadId}`,
+      },
+      respondWith,
+    });
+
+    const response: Response = respondWith.mock.calls[0][0];
+    expect(response.headers.get('Content-Disposition')).toBe(
+      "attachment; filename*=UTF-8''photos.zip"
+    );
+  });
+
   it('does not call respondWith when no stream stored', () => {
     const respondWith = jest.fn();
     fetchHandler()({

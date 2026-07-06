@@ -5,8 +5,15 @@
 declare const self: ServiceWorkerGlobalScope;
 export type {}; // make this a module to avoid global scope pollution
 
-// Stores ReadableStreams posted from the main thread, keyed by download ID
-const pendingStreams = new Map<string, ReadableStream>();
+// Stores the ReadableStream (and its user-facing filename) posted from the main
+// thread, keyed by download ID. The download ID embeds a timestamp to stay
+// unique; the filename is carried separately so the timestamp never reaches the
+// saved file name.
+interface PendingDownload {
+  stream: ReadableStream;
+  filename: string;
+}
+const pendingStreams = new Map<string, PendingDownload>();
 
 // Skip waiting to activate immediately on first install (no navigation required)
 self.addEventListener('install', () => {
@@ -31,6 +38,7 @@ self.addEventListener('message', (event) => {
   const data = event.data as {
     type?: string;
     downloadId?: string;
+    filename?: string;
     stream?: ReadableStream;
   };
 
@@ -42,12 +50,17 @@ self.addEventListener('message', (event) => {
     return;
   }
 
-  const { downloadId, stream } = data as {
+  const { downloadId, filename, stream } = data as {
     downloadId: string;
+    filename?: string;
     stream: ReadableStream;
   };
   if (downloadId && stream) {
-    pendingStreams.set(downloadId, stream);
+    // Fall back to the id's last path segment only if no explicit filename was
+    // provided (older callers); the page normally sends `${folder}.zip`.
+    const resolvedFilename =
+      filename ?? downloadId.split('/').pop() ?? 'download.zip';
+    pendingStreams.set(downloadId, { stream, filename: resolvedFilename });
     // Acknowledge receipt so the main thread knows it's safe to trigger the download
     if (event.ports[0]) {
       event.ports[0].postMessage({ ready: true });
@@ -65,19 +78,20 @@ self.addEventListener('fetch', (event) => {
   // decode it before looking up the stream stored under the unencoded key.
   const rawId = url.pathname.split('/amplify-storage-download/')[1];
   const downloadId = decodeURIComponent(rawId);
-  const stream = pendingStreams.get(downloadId);
+  const pending = pendingStreams.get(downloadId);
 
-  if (!stream) return;
+  if (!pending) return;
 
   pendingStreams.delete(downloadId);
 
-  // downloadId is already decoded above.
-  const filename = downloadId.split('/').pop()!;
+  const { stream, filename } = pending;
   event.respondWith(
     new Response(stream, {
       headers: {
         // RFC 5987 extended notation encodes arbitrary UTF-8 (including quotes
         // and backslashes that S3 keys may legally contain) without escaping.
+        // `filename` is the user-facing name sent by the page (e.g. folder.zip),
+        // NOT the timestamped internal downloadId.
         'Content-Disposition': `attachment; filename*=UTF-8''${encodeURIComponent(
           filename
         )}`,
