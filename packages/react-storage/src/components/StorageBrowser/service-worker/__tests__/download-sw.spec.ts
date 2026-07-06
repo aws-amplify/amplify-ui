@@ -29,10 +29,14 @@ describe('download-sw', () => {
   const messageHandler = () => listeners['message'] as (e: any) => void;
   const fetchHandler = () => listeners['fetch'] as (e: any) => void;
 
+  // Service worker messages must originate from a same-origin client.
+  const ORIGIN = self.location.origin;
+
   it('intercepts fetch matching /amplify-storage-download/ pattern', () => {
     const stream = new ReadableStream();
     const mockPort = { postMessage: jest.fn() };
     messageHandler()({
+      origin: ORIGIN,
       data: { downloadId: 'test-id', stream },
       ports: [mockPort],
     });
@@ -59,6 +63,7 @@ describe('download-sw', () => {
   it('returns response with correct headers', () => {
     const stream = new ReadableStream();
     messageHandler()({
+      origin: ORIGIN,
       data: { downloadId: 'my-file.zip', stream },
       ports: [{ postMessage: jest.fn() }],
     });
@@ -84,6 +89,7 @@ describe('download-sw', () => {
     const stream = new ReadableStream();
     const encodedId = 'path/to/my%20file.zip';
     messageHandler()({
+      origin: ORIGIN,
       data: { downloadId: encodedId, stream },
       ports: [{ postMessage: jest.fn() }],
     });
@@ -117,6 +123,7 @@ describe('download-sw', () => {
   it('cleans up stored stream after responding', () => {
     const stream = new ReadableStream();
     messageHandler()({
+      origin: ORIGIN,
       data: { downloadId: 'cleanup-test', stream },
       ports: [{ postMessage: jest.fn() }],
     });
@@ -139,5 +146,29 @@ describe('download-sw', () => {
       respondWith: respondWith2,
     });
     expect(respondWith2).not.toHaveBeenCalled();
+  });
+
+  it('ignores messages from a foreign origin', () => {
+    const stream = new ReadableStream();
+    const mockPort = { postMessage: jest.fn() };
+    // Message from a different origin must be rejected — the stream is not stored
+    // and no acknowledgement is sent.
+    messageHandler()({
+      origin: 'https://evil.example.com',
+      data: { downloadId: 'foreign-id', stream },
+      ports: [mockPort],
+    });
+
+    expect(mockPort.postMessage).not.toHaveBeenCalled();
+
+    // A subsequent fetch for that ID falls through (stream was never stored)
+    const respondWith = jest.fn();
+    fetchHandler()({
+      request: {
+        url: 'https://localhost/amplify-storage-download/foreign-id',
+      },
+      respondWith,
+    });
+    expect(respondWith).not.toHaveBeenCalled();
   });
 });

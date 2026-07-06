@@ -20,6 +20,14 @@ self.addEventListener('activate', (event) => {
 
 // Receive stream from main thread via MessageChannel
 self.addEventListener('message', (event) => {
+  // Security: only accept messages from same-origin clients. A service worker
+  // exclusively communicates with pages it controls, which are same-origin by
+  // definition. Rejecting mismatched origins guards against cross-origin
+  // senders attempting to inject or hijack download streams.
+  if (event.origin !== self.location.origin) {
+    return;
+  }
+
   const data = event.data as {
     type?: string;
     downloadId?: string;
