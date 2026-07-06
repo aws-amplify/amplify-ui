@@ -9,6 +9,7 @@ import type {
   LocationData,
 } from '../actions';
 import type { StorageBrowserComponents } from '../components';
+import type { SortScope } from '../configuration';
 import type {
   GetLocationCredentials,
   RegisterAuthListener,
@@ -327,6 +328,16 @@ export interface StorageBrowserProps<TActionType = string, TViews = {}> {
    * @minimum 1
    */
   pageSize?: number;
+
+  /**
+   * @description Controls where sorting is applied.
+   *
+   * - `'all'` — Sort all loaded items before pagination (cross-page sort).
+   * - `'page'` — Sort only the current display page (table-level local sort).
+   *
+   * @default 'page'
+   */
+  sortScope?: SortScope;
 }
 
 /**
@@ -337,7 +348,12 @@ export interface StorageBrowserProviderProps<TViews = {}>
   extends StoreProviderProps,
     Pick<
       StorageBrowserProps,
-      'defaultValue' | 'displayText' | 'onValueChange' | 'value' | 'pageSize'
+      | 'defaultValue'
+      | 'displayText'
+      | 'onValueChange'
+      | 'value'
+      | 'pageSize'
+      | 'sortScope'
     > {
   // note: `views` intentionally scoped to custom slots to prevent conflicts with composability
   /**

@@ -116,4 +116,49 @@ describe('usePaginate', () => {
     expect(result.current.currentPage).toBe(1);
     expect(result.current.pageItems).toEqual(['item1', 'item2']);
   });
+
+  describe('hasNextLocalPage', () => {
+    it('should return hasNextLocalPage=true when more pages exist', () => {
+      const items = Array.from({ length: 20 }, (_, i) => `item${i}`);
+      const { result } = renderHook(() => usePaginate({ items, pageSize: 10 }));
+
+      expect(result.current.currentPage).toBe(1);
+      expect(result.current.hasNextLocalPage).toBe(true);
+    });
+
+    it('should return hasNextLocalPage=false on last page', () => {
+      const items = Array.from({ length: 20 }, (_, i) => `item${i}`);
+      const { result } = renderHook(() => usePaginate({ items, pageSize: 10 }));
+
+      act(() => {
+        result.current.handlePaginate(2);
+      });
+
+      expect(result.current.currentPage).toBe(2);
+      expect(result.current.hasNextLocalPage).toBe(false);
+    });
+
+    it('should return hasNextLocalPage=false with empty items', () => {
+      const { result } = renderHook(() =>
+        usePaginate({ items: [], pageSize: 10 })
+      );
+
+      expect(result.current.hasNextLocalPage).toBe(false);
+    });
+
+    it('should return hasNextLocalPage=false when items fit in one page', () => {
+      const items = ['item1', 'item2', 'item3'];
+      const { result } = renderHook(() => usePaginate({ items, pageSize: 10 }));
+
+      expect(result.current.hasNextLocalPage).toBe(false);
+    });
+
+    it('should return hasNextLocalPage=false when items is undefined', () => {
+      const { result } = renderHook(() =>
+        usePaginate({ items: undefined, pageSize: 10 })
+      );
+
+      expect(result.current.hasNextLocalPage).toBe(false);
+    });
+  });
 });
