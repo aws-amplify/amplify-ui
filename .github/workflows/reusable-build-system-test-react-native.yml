@@ -88,9 +88,19 @@ jobs:
         if: ${{ matrix.platform == 'android' }}
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "platform-tools" "emulator" "build-tools;33.0.2" "system-images;android-27;default;x86_64"
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --package "system-images;android-27;default;x86_64"
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "platform-tools" "emulator" "build-tools;33.0.2" "platforms;android-27" "system-images;android-27;default;x86_64"
+          # `--tag` and `--abi` must be passed explicitly: without them avdmanager
+          # prints "Auto-selecting single ABI" and exits 0 WITHOUT creating the AVD.
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --package "system-images;android-27;default;x86_64" --tag "default" --abi "x86_64" --device "pixel_5"
+          # Fail fast (instead of waiting 420s for a boot that can't happen) if the AVD was not created.
+          echo "Available AVDs:"
+          $ANDROID_HOME/emulator/emulator -list-avds
+          if ! $ANDROID_HOME/emulator/emulator -list-avds | grep -qx "Pixel_5_API_27"; then
+            echo "::error::AVD Pixel_5_API_27 was not created by avdmanager"
+            $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list avd || true
+            exit 1
+          fi
 
       - name: Start Android emulator
         if: ${{ matrix.platform == 'android' }}
