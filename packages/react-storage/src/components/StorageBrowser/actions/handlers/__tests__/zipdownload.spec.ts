@@ -292,22 +292,40 @@ describe('zipDownloadHandler', () => {
     expect(mockRevokeObjectURL).toHaveBeenCalledWith('blob:revoke-test');
   });
 
-  it('returns cancel function in early-exit cancelled path', () => {
-    // Simulate a cancelled batch by first starting a download, then cancelling,
-    // then calling handler again with the same `all` array
-    const input = createBaseInput();
-    const first = zipDownloadHandler(input);
+  it('takes the early-exit cancelled path for remaining files after a cancel', async () => {
+    // A multi-file batch keeps its state in `batchMap` until the final file
+    // settles. If an earlier file is cancelled, subsequent files must hit the
+    // `existingBatch.cancelled` early-exit branch and return CANCELED with a
+    // (noop) cancel function rather than starting a fresh batch/download.
+    const abortErr = new Error('The user aborted a request.');
+    abortErr.name = 'AbortError';
+    (globalThis.fetch as jest.Mock).mockRejectedValueOnce(abortErr);
 
-    // Cancel the batch
-    first.cancel!();
+    const file1 = { id: 'id1', key: 'prefix/file-1', fileKey: 'file-1' };
+    const file2 = { id: 'id2', key: 'prefix/file-2', fileKey: 'file-2' };
+    const all = [file1, file2];
+    const base = createBaseInput();
 
-    // Now call handler again with same `all` — should hit cancelled path
-    // Since batch is reset on cancel, calling with same `all` starts fresh
-    // To properly test the early-exit, we need to have a batch that's cancelled but not reset
-    // This happens when the abort fires but the handler is called again for remaining files.
-    // With concurrency=1 this is edge-case but we validate the return shape.
-    expect(first.cancel).toBeDefined();
-    expect(typeof first.cancel).toBe('function');
+    // File 1 — fetch rejects with AbortError → batch flagged cancelled (not reset)
+    const r1 = zipDownloadHandler({ ...base, data: file1, all });
+    expect(await r1.result).toEqual({
+      status: 'CANCELED',
+      message: 'Download cancelled',
+    });
+
+    // File 2 — same `all`; batch is still present and cancelled → early-exit branch
+    const r2 = zipDownloadHandler({ ...base, data: file2, all });
+    expect(r2.cancel).toBeDefined();
+    expect(typeof r2.cancel).toBe('function');
+    // The noop cancel on the early-exit path must not throw
+    expect(() => r2.cancel!()).not.toThrow();
+    expect(await r2.result).toEqual({
+      status: 'CANCELED',
+      message: 'Download cancelled',
+    });
+
+    // File 2 was never fetched (only the file-1 rejection was consumed)
+    expect((globalThis.fetch as jest.Mock).mock.calls.length).toBe(1);
   });
 
   describe('getFolderName logic', () => {
@@ -345,6 +363,23 @@ describe('zipDownloadHandler', () => {
       await flushAsync();
 
       expect(mockAnchor.download).toBe('photos.zip');
+    });
+
+    it('preserves spaces and URL-unsafe characters in the folder name', async () => {
+      // Regression guard: folder names with spaces (common in S3 prefixes) must
+      // survive into the download name. The SW round-trips the id through
+      // encode/decode so the stream lookup still matches (see download-sw.spec).
+      const input = createBaseInput();
+      input.data.key = 'my photos/vacation 2026/beach.jpg';
+      input.all = [
+        { ...input.all[0], key: 'my photos/vacation 2026/beach.jpg' },
+      ];
+
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      expect(mockAnchor.download).toBe('vacation 2026.zip');
     });
   });
 });

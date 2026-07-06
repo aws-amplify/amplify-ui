@@ -132,6 +132,13 @@ const initServiceWorkerStream = (state: BatchState): void => {
   state.swReady = navigator.serviceWorker
     .getRegistration('/amplify-storage-download/')
     .then((reg) => {
+      // If the batch was cancelled while getRegistration() was pending, bail out
+      // before wiring up the MessageChannel or keepalive interval. Otherwise the
+      // interval would be created after reset() already cleared batchMap, leaking
+      // a timer with no reference to clear it.
+      if (state.cancelled) {
+        return;
+      }
       if (!reg?.active) {
         state.blobPromise = collectBlob(state.zipReadable!);
         return;
@@ -219,18 +226,14 @@ const download = async (
 
   // When the browser dismisses the download dialog, the SW response stream
   // closes → TransformStream writable errors → zipWriter.add() rejects.
-  // Distinguish stream-closure errors (cancel) from other zip.js errors (real failures).
+  // We flag cancellation from two robust signals: an explicit abort in flight
+  // (UI cancel aborts batchAbort) or a standard `AbortError` (the DOM error name
+  // zip.js surfaces when its output stream is terminated by a dialog cancel).
+  // We deliberately avoid substring-matching zip.js's internal error messages,
+  // which are not a public API contract. Any other rejection is a genuine error.
   addPromise.catch((error: unknown) => {
-    const err = error instanceof Error ? error : new Error(String(error));
-    // zip.js throws AbortError or errors the writable when the output stream
-    // is terminated. These are caused by the user dismissing the download dialog
-    // (SW path) or by our explicit abort(). Any other error is a genuine failure.
-    if (
-      err.name === 'AbortError' ||
-      err.message.includes('abort') ||
-      err.message.includes('close') ||
-      state.batchAbort.signal.aborted
-    ) {
+    const err = error instanceof Error ? error : undefined;
+    if (state.batchAbort.signal.aborted || err?.name === 'AbortError') {
       state.cancelled = true;
     }
     // Re-throw is not needed — the await below will surface the rejection.

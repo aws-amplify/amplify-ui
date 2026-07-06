@@ -60,18 +60,27 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (!url.pathname.startsWith('/amplify-storage-download/')) return;
 
-  const downloadId = url.pathname.split('/amplify-storage-download/')[1];
+  // The download id is percent-encoded by the browser when the <a> navigation
+  // fires (folder names may contain spaces or other URL-unsafe characters), so
+  // decode it before looking up the stream stored under the unencoded key.
+  const rawId = url.pathname.split('/amplify-storage-download/')[1];
+  const downloadId = decodeURIComponent(rawId);
   const stream = pendingStreams.get(downloadId);
 
   if (!stream) return;
 
   pendingStreams.delete(downloadId);
 
-  const filename = decodeURIComponent(downloadId.split('/').pop()!);
+  // downloadId is already decoded above.
+  const filename = downloadId.split('/').pop()!;
   event.respondWith(
     new Response(stream, {
       headers: {
-        'Content-Disposition': `attachment; filename="${filename}"`,
+        // RFC 5987 extended notation encodes arbitrary UTF-8 (including quotes
+        // and backslashes that S3 keys may legally contain) without escaping.
+        'Content-Disposition': `attachment; filename*=UTF-8''${encodeURIComponent(
+          filename
+        )}`,
         'Content-Type': 'application/octet-stream',
       },
     })

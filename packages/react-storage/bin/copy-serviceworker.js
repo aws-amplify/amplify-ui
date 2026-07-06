@@ -27,9 +27,9 @@ if (!fs.existsSync(SW_SOURCE)) {
 
 const resolvedTarget = path.resolve(targetDir, 'amplify-storage-download');
 
-if (!fs.existsSync(resolvedTarget)) {
-  fs.mkdirSync(resolvedTarget, { recursive: true });
-}
+// `recursive: true` is a no-op when the directory already exists, so no
+// existence check is needed (and skipping it avoids a TOCTOU window).
+fs.mkdirSync(resolvedTarget, { recursive: true });
 
 const dest = path.join(resolvedTarget, SW_FILENAME);
 fs.copyFileSync(SW_SOURCE, dest);

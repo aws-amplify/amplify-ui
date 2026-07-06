@@ -78,33 +78,64 @@ describe('download-sw', () => {
 
     const response: Response = respondWith.mock.calls[0][0];
     expect(response.headers.get('Content-Disposition')).toBe(
-      'attachment; filename="my-file.zip"'
+      "attachment; filename*=UTF-8''my-file.zip"
     );
     expect(response.headers.get('Content-Type')).toBe(
       'application/octet-stream'
     );
   });
 
-  it('decodes URI components in filename', () => {
+  it('stores the stream under the unencoded id and matches the encoded request URL', () => {
+    // The page stores the stream keyed by the raw (unencoded) download id.
+    // The browser percent-encodes the id when the <a download> navigation fires.
+    // The SW must decode the request pathname before looking the stream up.
     const stream = new ReadableStream();
-    const encodedId = 'path/to/my%20file.zip';
+    const unencodedId = 'path/to/my file.zip';
     messageHandler()({
       origin: ORIGIN,
-      data: { downloadId: encodedId, stream },
+      data: { downloadId: unencodedId, stream },
       ports: [{ postMessage: jest.fn() }],
     });
 
     const respondWith = jest.fn();
     fetchHandler()({
       request: {
-        url: `https://localhost/amplify-storage-download/${encodedId}`,
+        // Browser-encoded form of the same id (space -> %20)
+        url: 'https://localhost/amplify-storage-download/path/to/my%20file.zip',
+      },
+      respondWith,
+    });
+
+    // Lookup succeeds despite the encoding mismatch
+    expect(respondWith).toHaveBeenCalledWith(expect.any(Response));
+    const response: Response = respondWith.mock.calls[0][0];
+    expect(response.headers.get('Content-Disposition')).toBe(
+      "attachment; filename*=UTF-8''my%20file.zip"
+    );
+  });
+
+  it('decodes URI components in filename', () => {
+    // Stream stored under the unencoded id; request arrives percent-encoded.
+    const stream = new ReadableStream();
+    const unencodedId = 'path/to/my file.zip';
+    messageHandler()({
+      origin: ORIGIN,
+      data: { downloadId: unencodedId, stream },
+      ports: [{ postMessage: jest.fn() }],
+    });
+
+    const respondWith = jest.fn();
+    fetchHandler()({
+      request: {
+        url: 'https://localhost/amplify-storage-download/path/to/my%20file.zip',
       },
       respondWith,
     });
 
     const response: Response = respondWith.mock.calls[0][0];
+    // RFC 5987 extended notation re-encodes the filename
     expect(response.headers.get('Content-Disposition')).toBe(
-      'attachment; filename="my file.zip"'
+      "attachment; filename*=UTF-8''my%20file.zip"
     );
   });
 
