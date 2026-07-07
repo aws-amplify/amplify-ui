@@ -43,6 +43,9 @@ class MockMessageChannel {
 ).MessageChannel = MockMessageChannel;
 
 let mockZipWritable: WritableStream | null = null;
+// Records the entry names passed to zipWriter.add() so tests can assert
+// relativePath vs basename behavior.
+const mockAddedFilenames: string[] = [];
 
 jest.mock('@zip.js/zip.js', () => ({
   ZipWriter: jest.fn().mockImplementation((writable: WritableStream) => {
@@ -50,7 +53,8 @@ jest.mock('@zip.js/zip.js', () => ({
     return {
       add: jest
         .fn()
-        .mockImplementation((_filename: string, readable: ReadableStream) => {
+        .mockImplementation((filename: string, readable: ReadableStream) => {
+          mockAddedFilenames.push(filename);
           // Consume the input readable stream to simulate zip.js reading file data
           const reader = readable.getReader();
           const drain = async () => {
@@ -127,6 +131,7 @@ describe('zipDownloadHandler', () => {
   let mockAnchor: { href: string; download: string; click: jest.Mock };
 
   beforeEach(() => {
+    mockAddedFilenames.length = 0;
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 1);
     mockGetUrl.mockResolvedValue({ expiresAt, url });
@@ -362,6 +367,37 @@ describe('zipDownloadHandler', () => {
     expect((ZipWriter as jest.Mock).mock.calls.length).toBe(1);
   });
 
+  describe('zip entry naming (relativePath)', () => {
+    it('uses `relativePath` as the zip entry name when present', async () => {
+      const input = createBaseInput();
+      input.data.key = 'photos/vacation/beach.jpg';
+      input.data.relativePath = 'vacation/beach.jpg';
+      input.all = [
+        {
+          ...input.all[0],
+          key: 'photos/vacation/beach.jpg',
+          relativePath: 'vacation/beach.jpg',
+        },
+      ];
+
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      expect(mockAddedFilenames).toContain('vacation/beach.jpg');
+    });
+
+    it('falls back to the key basename when `relativePath` is absent', async () => {
+      const input = createBaseInput();
+      // createBaseInput uses key 'prefix/file-name' with no relativePath
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      expect(mockAddedFilenames).toContain('file-name');
+    });
+  });
+
   describe('getFolderName logic', () => {
     it('uses parent folder name for nested keys', async () => {
       const input = createBaseInput();
@@ -414,6 +450,40 @@ describe('zipDownloadHandler', () => {
       await flushAsync();
 
       expect(mockAnchor.download).toBe('vacation 2026.zip');
+    });
+  });
+
+  describe('archiveName (view-computed batch name)', () => {
+    it('names the zip from `all[0].archiveName` when present', async () => {
+      // The view stamps the common-ancestor name onto every item; the handler
+      // must prefer it over the first-key parent-folder heuristic.
+      const input = createBaseInput();
+      input.data.key = 'public/nested/one/pic.jpg';
+      input.all = [
+        {
+          ...input.all[0],
+          key: 'public/nested/one/pic.jpg',
+          archiveName: 'public',
+        },
+      ];
+
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      expect(mockAnchor.download).toBe('public.zip');
+    });
+
+    it('falls back to getFolderName when `archiveName` is absent', async () => {
+      const input = createBaseInput();
+      input.data.key = 'photos/vacation/beach.jpg';
+      input.all = [{ ...input.all[0], key: 'photos/vacation/beach.jpg' }];
+
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      expect(mockAnchor.download).toBe('vacation.zip');
     });
   });
 });

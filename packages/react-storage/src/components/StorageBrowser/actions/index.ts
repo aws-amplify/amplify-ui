@@ -62,6 +62,7 @@ export type {
 export {
   copyHandler,
   createFileDataItem,
+  createDownloadItem,
   createFolderHandler,
   defaultHandlers,
   downloadHandler,
