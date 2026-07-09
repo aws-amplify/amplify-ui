@@ -48,7 +48,7 @@ const ariaDescribedBy = computed(() => (hasError.value ? errorId : undefined));
   <alias-control
     v-else
     :name="name"
-    :label="formField.label"
+    :label="formField.label!"
     :placeholder="formField.placeholder"
     :required="formField.isRequired"
     :label-hidden="formField.labelHidden"
