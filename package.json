@@ -104,6 +104,7 @@
     "cross-spawn": "7.0.5",
     "on-headers": "^1.1.0",
     "qs": "^6.15.2",
+    "**/serve-handler/minimatch": "3.1.4",
     "@typescript-eslint/parser": "8.57.0",
     "@typescript-eslint/eslint-plugin": "8.57.0",
     "typescript-eslint": "8.57.0",
