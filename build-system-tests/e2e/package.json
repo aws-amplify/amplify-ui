@@ -32,7 +32,7 @@
     "@actions/http-client/undici": "6.24.0",
     "diff": "8.0.3",
     "serialize-javascript": "^7.0.5",
-    "**/find-cypress-specs/minimatch": "3.1.4",
+    "**/find-cypress-specs/minimatch": "^10.2.4",
     "**/mocha/minimatch": "5.1.8",
     "**/@typescript-eslint/typescript-estree/minimatch": "9.0.7",
     "**/glob/minimatch": "9.0.7",
