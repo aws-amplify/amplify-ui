@@ -1,4 +1,9 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  inject,
+} from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
@@ -12,7 +17,7 @@ export class FederatedSignInButtonComponent {
   @Input() provider: FederatedIdentityProviders;
   @Input() text: string;
 
-  constructor(private authenticator: AuthenticatorService) {}
+  private authenticator = inject(AuthenticatorService);
 
   onClick = (): void => {
     this.authenticator.send({

@@ -1,13 +1,13 @@
-import { Directive, Input, TemplateRef } from '@angular/core';
+import { Directive, Input, TemplateRef, inject } from '@angular/core';
 
 @Directive({
   selector: '[amplifySlot]',
   standalone: false,
 })
 export class AmplifySlotDirective {
-  public name: string;
+  template = inject<TemplateRef<unknown>>(TemplateRef);
 
-  constructor(public template: TemplateRef<unknown>) {}
+  public name: string;
 
   @Input() set amplifySlot(component: string) {
     this.name = component;

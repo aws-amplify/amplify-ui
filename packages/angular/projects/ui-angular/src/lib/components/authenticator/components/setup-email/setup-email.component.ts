@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   authenticatorTextUtil,
   classNames,
@@ -25,7 +25,7 @@ export class SetupEmailComponent {
   public classNames = classNames;
   public ComponentClassName = ComponentClassName;
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;

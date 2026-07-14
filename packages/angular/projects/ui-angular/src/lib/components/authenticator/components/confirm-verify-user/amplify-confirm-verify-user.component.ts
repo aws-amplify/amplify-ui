@@ -3,6 +3,7 @@ import {
   HostBinding,
   Input,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import {
   FormFieldsArray,
@@ -29,7 +30,7 @@ export class ConfirmVerifyUserComponent {
   public submitText = getSubmitText();
   public sortedFormFields: FormFieldsArray;
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
