@@ -22,7 +22,7 @@
     "@angular-eslint/template-parser": "^19.8.1",
     "@angular/animations": "^19.2.20",
     "@angular/cli": "^19.2.23",
-    "@angular/common": "^20.3.25",
+    "@angular/common": "^19.2.23",
     "@angular/compiler": "^19.2.20",
     "@angular/compiler-cli": "^19.2.23",
     "@angular/core": "^19.2.20",
