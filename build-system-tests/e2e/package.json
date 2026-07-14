@@ -28,8 +28,6 @@
   "resolutions": {
     "esbuild": "^0.25.0",
     "qs": "^6.15.2",
-    "undici": "6.24.0",
-    "@actions/http-client/undici": "6.24.0",
     "diff": "8.0.3",
     "serialize-javascript": "^7.0.5",
     "**/find-cypress-specs/minimatch": "^10.2.4",
