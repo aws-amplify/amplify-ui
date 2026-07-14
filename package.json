@@ -133,7 +133,9 @@
     "@angular/platform-browser": "19.2.20",
     "@angular/platform-browser-dynamic": "19.2.20",
     "@angular/router": "19.2.20",
-    "**/serve/ajv": "^6.14.0"
+    "**/serve/ajv": "^6.14.0",
+    "**/@angular-devkit/build-angular/piscina": "4.9.3",
+    "**/@angular/build/piscina": "4.9.3"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
