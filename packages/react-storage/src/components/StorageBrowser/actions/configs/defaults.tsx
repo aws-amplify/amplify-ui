@@ -60,8 +60,8 @@ export const uploadActionConfig: UploadActionConfig = {
 export const downloadActionConfig: DownloadActionConfig = {
   viewName: 'DownloadView',
   actionListItem: {
-    // Folder selections are now supported (Phase 2 — folder download expands
-    // folders into their files), so only an empty selection disables Download.
+    // Only an empty selection disables Download; folder selections are
+    // expanded into files at the view level.
     disable: (selected) => {
       const hasNoSelection = !selected || selected.length === 0;
       return hasNoSelection;

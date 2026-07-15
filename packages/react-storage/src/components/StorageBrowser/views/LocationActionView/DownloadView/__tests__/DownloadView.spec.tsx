@@ -27,6 +27,8 @@ jest.mock('../../../../displayText', () => ({
       enumerationErrorMessage:
         'Failed to list folder contents. Click Download to try again.',
       noFilesMessage: 'The selected folders contain no files to download.',
+      tooManyFilesMessage:
+        'The selection exceeds the maximum of 5000 files for a single download. Download folders in smaller batches.',
     },
   }),
 }));
@@ -111,7 +113,9 @@ const defaultViewState: DownloadViewState = {
   isEnumerating: false,
   hasNoFilesToDownload: false,
   hasFilesToDownload: true,
+  hasSelection: true,
   isEnumerationError: false,
+  isOverFileLimit: false,
   allFoldersReady: true,
   statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
   tasks: [taskOne, taskTwo, taskThree],
@@ -299,6 +303,54 @@ describe('DownloadView', () => {
           type: 'info',
         },
       },
+    });
+  });
+
+  it('shows the too-many-files message (error) and hard-disables Start when over the file limit', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      isOverFileLimit: true,
+      // over-limit is a not-ready state: the offending folder is never cached.
+      hasFilesToDownload: false,
+      allFoldersReady: false,
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        // Unlike the enumeration-error state, Start is NOT a retry trigger
+        // here: the cap cannot be retried away, so Start is disabled.
+        isActionStartDisabled: true,
+        message: {
+          content:
+            'The selection exceeds the maximum of 5000 files for a single download. Download folders in smaller batches.',
+          type: 'error',
+        },
+      },
+    });
+  });
+
+  it('shows no message on a bare mount with an empty selection', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      // Never-populated selection: vacuously ready, nothing to download. The
+      // misleading "selected folders contain no files" copy must NOT show.
+      hasSelection: false,
+      hasFilesToDownload: false,
+      allFoldersReady: true,
+      tasks: [],
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    const { data } = calls[0][0] as { data: { message?: unknown } };
+    expect(data.message).toBeUndefined();
+    // Start stays disabled: there is nothing to download.
+    expect(calls[0][0]).toMatchObject({
+      data: { isActionStartDisabled: true },
     });
   });
 

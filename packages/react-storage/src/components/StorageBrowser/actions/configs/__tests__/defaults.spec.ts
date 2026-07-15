@@ -111,7 +111,7 @@ describe('defaultActionConfigs', () => {
       expect(disable?.([file])).toBe(false);
     });
 
-    it('allows folder download (Phase 2)', () => {
+    it('is not disabled when folders are selected', () => {
       expect(disable?.([folder])).toBe(false);
       expect(disable?.([file, folder])).toBe(false);
     });

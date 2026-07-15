@@ -26,11 +26,25 @@ export interface DownloadViewState
    */
   hasFilesToDownload: boolean;
   /**
+   * `true` once the selection has been non-empty at any point in this mount.
+   * Used to scope the "no files" message so it never shows on a bare mount
+   * with an empty selection, while still showing after the user manually
+   * removes every row.
+   */
+  hasSelection: boolean;
+  /**
    * `true` when the pre-dispatch folder enumeration failed for a non-abort
    * reason (e.g. a `list()` error). Surfaced so the view can indicate failure
    * rather than silently re-enabling the Start control.
    */
   isEnumerationError: boolean;
+  /**
+   * `true` when the combined expanded file count of the selection exceeds the
+   * per-download maximum (`LARGE_DOWNLOAD_FILE_COUNT`). Dispatch is blocked in
+   * this state (a truncated zip would be silent data loss); the user must
+   * download folders in smaller batches instead.
+   */
+  isOverFileLimit: boolean;
   /**
    * `true` when every selected folder has been expanded into its files (the
    * download-readiness gate). Files are always ready; folders become ready only

@@ -8,7 +8,7 @@ import { useAction } from '../../../../useAction';
 import { useGetActionInput } from '../../../../configuration/context';
 import type { FileDataItem } from '../../../../actions';
 
-import { expandFolderToFiles } from '../utils';
+import { expandFolderToFiles, FileLimitError } from '../utils';
 import { useDownloadView } from '../useDownloadView';
 
 jest.mock('../../../../locationItems/context');
@@ -19,11 +19,10 @@ jest.mock('aws-amplify', () => ({
   Amplify: { getConfig: jest.fn(() => ({})) },
 }));
 jest.mock('../utils', () => ({
+  // Keep the real module (pure helpers like resolveArchiveName, FileLimitError)
+  // and mock only the async folder expansion.
+  ...jest.requireActual<typeof import('../utils')>('../utils'),
   expandFolderToFiles: jest.fn(),
-  // Use the real, pure getArchiveName so resolvedItems carry a realistic name.
-  getArchiveName:
-    jest.requireActual<typeof import('../utils')>('../utils').getArchiveName,
-  LARGE_DOWNLOAD_FILE_COUNT: 5000,
 }));
 
 const fileItemA: LocationItemData = {
@@ -212,12 +211,14 @@ describe('useDownloadView', () => {
       await Promise.resolve();
     });
 
-    expect(mockExpandFolderToFiles).toHaveBeenCalledWith(
-      'test-prefix/my-folder/',
-      expect.any(Object),
-      'test-prefix/',
-      expect.any(AbortSignal)
-    );
+    expect(mockExpandFolderToFiles).toHaveBeenCalledWith({
+      folderKey: 'test-prefix/my-folder/',
+      config: expect.any(Object),
+      locationPrefix: 'test-prefix/',
+      signal: expect.any(AbortSignal),
+      // Counter is SHARED across the run and seeded with the loose file.
+      fileCounter: { count: 1 },
+    });
     expect(result.current.isEnumerating).toBe(false);
 
     // `resolvedItems` (fed to useAction) now includes the expanded folder file
@@ -490,8 +491,8 @@ describe('useDownloadView', () => {
     setDataItems([folderItem, folderItem2]);
 
     // First folder resolves, second rejects -> only one gets cached.
-    mockExpandFolderToFiles.mockImplementation((key) =>
-      key === 'test-prefix/my-folder/'
+    mockExpandFolderToFiles.mockImplementation(({ folderKey }) =>
+      folderKey === 'test-prefix/my-folder/'
         ? (Promise.resolve([
             {
               key: 'test-prefix/my-folder/nested.txt',
@@ -538,12 +539,14 @@ describe('useDownloadView', () => {
     expect(result.current.allFoldersReady).toBe(true);
     // Retry only re-expanded the uncached folder.
     expect(mockExpandFolderToFiles).toHaveBeenCalledTimes(1);
-    expect(mockExpandFolderToFiles).toHaveBeenCalledWith(
-      'test-prefix/other-folder/',
-      expect.any(Object),
-      'test-prefix/',
-      expect.any(AbortSignal)
-    );
+    expect(mockExpandFolderToFiles).toHaveBeenCalledWith({
+      folderKey: 'test-prefix/other-folder/',
+      config: expect.any(Object),
+      locationPrefix: 'test-prefix/',
+      signal: expect.any(AbortSignal),
+      // Seeded with the already-cached my-folder expansion (1 file).
+      fileCounter: { count: 1 },
+    });
 
     // Fully ready -> Start dispatches exactly once.
     act(() => {
@@ -795,5 +798,159 @@ describe('useDownloadView', () => {
 
     const lastCall = mockUseAction.mock.calls.at(-1)!;
     expect(lastCall[1]).toEqual(expect.objectContaining({ items: [] }));
+  });
+
+  it('surfaces isOverFileLimit and blocks dispatch AND retry when the selection exceeds the file cap', async () => {
+    setDataItems([folderItem]);
+    mockExpandFolderToFiles.mockRejectedValueOnce(new FileLimitError());
+
+    const { result, rerender } = renderHook(() => useDownloadView());
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    expect(result.current.isOverFileLimit).toBe(true);
+    expect(result.current.isEnumerating).toBe(false);
+    // The over-limit state is distinct from an enumeration failure.
+    expect(result.current.isEnumerationError).toBe(false);
+    // The over-limit folder was never cached, so readiness stays false too.
+    expect(result.current.allFoldersReady).toBe(false);
+
+    // Start must neither dispatch (a truncated zip would be data loss) nor
+    // re-trigger enumeration (retry cannot succeed for the same selection).
+    mockExpandFolderToFiles.mockClear();
+    await act(async () => {
+      result.current.onActionStart();
+      await Promise.resolve();
+    });
+    expect(mockHandleDownload).not.toHaveBeenCalled();
+    expect(mockExpandFolderToFiles).not.toHaveBeenCalled();
+
+    // A selection change clears the over-limit flag.
+    act(() => {
+      setDataItems([fileItemA]);
+      rerender();
+    });
+    expect(result.current.isOverFileLimit).toBe(false);
+  });
+
+  it('applies a removal that lands while enumeration is in flight (removal is never dropped)', async () => {
+    setDataItems([folderItem]);
+    // Controllable expansion so the removal can land mid-enumeration.
+    let resolveExpansion!: (v: unknown) => void;
+    mockExpandFolderToFiles.mockImplementation(
+      () =>
+        new Promise((res) => {
+          resolveExpansion = res;
+        }) as never
+    );
+
+    const { result } = renderHook(() => useDownloadView());
+    expect(result.current.isEnumerating).toBe(true);
+
+    // Removal lands while enumeration is still in flight (the expanded row
+    // does not exist in resolvedItems yet).
+    act(() => {
+      result.current.onTaskRemove?.({
+        data: { id: 'expanded-1' },
+      } as Task<FileDataItem>);
+    });
+
+    // Enumeration completes AFTER the removal: the completion filter reads the
+    // latest removals through removedItemIdsRef, so the removed id must be
+    // absent from the resolved set.
+    await act(async () => {
+      resolveExpansion([
+        {
+          key: 'test-prefix/my-folder/nested.txt',
+          id: 'expanded-1',
+          fileKey: 'nested.txt',
+          relativePath: 'my-folder/nested.txt',
+          type: 'FILE',
+          size: 5,
+          lastModified: new Date(),
+        },
+        {
+          key: 'test-prefix/my-folder/other.txt',
+          id: 'expanded-2',
+          fileKey: 'other.txt',
+          relativePath: 'my-folder/other.txt',
+          type: 'FILE',
+          size: 7,
+          lastModified: new Date(),
+        },
+      ]);
+      await Promise.resolve();
+    });
+
+    expect(result.current.isEnumerating).toBe(false);
+    expect(mockUseAction.mock.calls.at(-1)![1]).toEqual(
+      expect.objectContaining({
+        items: [expect.objectContaining({ id: 'expanded-2' })],
+      })
+    );
+  });
+
+  it('hasSelection is false on a bare mount with an empty selection', () => {
+    setDataItems([]);
+
+    const { result } = renderHook(() => useDownloadView());
+
+    expect(result.current.hasSelection).toBe(false);
+    expect(result.current.hasFilesToDownload).toBe(false);
+    // vacuously ready: nothing to enumerate
+    expect(result.current.allFoldersReady).toBe(true);
+  });
+
+  it('hasSelection stays true after the user removes every row (selection was non-empty)', () => {
+    const { result, rerender } = renderHook(() => useDownloadView());
+    expect(result.current.hasSelection).toBe(true);
+
+    act(() => {
+      result.current.onTaskRemove?.({
+        data: { id: 'id-1' },
+      } as Task<FileDataItem>);
+      result.current.onTaskRemove?.({
+        data: { id: 'id-2' },
+      } as Task<FileDataItem>);
+    });
+    // The reducer prunes loose items from the selection; simulate it emptying.
+    act(() => {
+      setDataItems([]);
+      rerender();
+    });
+
+    expect(result.current.hasSelection).toBe(true);
+    expect(result.current.hasFilesToDownload).toBe(false);
+  });
+
+  it('names the archive after the selected folder for a single-folder selection', async () => {
+    setDataItems([
+      { key: 'test-prefix/photos/', id: 'folder-photos', type: 'FOLDER' },
+    ]);
+    // Every expanded file lives in a DEEPER subfolder; the archive must still
+    // be named after the folder the download was initiated from.
+    mockExpandFolderToFiles.mockResolvedValue([
+      {
+        key: 'test-prefix/photos/vacation/1.jpg',
+        id: 'expanded-1',
+        fileKey: '1.jpg',
+        relativePath: 'photos/vacation/1.jpg',
+        type: 'FILE',
+        size: 1,
+        lastModified: new Date(),
+      },
+    ] as never);
+
+    renderHook(() => useDownloadView());
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    expect(mockUseAction.mock.calls.at(-1)![1]).toEqual(
+      expect.objectContaining({
+        items: [expect.objectContaining({ archiveName: 'photos' })],
+      })
+    );
   });
 });

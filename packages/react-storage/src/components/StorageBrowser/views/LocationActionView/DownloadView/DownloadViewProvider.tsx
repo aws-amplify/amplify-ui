@@ -28,6 +28,7 @@ export function DownloadViewProvider({
     enumeratingMessage,
     enumerationErrorMessage,
     noFilesMessage,
+    tooManyFilesMessage,
   } = displayText;
 
   const {
@@ -36,7 +37,9 @@ export function DownloadViewProvider({
     isEnumerating,
     hasNoFilesToDownload,
     hasFilesToDownload,
+    hasSelection,
     isEnumerationError,
+    isOverFileLimit,
     allFoldersReady,
     statusCounts,
     tasks: items,
@@ -50,32 +53,37 @@ export function DownloadViewProvider({
   //   - `hasNoFilesToDownload`: enumeration found only empty folders.
   //   - `allFoldersReady && !hasFilesToDownload`: the ready set went empty
   //     because the user manually removed every row (mirrors the Start-disable
-  //     gate below). Guarded against enumeration/error/active-processing/
-  //     completion so those states keep ownership of the message via the
-  //     precedence order. Note this can also match a bare mount with no
-  //     selection (empty resolvedItems, vacuously-ready) — that matches the
-  //     pre-existing empty-set semantics and is not a regression.
+  //     gate below). Guarded against enumeration/error/over-limit/active
+  //     -processing/completion so those states keep ownership of the message
+  //     via the precedence order. `hasSelection` scopes both cases to a
+  //     selection that is or was non-empty, so a bare mount with an empty
+  //     selection (vacuously ready, nothing to download) shows no message.
   const showNoFiles =
-    hasNoFilesToDownload ||
-    (allFoldersReady &&
-      !hasFilesToDownload &&
-      !isEnumerating &&
-      !isEnumerationError &&
-      !isProcessing &&
-      !isProcessingComplete);
+    hasSelection &&
+    (hasNoFilesToDownload ||
+      (allFoldersReady &&
+        !hasFilesToDownload &&
+        !isEnumerating &&
+        !isEnumerationError &&
+        !isOverFileLimit &&
+        !isProcessing &&
+        !isProcessingComplete));
 
   // Message precedence (most transient/actionable first):
   //   1. isEnumerating       -> "listing folder contents" (info)
   //   2. isEnumerationError  -> failure + retry hint (error)
-  //   3. showNoFiles         -> empty folders OR manually-emptied set (info)
-  //   4. isProcessingComplete-> post-download summary (existing)
-  //   5. otherwise           -> no message
+  //   3. isOverFileLimit     -> selection exceeds the file cap (error)
+  //   4. showNoFiles         -> empty folders OR manually-emptied set (info)
+  //   5. isProcessingComplete-> post-download summary (existing)
+  //   6. otherwise           -> no message
   // Ordering matters: the enumeration states are pre-dispatch and mutually
   // exclusive with a completed download, so an earlier match short-circuits.
   const message: MessageProps | undefined = isEnumerating
     ? { content: enumeratingMessage, type: 'info' }
     : isEnumerationError
     ? { content: enumerationErrorMessage, type: 'error' }
+    : isOverFileLimit
+    ? { content: tooManyFilesMessage, type: 'error' }
     : showNoFiles
     ? { content: noFilesMessage, type: 'info' }
     : isProcessingComplete
@@ -112,6 +120,10 @@ export function DownloadViewProvider({
           isProcessingComplete ||
           isEnumerating ||
           hasNoFilesToDownload ||
+          // The selection exceeds the file cap: retrying cannot succeed without
+          // changing the selection, so Start is hard-disabled (unlike the
+          // enumeration-error state, where Start doubles as the retry trigger).
+          isOverFileLimit ||
           // Every row was removed (or the ready set is otherwise empty): nothing
           // to download. Scoped to `allFoldersReady` so this NEVER disables Start
           // in the not-ready/error state, where a clickable Start is the

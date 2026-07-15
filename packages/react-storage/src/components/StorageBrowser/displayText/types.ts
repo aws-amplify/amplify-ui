@@ -198,6 +198,12 @@ export interface DefaultDownloadViewDisplayText
    * (e.g. only empty folders were selected).
    */
   noFilesMessage: string;
+  /**
+   * Shown when the selection exceeds the maximum file count for a single
+   * download. The download is blocked in this state; no truncated zip is
+   * produced.
+   */
+  tooManyFilesMessage: string;
 }
 
 export interface DefaultUploadViewDisplayText

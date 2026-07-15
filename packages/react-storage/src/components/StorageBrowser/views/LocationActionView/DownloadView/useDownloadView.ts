@@ -2,7 +2,7 @@ import React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
 import type { DownloadHandlerData, LocationItemData } from '../../../actions';
-import { createDownloadItem } from '../../../actions/handlers/utils';
+import { createDownloadItem } from '../../../actions';
 import type { Task } from '../../../tasks';
 import { useLocationItems } from '../../../locationItems/context';
 import { hasSelectedFolders } from '../../../locationItems/utils';
@@ -13,8 +13,8 @@ import { useGetActionInput } from '../../../configuration/context';
 import type { DownloadViewState, UseDownloadViewOptions } from './types';
 import {
   expandFolderToFiles,
-  getArchiveName,
-  LARGE_DOWNLOAD_FILE_COUNT,
+  FileLimitError,
+  resolveArchiveName,
 } from './utils';
 
 // assign to constant to ensure referential equality
@@ -58,10 +58,15 @@ const buildDownloadItems = (
       }
     }
   }
-  // Name the zip after the common ancestor directory of ALL collected files
-  // (computed here, in the view — NOT in the handler) and stamp it uniformly
-  // onto every item so the zip handler can read it from `all[0].archiveName`.
-  const archiveName = getArchiveName(items.map((i) => i.key));
+  // Name the zip from the SELECTION (computed here, in the view — NOT in the
+  // handler) and stamp it uniformly onto every item so the zip handler can
+  // read it from `all[0].archiveName`. A single-folder selection is named
+  // after that folder; every other shape uses the common ancestor directory
+  // of the collected files (see resolveArchiveName).
+  const archiveName = resolveArchiveName(
+    dataItems,
+    items.map((i) => i.key)
+  );
   return items.map((i) => ({ ...i, archiveName }));
 };
 
@@ -108,6 +113,11 @@ export const useDownloadView = (
   // Surfaced on the view model so the Start control re-enabling isn't the only
   // (silent) feedback the user gets on failure.
   const [isEnumerationError, setIsEnumerationError] = React.useState(false);
+  // `true` when the combined expanded file count of the selection exceeded
+  // LARGE_DOWNLOAD_FILE_COUNT during enumeration. A truncated zip would be
+  // silent data loss, so this state BLOCKS dispatch entirely (same invariant
+  // as `allFoldersReady`) and the view surfaces an explanatory message.
+  const [isOverFileLimit, setIsOverFileLimit] = React.useState(false);
   // Retry counter; bumping re-runs the enumeration effect for still-uncached
   // folders.
   const [enumAttempt, setEnumAttempt] = React.useState(0);
@@ -127,6 +137,16 @@ export const useDownloadView = (
   removedItemIdsRef.current = removedItemIds;
 
   const hasFolders = hasSelectedFolders(dataItems);
+
+  // `true` once the selection has been non-empty at any point in this mount.
+  // Sticky on purpose: removing every row empties `dataItems` for a loose-file
+  // selection, and the "no files" message must still show in that manually
+  // -emptied state, while a bare mount with no selection must NOT show it.
+  const hadSelectionRef = React.useRef(false);
+  if (dataItems.length > 0) {
+    hadSelectionRef.current = true;
+  }
+  const hasSelection = hadSelectionRef.current;
 
   // `resolvedItems` (not the raw selection) is what `useAction` turns into
   // tasks. Keep it in sync with the selection + expansion cache so item
@@ -170,9 +190,10 @@ export const useDownloadView = (
 
     if (selectionChanged) {
       // Selection changed: clear stale pre-dispatch flags so a prior empty/error
-      // result doesn't leak into the new selection.
+      // /over-limit result doesn't leak into the new selection.
       setHasNoFilesToDownload(false);
       setIsEnumerationError(false);
+      setIsOverFileLimit(false);
       // Clear per-row removals so a prior selection's removals don't hide items
       // in the new selection (no-op when already empty to avoid a needless
       // re-render/effect loop).
@@ -227,18 +248,31 @@ export const useDownloadView = (
     enumAbortRef.current = controller;
     setHasNoFilesToDownload(false);
     setIsEnumerationError(false);
+    setIsOverFileLimit(false);
     setIsEnumerating(true);
+
+    // Shared running file total for the LARGE_DOWNLOAD_FILE_COUNT cap. Seeded
+    // with the files already in the selection (loose files plus previously
+    // cached folder expansions) so the cap applies to the COMBINED selection,
+    // then passed to every expansion in this run.
+    const fileCounter = {
+      count: dataItems.reduce((count, item) => {
+        if (item.type === 'FILE') return count + 1;
+        return count + (folderExpansionRef.current.get(item.id)?.length ?? 0);
+      }, 0),
+    };
 
     const runEnumeration = async () => {
       try {
         await Promise.all(
           foldersToExpand.map(async (folder) => {
-            const expanded = await expandFolderToFiles(
-              folder.key,
+            const expanded = await expandFolderToFiles({
+              folderKey: folder.key,
               config,
-              prefix,
-              controller.signal
-            );
+              locationPrefix: prefix,
+              signal: controller.signal,
+              fileCounter,
+            });
             folderExpansionRef.current.set(folder.id, expanded);
           })
         );
@@ -261,13 +295,6 @@ export const useDownloadView = (
           return;
         }
 
-        // TODO(oracle-phase2-design Q4): large-download confirmation. Design
-        // leaves the exact confirmation UX soft ("e.g. 5000, show a
-        // confirmation"); expansion is intentionally unbounded for
-        // completeness. Wire a confirmation gate here once product specifies
-        // the UX. For now we proceed to make the full set available.
-        void LARGE_DOWNLOAD_FILE_COUNT;
-
         // Apply any per-row removals the user made before enumeration settled
         // (the sync effect re-filters on later removals via its removedItemIds
         // dep, but ref-population here doesn't trigger it, so filter now too).
@@ -279,6 +306,15 @@ export const useDownloadView = (
           // Aborted runs are a no-op: only `onActionCancel` flips
           // `isEnumerating` on user cancel. Cleanup/unmount aborts (and any
           // stale aborted run) must NOT clobber a newer run's flag.
+        } else if (error instanceof FileLimitError) {
+          // The combined selection exceeds LARGE_DOWNLOAD_FILE_COUNT. Abort the
+          // sibling expansions still paginating (their result can never be
+          // dispatched) and surface the blocked state. The over-limit folder was
+          // never cached, so `allFoldersReady` stays false and dispatch is
+          // structurally blocked as well.
+          controller.abort();
+          setIsOverFileLimit(true);
+          setIsEnumerating(false);
         } else {
           // No dedicated package logger exists here; `console.error` matches the
           // convention used elsewhere in StorageBrowser (e.g. validateStoreProps,
@@ -322,6 +358,10 @@ export const useDownloadView = (
     if (!current) return;
     // Enumeration in flight (Start is disabled anyway) — do nothing.
     if (isEnumerating) return;
+    // Selection exceeds the file cap: dispatching would produce a truncated
+    // zip (silent data loss) and retrying cannot succeed without changing the
+    // selection, so do nothing (Start is disabled in this state anyway).
+    if (isOverFileLimit) return;
     // RETRY PATH: a prior enumeration was cancelled or failed, so some selected
     // folders are still uncached. NEVER dispatch an incomplete set (CORE
     // INVARIANT). Instead re-trigger enumeration for the uncached folders by
@@ -394,7 +434,9 @@ export const useDownloadView = (
     isEnumerating,
     hasNoFilesToDownload,
     hasFilesToDownload,
+    hasSelection,
     isEnumerationError,
+    isOverFileLimit,
     allFoldersReady,
     location,
     statusCounts,

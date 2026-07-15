@@ -60,6 +60,7 @@ export type {
   UploadHandlerOutput,
 } from './handlers';
 export {
+  constructBucket,
   copyHandler,
   createFileDataItem,
   createDownloadItem,

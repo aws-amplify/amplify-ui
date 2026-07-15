@@ -2,11 +2,9 @@ import type {
   ActionInputConfig,
   DownloadHandlerData,
   FileData,
+  LocationItemData,
 } from '../../../actions';
-import {
-  constructBucket,
-  createDownloadItem,
-} from '../../../actions/handlers/utils';
+import { constructBucket, createDownloadItem } from '../../../actions';
 import { list } from '../../../storage-internal';
 
 /**
@@ -16,17 +14,44 @@ import { list } from '../../../storage-internal';
 const LIST_PAGE_SIZE = 1000;
 
 /**
- * Soft threshold (file count) above which the UI should confirm a "large
- * download" with the user before dispatching. Unlike DeleteView's hard 5000
- * cap (which only affects a display *count*), download must fetch every file —
- * a silently truncated zip would be data loss — so expansion itself is
- * UNBOUNDED and this value is used purely as a confirmation guard.
+ * Hard cap on the combined number of files a single download may contain,
+ * counted across every folder (and loose file) in the selection. Folder
+ * expansion stops paginating as soon as the running total would exceed this
+ * value and throws {@link FileLimitError}; the view then surfaces a blocked
+ * state instead of downloading a truncated set (silent truncation would be
+ * data loss). Mirrors the 5000 threshold DeleteView uses for its file count.
  */
 export const LARGE_DOWNLOAD_FILE_COUNT = 5000;
 
 /**
+ * Thrown by {@link expandFolderToFiles} when the combined expanded file count
+ * of the selection exceeds {@link LARGE_DOWNLOAD_FILE_COUNT}. Callers use it
+ * to distinguish the over-limit state from enumeration failures.
+ */
+export class FileLimitError extends Error {
+  constructor() {
+    super(
+      `Download selection exceeds the maximum of ${LARGE_DOWNLOAD_FILE_COUNT} files`
+    );
+    this.name = 'FileLimitError';
+  }
+}
+
+/**
+ * Mutable running total of files expanded so far across the ENTIRE selection.
+ * A single instance is shared by every `expandFolderToFiles` call in one
+ * enumeration run so the {@link LARGE_DOWNLOAD_FILE_COUNT} cap applies to the
+ * combined selection, not per folder.
+ */
+export interface FileCounter {
+  count: number;
+}
+
+/**
  * Computes the base name for a multi-file zip archive from the flat list of
- * file keys being zipped.
+ * file keys being zipped. Used for file-only, multi-item, and mixed
+ * selections; a selection of exactly one folder is named after that folder
+ * instead (see {@link resolveArchiveName}).
  *
  * Rule: the name is the last path segment of the LONGEST COMMON ANCESTOR
  * DIRECTORY of all files. For each key the directory segments are
@@ -78,30 +103,72 @@ export const getArchiveName = (fileKeys: string[]): string => {
 };
 
 /**
+ * Resolves the zip archive base name for the current SELECTION.
+ *
+ * When the selection consists of exactly ONE FOLDER (no other items), the
+ * archive is named after that folder (basename of `folder.key`, trailing
+ * slash stripped): the download was initiated from that folder, so selecting
+ * `photos/` yields `photos.zip` even when every file lives in a deeper
+ * subfolder like `photos/vacation/`. Every other selection shape (file-only,
+ * multi-folder, mixed) falls back to the longest-common-ancestor rule of
+ * {@link getArchiveName}.
+ */
+export const resolveArchiveName = (
+  dataItems: LocationItemData[],
+  fileKeys: string[]
+): string => {
+  if (dataItems.length === 1 && dataItems[0].type === 'FOLDER') {
+    const basename = dataItems[0].key.replace(/\/$/, '').split('/').pop();
+    if (basename) {
+      return basename;
+    }
+  }
+  return getArchiveName(fileKeys);
+};
+
+export interface ExpandFolderToFilesOptions {
+  /** S3 key of the folder to expand (ends in `'/'`). */
+  folderKey: string;
+  /** Storage action config. */
+  config: ActionInputConfig;
+  /**
+   * Current browse-location prefix `P`; each file's `relativePath` is
+   * computed as `key.slice(P.length)`.
+   */
+  locationPrefix: string;
+  /**
+   * Optional abort signal; when aborted between pages the loop throws an
+   * `AbortError` and no items are returned.
+   */
+  signal?: AbortSignal;
+  /**
+   * Shared running total of files expanded so far across the selection (see
+   * {@link FileCounter}). Callers expanding multiple folders MUST pass the
+   * same instance to every call so the cap applies to the combined selection.
+   * Defaults to a fresh counter (single-folder cap still enforced).
+   */
+  fileCounter?: FileCounter;
+}
+
+/**
  * Recursively expands a folder into the flat list of downloadable files it
  * contains, preserving each file's folder-relative zip path.
  *
  * Clones the pagination loop from DeleteView's `countFilesInFolder`, but:
  * - collects {@link DownloadHandlerData} items instead of counting,
- * - paginates UNBOUNDED (no 5000 cap) so the resulting zip is complete,
+ * - stops paginating and throws {@link FileLimitError} once the shared
+ *   `fileCounter` would exceed {@link LARGE_DOWNLOAD_FILE_COUNT} (the caller
+ *   surfaces a blocked state; a truncated zip is never produced),
  * - filters out directory markers (keys ending in `'/'`),
  * - is cancellable via `signal`, checked between `list()` pages.
- *
- * @param folderKey - S3 key of the folder to expand (ends in `'/'`).
- * @param config - Storage action config.
- * @param locationPrefix - Current browse-location prefix `P`; each file's
- *   `relativePath` is computed as `key.slice(P.length)`.
- * @param signal - Optional abort signal; when aborted between pages the loop
- *   throws an `AbortError` and no items are returned.
  */
-/* eslint-disable max-params -- positional (folderKey, config, prefix, signal) signature is intentional and mirrors the abortable list-pagination pattern */
-export const expandFolderToFiles = async (
-  folderKey: string,
-  config: ActionInputConfig,
-  locationPrefix: string,
-  signal?: AbortSignal
-): Promise<DownloadHandlerData[]> => {
-  /* eslint-enable max-params */
+export const expandFolderToFiles = async ({
+  folderKey,
+  config,
+  locationPrefix,
+  signal,
+  fileCounter = { count: 0 },
+}: ExpandFolderToFilesOptions): Promise<DownloadHandlerData[]> => {
   const { accountId, credentials, customEndpoint } = config;
   const bucket = constructBucket(config);
 
@@ -113,6 +180,13 @@ export const expandFolderToFiles = async (
     // during enumeration stops promptly without emitting a partial result.
     if (signal?.aborted) {
       throw new DOMException('Folder expansion aborted', 'AbortError');
+    }
+
+    // Short-circuit between pages when the SHARED counter already exceeds the
+    // cap (e.g. a sibling folder's expansion pushed it over while this one
+    // awaited `list()`): no point paginating a selection that is blocked.
+    if (fileCounter.count > LARGE_DOWNLOAD_FILE_COUNT) {
+      throw new FileLimitError();
     }
 
     const { items, nextToken: listNextToken } = await list({
@@ -134,11 +208,20 @@ export const expandFolderToFiles = async (
         continue;
       }
 
+      // Enforce the cap per file so the loop stops as soon as the combined
+      // selection exceeds it, mid-page included.
+      fileCounter.count += 1;
+      if (fileCounter.count > LARGE_DOWNLOAD_FILE_COUNT) {
+        throw new FileLimitError();
+      }
+
       const fileData: FileData = {
         key: item.path,
         id: crypto.randomUUID(),
-        size: item.size!,
-        lastModified: item.lastModified!,
+        // `list()` may omit size/lastModified; fall back defensively instead
+        // of asserting non-null.
+        size: item.size ?? 0,
+        lastModified: item.lastModified ?? new Date(0),
         eTag: item.eTag,
         type: 'FILE',
       };
