@@ -1,6 +1,6 @@
 import BaseAlert from '../base-alert.vue';
 import { components } from '../../../../global-spec';
-import { render } from '@testing-library/vue';
+import { fireEvent, render } from '@testing-library/vue';
 import { I18n } from 'aws-amplify/utils';
 
 describe('Base Alert', () => {
@@ -50,5 +50,24 @@ describe('Base Alert', () => {
     const defaultButton = queryByRole('button');
     const icon = defaultButton?.children[0];
     expect(icon?.getAttribute('aria-hidden')).toBe('true');
+  });
+
+  it('hides the alert when the dismiss button is clicked', async () => {
+    const { queryByRole, rerender } = render(BaseAlert, {
+      global: {
+        components,
+      },
+    });
+
+    expect(queryByRole('alert')).toBeInTheDocument();
+
+    // re-render to exercise the cached static vnode paths
+    await rerender({});
+    expect(queryByRole('alert')).toBeInTheDocument();
+
+    const dismissButton = queryByRole('button');
+    await fireEvent.click(dismissButton!);
+
+    expect(queryByRole('alert')).not.toBeInTheDocument();
   });
 });
