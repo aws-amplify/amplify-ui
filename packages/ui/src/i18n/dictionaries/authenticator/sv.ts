@@ -97,4 +97,11 @@ export const svDict: AuthenticatorDictionary = {
   'Username cannot be empty': 'Användarnamnet kan inte vara tomt',
   'We Emailed You': 'Vi har skickat e-post till dig',
   'Please confirm your Password': 'Bekräfta ditt lösenord',
+  'It may take a minute to arrive.': 'Det kan ta en minut att komma fram.',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Din kod är på väg. För att logga in, ange koden vi mejlade till {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Din kod är på väg. För att logga in, ange koden vi sms:ade till {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
+    'Din kod är på väg. För att logga in, ange koden vi skickade till dig. {arrivalMessage}',
 };

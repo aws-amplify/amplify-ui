@@ -84,4 +84,11 @@ export const enDict: AuthenticatorDictionary = {
     'Your code is on the way. To log in, enter the code we sent you',
   'Your code is on the way. To log in, enter the code we texted to':
     'Your code is on the way. To log in, enter the code we texted to',
+  'It may take a minute to arrive.': 'It may take a minute to arrive.',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
+    'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}',
 };

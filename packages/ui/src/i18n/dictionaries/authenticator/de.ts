@@ -119,4 +119,10 @@ export const deDict: AuthenticatorDictionary = {
   'User already exists': 'Dieser Benutzer existiert bereits',
   'User does not exist': 'Dieser Benutzer existiert nicht',
   'Username cannot be empty': 'Benutzername darf nicht leer sein',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir per E-Mail verschickt haben {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir per SMS verschickt haben {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
+    'Ihr Code ist unterwegs. Um sich anzumelden, geben Sie den Code ein, den wir Ihnen gesendet haben. {arrivalMessage}',
 };

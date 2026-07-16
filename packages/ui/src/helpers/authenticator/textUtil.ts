@@ -37,14 +37,14 @@ const getDeliveryMessageText = (
   const arrivalMessage = translate(DefaultTexts.CODE_ARRIVAL);
 
   if (!(isEmailMessage || isTextMessage)) {
-    return `${translate(DefaultTexts.CODE_SENT)}. ${arrivalMessage}.`;
+    return translate(DefaultTexts.DELIVERY_MESSAGE_UNKNOWN, { arrivalMessage });
   }
 
-  const instructionMessage = isEmailMessage
-    ? translate(DefaultTexts.CODE_EMAILED)
-    : translate(DefaultTexts.CODE_TEXTED);
+  const key = isEmailMessage
+    ? DefaultTexts.DELIVERY_MESSAGE_EMAIL
+    : DefaultTexts.DELIVERY_MESSAGE_PHONE;
 
-  return `${instructionMessage} ${Destination}. ${arrivalMessage}.`;
+  return translate(key, { destination: Destination, arrivalMessage });
 };
 
 const getDeliveryMethodText = (

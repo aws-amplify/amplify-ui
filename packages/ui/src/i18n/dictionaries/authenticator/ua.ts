@@ -96,4 +96,11 @@ export const uaDict: AuthenticatorDictionary = {
   'User does not exist': 'Такий користувач не існує',
   'Username cannot be empty': 'Імʼя користувача не може бути пустим',
   'Your passwords must match': 'Паролі мають збігатися',
+  'It may take a minute to arrive.': 'Доставка може тривати хвилину.',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми відправили вам на Email {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми відправили вам текстовим повідомленням {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
+    'Ваш код вже в дорозі. Щоб увійти, введіть код, що ми вам відправили. {arrivalMessage}',
 };

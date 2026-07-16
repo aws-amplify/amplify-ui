@@ -76,4 +76,11 @@ export const nlDict: AuthenticatorDictionary = {
   'Your code is on the way. To log in, enter the code we texted to':
     'Uw code is onderweg. Om in te loggen, voer de code in die we hebben gestuurd naar',
   'Your passwords must match': 'Je wachtwoorden moeten overeenkomen',
+  'It may take a minute to arrive.': 'Het kan even duren voordat deze aankomt.',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we gemaild hebben naar {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we hebben gestuurd naar {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we u hebben gestuurd. {arrivalMessage}',
 };

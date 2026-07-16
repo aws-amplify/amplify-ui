@@ -91,4 +91,11 @@ export const krDict: AuthenticatorDictionary = {
   Profile: '프로필',
   'Reset Password': '비밀번호 재설정',
   Website: '웹사이트',
+  'It may take a minute to arrive.': '도착하는 데 1분 정도 걸릴 수 있습니다.',
+  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
+    '코드가 전송 중입니다. 로그인하려면 이메일로 전송한 코드를 입력하세요 {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
+    '코드가 전송 중입니다. 로그인하려면 문자 메시지로 전송한 코드를 입력하세요 {destination}. {arrivalMessage}',
+  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
+    '코드가 전송 중입니다. 로그인하려면 전송한 코드를 입력하세요. {arrivalMessage}',
 };
