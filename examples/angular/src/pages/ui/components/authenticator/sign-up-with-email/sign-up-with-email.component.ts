@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { Amplify } from 'aws-amplify';
 import { signUp, SignUpInput } from 'aws-amplify/auth';
@@ -43,7 +43,7 @@ export class SignUpWithEmailComponent implements OnInit {
     },
   };
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   get authStatus(): AuthStatus {
     return this.authenticator.authStatus;

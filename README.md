@@ -128,3 +128,5 @@ See our contributing guide [CONTRIBUTING.md](/CONTRIBUTING.md) to help us scale 
 Although this repository is released and licensed under the Apache License (see [LICENSE](./LICENSE)), devDependencies of some packages (namely: [docs](./docs), the [next-example](./examples/next) as well as the [next-app-router example](./examples/next-app-router)) transitively use the third party [sharp](https://sharp.pixelplumbing.com/) project through NEXT.js
 
 The sharp projects prebuilt binaries' licensing includes [LGPL-2.1](https://opensource.org/license/LGPL-2.1) and [LGPL-3.0-or-later](https://opensource.org/license/LGPL-3.0) licenses
+
+Similarly, the [Angular package](./packages/angular) uses [ng-packagr](https://github.com/ng-packagr/ng-packagr) as a build-time devDependency, which transitively depends on the [rollup-plugin-dts](https://github.com/Swatinem/rollup-plugin-dts) project, licensed under [LGPL-3.0-only](https://opensource.org/license/LGPL-3.0). It is used exclusively at build time to bundle the library's type definitions; nothing from it is shipped to customers, so no copyleft obligation attaches to the published packages.
