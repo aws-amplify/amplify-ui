@@ -1,4 +1,9 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  inject,
+} from '@angular/core';
 import {
   translate,
   countryDialCodes,
@@ -22,7 +27,7 @@ export class FormFieldComponent {
   public countryDialCodesValue = countryDialCodes;
   public errorId = nanoid(12);
 
-  constructor(private authenticator: AuthenticatorService) {}
+  private authenticator = inject(AuthenticatorService);
 
   get ariaDescribedBy(): string | undefined {
     return this.hasError() ? this.errorId : undefined;

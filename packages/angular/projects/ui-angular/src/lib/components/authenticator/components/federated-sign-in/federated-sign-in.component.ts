@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  inject,
+} from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
@@ -26,7 +31,7 @@ export class FederatedSignInComponent implements OnInit {
   public signInFacebookText: string;
   public signInGoogleText: string;
 
-  constructor(private authenticator: AuthenticatorService) {}
+  private authenticator = inject(AuthenticatorService);
 
   ngOnInit(): void {
     const socialProviders = this.authenticator.context?.config?.socialProviders;

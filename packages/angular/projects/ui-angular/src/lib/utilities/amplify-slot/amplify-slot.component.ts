@@ -5,6 +5,7 @@ import {
   Input,
   TemplateRef,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import { CustomComponentsService } from '../../services/custom-components.service';
 
@@ -23,7 +24,7 @@ export class AmplifySlotComponent implements AfterContentInit {
   public overridingComponent: TemplateRef<unknown>;
   public isOverriden = false;
 
-  constructor(private propService: CustomComponentsService) {}
+  private propService = inject(CustomComponentsService);
 
   ngAfterContentInit(): void {
     const { customComponents } = this.propService;
