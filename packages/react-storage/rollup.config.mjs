@@ -62,6 +62,21 @@ const config = defineConfig([
     },
     plugins: [styles({ mode: ['extract'] })],
   },
+  // Service Worker — standalone IIFE, no externals, self-contained
+  {
+    input: 'src/components/StorageBrowser/service-worker/download-sw.ts',
+    output: {
+      file: 'dist/download-sw.js',
+      format: 'iife',
+    },
+    plugins: [
+      typescript({
+        declaration: false,
+        sourceMap: false,
+        tsconfig: 'tsconfig.sw.json',
+      }),
+    ],
+  },
 ]);
 
 export default config;

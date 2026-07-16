@@ -64,10 +64,14 @@ export function useHandler<
         ...(hasData
           ? { data: input.data, all: [input.data] }
           : // if no `data` provided, provide `concurrency` to `options`
-            { options: { concurrency: DEFAULT_ACTION_CONCURRENCY } }),
+            {
+              options: {
+                concurrency: options?.concurrency ?? DEFAULT_ACTION_CONCURRENCY,
+              },
+            }),
       });
     },
-    [getConfig, handleProcessing, reset]
+    [getConfig, handleProcessing, reset, options?.concurrency]
   );
 
   if (isOptionsWithItems(options)) {

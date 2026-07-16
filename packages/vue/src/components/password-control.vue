@@ -3,14 +3,7 @@ import { ref, toRefs } from 'vue';
 
 import { translate, ComponentClassName } from '@aws-amplify/ui';
 
-const showPassword = translate('Show password');
-const hidePassword = translate('Hide password');
-const showHideType = ref('password');
-const showHideLabel = ref(showPassword);
-
-const random = Math.floor(Math.random() * 999999);
-
-interface PropsInterface {
+export interface PropsInterface {
   name: string;
   label: string;
   autocomplete?: string;
@@ -20,6 +13,13 @@ interface PropsInterface {
   required?: boolean;
   describedBy?: string;
 }
+
+const showPassword = translate('Show password');
+const hidePassword = translate('Hide password');
+const showHideType = ref('password');
+const showHideLabel = ref(showPassword);
+
+const random = Math.floor(Math.random() * 999999);
 
 const props = withDefaults(defineProps<PropsInterface>(), {
   autocomplete: 'new-password',
