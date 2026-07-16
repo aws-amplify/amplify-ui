@@ -290,8 +290,47 @@ describe('getDeliveryMessageText resolves in-locale for every supported locale (
     Destination: 'user@example.com',
     AttributeName: '',
   };
-  const englishEmail =
-    'Your code is on the way. To log in, enter the code we emailed to user@example.com. It may take a minute to arrive.';
+  const smsDetails = {
+    DeliveryMedium: 'SMS' as V6AuthDeliveryMedium,
+    Destination: '+1234567890',
+    AttributeName: '',
+  };
+  const unknownDetails = {
+    DeliveryMedium: 'INVALID_MEDIUM' as V6AuthDeliveryMedium,
+    Destination: 'user@example.com',
+    AttributeName: '',
+  };
+
+  // DELIVERY_MESSAGE_EMAIL / _PHONE / _UNKNOWN are independent per-locale keys,
+  // so every medium is exercised to catch a typo or a dropped placeholder in
+  // any one of them.
+  const deliveryVariants = [
+    {
+      medium: 'email',
+      details: emailDetails,
+      destination: 'user@example.com' as string | undefined,
+      english:
+        'Your code is on the way. To log in, enter the code we emailed to user@example.com. It may take a minute to arrive.',
+    },
+    {
+      medium: 'SMS',
+      details: smsDetails,
+      destination: '+1234567890' as string | undefined,
+      english:
+        'Your code is on the way. To log in, enter the code we texted to +1234567890. It may take a minute to arrive.',
+    },
+    {
+      medium: 'unknown',
+      details: unknownDetails,
+      destination: undefined as string | undefined,
+      english:
+        'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.',
+    },
+  ];
+
+  const localeVariantMatrix = UPDATED_LOCALES.flatMap((locale) =>
+    deliveryVariants.map((variant) => ({ locale, ...variant }))
+  );
 
   beforeAll(() => {
     UPDATED_LOCALES.forEach((locale) => {
@@ -313,17 +352,65 @@ describe('getDeliveryMessageText resolves in-locale for every supported locale (
     }
   );
 
-  it.each(UPDATED_LOCALES)(
-    'locale "%s" renders a fully interpolated, non-English email message',
-    (locale) => {
+  it.each(localeVariantMatrix)(
+    'locale "$locale" renders a fully interpolated, non-English $medium message',
+    ({ locale, details, destination, english }) => {
       I18n.setLanguage(locale);
-      const result = authenticatorTextUtil.getDeliveryMessageText(emailDetails);
+      const result = authenticatorTextUtil.getDeliveryMessageText(details);
 
-      // destination interpolated, no leftover placeholders
-      expect(result).toContain('user@example.com');
+      // no placeholder survived interpolation
       expect(result).not.toMatch(/\{[a-zA-Z]+\}/);
       // genuinely localized, not the English fallback string
-      expect(result).not.toBe(englishEmail);
+      expect(result).not.toBe(english);
+      // medium-specific messages interpolate the destination
+      if (destination) {
+        expect(result).toContain(destination);
+      }
     }
   );
+});
+
+// The composite keys keep the original English wording verbatim, so English
+// output must be byte-for-byte unchanged (this is what keeps the ui/vue/
+// react-native snapshots from breaking).
+describe('getDeliveryMessageText English output is byte-identical (#6966)', () => {
+  beforeAll(() => {
+    I18n.setLanguage('en');
+  });
+
+  it('renders the exact English email message', () => {
+    expect(
+      authenticatorTextUtil.getDeliveryMessageText({
+        DeliveryMedium: 'EMAIL' as V6AuthDeliveryMedium,
+        Destination: 'user@example.com',
+        AttributeName: '',
+      })
+    ).toBe(
+      'Your code is on the way. To log in, enter the code we emailed to user@example.com. It may take a minute to arrive.'
+    );
+  });
+
+  it('renders the exact English SMS message', () => {
+    expect(
+      authenticatorTextUtil.getDeliveryMessageText({
+        DeliveryMedium: 'SMS' as V6AuthDeliveryMedium,
+        Destination: '+1234567890',
+        AttributeName: '',
+      })
+    ).toBe(
+      'Your code is on the way. To log in, enter the code we texted to +1234567890. It may take a minute to arrive.'
+    );
+  });
+
+  it('renders the exact English unknown-medium message', () => {
+    expect(
+      authenticatorTextUtil.getDeliveryMessageText({
+        DeliveryMedium: 'INVALID_MEDIUM' as V6AuthDeliveryMedium,
+        Destination: 'user@example.com',
+        AttributeName: '',
+      })
+    ).toBe(
+      'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
+    );
+  });
 });

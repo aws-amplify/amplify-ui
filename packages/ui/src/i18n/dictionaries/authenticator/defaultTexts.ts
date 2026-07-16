@@ -7,6 +7,9 @@ export const defaultTexts = {
   CHANGING_PASSWORD: 'Changing',
   CODE: 'Code',
   CODE_ARRIVAL: 'It may take a minute to arrive.',
+  // CODE_EMAILED / CODE_SENT / CODE_TEXTED are retained for backward
+  // compatibility (public DefaultTexts + existing customer vocabularies).
+  // getDeliveryMessageText now uses the DELIVERY_MESSAGE_* composite keys below.
   CODE_EMAILED:
     'Your code is on the way. To log in, enter the code we emailed to',
   CODE_SENT: 'Your code is on the way. To log in, enter the code we sent you',
