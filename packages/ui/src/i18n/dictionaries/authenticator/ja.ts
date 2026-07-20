@@ -101,10 +101,4 @@ export const jaDict: AuthenticatorDictionary = {
     'ログインするには、メールに記載されたコードを入力してください。送信先:',
   'Your code is on the way. To log in, enter the code we texted to':
     'ログインするには、テキストメッセージに記載されたコードを入力してください。送信先:',
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    'ログインするには、メールに記載されたコードを入力してください。送信先: {destination}。{arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'ログインするには、テキストメッセージに記載されたコードを入力してください。送信先: {destination}。{arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    'コードが途中です。ログインするには、送信したコードを入力してください。{arrivalMessage}',
 };

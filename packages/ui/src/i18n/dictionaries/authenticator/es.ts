@@ -122,12 +122,4 @@ export const esDict: AuthenticatorDictionary = {
   'Attempt limit exceeded, please try after some time.':
     'Número máximo de intentos excedido, por favor inténtelo de nuevo más tarde.',
   'A network error has occurred.': 'Se ha producido un error de red.',
-  'It may take a minute to arrive.':
-    'Es posible que tarde un minuto en llegar.',
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    'El código está en camino. Para iniciar sesión, escriba el código que hemos enviado por correo electrónico a {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'El código está en camino. Para iniciar sesión, escriba el código que hemos enviado por mensaje de texto a {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    'El código está en camino. Para iniciar sesión, escriba el código que le hemos enviado. {arrivalMessage}',
 };

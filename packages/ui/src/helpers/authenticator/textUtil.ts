@@ -24,6 +24,36 @@ const getChallengeText = (challengeName?: ChallengeName): string => {
   }
 };
 
+// #6966: the delivery message is assembled from translated fragments joined by
+// punctuation. Hardcoding an ASCII period is wrong for locales whose sentence
+// terminator differs — Japanese/Chinese use the ideographic full stop `。` and
+// Thai uses none. The terminator is derived from the script of the surrounding
+// translated copy, so punctuation stays locale-correct without adding any
+// translation key, interpolation, or public API.
+const CJK_CHARACTER =
+  /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]/;
+const THAI_CHARACTER = /[\u0e00-\u0e7f]/;
+const TERMINAL_PUNCTUATION = /[.!?。！？]$/;
+
+// Appends the script-appropriate sentence terminator to `sentence`, unless it
+// already ends with terminal punctuation (e.g. a customer vocabulary override).
+const terminateSentence = (sentence: string): string => {
+  if (TERMINAL_PUNCTUATION.test(sentence)) {
+    return sentence;
+  }
+  if (CJK_CHARACTER.test(sentence)) {
+    return `${sentence}。`;
+  }
+  if (THAI_CHARACTER.test(sentence)) {
+    return sentence;
+  }
+  return `${sentence}.`;
+};
+
+// CJK scripts do not separate sentences with a space; other scripts do.
+const getSentenceSpacer = (sentence: string): string =>
+  CJK_CHARACTER.test(sentence) ? '' : ' ';
+
 /**
  * ConfirmSignUp
  */
@@ -35,16 +65,22 @@ const getDeliveryMessageText = (
   const isTextMessage = DeliveryMedium === 'SMS';
 
   const arrivalMessage = translate(DefaultTexts.CODE_ARRIVAL);
+  const spacer = getSentenceSpacer(arrivalMessage);
 
   if (!(isEmailMessage || isTextMessage)) {
-    return translate(DefaultTexts.DELIVERY_MESSAGE_UNKNOWN, { arrivalMessage });
+    const sentMessage = translate(DefaultTexts.CODE_SENT);
+    return `${terminateSentence(sentMessage)}${spacer}${terminateSentence(
+      arrivalMessage
+    )}`;
   }
 
-  const key = isEmailMessage
-    ? DefaultTexts.DELIVERY_MESSAGE_EMAIL
-    : DefaultTexts.DELIVERY_MESSAGE_PHONE;
+  const instructionMessage = isEmailMessage
+    ? translate(DefaultTexts.CODE_EMAILED)
+    : translate(DefaultTexts.CODE_TEXTED);
 
-  return translate(key, { destination: Destination, arrivalMessage });
+  return `${terminateSentence(
+    `${instructionMessage} ${Destination}`
+  )}${spacer}${terminateSentence(arrivalMessage)}`;
 };
 
 const getDeliveryMethodText = (

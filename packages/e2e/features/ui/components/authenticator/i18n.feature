@@ -38,5 +38,5 @@ Feature: Internationalization (I18n)
     Then I type "TestPassword123!" in the "Confirm Password" input in "ja"
     Then the "Create Account" button is in "ja" and I click it
     Then I see "送信先: a***@e***.com。"
-    Then I see "コードを受信するまで数分かかる場合があります。"
+    Then I see "到着するまでに 1 分かかることがあります。"
     Then I don't see "a***@e***.com."

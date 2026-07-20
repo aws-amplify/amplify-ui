@@ -71,11 +71,4 @@ export const ruDict: AuthenticatorDictionary = {
     'Ваш код отправлен. Чтобы войти в систему, введите код, который мы послали вам',
   'Your code is on the way. To log in, enter the code we texted to':
     'Ваш код отправлен. Чтобы войти в систему, введите код, который мы отправили текстовым сообщением',
-  'It may take a minute to arrive.': 'Доставка может занять некоторое время.',
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    'Ваш код отправлен. Чтобы войти в систему, введите код, который мы отправили по электронной почте {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'Ваш код отправлен. Чтобы войти в систему, введите код, который мы отправили текстовым сообщением {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    'Ваш код отправлен. Чтобы войти в систему, введите код, который мы послали вам. {arrivalMessage}',
 };

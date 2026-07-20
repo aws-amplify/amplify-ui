@@ -108,11 +108,4 @@ export const ptDict: AuthenticatorDictionary = {
   'User does not exist': 'Usuário não existe',
   'Username cannot be empty': 'Nome de usuário não pode estar vazio',
   'Your passwords must match': 'Suas senhas devem ser iguais',
-  'It may take a minute to arrive.': 'Pode levar um minuto para chegar.',
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos um e-mail {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos uma mensagem de texto {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    'Seu código está a caminho. Para fazer login, insira o código que enviamos para você. {arrivalMessage}',
 };

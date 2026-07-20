@@ -107,11 +107,4 @@ export const trDict: AuthenticatorDictionary = {
   'User already exists': 'Bu kullanıcı zaten var',
   'User does not exist': 'Böyle bir kullanıcı mevcut değil',
   'Username cannot be empty': 'Kullanıcı adı boş olamaz',
-  'It may take a minute to arrive.': 'Kodun gelmesi bir dakika sürebilir.',
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz e-postadaki kodu girin {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz mesajdaki kodu girin {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin. {arrivalMessage}',
 };

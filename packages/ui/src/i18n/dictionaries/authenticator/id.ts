@@ -112,10 +112,4 @@ export const idDict: AuthenticatorDictionary = {
   'Your code is on the way. To log in, enter the code we texted to':
     'Kode anda dalam pengiriman. Untuk masuk, masukkan kode yang kami tuliskan ke',
   'Your passwords must match': 'Kata sandi harus sama',
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    'Kode anda dalam pengiriman. Untuk masuk, masukkan kode yang kami emailkan ke {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'Kode anda dalam pengiriman. Untuk masuk, masukkan kode yang kami tuliskan ke {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    'Kode Anda segera hadir. Untuk masuk, masukkan kode yang kami kirimkan kepada Anda. {arrivalMessage}',
 };

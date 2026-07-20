@@ -2,16 +2,16 @@
 '@aws-amplify/ui': patch
 ---
 
-fix(ui): make Authenticator delivery message punctuation translation-owned (i18n)
+fix(ui): render locale-correct punctuation in Authenticator delivery messages (i18n)
 
-`getDeliveryMessageText` appended hardcoded ASCII periods to translated
-delivery messages, producing incorrect punctuation for non-Latin locales
-(e.g. Japanese, which uses the ideographic full stop `。`, and Thai, which
-uses none). Punctuation is now owned by each translation: `translate()`
-accepts interpolation `values`, and composite `DELIVERY_MESSAGE_*` keys with
-`{destination}`/`{arrivalMessage}` placeholders are added across all locale
-dictionaries. English output is unchanged. Fixes #6966.
+`getDeliveryMessageText` joined the translated delivery-message fragments with a
+hardcoded ASCII period, producing incorrect punctuation for locales whose
+sentence terminator differs — e.g. Japanese and Chinese (which use the
+ideographic full stop `。`) and Thai (which uses none). The terminator is now
+derived from the script of the surrounding translated copy, so each locale
+renders its own punctuation.
 
-Note: the default text for `CODE_ARRIVAL` now includes its trailing period
-(`It may take a minute to arrive.`) so that terminal punctuation is owned by
-the translation; every bundled locale provides the period-inclusive value.
+This is an internal change with no public API impact: no translation keys are
+added or changed, the `translate()` signature is unchanged, existing customer
+vocabulary overrides on the documented keys keep working, and English output is
+byte-identical. Fixes #6966.

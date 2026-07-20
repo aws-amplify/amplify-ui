@@ -6,21 +6,12 @@ export const defaultTexts = {
   CHANGE_PASSWORD: 'Change Password',
   CHANGING_PASSWORD: 'Changing',
   CODE: 'Code',
-  CODE_ARRIVAL: 'It may take a minute to arrive.',
-  // CODE_EMAILED / CODE_SENT / CODE_TEXTED are retained for backward
-  // compatibility (public DefaultTexts + existing customer vocabularies).
-  // getDeliveryMessageText now uses the DELIVERY_MESSAGE_* composite keys below.
+  CODE_ARRIVAL: 'It may take a minute to arrive',
   CODE_EMAILED:
     'Your code is on the way. To log in, enter the code we emailed to',
   CODE_SENT: 'Your code is on the way. To log in, enter the code we sent you',
   CODE_TEXTED:
     'Your code is on the way. To log in, enter the code we texted to',
-  DELIVERY_MESSAGE_UNKNOWN:
-    'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}',
-  DELIVERY_MESSAGE_EMAIL:
-    'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}',
-  DELIVERY_MESSAGE_PHONE:
-    'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}',
   CONFIRM_PASSWORD: 'Confirm Password',
   CONFIRM_PASSWORD_PLACEHOLDER: 'Please confirm your Password',
   CONFIRM_RESET_PASSWORD_HEADING: 'Reset your Password',

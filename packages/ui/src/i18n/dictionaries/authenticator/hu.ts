@@ -153,10 +153,4 @@ export const huDict: AuthenticatorDictionary = {
   'Your code is on the way. To log in, enter the code we texted to':
     'A bejelentkezéshez szükséges kód küldése folyamatban van, amelyet SMS-ben küldtünk a következő számra:',
   'Your passwords must match': 'A jelszavaknak meg kell egyezniük',
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    'A bejelentkezéshez szükséges kód küldése folyamatban van, amelyet a következő e-mail címre küldtünk: {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'A bejelentkezéshez szükséges kód küldése folyamatban van, amelyet SMS-ben küldtünk a következő számra: {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    'A bejelentkezéshez szükséges kód küldése folyamatban van. {arrivalMessage}',
 };

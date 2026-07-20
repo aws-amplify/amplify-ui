@@ -144,10 +144,4 @@ export const frDict: AuthenticatorDictionary = {
   'Attempt limit exceeded, please try after some time.':
     'Nombre maximum de tentatives dépassé, veuillez réessayer plus tard.',
   'A network error has occurred.': "Une erreur de réseau s'est produite.",
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    'Votre code est en route. Pour vous connecter entrez le code reçu sur cette adresse email {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'Votre code est en route. Pour vous connecter entrez le code reçu sur ce numéro de téléphone {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    "Votre code est en cours d'envoi. Pour vous connecter, saisissez le code que nous vous avons envoyé. {arrivalMessage}",
 };

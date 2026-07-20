@@ -68,17 +68,8 @@ export type Dict = Record<string, string>;
  *
  * You can also use translate<string> to handle custom strings or dynamic content.
  */
-export function translate<T extends string>(
-  phrase: T,
-  values?: Record<string, string>
-): string {
-  let result = I18n.get(phrase);
-  if (values) {
-    for (const [key, value] of Object.entries(values)) {
-      result = result.replaceAll(`{${key}}`, value);
-    }
-  }
-  return result;
+export function translate<T extends string>(phrase: T): string {
+  return I18n.get(phrase);
 }
 
 /**

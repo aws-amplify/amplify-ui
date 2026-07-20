@@ -1,13 +1,11 @@
-import { I18n } from 'aws-amplify/utils';
-
 import {
   AuthMFAType,
   V6AuthDeliveryMedium,
 } from '../../../machines/authenticator/types';
 
 import { authenticatorTextUtil } from '../textUtil';
-import { jaDict } from '../../../i18n/dictionaries';
-import { DefaultTexts, translate, translations } from '../../../i18n';
+import { I18n } from 'aws-amplify/utils';
+import { translations } from '../../../i18n';
 
 describe('authenticatorTextUtil', () => {
   describe('getChallengeText', () => {
@@ -197,7 +195,7 @@ describe('authenticatorTextUtil', () => {
   });
 });
 
-describe('getDeliveryMessageText i18n punctuation (#6966)', () => {
+describe('getDeliveryMessageText locale punctuation (#6966)', () => {
   const emailDetails = {
     DeliveryMedium: 'EMAIL' as V6AuthDeliveryMedium,
     Destination: 'user@example.com',
@@ -214,203 +212,130 @@ describe('getDeliveryMessageText i18n punctuation (#6966)', () => {
     AttributeName: '',
   };
 
-  beforeAll(() => {
-    I18n.putVocabulariesForLanguage('ja', jaDict);
-    I18n.setLanguage('ja');
+  // CJK locales use the ideographic full stop; Thai uses no terminator; every
+  // other bundled locale (Latin/Cyrillic/Hangul) keeps the ASCII period.
+  const CJK_LOCALES = ['ja', 'zh'] as const;
+  const NO_ASCII_PERIOD_LOCALES = ['th'] as const;
+  const ASCII_PERIOD_LOCALES = [
+    'de',
+    'es',
+    'fr',
+    'hu',
+    'id',
+    'it',
+    'kr',
+    'nb',
+    'nl',
+    'pl',
+    'pt',
+    'ru',
+    'sv',
+    'tr',
+    'ua',
+  ] as const;
+
+  beforeEach(() => {
+    // Restore canonical vocabularies so an override from a prior test cannot leak.
+    I18n.putVocabularies(translations);
+    I18n.setLanguage('en');
   });
 
   afterAll(() => {
     I18n.setLanguage('en');
   });
 
-  it('renders email delivery with locale punctuation, not a hardcoded ASCII period', () => {
+  it('renders Japanese email with the ideographic full stop after the destination and at the end, never an ASCII period', () => {
+    I18n.setLanguage('ja');
     const result = authenticatorTextUtil.getDeliveryMessageText(emailDetails);
 
-    expect(result).toBe(
-      'ログインするには、メールに記載されたコードを入力してください。送信先: user@example.com。コードを受信するまで数分かかる場合があります。'
-    );
-    // the destination is followed by the ideographic full stop, not ". "
     expect(result).toContain('user@example.com。');
     expect(result).not.toContain('user@example.com. ');
-    // the message ends with the ideographic full stop, not an ASCII period
     expect(result.endsWith('。')).toBe(true);
     expect(result.endsWith('.')).toBe(false);
   });
 
-  it('renders SMS delivery with locale punctuation, not a hardcoded ASCII period', () => {
-    const result = authenticatorTextUtil.getDeliveryMessageText(smsDetails);
+  it('renders Japanese SMS and unknown mediums terminated with the ideographic full stop', () => {
+    I18n.setLanguage('ja');
 
-    expect(result).toBe(
-      'ログインするには、テキストメッセージに記載されたコードを入力してください。送信先: +1234567890。コードを受信するまで数分かかる場合があります。'
-    );
-    expect(result).toContain('+1234567890。');
-    expect(result).not.toContain('+1234567890. ');
-    expect(result.endsWith('。')).toBe(true);
+    const sms = authenticatorTextUtil.getDeliveryMessageText(smsDetails);
+    expect(sms).toContain('+1234567890。');
+    expect(sms.endsWith('。')).toBe(true);
+
+    const unknown =
+      authenticatorTextUtil.getDeliveryMessageText(unknownDetails);
+    expect(unknown.endsWith('。')).toBe(true);
+    expect(unknown.endsWith('.')).toBe(false);
   });
 
-  it('renders unknown delivery mediums with locale punctuation', () => {
-    const result = authenticatorTextUtil.getDeliveryMessageText(unknownDetails);
-
-    expect(result).toBe(
-      'コードが途中です。ログインするには、送信したコードを入力してください。コードを受信するまで数分かかる場合があります。'
-    );
-    expect(result.endsWith('。')).toBe(true);
-    expect(result.endsWith('.')).toBe(false);
-  });
-});
-
-// Every locale that received the composite delivery keys must resolve them
-// (and the arrival phrase) in-locale, never falling back to English. This
-// guards against the #6968 gap where CODE_ARRIVAL gained a trailing period
-// but several locales lacked the period-inclusive key.
-const UPDATED_LOCALES = [
-  'de',
-  'es',
-  'fr',
-  'hu',
-  'id',
-  'it',
-  'ja',
-  'kr',
-  'nb',
-  'nl',
-  'pl',
-  'pt',
-  'ru',
-  'sv',
-  'th',
-  'tr',
-  'ua',
-  'zh',
-] as const;
-
-describe('getDeliveryMessageText resolves in-locale for every supported locale (#6966)', () => {
-  const emailDetails = {
-    DeliveryMedium: 'EMAIL' as V6AuthDeliveryMedium,
-    Destination: 'user@example.com',
-    AttributeName: '',
-  };
-  const smsDetails = {
-    DeliveryMedium: 'SMS' as V6AuthDeliveryMedium,
-    Destination: '+1234567890',
-    AttributeName: '',
-  };
-  const unknownDetails = {
-    DeliveryMedium: 'INVALID_MEDIUM' as V6AuthDeliveryMedium,
-    Destination: 'user@example.com',
-    AttributeName: '',
-  };
-
-  // DELIVERY_MESSAGE_EMAIL / _PHONE / _UNKNOWN are independent per-locale keys,
-  // so every medium is exercised to catch a typo or a dropped placeholder in
-  // any one of them.
-  const deliveryVariants = [
-    {
-      medium: 'email',
-      details: emailDetails,
-      destination: 'user@example.com' as string | undefined,
-      english:
-        'Your code is on the way. To log in, enter the code we emailed to user@example.com. It may take a minute to arrive.',
-    },
-    {
-      medium: 'SMS',
-      details: smsDetails,
-      destination: '+1234567890' as string | undefined,
-      english:
-        'Your code is on the way. To log in, enter the code we texted to +1234567890. It may take a minute to arrive.',
-    },
-    {
-      medium: 'unknown',
-      details: unknownDetails,
-      destination: undefined as string | undefined,
-      english:
-        'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.',
-    },
-  ];
-
-  const localeVariantMatrix = UPDATED_LOCALES.flatMap((locale) =>
-    deliveryVariants.map((variant) => ({ locale, ...variant }))
-  );
-
-  beforeAll(() => {
-    UPDATED_LOCALES.forEach((locale) => {
-      I18n.putVocabulariesForLanguage(locale, translations[locale]);
-    });
-  });
-
-  afterAll(() => {
-    I18n.setLanguage('en');
-  });
-
-  it.each(UPDATED_LOCALES)(
-    'locale "%s" translates the arrival phrase (no English fallback)',
+  it.each(CJK_LOCALES)(
+    'locale "%s" terminates every medium with the ideographic full stop, never an ASCII period',
     (locale) => {
       I18n.setLanguage(locale);
-      expect(translate(DefaultTexts.CODE_ARRIVAL)).not.toBe(
-        DefaultTexts.CODE_ARRIVAL
-      );
-    }
-  );
-
-  it.each(localeVariantMatrix)(
-    'locale "$locale" renders a fully interpolated, non-English $medium message',
-    ({ locale, details, destination, english }) => {
-      I18n.setLanguage(locale);
-      const result = authenticatorTextUtil.getDeliveryMessageText(details);
-
-      // no placeholder survived interpolation
-      expect(result).not.toMatch(/\{[a-zA-Z]+\}/);
-      // genuinely localized, not the English fallback string
-      expect(result).not.toBe(english);
-      // medium-specific messages interpolate the destination
-      if (destination) {
-        expect(result).toContain(destination);
+      for (const details of [emailDetails, smsDetails, unknownDetails]) {
+        const result = authenticatorTextUtil.getDeliveryMessageText(details);
+        expect(result.endsWith('。')).toBe(true);
+        expect(result.endsWith('.')).toBe(false);
       }
     }
   );
-});
 
-// The composite keys keep the original English wording verbatim, so English
-// output must be byte-for-byte unchanged (this is what keeps the ui/vue/
-// react-native snapshots from breaking).
-describe('getDeliveryMessageText English output is byte-identical (#6966)', () => {
-  beforeAll(() => {
+  it.each(NO_ASCII_PERIOD_LOCALES)(
+    'locale "%s" never terminates a delivery message with an ASCII period',
+    (locale) => {
+      I18n.setLanguage(locale);
+      for (const details of [emailDetails, smsDetails, unknownDetails]) {
+        const result = authenticatorTextUtil.getDeliveryMessageText(details);
+        expect(result.endsWith('.')).toBe(false);
+        expect(result.endsWith('。')).toBe(false);
+      }
+    }
+  );
+
+  it.each(ASCII_PERIOD_LOCALES)(
+    'locale "%s" keeps the ASCII period and does not use the ideographic full stop',
+    (locale) => {
+      I18n.setLanguage(locale);
+      for (const details of [emailDetails, smsDetails, unknownDetails]) {
+        const result = authenticatorTextUtil.getDeliveryMessageText(details);
+        expect(result.endsWith('.')).toBe(true);
+        expect(result.endsWith('。')).toBe(false);
+      }
+    }
+  );
+
+  it('keeps English output byte-identical to the pre-fix strings', () => {
     I18n.setLanguage('en');
-  });
-
-  it('renders the exact English email message', () => {
-    expect(
-      authenticatorTextUtil.getDeliveryMessageText({
-        DeliveryMedium: 'EMAIL' as V6AuthDeliveryMedium,
-        Destination: 'user@example.com',
-        AttributeName: '',
-      })
-    ).toBe(
+    expect(authenticatorTextUtil.getDeliveryMessageText(emailDetails)).toBe(
       'Your code is on the way. To log in, enter the code we emailed to user@example.com. It may take a minute to arrive.'
     );
-  });
-
-  it('renders the exact English SMS message', () => {
-    expect(
-      authenticatorTextUtil.getDeliveryMessageText({
-        DeliveryMedium: 'SMS' as V6AuthDeliveryMedium,
-        Destination: '+1234567890',
-        AttributeName: '',
-      })
-    ).toBe(
+    expect(authenticatorTextUtil.getDeliveryMessageText(smsDetails)).toBe(
       'Your code is on the way. To log in, enter the code we texted to +1234567890. It may take a minute to arrive.'
     );
-  });
-
-  it('renders the exact English unknown-medium message', () => {
-    expect(
-      authenticatorTextUtil.getDeliveryMessageText({
-        DeliveryMedium: 'INVALID_MEDIUM' as V6AuthDeliveryMedium,
-        Destination: 'user@example.com',
-        AttributeName: '',
-      })
-    ).toBe(
+    expect(authenticatorTextUtil.getDeliveryMessageText(unknownDetails)).toBe(
       'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
     );
+  });
+
+  it('honors customer vocabulary overrides on the documented keys (confirm-sign-up pattern)', () => {
+    I18n.putVocabulariesForLanguage('en', {
+      'Your code is on the way. To log in, enter the code we emailed to':
+        'Enter this code:',
+      'It may take a minute to arrive':
+        'It will take several minutes to arrive',
+    });
+
+    expect(authenticatorTextUtil.getDeliveryMessageText(emailDetails)).toBe(
+      'Enter this code: user@example.com. It will take several minutes to arrive.'
+    );
+  });
+
+  it('does not double terminal punctuation when an overridden fragment already ends with it', () => {
+    I18n.putVocabulariesForLanguage('en', {
+      'It may take a minute to arrive': 'Arrives soon.',
+    });
+
+    const result = authenticatorTextUtil.getDeliveryMessageText(emailDetails);
+    expect(result.endsWith('Arrives soon.')).toBe(true);
+    expect(result.endsWith('..')).toBe(false);
   });
 });

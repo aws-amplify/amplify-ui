@@ -97,12 +97,4 @@ export const itDict: AuthenticatorDictionary = {
   'User already exists': 'Utente già esistente',
   'User does not exist': 'Utente inesistente',
   'Username cannot be empty': 'Il nome utente non può essere vuoto',
-  'It may take a minute to arrive.':
-    "L'arrivo potrebbe richiedere qualche minuto.",
-  'Your code is on the way. To log in, enter the code we emailed to {destination}. {arrivalMessage}':
-    "Il codice è in arrivo. Per effettuare l'accesso, immetti il codice che ti abbiamo inviato via e-mail {destination}. {arrivalMessage}",
-  'Your code is on the way. To log in, enter the code we texted to {destination}. {arrivalMessage}':
-    'Il codice è in arrivo. Per accedere, immetti il codice che abbiamo inviato tramite SMS {destination}. {arrivalMessage}',
-  'Your code is on the way. To log in, enter the code we sent you. {arrivalMessage}':
-    'Il codice è in arrivo. Per accedere, immetti il codice che ti abbiamo inviato. {arrivalMessage}',
 };
