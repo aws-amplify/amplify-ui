@@ -53,3 +53,10 @@ Then(
     });
   }
 );
+
+When(
+  'I type {string} in the {string} input in {string}',
+  (value: string, label: string, language: string) => {
+    cy.findByLabelText(translations[language][label].trim()).type(value);
+  }
+);
