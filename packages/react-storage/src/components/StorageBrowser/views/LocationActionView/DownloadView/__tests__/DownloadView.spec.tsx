@@ -21,7 +21,15 @@ jest.mock('../../../../displayText', () => ({
     '../../../../displayText'
   ),
   useDisplayText: () => ({
-    DownloadView: { getActionCompleteMessage: jest.fn() },
+    DownloadView: {
+      getActionCompleteMessage: jest.fn(),
+      enumeratingMessage: 'Listing folder contents…',
+      enumerationErrorMessage:
+        'Failed to list folder contents. Click Download to try again.',
+      noFilesMessage: 'The selected folders contain no files to download.',
+      tooManyFilesMessage:
+        'The selection exceeds the maximum of 5000 files for a single download. Download folders in smaller batches.',
+    },
   }),
 }));
 
@@ -102,6 +110,9 @@ const defaultViewState: DownloadViewState = {
   },
   isProcessingComplete: false,
   isProcessing: false,
+  enumerationStatus: 'SUCCEEDED',
+  hasFilesToDownload: true,
+  hasSelection: true,
   statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
   tasks: [taskOne, taskTwo, taskThree],
 };
@@ -199,6 +210,165 @@ describe('DownloadView', () => {
         statusCounts: postProcessingViewState.statusCounts,
       },
       ...actionCallbacks,
+    });
+  });
+
+  it('shows the enumerating message (info) and keeps Start disabled while enumeration is PENDING', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      enumerationStatus: 'PENDING',
+      // during enumeration the set may be empty; the PENDING status must own
+      // the disable, not the empty-set gate.
+      hasFilesToDownload: false,
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        message: { content: 'Listing folder contents…', type: 'info' },
+      },
+    });
+  });
+
+  it('shows the enumeration error message (error) and leaves Start clickable for retry', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      enumerationStatus: 'ERROR',
+      // the ERROR status is not-ready: resolvedItems is empty but Start must
+      // stay clickable (it is the retry trigger), so the empty-set gate must
+      // NOT fire.
+      hasFilesToDownload: false,
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: false,
+        message: {
+          content:
+            'Failed to list folder contents. Click Download to try again.',
+          type: 'error',
+        },
+      },
+    });
+  });
+
+  it('shows the no-files message (info) for an empty-folder selection', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      // Enumeration SUCCEEDED (the empty folders were cached) but produced
+      // zero downloadable files.
+      enumerationStatus: 'SUCCEEDED',
+      hasFilesToDownload: false,
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        message: {
+          content: 'The selected folders contain no files to download.',
+          type: 'info',
+        },
+      },
+    });
+  });
+
+  it('disables Start and shows the no-files message when the ready set is empty (all rows removed)', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      // ready (SUCCEEDED) + idle, but every row was removed -> nothing to
+      // download.
+      enumerationStatus: 'SUCCEEDED',
+      hasFilesToDownload: false,
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        isActionStartDisabled: true,
+        message: {
+          content: 'The selected folders contain no files to download.',
+          type: 'info',
+        },
+      },
+    });
+  });
+
+  it('shows the too-many-files message (error) and hard-disables Start when over the file limit', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      // over-limit is a not-ready terminal status: the offending folder is
+      // never cached.
+      enumerationStatus: 'OVER_LIMIT',
+      hasFilesToDownload: false,
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        // Unlike the enumeration-error state, Start is NOT a retry trigger
+        // here: the cap cannot be retried away, so Start is disabled.
+        isActionStartDisabled: true,
+        message: {
+          content:
+            'The selection exceeds the maximum of 5000 files for a single download. Download folders in smaller batches.',
+          type: 'error',
+        },
+      },
+    });
+  });
+
+  it('shows no message on a bare mount with an empty selection', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      // Never-populated selection: vacuously ready (SUCCEEDED), nothing to
+      // download. The misleading "selected folders contain no files" copy must
+      // NOT show.
+      hasSelection: false,
+      hasFilesToDownload: false,
+      enumerationStatus: 'SUCCEEDED',
+      tasks: [],
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    const { data } = calls[0][0] as { data: { message?: unknown } };
+    expect(data.message).toBeUndefined();
+    // Start stays disabled: there is nothing to download.
+    expect(calls[0][0]).toMatchObject({
+      data: { isActionStartDisabled: true },
+    });
+  });
+
+  it('prefers the earlier status when multiple message conditions hold (PENDING wins over complete)', () => {
+    useDownloadViewSpy.mockReturnValueOnce({
+      ...defaultViewState,
+      // Contrived: enumeration is PENDING while the completed flag is set. The
+      // precedence order must short-circuit on the earlier condition (PENDING).
+      enumerationStatus: 'PENDING',
+      isProcessingComplete: true,
+    });
+
+    render(<DownloadView />);
+
+    const { calls } = mockControlsContextProvider.mock;
+    expect(calls[0][0]).toMatchObject({
+      data: {
+        message: { content: 'Listing folder contents…', type: 'info' },
+      },
     });
   });
 });

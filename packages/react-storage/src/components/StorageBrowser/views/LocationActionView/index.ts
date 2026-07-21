@@ -13,6 +13,7 @@ export type {
 } from './DeleteView';
 export { DeleteView, useDeleteView } from './DeleteView';
 export type {
+  DownloadEnumerationStatus,
   DownloadViewProps,
   DownloadViewType,
   DownloadViewState,

@@ -111,9 +111,9 @@ describe('defaultActionConfigs', () => {
       expect(disable?.([file])).toBe(false);
     });
 
-    it('is disabled when folders are selected', () => {
-      expect(disable?.([folder])).toBe(true);
-      expect(disable?.([file, folder])).toBe(true);
+    it('is not disabled when folders are selected', () => {
+      expect(disable?.([folder])).toBe(false);
+      expect(disable?.([file, folder])).toBe(false);
     });
   });
 

@@ -12,6 +12,7 @@ jest.mock('aws-amplify', () => ({
 
 import {
   createFileDataItem,
+  createDownloadItem,
   deduplicateLocations,
   getBucketRegion,
   getFileKey,
@@ -207,6 +208,46 @@ describe('utils', () => {
           type: 'FILE' as const,
         })
       ).toStrictEqual(expect.objectContaining({ fileKey }));
+    });
+  });
+
+  describe('createDownloadItem', () => {
+    it('adds fileKey (basename) and a parent-relative relativePath', () => {
+      const result = createDownloadItem(
+        {
+          key: 'photos/vacation/beach.jpg',
+          lastModified: new Date(1),
+          id: 'file-id',
+          size: 10,
+          type: 'FILE' as const,
+        },
+        'photos/'
+      );
+
+      expect(result).toEqual(
+        expect.objectContaining({
+          key: 'photos/vacation/beach.jpg',
+          id: 'file-id',
+          type: 'FILE',
+          fileKey: 'beach.jpg',
+          relativePath: 'vacation/beach.jpg',
+        })
+      );
+    });
+
+    it('yields the basename as relativePath for a loose file at the prefix', () => {
+      const result = createDownloadItem(
+        {
+          key: 'photos/beach.jpg',
+          lastModified: new Date(1),
+          id: 'file-id',
+          size: 10,
+          type: 'FILE' as const,
+        },
+        'photos/'
+      );
+
+      expect(result.relativePath).toBe('beach.jpg');
     });
   });
 

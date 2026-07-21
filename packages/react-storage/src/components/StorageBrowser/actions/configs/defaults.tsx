@@ -60,9 +60,11 @@ export const uploadActionConfig: UploadActionConfig = {
 export const downloadActionConfig: DownloadActionConfig = {
   viewName: 'DownloadView',
   actionListItem: {
+    // Only an empty selection disables Download; folder selections are
+    // expanded into files at the view level.
     disable: (selected) => {
       const hasNoSelection = !selected || selected.length === 0;
-      return hasNoSelection || hasSelectedFolders(selected);
+      return hasNoSelection;
     },
     hide: (permissions) => !permissions.includes('get'),
     icon: 'download',
