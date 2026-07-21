@@ -1,5 +1,51 @@
 # @aws-amplify/ui-react-storage
 
+## 3.18.0
+
+### Minor Changes
+
+- [#7046](https://github.com/aws-amplify/amplify-ui/pull/7046) [`25e8d96a4c8bee19409cf44f2df7856b52e56260`](https://github.com/aws-amplify/amplify-ui/commit/25e8d96a4c8bee19409cf44f2df7856b52e56260) Thanks [@bobbor](https://github.com/bobbor)! - feat(storage): folder download support in StorageBrowser
+
+  Enable downloading folders (and mixed file/folder selections) from the
+  `StorageBrowser` download action. Previously the download button was disabled
+  whenever the selection contained a folder.
+
+  Folders are expanded to their files at the view level before the download
+  runs: the `DownloadView` lists folder contents on open (with a "listing
+  folder contents" state), so the resolved files render as rows and the archive
+  is only dispatched once every selected folder is fully enumerated. Each file
+  preserves its folder-relative path inside the zip. A single-folder selection
+  names the archive after that folder; other selections use the longest common
+  ancestor directory of the downloaded files. Building on the service worker
+  streaming download, the zip transfer itself uses constant memory; folder
+  enumeration holds the file listing in memory and is capped at 5000 files per
+  download, above which the download is blocked with a message instead of
+  producing a truncated archive.
+
+  Also: individual expanded files can be removed from the pending download,
+  enumeration can be cancelled or retried, and empty/errored enumerations are
+  surfaced without starting a partial download.
+
+- [#7044](https://github.com/aws-amplify/amplify-ui/pull/7044) [`51bb14dfdc4209938dd17480a967218585f8c8d4`](https://github.com/aws-amplify/amplify-ui/commit/51bb14dfdc4209938dd17480a967218585f8c8d4) Thanks [@bobbor](https://github.com/bobbor)! - feat(storage): service worker streaming zip download
+
+  Replace the in-memory blob-based zip download with a service worker streaming
+  architecture for `StorageBrowser` multi-file downloads. Files are streamed
+  sequentially into a zip archive delivered via a service worker, removing the
+  memory ceiling of the previous blob approach. Falls back to blob collection
+  when the service worker is unavailable (unsupported browser, missing file, or
+  insecure context).
+
+  Note: per-file progress is now reported download-only by design — it reflects
+  bytes read from S3, not zip finalization. Because entries are stored without
+  compression (`level: 0`), the write/finalization phase is near-instant, so
+  progress transitions directly from downloading to complete without a separate
+  "zipping"/finishing phase.
+
+### Patch Changes
+
+- Updated dependencies [[`379f6c05bf36d0341de36441097ddb7984151e9c`](https://github.com/aws-amplify/amplify-ui/commit/379f6c05bf36d0341de36441097ddb7984151e9c)]:
+  - @aws-amplify/ui-react@6.15.5
+
 ## 3.17.3
 
 ### Patch Changes

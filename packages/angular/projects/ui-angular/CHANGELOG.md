@@ -1,5 +1,11 @@
 # @aws-amplify/ui-angular
 
+## 6.0.0
+
+### Major Changes
+
+- [#7047](https://github.com/aws-amplify/amplify-ui/pull/7047) [`aa5e7192561a029307780ccf71823699021032da`](https://github.com/aws-amplify/amplify-ui/commit/aa5e7192561a029307780ccf71823699021032da) Thanks [@bobbor](https://github.com/bobbor)! - Upgrade to Angular 20. The minimum supported Angular version is now 20.0.0; Angular 19 and below are no longer supported. The library is compiled with the Angular 20 compiler (partial-Ivy output is forward-compatible only).
+
 ## 5.3.5
 
 ### Patch Changes
@@ -1449,7 +1455,6 @@ import { ConfirmSignInInput } from 'aws-amplify';
   _See: [RFC: Authenticator@next](https://github.com/aws-amplify/amplify-ui/discussions/200)_
 
   ## Goals
-
   - **Zero-config** – The Authenticator automatically infers Amplify CLI & Admin UI settings to work out-of-the-box.
 
     Run `amplify pull` with the latest CLI whenever your backend changes, and the Authenticator automatically reflects the correct login mechanism, social providers, & more.
