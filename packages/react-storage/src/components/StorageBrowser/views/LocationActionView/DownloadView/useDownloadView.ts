@@ -10,7 +10,11 @@ import { useStore } from '../../../store';
 import { useAction } from '../../../useAction';
 import { useGetActionInput } from '../../../configuration/context';
 
-import type { DownloadViewState, UseDownloadViewOptions } from './types';
+import type {
+  DownloadEnumerationStatus,
+  DownloadViewState,
+  UseDownloadViewOptions,
+} from './types';
 import {
   expandFolderToFiles,
   FileLimitError,
@@ -106,9 +110,9 @@ export const useDownloadView = (
     DownloadHandlerData[]
   >([]);
   // `true` while folder selections are being expanded into their files. Drives
-  // the "listing files" state and disables Start until enumeration settles.
+  // the `'PENDING'` enumeration status, which disables Start until enumeration
+  // settles.
   const [isEnumerating, setIsEnumerating] = React.useState(false);
-  const [hasNoFilesToDownload, setHasNoFilesToDownload] = React.useState(false);
   // `true` when the pre-dispatch enumeration failed for a non-abort reason.
   // Surfaced on the view model so the Start control re-enabling isn't the only
   // (silent) feedback the user gets on failure.
@@ -189,9 +193,8 @@ export const useDownloadView = (
     );
 
     if (selectionChanged) {
-      // Selection changed: clear stale pre-dispatch flags so a prior empty/error
+      // Selection changed: clear stale pre-dispatch flags so a prior error
       // /over-limit result doesn't leak into the new selection.
-      setHasNoFilesToDownload(false);
       setIsEnumerationError(false);
       setIsOverFileLimit(false);
       // Clear per-row removals so a prior selection's removals don't hide items
@@ -246,7 +249,6 @@ export const useDownloadView = (
     const { prefix } = current;
     const controller = new AbortController();
     enumAbortRef.current = controller;
-    setHasNoFilesToDownload(false);
     setIsEnumerationError(false);
     setIsOverFileLimit(false);
     setIsEnumerating(true);
@@ -288,12 +290,11 @@ export const useDownloadView = (
           folderExpansionRef.current
         );
 
-        // Only empty folders selected -> nothing to download.
-        if (resolved.length === 0) {
-          setHasNoFilesToDownload(true);
-          setIsEnumerating(false);
-          return;
-        }
+        // NOTE: `resolved` may be empty (only empty folders selected). The
+        // empty folders were still cached above, so the derived enumeration
+        // status flips to `'SUCCEEDED'` with `hasFilesToDownload` false — the
+        // view surfaces the "no files" message from that combination. No zip
+        // is started in this case (Start is disabled on an empty ready set).
 
         // Apply any per-row removals the user made before enumeration settled
         // (the sync effect re-filters on later removals via its removedItemIds
@@ -345,6 +346,22 @@ export const useDownloadView = (
   const allFoldersReady = dataItems.every(
     (item) => item.type !== 'FOLDER' || folderExpansionRef.current.has(item.id)
   );
+
+  // Public enumeration status, DERIVED from the internal flags each render
+  // (never stored — `allFoldersReady` is itself derived from dataItems + the
+  // expansion cache, so storing the union would create a second source of
+  // truth). Precedence: an in-flight run owns the status; then the terminal
+  // error/limit outcomes; then readiness. A file-only selection has no folders
+  // to expand, so it is vacuously ready -> `'SUCCEEDED'` immediately on mount.
+  const enumerationStatus: DownloadEnumerationStatus = isEnumerating
+    ? 'PENDING'
+    : isEnumerationError
+    ? 'ERROR'
+    : isOverFileLimit
+    ? 'OVER_LIMIT'
+    : allFoldersReady
+    ? 'SUCCEEDED'
+    : 'NOT_STARTED';
 
   const [processState, handleProcess] = useAction('download', {
     items: resolvedItems,
@@ -423,21 +440,18 @@ export const useDownloadView = (
   );
 
   // Effective (post-removal) download set is empty -> nothing to download. Used
-  // to gate Start in a ready/idle state (see DownloadViewProvider). Distinct
-  // from `hasNoFilesToDownload`, which flags empty folders detected during
-  // enumeration.
+  // (with a `'SUCCEEDED'` status) to gate Start in a ready/idle state and to
+  // surface the "no files" message — covering both empty folders detected
+  // during enumeration and a manually-emptied row set (see
+  // DownloadViewProvider).
   const hasFilesToDownload = resolvedItems.length > 0;
 
   return {
     isProcessing,
     isProcessingComplete,
-    isEnumerating,
-    hasNoFilesToDownload,
+    enumerationStatus,
     hasFilesToDownload,
     hasSelection,
-    isEnumerationError,
-    isOverFileLimit,
-    allFoldersReady,
     location,
     statusCounts,
     tasks,

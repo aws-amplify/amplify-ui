@@ -110,13 +110,9 @@ const defaultViewState: DownloadViewState = {
   },
   isProcessingComplete: false,
   isProcessing: false,
-  isEnumerating: false,
-  hasNoFilesToDownload: false,
+  enumerationStatus: 'SUCCEEDED',
   hasFilesToDownload: true,
   hasSelection: true,
-  isEnumerationError: false,
-  isOverFileLimit: false,
-  allFoldersReady: true,
   statusCounts: { ...INITIAL_STATUS_COUNTS, QUEUED: 3, TOTAL: 3 },
   tasks: [taskOne, taskTwo, taskThree],
 };
@@ -217,14 +213,13 @@ describe('DownloadView', () => {
     });
   });
 
-  it('shows the enumerating message (info) and keeps Start disabled while enumerating', () => {
+  it('shows the enumerating message (info) and keeps Start disabled while enumeration is PENDING', () => {
     useDownloadViewSpy.mockReturnValueOnce({
       ...defaultViewState,
-      isEnumerating: true,
-      // during enumeration the set may be empty; isEnumerating must own the
-      // disable, not the empty-set gate.
+      enumerationStatus: 'PENDING',
+      // during enumeration the set may be empty; the PENDING status must own
+      // the disable, not the empty-set gate.
       hasFilesToDownload: false,
-      allFoldersReady: false,
     });
 
     render(<DownloadView />);
@@ -241,11 +236,11 @@ describe('DownloadView', () => {
   it('shows the enumeration error message (error) and leaves Start clickable for retry', () => {
     useDownloadViewSpy.mockReturnValueOnce({
       ...defaultViewState,
-      isEnumerationError: true,
-      // error state is not-ready: resolvedItems is empty but Start must stay
-      // clickable (it is the retry trigger), so the empty-set gate must NOT fire.
+      enumerationStatus: 'ERROR',
+      // the ERROR status is not-ready: resolvedItems is empty but Start must
+      // stay clickable (it is the retry trigger), so the empty-set gate must
+      // NOT fire.
       hasFilesToDownload: false,
-      allFoldersReady: false,
     });
 
     render(<DownloadView />);
@@ -266,7 +261,9 @@ describe('DownloadView', () => {
   it('shows the no-files message (info) for an empty-folder selection', () => {
     useDownloadViewSpy.mockReturnValueOnce({
       ...defaultViewState,
-      hasNoFilesToDownload: true,
+      // Enumeration SUCCEEDED (the empty folders were cached) but produced
+      // zero downloadable files.
+      enumerationStatus: 'SUCCEEDED',
       hasFilesToDownload: false,
     });
 
@@ -287,8 +284,9 @@ describe('DownloadView', () => {
   it('disables Start and shows the no-files message when the ready set is empty (all rows removed)', () => {
     useDownloadViewSpy.mockReturnValueOnce({
       ...defaultViewState,
-      // ready + idle, but every row was removed -> nothing to download.
-      allFoldersReady: true,
+      // ready (SUCCEEDED) + idle, but every row was removed -> nothing to
+      // download.
+      enumerationStatus: 'SUCCEEDED',
       hasFilesToDownload: false,
     });
 
@@ -309,10 +307,10 @@ describe('DownloadView', () => {
   it('shows the too-many-files message (error) and hard-disables Start when over the file limit', () => {
     useDownloadViewSpy.mockReturnValueOnce({
       ...defaultViewState,
-      isOverFileLimit: true,
-      // over-limit is a not-ready state: the offending folder is never cached.
+      // over-limit is a not-ready terminal status: the offending folder is
+      // never cached.
+      enumerationStatus: 'OVER_LIMIT',
       hasFilesToDownload: false,
-      allFoldersReady: false,
     });
 
     render(<DownloadView />);
@@ -335,11 +333,12 @@ describe('DownloadView', () => {
   it('shows no message on a bare mount with an empty selection', () => {
     useDownloadViewSpy.mockReturnValueOnce({
       ...defaultViewState,
-      // Never-populated selection: vacuously ready, nothing to download. The
-      // misleading "selected folders contain no files" copy must NOT show.
+      // Never-populated selection: vacuously ready (SUCCEEDED), nothing to
+      // download. The misleading "selected folders contain no files" copy must
+      // NOT show.
       hasSelection: false,
       hasFilesToDownload: false,
-      allFoldersReady: true,
+      enumerationStatus: 'SUCCEEDED',
       tasks: [],
     });
 
@@ -354,12 +353,12 @@ describe('DownloadView', () => {
     });
   });
 
-  it('prefers the earlier flag when multiple message flags are true (enumerating wins over complete)', () => {
+  it('prefers the earlier status when multiple message conditions hold (PENDING wins over complete)', () => {
     useDownloadViewSpy.mockReturnValueOnce({
       ...defaultViewState,
-      // Contrived: both the enumerating and completed flags are set. The
-      // precedence order must short-circuit on the earlier flag (enumerating).
-      isEnumerating: true,
+      // Contrived: enumeration is PENDING while the completed flag is set. The
+      // precedence order must short-circuit on the earlier condition (PENDING).
+      enumerationStatus: 'PENDING',
       isProcessingComplete: true,
     });
 

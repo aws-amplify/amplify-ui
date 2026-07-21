@@ -34,53 +34,50 @@ export function DownloadViewProvider({
   const {
     isProcessing,
     isProcessingComplete,
-    isEnumerating,
-    hasNoFilesToDownload,
+    enumerationStatus,
     hasFilesToDownload,
     hasSelection,
-    isEnumerationError,
-    isOverFileLimit,
-    allFoldersReady,
     statusCounts,
     tasks: items,
     onActionCancel,
     onActionStart,
-    onActionExit,
     onTaskRemove,
+    onActionExit,
   } = props;
 
-  // Surface the no-files message in BOTH empty states, not just enumeration:
-  //   - `hasNoFilesToDownload`: enumeration found only empty folders.
-  //   - `allFoldersReady && !hasFilesToDownload`: the ready set went empty
-  //     because the user manually removed every row (mirrors the Start-disable
-  //     gate below). Guarded against enumeration/error/over-limit/active
-  //     -processing/completion so those states keep ownership of the message
-  //     via the precedence order. `hasSelection` scopes both cases to a
-  //     selection that is or was non-empty, so a bare mount with an empty
-  //     selection (vacuously ready, nothing to download) shows no message.
+  const isEnumerationPending = enumerationStatus === 'PENDING';
+  const isEnumerationSucceeded = enumerationStatus === 'SUCCEEDED';
+  const isOverFileLimit = enumerationStatus === 'OVER_LIMIT';
+
+  // Surface the no-files message when the READY set is empty, covering BOTH
+  // empty states with one expression:
+  //   - enumeration succeeded but found only empty folders, and
+  //   - the ready set went empty because the user manually removed every row
+  //     (mirrors the Start-disable gate below).
+  // `'SUCCEEDED'` keeps the pending/error/over-limit statuses owning the
+  // message via the precedence order; the processing guards keep an active or
+  // completed download owning it. `hasSelection` scopes the message to a
+  // selection that is or was non-empty, so a bare mount with an empty
+  // selection (vacuously ready, nothing to download) shows no message.
   const showNoFiles =
     hasSelection &&
-    (hasNoFilesToDownload ||
-      (allFoldersReady &&
-        !hasFilesToDownload &&
-        !isEnumerating &&
-        !isEnumerationError &&
-        !isOverFileLimit &&
-        !isProcessing &&
-        !isProcessingComplete));
+    isEnumerationSucceeded &&
+    !hasFilesToDownload &&
+    !isProcessing &&
+    !isProcessingComplete;
 
   // Message precedence (most transient/actionable first):
-  //   1. isEnumerating       -> "listing folder contents" (info)
-  //   2. isEnumerationError  -> failure + retry hint (error)
-  //   3. isOverFileLimit     -> selection exceeds the file cap (error)
+  //   1. 'PENDING'           -> "listing folder contents" (info)
+  //   2. 'ERROR'             -> failure + retry hint (error)
+  //   3. 'OVER_LIMIT'        -> selection exceeds the file cap (error)
   //   4. showNoFiles         -> empty folders OR manually-emptied set (info)
   //   5. isProcessingComplete-> post-download summary (existing)
   //   6. otherwise           -> no message
-  // Ordering matters: the enumeration states are pre-dispatch and mutually
+  // Ordering matters: the enumeration statuses are pre-dispatch and mutually
   // exclusive with a completed download, so an earlier match short-circuits.
-  const message: MessageProps | undefined = isEnumerating
+  const message: MessageProps | undefined = isEnumerationPending
     ? { content: enumeratingMessage, type: 'info' }
-    : isEnumerationError
+    : enumerationStatus === 'ERROR'
     ? { content: enumerationErrorMessage, type: 'error' }
     : isOverFileLimit
     ? { content: tooManyFilesMessage, type: 'error' }
@@ -90,12 +87,11 @@ export function DownloadViewProvider({
     ? getActionCompleteMessage({ counts: statusCounts })
     : undefined;
 
-  // `allFoldersReady` is the not-ready/partial signal. The readiness/error
-  // gating is deliberately NOT added to `isActionStartDisabled`: it is enforced
-  // inside the hook's `onActionStart` (guarded dispatch) so the Start button
-  // stays CLICKABLE in the idle-not-ready/error state and re-clicking Start acts
-  // as the enumeration RETRY trigger. It IS used below purely to scope the
-  // empty-set disable to a ready state (so retry isn't blocked while not ready).
+  // `'NOT_STARTED'` and `'ERROR'` are the not-ready/partial statuses. They are
+  // deliberately NOT added to `isActionStartDisabled`: the no-partial-dispatch
+  // invariant is enforced inside the hook's `onActionStart` (guarded dispatch)
+  // so the Start button stays CLICKABLE in those statuses and re-clicking
+  // Start acts as the enumeration RETRY trigger.
 
   const tableData = useResolveTableData(
     DOWNLOAD_TABLE_KEYS,
@@ -113,22 +109,22 @@ export function DownloadViewProvider({
         actionExitLabel,
         actionStartLabel,
         isActionCancelDisabled:
-          (!isProcessing || isProcessingComplete) && !isEnumerating,
-        isActionExitDisabled: isProcessing || isEnumerating,
+          (!isProcessing || isProcessingComplete) && !isEnumerationPending,
+        isActionExitDisabled: isProcessing || isEnumerationPending,
         isActionStartDisabled:
           isProcessing ||
           isProcessingComplete ||
-          isEnumerating ||
-          hasNoFilesToDownload ||
+          isEnumerationPending ||
           // The selection exceeds the file cap: retrying cannot succeed without
           // changing the selection, so Start is hard-disabled (unlike the
-          // enumeration-error state, where Start doubles as the retry trigger).
+          // 'ERROR' status, where Start doubles as the retry trigger).
           isOverFileLimit ||
-          // Every row was removed (or the ready set is otherwise empty): nothing
-          // to download. Scoped to `allFoldersReady` so this NEVER disables Start
-          // in the not-ready/error state, where a clickable Start is the
+          // Every row was removed (or the ready set is otherwise empty, e.g.
+          // only empty folders were selected): nothing to download. Scoped to
+          // `'SUCCEEDED'` so this NEVER disables Start in the
+          // 'NOT_STARTED'/'ERROR' statuses, where a clickable Start is the
           // enumeration RETRY trigger (empty resolvedItems is expected there).
-          (allFoldersReady && !hasFilesToDownload),
+          (isEnumerationSucceeded && !hasFilesToDownload),
         statusDisplayCanceledLabel,
         statusDisplayCompletedLabel,
         statusDisplayFailedLabel,

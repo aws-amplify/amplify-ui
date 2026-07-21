@@ -129,9 +129,9 @@ describe('useDownloadView', () => {
 
     expect(result.current).toEqual(
       expect.objectContaining({
-        isEnumerating: false,
-        hasNoFilesToDownload: false,
-        allFoldersReady: true,
+        enumerationStatus: 'SUCCEEDED',
+        hasFilesToDownload: true,
+        hasSelection: true,
         onActionCancel: expect.any(Function),
         onActionExit: expect.any(Function),
         onActionStart: expect.any(Function),
@@ -205,7 +205,7 @@ describe('useDownloadView', () => {
     const { result } = renderHook(() => useDownloadView());
 
     // enumeration is triggered on mount, NOT gated behind Start.
-    expect(result.current.isEnumerating).toBe(true);
+    expect(result.current.enumerationStatus).toBe('PENDING');
 
     await act(async () => {
       await Promise.resolve();
@@ -219,7 +219,7 @@ describe('useDownloadView', () => {
       // Counter is SHARED across the run and seeded with the loose file.
       fileCounter: { count: 1 },
     });
-    expect(result.current.isEnumerating).toBe(false);
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
 
     // `resolvedItems` (fed to useAction) now includes the expanded folder file
     // WITHOUT the user having clicked Start.
@@ -258,7 +258,7 @@ describe('useDownloadView', () => {
     });
 
     // Enumeration done, but the download has NOT started on its own.
-    expect(result.current.isEnumerating).toBe(false);
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
     expect(mockHandleDownload).not.toHaveBeenCalled();
 
     // The user clicking Start is what dispatches the download.
@@ -268,7 +268,7 @@ describe('useDownloadView', () => {
     expect(mockHandleDownload).toHaveBeenCalledTimes(1);
   });
 
-  it('sets isEnumerating during mount enumeration and clears it on cancel without dispatching', async () => {
+  it('is PENDING during mount enumeration and returns to NOT_STARTED on cancel without dispatching', async () => {
     setDataItems([folderItem]);
     // expansion hangs until we decide to resolve
     let resolveExpansion!: (v: never[]) => void;
@@ -282,12 +282,14 @@ describe('useDownloadView', () => {
     const { result } = renderHook(() => useDownloadView());
 
     // enumeration is kicked off on mount and is in-flight
-    expect(result.current.isEnumerating).toBe(true);
+    expect(result.current.enumerationStatus).toBe('PENDING');
 
     act(() => {
       result.current.onActionCancel();
     });
-    expect(result.current.isEnumerating).toBe(false);
+    // The folder was never cached, so cancel returns to NOT_STARTED (the retry
+    // -able idle state), not SUCCEEDED.
+    expect(result.current.enumerationStatus).toBe('NOT_STARTED');
 
     // Even if the (aborted) expansion later resolves, no dispatch occurs and
     // the state stays clean.
@@ -296,7 +298,7 @@ describe('useDownloadView', () => {
       await Promise.resolve();
     });
     expect(mockHandleDownload).not.toHaveBeenCalled();
-    expect(result.current.isEnumerating).toBe(false);
+    expect(result.current.enumerationStatus).toBe('NOT_STARTED');
   });
 
   it('does not dispatch and does not warn when unmounted mid-enumeration', async () => {
@@ -316,7 +318,7 @@ describe('useDownloadView', () => {
     const { result, unmount } = renderHook(() => useDownloadView());
 
     // enumeration is in-flight on mount
-    expect(result.current.isEnumerating).toBe(true);
+    expect(result.current.enumerationStatus).toBe('PENDING');
 
     // unmount aborts the in-flight enumeration via the effect cleanup
     unmount();
@@ -338,7 +340,7 @@ describe('useDownloadView', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  it('clears isEnumerating when the selection changes mid-enumeration to a file-only selection', async () => {
+  it('returns to SUCCEEDED when the selection changes mid-enumeration to a file-only selection', async () => {
     setDataItems([folderItem]);
     // expansion hangs so enumeration stays in-flight while we change selection
     mockExpandFolderToFiles.mockImplementation(
@@ -348,24 +350,23 @@ describe('useDownloadView', () => {
     const { result, rerender } = renderHook(() => useDownloadView());
 
     // enumeration is in-flight on mount
-    expect(result.current.isEnumerating).toBe(true);
+    expect(result.current.enumerationStatus).toBe('PENDING');
 
     // Selection changes to a file-only selection mid-enumeration. The effect
     // cleanup aborts the in-flight run, then the effect re-runs and hits the
-    // `!hasFolders` early return, which defensively clears the flag.
+    // `!hasFolders` early return, which defensively clears the pending flag.
     await act(async () => {
       setDataItems([fileItemA]);
       rerender();
       await Promise.resolve();
     });
 
-    expect(result.current.isEnumerating).toBe(false);
     // file-only selection is always ready
-    expect(result.current.allFoldersReady).toBe(true);
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
     expect(mockHandleDownload).not.toHaveBeenCalled();
   });
 
-  it('surfaces hasNoFilesToDownload for an empty folder (no rows, no auto-start)', async () => {
+  it('surfaces SUCCEEDED with no files to download for an empty folder (no rows, no auto-start)', async () => {
     setDataItems([folderItem]);
     mockExpandFolderToFiles.mockResolvedValue([] as never);
 
@@ -375,8 +376,11 @@ describe('useDownloadView', () => {
       await Promise.resolve();
     });
 
-    expect(result.current.hasNoFilesToDownload).toBe(true);
-    expect(result.current.isEnumerating).toBe(false);
+    // The empty folder is cached, so enumeration SUCCEEDED — the empty result
+    // is surfaced through hasFilesToDownload (+ hasSelection for the message).
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
+    expect(result.current.hasFilesToDownload).toBe(false);
+    expect(result.current.hasSelection).toBe(true);
     // no resolved items -> no rows rendered
     const lastCall = mockUseAction.mock.calls.at(-1)!;
     expect(lastCall[1]).toEqual(expect.objectContaining({ items: [] }));
@@ -393,14 +397,14 @@ describe('useDownloadView', () => {
     );
 
     const { result } = renderHook(() => useDownloadView());
-    expect(result.current.isEnumerating).toBe(true);
+    expect(result.current.enumerationStatus).toBe('PENDING');
 
-    // Cancel mid-enumeration -> idle, but the folder was never cached.
+    // Cancel mid-enumeration -> back to NOT_STARTED: the folder was never
+    // cached, so the selection is not ready and Start acts as a retry.
     act(() => {
       result.current.onActionCancel();
     });
-    expect(result.current.allFoldersReady).toBe(false);
-    expect(result.current.isEnumerating).toBe(false);
+    expect(result.current.enumerationStatus).toBe('NOT_STARTED');
 
     // Clicking Start with a still-uncached folder must NOT dispatch a partial
     // set (CORE INVARIANT) — it takes the retry path instead. Provide a
@@ -423,8 +427,7 @@ describe('useDownloadView', () => {
     });
     // Retry re-ran enumeration (not a dispatch).
     expect(mockHandleDownload).not.toHaveBeenCalled();
-    expect(result.current.isEnumerating).toBe(false);
-    expect(result.current.allFoldersReady).toBe(true);
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
 
     // Now every folder is expanded -> clicking Start dispatches exactly once.
     act(() => {
@@ -433,7 +436,7 @@ describe('useDownloadView', () => {
     expect(mockHandleDownload).toHaveBeenCalledTimes(1);
   });
 
-  it('enumeration error disables dispatch, surfaces isEnumerationError, and retry recovers', async () => {
+  it('enumeration error surfaces ERROR, disables dispatch, and retry recovers', async () => {
     const consoleErrorSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
@@ -445,8 +448,7 @@ describe('useDownloadView', () => {
       await Promise.resolve();
     });
 
-    expect(result.current.isEnumerationError).toBe(true);
-    expect(result.current.allFoldersReady).toBe(false);
+    expect(result.current.enumerationStatus).toBe('ERROR');
 
     // Start while errored must NOT dispatch a partial set — it clears the error
     // and retries. Provide a resolving mock for the retry.
@@ -467,8 +469,8 @@ describe('useDownloadView', () => {
       await Promise.resolve();
     });
     expect(mockHandleDownload).not.toHaveBeenCalled();
-    expect(result.current.allFoldersReady).toBe(true);
-    expect(result.current.isEnumerationError).toBe(false);
+    // Retry recovered: the error cleared and every folder is now cached.
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
 
     // Ready now -> Start dispatches exactly once.
     act(() => {
@@ -479,7 +481,7 @@ describe('useDownloadView', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  it('allFoldersReady gate for a mixed selection (one folder cached, one not)', async () => {
+  it('readiness gate for a mixed selection (one folder cached, one not)', async () => {
     const consoleErrorSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
@@ -513,8 +515,7 @@ describe('useDownloadView', () => {
     });
 
     // Only one folder cached -> not ready; the rejection surfaced an error.
-    expect(result.current.allFoldersReady).toBe(false);
-    expect(result.current.isEnumerationError).toBe(true);
+    expect(result.current.enumerationStatus).toBe('ERROR');
 
     // Second folder now resolves; the retry should re-expand ONLY the still
     // -uncached folder (the cached one is skipped).
@@ -536,7 +537,7 @@ describe('useDownloadView', () => {
       await Promise.resolve();
     });
 
-    expect(result.current.allFoldersReady).toBe(true);
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
     // Retry only re-expanded the uncached folder.
     expect(mockExpandFolderToFiles).toHaveBeenCalledTimes(1);
     expect(mockExpandFolderToFiles).toHaveBeenCalledWith({
@@ -800,7 +801,7 @@ describe('useDownloadView', () => {
     expect(lastCall[1]).toEqual(expect.objectContaining({ items: [] }));
   });
 
-  it('surfaces isOverFileLimit and blocks dispatch AND retry when the selection exceeds the file cap', async () => {
+  it('surfaces OVER_LIMIT and blocks dispatch AND retry when the selection exceeds the file cap', async () => {
     setDataItems([folderItem]);
     mockExpandFolderToFiles.mockRejectedValueOnce(new FileLimitError());
 
@@ -809,12 +810,9 @@ describe('useDownloadView', () => {
       await Promise.resolve();
     });
 
-    expect(result.current.isOverFileLimit).toBe(true);
-    expect(result.current.isEnumerating).toBe(false);
-    // The over-limit state is distinct from an enumeration failure.
-    expect(result.current.isEnumerationError).toBe(false);
-    // The over-limit folder was never cached, so readiness stays false too.
-    expect(result.current.allFoldersReady).toBe(false);
+    // OVER_LIMIT is a distinct terminal status (not PENDING, not ERROR); the
+    // over-limit folder was never cached, so the selection is not ready either.
+    expect(result.current.enumerationStatus).toBe('OVER_LIMIT');
 
     // Start must neither dispatch (a truncated zip would be data loss) nor
     // re-trigger enumeration (retry cannot succeed for the same selection).
@@ -831,7 +829,7 @@ describe('useDownloadView', () => {
       setDataItems([fileItemA]);
       rerender();
     });
-    expect(result.current.isOverFileLimit).toBe(false);
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
   });
 
   it('applies a removal that lands while enumeration is in flight (removal is never dropped)', async () => {
@@ -846,7 +844,7 @@ describe('useDownloadView', () => {
     );
 
     const { result } = renderHook(() => useDownloadView());
-    expect(result.current.isEnumerating).toBe(true);
+    expect(result.current.enumerationStatus).toBe('PENDING');
 
     // Removal lands while enumeration is still in flight (the expanded row
     // does not exist in resolvedItems yet).
@@ -883,7 +881,7 @@ describe('useDownloadView', () => {
       await Promise.resolve();
     });
 
-    expect(result.current.isEnumerating).toBe(false);
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
     expect(mockUseAction.mock.calls.at(-1)![1]).toEqual(
       expect.objectContaining({
         items: [expect.objectContaining({ id: 'expanded-2' })],
@@ -899,7 +897,7 @@ describe('useDownloadView', () => {
     expect(result.current.hasSelection).toBe(false);
     expect(result.current.hasFilesToDownload).toBe(false);
     // vacuously ready: nothing to enumerate
-    expect(result.current.allFoldersReady).toBe(true);
+    expect(result.current.enumerationStatus).toBe('SUCCEEDED');
   });
 
   it('hasSelection stays true after the user removes every row (selection was non-empty)', () => {
