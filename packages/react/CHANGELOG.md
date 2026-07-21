@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 6.15.5
+
+### Patch Changes
+
+- [#6962](https://github.com/aws-amplify/amplify-ui/pull/6962) [`379f6c05bf36d0341de36441097ddb7984151e9c`](https://github.com/aws-amplify/amplify-ui/commit/379f6c05bf36d0341de36441097ddb7984151e9c) Thanks [@ashuvssut](https://github.com/ashuvssut)! - Fix Metro warnings by explicitly exporting dist CSS entrypoints in package.json. Added `./dist/styles.css` export aliases to prevent Metro from implicitly falling back to file-based resolution.
+
 ## 6.15.4
 
 ### Patch Changes
@@ -2533,7 +2539,6 @@ import { ConfirmSignInInput } from 'aws-amplify';
   UI: add design tokens for collection and searchfield
 
   ### Searchfield Tokens added
-
   - --amplify-components-searchfield-color
   - --amplify-components-searchfield-button-color
   - --amplify-components-searchfield-button-active-background-color
@@ -2550,7 +2555,6 @@ import { ConfirmSignInInput } from 'aws-amplify';
   - --amplify-components-searchfield-button-hover-color
 
   ### Collection tokens added
-
   - --amplify-components-collection-pagination-current-color
   - --amplify-components-collection-pagination-current-background-color
   - --amplify-components-collection-pagination-button-color
@@ -3624,7 +3628,6 @@ import { ConfirmSignInInput } from 'aws-amplify';
   Basic
 
   ## Implementation
-
   - Added 37 new React primitive components such as Button, TextField, Alert that are the building blocks to create consistency across connected components.
   - Added Theming API to allow global and component-override theming. Theme structure uses design tokens including borderWidth, colors, fonts, fontSizes, fontWeights, LineHeights, opacities and breakpoints.
   - Documentation: https://ui.docs.amplify.aws/components
@@ -3636,7 +3639,6 @@ import { ConfirmSignInInput } from 'aws-amplify';
   _See: [RFC: Authenticator@next](https://github.com/aws-amplify/amplify-ui/discussions/200)_
 
   ## Goals
-
   - **Zero-config** – The Authenticator automatically infers Amplify CLI & Admin UI settings to work out-of-the-box.
 
     Run `amplify pull` with the latest CLI whenever your backend changes, and the Authenticator automatically reflects the correct login mechanism, social providers, & more.
