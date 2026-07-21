@@ -211,7 +211,7 @@ jobs:
         run: yarn global add @aws-amplify/cli
 
       - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
@@ -230,7 +230,7 @@ jobs:
         run: yarn environments auth pull
 
       - name: Configure geo credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.GEO_E2E_ROLE_ARN }}
@@ -246,7 +246,7 @@ jobs:
         run: yarn environments geo pull
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
@@ -262,7 +262,7 @@ jobs:
         run: yarn environments storage pull
 
       - name: Configure datastore credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
@@ -278,7 +278,7 @@ jobs:
         run: yarn environments datastore pull
 
       - name: Configure liveness credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
@@ -294,7 +294,7 @@ jobs:
         run: yarn environments liveness pull
 
       - name: Configure in-app-messaging credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
@@ -313,7 +313,7 @@ jobs:
         run: yarn environments in-app-messaging pull
 
       - name: Configure ai credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-west-2
           role-to-assume: ${{ secrets.AI_E2E_ROLE_ARN }}
@@ -461,7 +461,7 @@ jobs:
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
       - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
@@ -570,7 +570,7 @@ jobs:
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
       - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
