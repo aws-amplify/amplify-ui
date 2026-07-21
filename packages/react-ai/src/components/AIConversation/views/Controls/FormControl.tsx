@@ -5,6 +5,7 @@ import type { ConversationInput } from '../../context';
 import {
   AIContextContext,
   ConversationInputContext,
+  GuardrailsContext,
   useConversationDisplayText,
 } from '../../context';
 import { AIConversationElements } from '../../context/elements';
@@ -179,6 +180,7 @@ export const FormControl: FormControl = () => {
   const responseComponents = React.useContext(ResponseComponentsContext);
   const isLoading = React.useContext(LoadingContext);
   const aiContext = React.useContext(AIContextContext);
+  const guardrails = React.useContext(GuardrailsContext);
   const ref = React.useRef<HTMLFormElement | null>(null);
   const controls = React.useContext(ControlsContext);
   const [composing, setComposing] = React.useState(false);
@@ -234,7 +236,12 @@ export const FormControl: FormControl = () => {
         aiContext: isFunction(aiContext) ? aiContext() : undefined,
         toolConfiguration:
           convertResponseComponentsToToolConfiguration(responseComponents),
-      });
+        // NOTE: guardrailConfiguration is not yet in the upstream
+        // @aws-amplify/data-schema sendMessage type. This cast is safe
+        // because the Bedrock Converse API supports guardrailConfig natively.
+        // The cast will be removed once the upstream type is updated.
+        ...(guardrails ? { guardrailConfiguration: guardrails } : {}),
+      } as Parameters<typeof handleSendMessage>[0]);
     }
 
     // Clear the attachment errors when submitting

@@ -11,6 +11,7 @@ import {
   ConversationDisplayTextProvider,
   ConversationInputContextProvider,
   FallbackComponentProvider,
+  GuardrailsProvider,
   LoadingContextProvider,
   MessageRendererProvider,
   MessagesProvider,
@@ -35,6 +36,7 @@ export const AIConversationProvider = ({
   children,
   controls,
   displayText,
+  guardrails,
   handleSendMessage,
   isLoading,
   maxAttachmentSize,
@@ -80,9 +82,13 @@ export const AIConversationProvider = ({
                                 {/* because the intent is users should update the context */}
                                 {/* without it affecting the already rendered messages */}
                                 <AIContextProvider aiContext={aiContext}>
-                                  <LoadingContextProvider isLoading={isLoading}>
-                                    {children}
-                                  </LoadingContextProvider>
+                                  <GuardrailsProvider guardrails={guardrails}>
+                                    <LoadingContextProvider
+                                      isLoading={isLoading}
+                                    >
+                                      {children}
+                                    </LoadingContextProvider>
+                                  </GuardrailsProvider>
                                 </AIContextProvider>
                               </MessagesProvider>
                             </MessageVariantProvider>
