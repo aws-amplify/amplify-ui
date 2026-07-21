@@ -62,11 +62,38 @@ const buildDownloadItems = (
       }
     }
   }
-  // Name the zip from the SELECTION (computed here, in the view — NOT in the
-  // handler) and stamp it uniformly onto every item so the zip handler can
-  // read it from `all[0].archiveName`. A single-folder selection is named
-  // after that folder; every other shape uses the common ancestor directory
-  // of the collected files (see resolveArchiveName).
+  return items;
+};
+
+/**
+ * Resolves the EFFECTIVE download set for the current selection: builds the
+ * flat item list, drops user-removed rows, then names the zip archive from
+ * the POST-removal set.
+ *
+ * The archive name is computed here, in the view — NOT in the handler — and
+ * stamped uniformly onto every item so the zip handler can read it from
+ * `all[0].archiveName`. It MUST be computed after `filterRemoved` so the name
+ * reflects the files actually being downloaded (removing rows can shift the
+ * common ancestor). A single-folder SELECTION is still named after that
+ * folder — the selection (`dataItems`) is unaffected by per-row removal, only
+ * the LCA input (file keys) is post-filter; every other shape uses the common
+ * ancestor directory of the remaining files (see resolveArchiveName).
+ */
+const resolveDownloadItems = ({
+  dataItems,
+  prefix,
+  cache,
+  removedIds,
+}: {
+  dataItems: LocationItemData[];
+  prefix: string;
+  cache: Map<string, DownloadHandlerData[]>;
+  removedIds: ReadonlySet<string>;
+}): DownloadHandlerData[] => {
+  const items = filterRemoved(
+    buildDownloadItems(dataItems, prefix, cache),
+    removedIds
+  );
   const archiveName = resolveArchiveName(
     dataItems,
     items.map((i) => i.key)
@@ -97,14 +124,19 @@ export const useDownloadView = (
   );
   // AbortController for the in-flight enumeration (cancellable pre-dispatch).
   const enumAbortRef = React.useRef<AbortController | null>(null);
-  // Tracks the last selection (dataItems/current) the sync effect ran for, so
-  // it can tell a genuine SELECTION change (which resets stale flags and the
-  // per-row removal set) apart from a re-run triggered solely by a
-  // `removedItemIds` update (which must NOT reset the removals it just applied).
+  // Tracks the last selection (id SET of dataItems + current) the sync effect
+  // ran for, so it can tell a GENUINE selection change (which resets stale
+  // flags and the per-row removal set) apart from a within-selection row
+  // removal or a re-run triggered solely by a `removedItemIds` update (which
+  // must NOT reset the removals it just applied). The id SET — not the array
+  // reference — is stored because the reducer rebuilds the `dataItems` array
+  // on a LOOSE-row removal (same selection minus a row), so identity alone
+  // can't distinguish removal from re-selection (see the subset check in the
+  // sync effect below).
   const prevSelectionRef = React.useRef<{
-    dataItems: LocationItemData[];
+    dataItemIds: ReadonlySet<string>;
     current: typeof current;
-  }>({ dataItems, current });
+  }>({ dataItemIds: new Set(dataItems.map((item) => item.id)), current });
 
   const [resolvedItems, setResolvedItems] = React.useState<
     DownloadHandlerData[]
@@ -128,8 +160,9 @@ export const useDownloadView = (
   // Stable ids of rows the user removed via `onTaskRemove`. Folder-EXPANDED
   // file rows can't be removed through the locationItems reducer (their ids
   // aren't in `dataItems`, so REMOVE_LOCATION_ITEM no-ops), so we track removals
-  // here and filter `resolvedItems` by them. Reset on an actual selection change
-  // so removals don't leak into a new selection (see the sync effect below).
+  // here and filter `resolvedItems` by them. Reset on a GENUINE selection change
+  // (a new id or location change — NOT a within-selection row removal) so
+  // removals don't leak into a new selection (see the sync effect below).
   const [removedItemIds, setRemovedItemIds] = React.useState<Set<string>>(
     () => new Set()
   );
@@ -161,35 +194,50 @@ export const useDownloadView = (
   React.useEffect(() => {
     const prefix = current?.prefix ?? '';
 
-    // Distinguish a genuine SELECTION change (identity change of dataItems or
-    // current) from a re-run triggered solely by a `removedItemIds` update.
-    // Only a real selection change should clear stale pre-dispatch flags and the
-    // per-row removal set — resetting on a `removedItemIds` change would
-    // immediately undo the removal that just triggered this effect.
-    //
-    // NOTE: the `SET_LOCATION_ITEMS` reducer builds `dataItems` via `.concat`,
-    // returning a NEW array reference even when re-selecting the SAME items, so
-    // an identity compare reads a re-select as a selection change. Consequence:
-    // re-selecting identical items while in DownloadView resets `removedItemIds`
-    // (previously-removed rows re-appear). Harmless — it only re-shows removed
-    // rows and never produces a partial dispatch (the readiness gate still holds).
-    const selectionChanged =
-      prevSelectionRef.current.dataItems !== dataItems ||
-      prevSelectionRef.current.current !== current;
-    prevSelectionRef.current = { dataItems, current };
+    // Distinguish a GENUINE selection change (new/changed selection or
+    // location change) from a within-selection row removal or a re-run
+    // triggered solely by a `removedItemIds` update. Only a real selection
+    // change should clear stale pre-dispatch flags and the per-row removal
+    // set — resetting on anything else would resurrect rows the user just
+    // removed. `dataItems` identity is NOT a reliable signal: removing a
+    // LOOSE row rebuilds the array (same selection minus a row), and the
+    // `SET_LOCATION_ITEMS` reducer `.concat`s a NEW reference even when
+    // re-selecting the SAME items. Compare by id set instead: when the new id
+    // set is a SUBSET of the previous one (no NEW id), rows were only removed
+    // (or nothing changed), so removals — which for folder-EXPANDED rows live
+    // ONLY in `removedItemIds` (the reducer no-ops for their ids) — must
+    // carry over. Only a NEW id (or a `current` change) marks a genuine
+    // selection change. Consequence vs. the previous identity compare:
+    // re-selecting the identical id set no longer resets removals, so
+    // previously-removed rows STAY removed instead of re-appearing.
+    const prev = prevSelectionRef.current;
+    const dataItemIds = new Set<string>();
+    let hasNewId = false;
+    for (const item of dataItems) {
+      dataItemIds.add(item.id);
+      if (!prev.dataItemIds.has(item.id)) {
+        hasNewId = true;
+      }
+    }
+    const selectionChanged = prev.current !== current || hasNewId;
+    prevSelectionRef.current = { dataItemIds, current };
 
-    // On a selection change no prior removals carry over; otherwise apply the
-    // current removal set. (Removing a LOOSE file also mutates dataItems, so it
-    // reads as a selection change here — harmless, since the reducer has already
-    // pruned that file from dataItems. Removing a folder-EXPANDED file no-ops in
-    // the reducer, so dataItems is unchanged and this filter is what removes it.)
+    // On a genuine selection change no prior removals carry over; otherwise
+    // apply the current removal set. (Removing a LOOSE file also mutates
+    // dataItems, but its id set stays a subset of the previous one, so it
+    // correctly does NOT read as a selection change: the reducer prunes the
+    // loose row from dataItems while `removedItemIds` keeps previously-removed
+    // folder-EXPANDED rows hidden — those no-op in the reducer, so dataItems is
+    // unchanged for them and this filter is what removes them.)
     const effectiveRemovedIds = selectionChanged ? EMPTY_SET : removedItemIds;
 
     setResolvedItems(
-      filterRemoved(
-        buildDownloadItems(dataItems, prefix, folderExpansionRef.current),
-        effectiveRemovedIds
-      )
+      resolveDownloadItems({
+        dataItems,
+        prefix,
+        cache: folderExpansionRef.current,
+        removedIds: effectiveRemovedIds,
+      })
     );
 
     if (selectionChanged) {
@@ -284,22 +332,23 @@ export const useDownloadView = (
         // avoid a setState race with the newer run.
         if (controller.signal.aborted) return;
 
-        const resolved = buildDownloadItems(
+        const resolved = resolveDownloadItems({
           dataItems,
           prefix,
-          folderExpansionRef.current
-        );
+          cache: folderExpansionRef.current,
+          // Apply any per-row removals the user made before enumeration
+          // settled (the sync effect re-filters on later removals via its
+          // removedItemIds dep, but ref-population here doesn't trigger it, so
+          // filter now too). Read through the ref for the latest value.
+          removedIds: removedItemIdsRef.current,
+        });
 
         // NOTE: `resolved` may be empty (only empty folders selected). The
         // empty folders were still cached above, so the derived enumeration
         // status flips to `'SUCCEEDED'` with `hasFilesToDownload` false — the
         // view surfaces the "no files" message from that combination. No zip
         // is started in this case (Start is disabled on an empty ready set).
-
-        // Apply any per-row removals the user made before enumeration settled
-        // (the sync effect re-filters on later removals via its removedItemIds
-        // dep, but ref-population here doesn't trigger it, so filter now too).
-        setResolvedItems(filterRemoved(resolved, removedItemIdsRef.current));
+        setResolvedItems(resolved);
         setIsEnumerating(false);
       } catch (error) {
         // Abort surfaces here too; distinguish it from real failures.

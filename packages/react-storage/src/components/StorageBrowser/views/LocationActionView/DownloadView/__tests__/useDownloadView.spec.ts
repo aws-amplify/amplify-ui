@@ -750,14 +750,19 @@ describe('useDownloadView', () => {
     );
   });
 
-  it('resets removedItemIds on a selection change (removals do not leak into a new selection)', () => {
+  it('resets removedItemIds on a genuinely new selection (removals do not leak into it)', () => {
     const { result, rerender } = renderHook(() => useDownloadView());
 
-    // remove one loose file
+    // remove one loose file; the reducer prunes it from the selection (new
+    // array reference whose id set is a SUBSET of the previous one)
     act(() => {
       result.current.onTaskRemove?.({
         data: { id: 'id-1' },
       } as Task<FileDataItem>);
+    });
+    act(() => {
+      setDataItems([fileItemB]);
+      rerender();
     });
     expect(mockUseAction.mock.calls.at(-1)![1]).toEqual(
       expect.objectContaining({
@@ -769,7 +774,8 @@ describe('useDownloadView', () => {
       })
     );
 
-    // new selection (fresh array identity) that still contains the removed id
+    // genuinely NEW selection: re-introduces id-1, which is a NEW id relative
+    // to the pruned selection, so the removal set must reset
     act(() => {
       setDataItems([fileItemA, fileItemB]);
       rerender();
@@ -787,6 +793,70 @@ describe('useDownloadView', () => {
       })
     );
     expect(result.current.hasFilesToDownload).toBe(true);
+  });
+
+  it('removing a loose file does not resurrect a previously-removed expanded row', async () => {
+    setDataItems([fileItemA, folderItem]);
+    mockExpandFolderToFiles.mockResolvedValue([
+      {
+        key: 'test-prefix/my-folder/nested.txt',
+        id: 'expanded-1',
+        fileKey: 'nested.txt',
+        relativePath: 'my-folder/nested.txt',
+        type: 'FILE',
+        size: 5,
+        lastModified: new Date(),
+      },
+      {
+        key: 'test-prefix/my-folder/other.txt',
+        id: 'expanded-2',
+        fileKey: 'other.txt',
+        relativePath: 'my-folder/other.txt',
+        type: 'FILE',
+        size: 7,
+        lastModified: new Date(),
+      },
+    ] as never);
+
+    const { result, rerender } = renderHook(() => useDownloadView());
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    // remove expanded row X (lives ONLY in removedItemIds — reducer no-ops)
+    act(() => {
+      result.current.onTaskRemove?.({
+        data: { id: 'expanded-1' },
+      } as Task<FileDataItem>);
+    });
+    expect(mockUseAction.mock.calls.at(-1)![1]).toEqual(
+      expect.objectContaining({
+        items: [
+          expect.objectContaining({ key: 'test-prefix/test-file.txt' }),
+          expect.objectContaining({ id: 'expanded-2' }),
+        ],
+      })
+    );
+
+    // remove loose file Y: the reducer prunes it, changing the dataItems
+    // reference — the new id set is a SUBSET of the previous one (pure
+    // removal), so removedItemIds must NOT reset
+    act(() => {
+      result.current.onTaskRemove?.({
+        data: { id: 'id-1' },
+      } as Task<FileDataItem>);
+    });
+    act(() => {
+      setDataItems([folderItem]);
+      rerender();
+    });
+
+    // X must NOT reappear; Y is gone too
+    expect(mockUseAction.mock.calls.at(-1)![1]).toEqual(
+      expect.objectContaining({
+        items: [expect.objectContaining({ id: 'expanded-2' })],
+      })
+    );
   });
 
   it('provides empty items to `useAction` when dataItems is undefined', () => {
@@ -920,6 +990,40 @@ describe('useDownloadView', () => {
 
     expect(result.current.hasSelection).toBe(true);
     expect(result.current.hasFilesToDownload).toBe(false);
+  });
+
+  it('names the archive from the post-removal set (removing rows shifts the common ancestor)', () => {
+    const { result } = renderHook(() => useDownloadView());
+
+    // pre-removal: the common ancestor of both files is 'test-prefix'
+    expect(mockUseAction.mock.calls.at(-1)![1]).toEqual(
+      expect.objectContaining({
+        items: [
+          expect.objectContaining({ archiveName: 'test-prefix' }),
+          expect.objectContaining({ archiveName: 'test-prefix' }),
+        ],
+      })
+    );
+
+    // removing the shallow file leaves only the deeply-nested one; the
+    // archive name must be computed AFTER filtering, so it reflects the
+    // actual download set (common ancestor shifts to 'deeply-nested')
+    act(() => {
+      result.current.onTaskRemove?.({
+        data: { id: 'id-1' },
+      } as Task<FileDataItem>);
+    });
+
+    expect(mockUseAction.mock.calls.at(-1)![1]).toEqual(
+      expect.objectContaining({
+        items: [
+          expect.objectContaining({
+            key: 'test-prefix/deeply-nested/test-file.txt',
+            archiveName: 'deeply-nested',
+          }),
+        ],
+      })
+    );
   });
 
   it('names the archive after the selected folder for a single-folder selection', async () => {
