@@ -36,3 +36,6 @@ yarn-error.log*
 # amplify
 **/.amplify
 **/amplifyconfiguration*
+
+# generated download service worker (copied by predev/prebuild copy-serviceworker)
+public/amplify-storage-download/

@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "predev": "node ../../packages/react-storage/bin/copy-serviceworker.js public || true",
     "dev": "next dev",
+    "prebuild": "node ../../packages/react-storage/bin/copy-serviceworker.js public || true",
     "build": "next build",
     "clean": "rimraf node_modules .next",
     "start": "next start",
