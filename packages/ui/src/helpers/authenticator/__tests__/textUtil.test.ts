@@ -338,4 +338,36 @@ describe('getDeliveryMessageText locale punctuation (#6966)', () => {
     expect(result.endsWith('Arrives soon.')).toBe(true);
     expect(result.endsWith('..')).toBe(false);
   });
+
+  it('does not append a terminator when an override already ends with an ellipsis (no.2)', () => {
+    I18n.putVocabulariesForLanguage('en', {
+      'It may take a minute to arrive': 'Might take a minute or two…',
+    });
+
+    const result = authenticatorTextUtil.getDeliveryMessageText(emailDetails);
+    expect(result.endsWith('Might take a minute or two…')).toBe(true);
+    expect(result.endsWith('….')).toBe(false);
+  });
+
+  it('does not append a terminator when an override already ends with a colon (no.2)', () => {
+    I18n.putVocabulariesForLanguage('en', {
+      'It may take a minute to arrive': 'Enter this code:',
+    });
+
+    const result = authenticatorTextUtil.getDeliveryMessageText(emailDetails);
+    expect(result.endsWith('Enter this code:')).toBe(true);
+    expect(result.endsWith(':.')).toBe(false);
+  });
+
+  it('keeps the ASCII period when a Latin instruction override contains a CJK proper noun (no.1)', () => {
+    I18n.putVocabulariesForLanguage('en', {
+      'Your code is on the way. To log in, enter the code we emailed to':
+        'Enter the code sent by 東京 team to',
+    });
+
+    const result = authenticatorTextUtil.getDeliveryMessageText(emailDetails);
+    // Copy stays majority-Latin, so the ASCII period is kept, never `。`.
+    expect(result).toContain('user@example.com.');
+    expect(result).not.toContain('user@example.com。');
+  });
 });

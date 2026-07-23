@@ -7,6 +7,10 @@ import type {
 import { translate, DefaultTexts } from '../../i18n';
 import type { AuthenticatorRoute } from './facade';
 import { defaultTexts } from '../../i18n/dictionaries';
+import {
+  getSentenceSpacer,
+  terminateSentence,
+} from '../../i18n/sentencePunctuation';
 
 /**
  * ConfirmSignIn
@@ -23,36 +27,6 @@ const getChallengeText = (challengeName?: ChallengeName): string => {
       return translate(DefaultTexts.CONFIRM_MFA_DEFAULT);
   }
 };
-
-// #6966: the delivery message is assembled from translated fragments joined by
-// punctuation. Hardcoding an ASCII period is wrong for locales whose sentence
-// terminator differs — Japanese/Chinese use the ideographic full stop `。` and
-// Thai uses none. The terminator is derived from the script of the surrounding
-// translated copy, so punctuation stays locale-correct without adding any
-// translation key, interpolation, or public API.
-const CJK_CHARACTER =
-  /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]/;
-const THAI_CHARACTER = /[\u0e00-\u0e7f]/;
-const TERMINAL_PUNCTUATION = /[.!?。！？]$/;
-
-// Appends the script-appropriate sentence terminator to `sentence`, unless it
-// already ends with terminal punctuation (e.g. a customer vocabulary override).
-const terminateSentence = (sentence: string): string => {
-  if (TERMINAL_PUNCTUATION.test(sentence)) {
-    return sentence;
-  }
-  if (CJK_CHARACTER.test(sentence)) {
-    return `${sentence}。`;
-  }
-  if (THAI_CHARACTER.test(sentence)) {
-    return sentence;
-  }
-  return `${sentence}.`;
-};
-
-// CJK scripts do not separate sentences with a space; other scripts do.
-const getSentenceSpacer = (sentence: string): string =>
-  CJK_CHARACTER.test(sentence) ? '' : ' ';
 
 /**
  * ConfirmSignUp
