@@ -54,10 +54,12 @@ jobs:
             build-tool-version: latest
             pkg-manager: npm
             node-version: 24
+          # Angular 20 is the floor of the @aws-amplify/ui-angular peer range.
+          # Angular 19 reached end of life on 2026-05-19.
           - framework: angular
-            framework-version: 19
+            framework-version: 20
             build-tool: angular-cli
-            build-tool-version: 19
+            build-tool-version: 20
             pkg-manager: npm
             node-version: 24
 
