@@ -2,12 +2,11 @@
 import { StorageBrowser } from '../storage-browser'; // IGNORE
 
 import React from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { StorageBrowserEventValue } from '@aws-amplify/ui-react-storage/browser';
 
 export default function Page() {
-  const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
 
@@ -18,9 +17,18 @@ export default function Page() {
       const nextParams = new URLSearchParams();
       nextParams.set('value', JSON.stringify(nextValue));
 
-      router.push(`${pathname}?${nextParams.toString()}`);
+      // `history.pushState` is used instead of `router.push` because the update
+      // is a search param change only. `router.push` triggers an RSC round trip
+      // that the App Router can silently discard while prefetch requests for the
+      // route are still in flight, leaving `value` on its previous state with no
+      // error and no retry.
+      window.history.pushState(
+        null,
+        '',
+        `${pathname}?${nextParams.toString()}`
+      );
     },
-    [pathname, router]
+    [pathname]
   );
 
   return (
