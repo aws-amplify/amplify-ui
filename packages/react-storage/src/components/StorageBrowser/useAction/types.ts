@@ -68,7 +68,9 @@ export interface UseHandlerOptions<TTask extends Task>
   extends Pick<
     ProcessTasksOptions<TTask>,
     'onTaskError' | 'onTaskProgress' | 'onTaskSuccess'
-  > {}
+  > {
+  concurrency?: number;
+}
 
 export interface UseHandlerOptionsWithItems<TTask extends Task>
   extends UseHandlerOptions<TTask> {

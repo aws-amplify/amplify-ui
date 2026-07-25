@@ -1,4 +1,9 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  ChangeDetectionStrategy,
+  inject,
+} from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   FormFieldsArray,
@@ -27,7 +32,7 @@ export class ConfirmSignUpComponent {
 
   public sortedFormFields: FormFieldsArray;
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;

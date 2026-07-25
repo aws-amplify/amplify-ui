@@ -3,6 +3,7 @@ import {
   HostBinding,
   OnInit,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import {
   FormFieldsArray,
@@ -31,7 +32,7 @@ export class ConfirmSignInComponent implements OnInit {
   public backToSignInText = getBackToSignInText();
   public sortedFormFields: FormFieldsArray;
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;

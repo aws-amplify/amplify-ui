@@ -3,6 +3,7 @@ import {
   HostBinding,
   OnInit,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import QRCode from 'qrcode';
 import { ConsoleLogger as Logger } from 'aws-amplify/utils';
@@ -44,7 +45,7 @@ export class SetupTotpComponent implements OnInit {
   public confirmText = getConfirmText();
   public sortedFormFields: FormFieldsArray;
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;

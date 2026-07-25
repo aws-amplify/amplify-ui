@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewEncapsulation,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import {
   getActorState,
@@ -40,7 +41,7 @@ export class VerifyUserComponent implements OnInit {
   public skipText = getSkipText();
   public verifyText = getVerifyText();
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;

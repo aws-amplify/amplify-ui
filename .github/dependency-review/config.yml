@@ -59,3 +59,10 @@ allow-dependencies-licenses:
   - 'pkg:npm/%2540img/sharp-win32-ia32'
   - 'pkg:npm/%2540img/sharp-win32-x64'
   - 'pkg:npm/unicode-match-property-value-ecmascript@2.2.1'
+  # rollup-plugin-dts is LGPL-3.0-only build-time tooling pulled in transitively
+  # by ng-packagr@20 (it bundles the Angular library's .d.ts files during build).
+  # It is pure build-time dev tooling — nothing from it ships to customers,
+  # so no copyleft obligation attaches to the published package.
+  # (GitHub's scanner over-reports it as GPL because the LGPL-3.0 license file
+  # embeds the GPL-3.0 text.)
+  - 'pkg:npm/rollup-plugin-dts'

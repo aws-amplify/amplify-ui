@@ -26,4 +26,10 @@ export const DEFAULT_DOWNLOAD_VIEW_DISPLAY_TEXT: DefaultDownloadViewDisplayText 
       };
     },
     tableColumnProgressHeader: 'Progress',
+    enumeratingMessage: 'Listing folder contents…',
+    enumerationErrorMessage:
+      'Failed to list folder contents. Click Download to try again.',
+    noFilesMessage: 'The selected folders contain no files to download.',
+    tooManyFilesMessage:
+      'The selection exceeds the maximum of 5000 files for a single download. Download folders in smaller batches.',
   };

@@ -62,6 +62,7 @@ exports[`SelectMfaType renders as expected  1`] = `
               
               <input
                 aria-invalid="false"
+                checked=""
                 class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                 data-amplify-input=""
                 data-amplify-selectmfatype-input=""

@@ -10,6 +10,7 @@ import {
   QueryList,
   TemplateRef,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import {
   AuthenticatorMachineOptions,
@@ -56,11 +57,9 @@ export class AuthenticatorComponent
   private unsubscribeMachine: () => void;
   private clearUserAgent: () => void;
 
-  constructor(
-    private authenticator: AuthenticatorService,
-    private contextService: CustomComponentsService,
-    private changeDetector: ChangeDetectorRef
-  ) {}
+  private authenticator = inject(AuthenticatorService);
+  private contextService = inject(CustomComponentsService);
+  private changeDetector = inject(ChangeDetectorRef);
 
   // context passed to "authenticated" slot
   public get context(): AuthenticatorService['slotContext'] {

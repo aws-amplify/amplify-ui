@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
-interface PropsInterface {
+export interface PropsInterface {
   type?: 'submit' | 'button';
   fullWidth?: boolean | string;
   size?: 'small' | 'medium' | 'large';

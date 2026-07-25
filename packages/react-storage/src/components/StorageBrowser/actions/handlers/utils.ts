@@ -1,6 +1,7 @@
 import type { TransferProgressEvent } from 'aws-amplify/storage';
 import type { LocationAccess as AccessGrantLocation } from '../../storage-internal';
 
+import type { DownloadHandlerData } from './download';
 import { MULTIPART_UPLOAD_THRESHOLD_BYTES } from './constants';
 import type {
   ActionInputConfig,
@@ -254,6 +255,32 @@ export const createFileDataItem = (data: FileData): FileDataItem => ({
   ...data,
   fileKey: getFileKey(data.key),
 });
+
+/**
+ * Builds a download item ({@link DownloadHandlerData}) from a {@link FileData}
+ * plus the current browse-location prefix `P`.
+ *
+ * `relativePath = key.slice(P.length)` yields a zip entry path relative to the
+ * selected folder's *parent* (e.g. selecting `photos/` produces entries like
+ * `photos/vacation/beach.jpg`). This keeps each top-level folder name as a
+ * namespace, avoiding collisions across multiple selected folders. For loose
+ * files at the current prefix it reduces to the basename.
+ */
+export const createDownloadItem = (
+  data: FileData,
+  locationPrefix: string
+): DownloadHandlerData => {
+  // Assumes `locationPrefix` is '' or ends in '/' (StorageBrowser convention),
+  // so the slice yields a clean folder-relative path with no leading segment.
+  // Defensive: strip a single leading '/' so a prefix NOT ending in '/' can
+  // never yield a leading-slash (absolute) zip entry path.
+  const sliced = data.key.slice(locationPrefix.length);
+  return {
+    ...data,
+    fileKey: getFileKey(data.key),
+    relativePath: sliced.startsWith('/') ? sliced.slice(1) : sliced,
+  };
+};
 
 export const isFileItem = (value: unknown): value is FileItem =>
   !!(value as FileItem).file;

@@ -32,6 +32,8 @@ module.exports = defineConfig([
     '**/coverage',
     '**/dist',
     '**/node_modules',
+    '**/service-worker',
+    '**/bin',
   ]),
   {
     extends: compat.extends('@aws-amplify/amplify-ui/jest'),
