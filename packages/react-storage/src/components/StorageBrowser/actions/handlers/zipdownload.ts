@@ -209,7 +209,10 @@ const download = async (
 ) => {
   const { customEndpoint, credentials, accountId } = config;
   const { key } = data;
-  const filename = key.split('/').pop()!;
+  // Prefer the folder-relative path (set during folder expansion) so nested
+  // files keep their structure inside the zip; fall back to the bare basename
+  // for loose files / legacy inputs that don't carry a relativePath.
+  const filename = data.relativePath ?? key.split('/').pop()!;
 
   await state.swReady;
   if (state.cancelled) {
@@ -375,7 +378,10 @@ export const zipDownloadHandler: DownloadHandler = ({
 }) => {
   const { key } = data;
   const firstKey = all[0]?.key ?? key;
-  const folder = getFolderName(firstKey);
+  // The view computes the batch zip name (last segment of the common ancestor
+  // dir of all files) and stamps it onto every item. Prefer it; fall back to
+  // the legacy first-key parent-folder heuristic when it's absent.
+  const folder = all[0]?.archiveName ?? getFolderName(firstKey);
   const batchKey = getBatchKey(all);
 
   const existingBatch = batchMap.get(batchKey);
