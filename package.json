@@ -137,7 +137,8 @@
     "**/@angular-devkit/build-angular/http-proxy-middleware": "3.0.7",
     "**/@angular-devkit/build-angular/piscina": "4.9.3",
     "**/@angular/build/piscina": "4.9.3",
-    "**/pacote/sigstore": "^4.1.1"
+    "**/pacote/sigstore": "^4.1.1",
+    "**/@modelcontextprotocol/sdk/@hono/node-server": "^2.0.5"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
