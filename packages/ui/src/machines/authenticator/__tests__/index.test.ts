@@ -486,27 +486,33 @@ describe('authenticator', () => {
     });
   });
 
-  // @todo-migration
-  //    - Expected  - 1
-  //   + Received  + 1
-
-  //   Object {
-  // -   "signOut": "runActor",
-  // +   "setup": "initConfig",
-  //   }
-  it.skip('should spawn the signOutActor', async () => {
+  it('should spawn the signOutActor and return to getConfig after setup', async () => {
     service = interpret(
-      createAuthenticatorMachine().withConfig({
-        actions: {
-          setUser: jest.fn(() => Promise.resolve),
-          configure: jest.fn(() => Promise.resolve),
-          setHasSetup: jest.fn(() => Promise.resolve),
-        },
-        services: {
-          getCurrentUser: jest.fn(async () => Promise.resolve),
-        },
-        guards: {},
-      })
+      createAuthenticatorMachine()
+        .withContext({
+          config: {},
+          services: {
+            getAmplifyConfig: () =>
+              Promise.resolve({}) as ReturnType<
+                (typeof defaultServices)['getAmplifyConfig']
+              >,
+          },
+        })
+        .withConfig({
+          actions: {
+            clearUser: jest.fn(() => Promise.resolve),
+            clearActorDoneData: jest.fn(() => Promise.resolve),
+            applyAmplifyConfig: jest.fn(() => Promise.resolve),
+            setUser: jest.fn(() => Promise.resolve),
+            spawnSignOutActor: jest.fn(() => Promise.resolve),
+            stopSignOutActor: jest.fn(() => Promise.resolve),
+            configure: jest.fn(() => Promise.resolve),
+          },
+          services: {
+            handleGetCurrentUser: jest.fn(async () => Promise.resolve),
+          },
+          guards: { hasUser: () => true },
+        })
     );
 
     service.start();
@@ -514,23 +520,72 @@ describe('authenticator', () => {
     expect(service.getSnapshot().value).toStrictEqual('idle');
 
     await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({ setup: 'initConfig' });
+
+    service.send({ type: 'INIT' });
+    await flushPromises();
     expect(service.getSnapshot().value).toStrictEqual({
       authenticated: 'idle',
     });
 
-    service.send({
-      type: 'SIGN_OUT',
-    });
+    service.send({ type: 'SIGN_OUT' });
     await flushPromises();
-    expect(service.getSnapshot().value).toStrictEqual({
-      signOut: 'runActor',
-    });
+    expect(service.getSnapshot().value).toStrictEqual({ signOut: 'runActor' });
 
-    service.send({
-      type: 'done.invoke.signOutActor',
-    });
+    // `setHasSetup` is not mocked, so `INIT` has already been handled and there
+    // is no need to wait for the UI to send it a second time
+    service.send({ type: 'done.invoke.signOutActor' });
+    expect(service.getSnapshot().value).toStrictEqual({ setup: 'getConfig' });
+  });
+
+  it('should wait for INIT after signing out before the UI has initialized the machine', async () => {
+    service = interpret(
+      createAuthenticatorMachine()
+        .withContext({
+          config: { initialState: 'signUp' },
+          services: {
+            getCurrentUser: () => Promise.reject(),
+            getAmplifyConfig: () =>
+              Promise.resolve({}) as ReturnType<
+                (typeof defaultServices)['getAmplifyConfig']
+              >,
+          },
+        })
+        .withConfig({
+          actions: {
+            clearUser: jest.fn(() => Promise.resolve),
+            clearActorDoneData: jest.fn(() => Promise.resolve),
+            setUser: jest.fn(() => Promise.resolve),
+            spawnSignUpActor: jest.fn(() => Promise.resolve),
+            spawnSignInActor: jest.fn(() => Promise.resolve),
+            spawnSignOutActor: jest.fn(() => Promise.resolve),
+            stopSignOutActor: jest.fn(() => Promise.resolve),
+            configure: jest.fn(() => Promise.resolve),
+            setHasSetup: jest.fn(() => Promise.resolve),
+          },
+        })
+    );
+
+    service.start();
 
     await flushPromises();
     expect(service.getSnapshot().value).toStrictEqual({ setup: 'initConfig' });
+
+    // external `signOut` calls are forwarded to the machine as `SIGN_OUT` by the
+    // Hub listener, which can happen before the UI has sent `INIT`
+    service.send({ type: 'SIGN_OUT' });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({ signOut: 'runActor' });
+
+    service.send({ type: 'done.invoke.signOutActor' });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({ setup: 'initConfig' });
+
+    // UI provided `config` is applied rather than ignored
+    service.send({ type: 'INIT' });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({
+      signUpActor: 'runActor',
+    });
   });
 });

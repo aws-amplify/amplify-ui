@@ -301,10 +301,20 @@ export function createAuthenticatorMachine(
             },
           },
           on: {
-            'done.invoke.signOutActor': {
-              actions: 'clearUser',
-              target: 'setup.getConfig',
-            },
+            'done.invoke.signOutActor': [
+              // `SIGN_OUT` can be handled before the UI has sent `INIT`, in which case
+              // `setup.getConfig` would run without the UI provided `config` and `services`.
+              // Return to `setup.initConfig` to wait for `INIT` instead.
+              {
+                actions: 'clearUser',
+                cond: 'shouldSetup',
+                target: 'setup',
+              },
+              {
+                actions: 'clearUser',
+                target: 'setup.getConfig',
+              },
+            ],
           },
         },
       },
