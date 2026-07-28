@@ -82,7 +82,7 @@ describe('getServiceContextFacade', () => {
           socialProviders: ['amazon'],
         },
       },
-    } as AuthMachineState;
+    } as unknown as AuthMachineState;
     const facade = getServiceContextFacade(state);
 
     expect(facade.authStatus).toBe('unauthenticated');
@@ -101,7 +101,7 @@ describe('getServiceContextFacade', () => {
           socialProviders: ['amazon'],
         },
       },
-    } as AuthMachineState;
+    } as unknown as AuthMachineState;
     const facade = getServiceContextFacade(state);
 
     expect(facade.route).toBe('transition');
@@ -120,7 +120,7 @@ describe('getServiceContextFacade', () => {
           socialProviders: ['amazon'],
         },
       },
-    } as AuthMachineState;
+    } as unknown as AuthMachineState;
     const facade = getServiceContextFacade(state);
 
     expect(facade.route).toBe('setupTotp');
@@ -139,7 +139,7 @@ describe('getServiceContextFacade', () => {
         context: {
           user: undefined,
         },
-      } as AuthMachineState;
+      } as unknown as AuthMachineState;
       const facade = getServiceContextFacade(state);
 
       expect(facade.authStatus).toBe('configuring');
@@ -160,7 +160,7 @@ describe('getServiceContextFacade', () => {
           socialProviders: ['amazon'],
         },
       },
-    } as AuthMachineState;
+    } as unknown as AuthMachineState;
     const facade = getServiceContextFacade(state);
 
     expect(facade.authStatus).toBe('authenticated');
@@ -194,7 +194,7 @@ describe('getServiceContextFacade', () => {
           socialProviders: ['amazon'],
         },
       },
-    } as AuthMachineState;
+    } as unknown as AuthMachineState;
     const facade = getServiceContextFacade(state);
 
     expect(facade.authStatus).toBe('unauthenticated');

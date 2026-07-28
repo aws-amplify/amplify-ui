@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.6.8
+
+### Patch Changes
+
+- [#7069](https://github.com/aws-amplify/amplify-ui/pull/7069) [`daa76aec4ffe2c0ed8cd381c54e4e95feff8097c`](https://github.com/aws-amplify/amplify-ui/commit/daa76aec4ffe2c0ed8cd381c54e4e95feff8097c) Thanks [@pranavosu](https://github.com/pranavosu)! - Widen `@aws-sdk/client-rekognitionstreaming` to `^3.974.0` and `@aws-sdk/util-format-url` to `^3.972.37`. The previous exact pin on `3.967.0` transitively pinned `@aws-sdk/core@3.967.0` -> `@aws-sdk/xml-builder@3.965.0` -> `fast-xml-parser@5.2.5`, which consumers could not override without a forced resolution and which triggers scanner findings for CVE-2026-26278 and CVE-2026-25896. From `3.974.0` onward the SDK ranges its own `@aws-sdk/core` dependency, which resolves to a `@aws-sdk/xml-builder` that no longer depends on `fast-xml-parser` at all, and future SDK patches now flow through without another pin bump.
+
+- [#6962](https://github.com/aws-amplify/amplify-ui/pull/6962) [`379f6c05bf36d0341de36441097ddb7984151e9c`](https://github.com/aws-amplify/amplify-ui/commit/379f6c05bf36d0341de36441097ddb7984151e9c) Thanks [@ashuvssut](https://github.com/ashuvssut)! - Fix Metro warnings by explicitly exporting dist CSS entrypoints in package.json. Added `./dist/styles.css` export aliases to prevent Metro from implicitly falling back to file-based resolution.
+
+- Updated dependencies [[`21fa602576b12fa59c0101b52eff8551d778352e`](https://github.com/aws-amplify/amplify-ui/commit/21fa602576b12fa59c0101b52eff8551d778352e), [`379f6c05bf36d0341de36441097ddb7984151e9c`](https://github.com/aws-amplify/amplify-ui/commit/379f6c05bf36d0341de36441097ddb7984151e9c)]:
+  - @aws-amplify/ui@6.15.5
+  - @aws-amplify/ui-react@6.15.5
+
 ## 3.6.7
 
 ### Patch Changes

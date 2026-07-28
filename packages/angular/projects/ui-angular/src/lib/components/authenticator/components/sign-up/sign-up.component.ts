@@ -1,4 +1,9 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  ChangeDetectionStrategy,
+  inject,
+} from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getFormDataFromEvent, authenticatorTextUtil } from '@aws-amplify/ui';
 
@@ -16,7 +21,7 @@ export class SignUpComponent {
   // translated texts
   public createAccountText = getCreateAccountText();
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;

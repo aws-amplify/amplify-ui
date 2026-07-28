@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import {
   FormFieldComponents,
@@ -26,7 +27,7 @@ export class BaseFormFieldsComponent implements OnInit {
   @HostBinding('style.display') display = 'contents';
   public formFields: FormFieldsArray = [];
 
-  constructor(private authenticator: AuthenticatorService) {}
+  private authenticator = inject(AuthenticatorService);
 
   ngOnInit(): void {
     const state = this.authenticator.authState;

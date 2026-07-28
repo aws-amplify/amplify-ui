@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Amplify } from 'aws-amplify';
 
@@ -73,7 +73,9 @@ export class CustomSlotsComponent {
       },
     },
   };
-  constructor(public authenticator: AuthenticatorService) {
+  authenticator = inject(AuthenticatorService);
+
+  constructor() {
     Amplify.configure(awsExports);
   }
 }

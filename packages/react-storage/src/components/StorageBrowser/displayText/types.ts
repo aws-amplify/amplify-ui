@@ -183,6 +183,27 @@ export interface DefaultDeleteViewDisplayText
 export interface DefaultDownloadViewDisplayText
   extends DefaultActionViewDisplayText<DownloadHandlerData> {
   tableColumnProgressHeader: string;
+  /**
+   * Shown while folder selections are being expanded into their files (the
+   * pre-dispatch enumeration phase).
+   */
+  enumeratingMessage: string;
+  /**
+   * Shown when the pre-dispatch folder enumeration failed. Doubles as a retry
+   * hint since clicking Start re-fires enumeration for the uncached folders.
+   */
+  enumerationErrorMessage: string;
+  /**
+   * Shown when enumeration completed but produced zero downloadable files
+   * (e.g. only empty folders were selected).
+   */
+  noFilesMessage: string;
+  /**
+   * Shown when the selection exceeds the maximum file count for a single
+   * download. The download is blocked in this state; no truncated zip is
+   * produced.
+   */
+  tooManyFilesMessage: string;
 }
 
 export interface DefaultUploadViewDisplayText

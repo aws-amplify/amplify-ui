@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useServiceWorkerRegistration } from '../service-worker/useServiceWorkerRegistration';
 import { useViews } from '../views';
 import { useStore } from '../store';
 
@@ -10,6 +11,7 @@ import { useStore } from '../store';
  * - render `ActionView` on action selection
  */
 export default function StorageBrowserDefault(): React.JSX.Element {
+  useServiceWorkerRegistration();
   const { primary } = useViews();
   const { LocationActionView, LocationDetailView, LocationsView } = primary;
 

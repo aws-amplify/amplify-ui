@@ -9670,6 +9670,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
       "errorMessage": {
         "type": "string",
       },
+      "exportparts": {
+        "type": "string",
+      },
       "flex": {
         "type": "string",
       },
@@ -9902,6 +9905,9 @@ exports[`primitive catalog should match primitives catalog snapshot 1`] = `
         "type": "string",
       },
       "paddingTop": {
+        "type": "string",
+      },
+      "part": {
         "type": "string",
       },
       "pattern": {

@@ -3,6 +3,7 @@ import {
   HostBinding,
   Input,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getFormDataFromEvent, authenticatorTextUtil } from '@aws-amplify/ui';
@@ -24,7 +25,7 @@ export class ForceNewPasswordComponent {
   public changePasswordText = getChangePasswordText();
   public backToSignInText = getBackToSignInText();
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;

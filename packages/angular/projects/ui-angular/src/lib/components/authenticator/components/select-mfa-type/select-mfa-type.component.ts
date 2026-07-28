@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  inject,
+} from '@angular/core';
 import {
   getActorContext,
   getFormDataFromEvent,
@@ -35,7 +40,7 @@ export class SelectMfaTypeComponent implements OnInit {
   public classNames = classNames;
   public ComponentClassName = ComponentClassName;
 
-  constructor(public authenticator: AuthenticatorService) {}
+  authenticator = inject(AuthenticatorService);
 
   public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;

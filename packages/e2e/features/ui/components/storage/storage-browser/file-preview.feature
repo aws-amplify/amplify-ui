@@ -66,6 +66,7 @@ Feature: File Preview with Storage Browser
     Then I see "File Preview"
     Then I see "File Information"
     Then I see an error message for network failure
+    When A network failure occurs after a delay
     When I click the button with label "Retry loading 001_dont_delete_text_file_preview_end_to_end_testing.txt file"
     Then I see the File preview Loader
     When I click the "Close" button

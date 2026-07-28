@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Amplify } from 'aws-amplify';
 
@@ -12,7 +12,9 @@ import awsExports from './aws-exports';
   templateUrl: 'auth-status.component.html',
 })
 export class AuthStatusComponent {
-  constructor(public authenticator: AuthenticatorService) {
+  authenticator = inject(AuthenticatorService);
+
+  constructor() {
     Amplify.configure(awsExports);
   }
 

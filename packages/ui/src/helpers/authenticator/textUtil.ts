@@ -7,6 +7,10 @@ import type {
 import { translate, DefaultTexts } from '../../i18n';
 import type { AuthenticatorRoute } from './facade';
 import { defaultTexts } from '../../i18n/dictionaries';
+import {
+  getSentenceSpacer,
+  terminateSentence,
+} from '../../i18n/sentencePunctuation';
 
 /**
  * ConfirmSignIn
@@ -35,16 +39,22 @@ const getDeliveryMessageText = (
   const isTextMessage = DeliveryMedium === 'SMS';
 
   const arrivalMessage = translate(DefaultTexts.CODE_ARRIVAL);
+  const spacer = getSentenceSpacer(arrivalMessage);
 
   if (!(isEmailMessage || isTextMessage)) {
-    return `${translate(DefaultTexts.CODE_SENT)}. ${arrivalMessage}.`;
+    const sentMessage = translate(DefaultTexts.CODE_SENT);
+    return `${terminateSentence(sentMessage)}${spacer}${terminateSentence(
+      arrivalMessage
+    )}`;
   }
 
   const instructionMessage = isEmailMessage
     ? translate(DefaultTexts.CODE_EMAILED)
     : translate(DefaultTexts.CODE_TEXTED);
 
-  return `${instructionMessage} ${Destination}. ${arrivalMessage}.`;
+  return `${terminateSentence(
+    `${instructionMessage} ${Destination}`
+  )}${spacer}${terminateSentence(arrivalMessage)}`;
 };
 
 const getDeliveryMethodText = (

@@ -72,7 +72,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
               aria-label="country code"
               name="country_code"
               :options="dialCodeList!"
-              :select-value="dialCode"
+              :select-value="dialCode!"
             >
             </base-select>
             <base-wrapper

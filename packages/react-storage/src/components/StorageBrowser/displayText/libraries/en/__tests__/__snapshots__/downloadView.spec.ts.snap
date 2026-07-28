@@ -55,7 +55,10 @@ exports[`DownloadView display text values should match snapshot values 1`] = `
   "actionDestinationLabel": "Destination",
   "actionExitLabel": "Exit",
   "actionStartLabel": "Download",
+  "enumeratingMessage": "Listing folder contents…",
+  "enumerationErrorMessage": "Failed to list folder contents. Click Download to try again.",
   "getActionCompleteMessage": [Function],
+  "noFilesMessage": "The selected folders contain no files to download.",
   "statusDisplayCanceledLabel": "Canceled",
   "statusDisplayCompletedLabel": "Completed",
   "statusDisplayFailedLabel": "Failed",
@@ -72,5 +75,6 @@ exports[`DownloadView display text values should match snapshot values 1`] = `
   "tableColumnStatusHeader": "Status",
   "tableColumnTypeHeader": "Type",
   "title": "Download",
+  "tooManyFilesMessage": "The selection exceeds the maximum of 5000 files for a single download. Download folders in smaller batches.",
 }
 `;
