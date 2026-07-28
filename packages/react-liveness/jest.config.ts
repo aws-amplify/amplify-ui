@@ -26,6 +26,12 @@ const config: Config = {
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    // `@aws-sdk/core` >= 3.974 maps its `./client` submodule `browser` condition
+    // to an ESM-only build that jest cannot parse. Resolve `node` first so the
+    // CJS build is used, matching how these tests resolved the SDK previously.
+    customExportConditions: ['node'],
+  },
 };
 
 export default config;
