@@ -1,5 +1,12 @@
 # @aws-amplify/ui-svelte
 
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies [[`21fa602576b12fa59c0101b52eff8551d778352e`](https://github.com/aws-amplify/amplify-ui/commit/21fa602576b12fa59c0101b52eff8551d778352e)]:
+  - @aws-amplify/ui@6.15.5
+
 ## 1.1.4
 
 ### Patch Changes
