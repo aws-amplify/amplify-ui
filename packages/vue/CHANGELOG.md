@@ -1,5 +1,12 @@
 # @aws-amplify/ui-vue
 
+## 4.4.5
+
+### Patch Changes
+
+- Updated dependencies [[`21fa602576b12fa59c0101b52eff8551d778352e`](https://github.com/aws-amplify/amplify-ui/commit/21fa602576b12fa59c0101b52eff8551d778352e)]:
+  - @aws-amplify/ui@6.15.5
+
 ## 4.4.4
 
 ### Patch Changes
@@ -1391,7 +1398,6 @@
   _See: [RFC: Authenticator@next](https://github.com/aws-amplify/amplify-ui/discussions/200)_
 
   ## Goals
-
   - **Zero-config** – The Authenticator automatically infers Amplify CLI & Admin UI settings to work out-of-the-box.
 
     Run `amplify pull` with the latest CLI whenever your backend changes, and the Authenticator automatically reflects the correct login mechanism, social providers, & more.
