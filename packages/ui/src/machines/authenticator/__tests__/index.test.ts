@@ -11,6 +11,16 @@ const flushPromises = () => new Promise(setImmediate);
 
 let service;
 
+// `configure` replaces `services` with the values sent on `INIT`, so overrides
+// have to be provided on the event as well as the initial context
+const mockServices = {
+  getCurrentUser: () => Promise.reject(),
+  getAmplifyConfig: () =>
+    Promise.resolve({}) as ReturnType<
+      (typeof defaultServices)['getAmplifyConfig']
+    >,
+};
+
 describe('authenticator', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -538,19 +548,10 @@ describe('authenticator', () => {
     expect(service.getSnapshot().value).toStrictEqual({ setup: 'getConfig' });
   });
 
-  it('should wait for INIT after signing out before the UI has initialized the machine', async () => {
+  it('should accept INIT after signing out before the UI has initialized the machine', async () => {
     service = interpret(
       createAuthenticatorMachine()
-        .withContext({
-          config: { initialState: 'signUp' },
-          services: {
-            getCurrentUser: () => Promise.reject(),
-            getAmplifyConfig: () =>
-              Promise.resolve({}) as ReturnType<
-                (typeof defaultServices)['getAmplifyConfig']
-              >,
-          },
-        })
+        .withContext({ config: {}, services: mockServices })
         .withConfig({
           actions: {
             clearUser: jest.fn(() => Promise.resolve),
@@ -560,8 +561,6 @@ describe('authenticator', () => {
             spawnSignInActor: jest.fn(() => Promise.resolve),
             spawnSignOutActor: jest.fn(() => Promise.resolve),
             stopSignOutActor: jest.fn(() => Promise.resolve),
-            configure: jest.fn(() => Promise.resolve),
-            setHasSetup: jest.fn(() => Promise.resolve),
           },
         })
     );
@@ -577,15 +576,56 @@ describe('authenticator', () => {
     await flushPromises();
     expect(service.getSnapshot().value).toStrictEqual({ signOut: 'runActor' });
 
+    // headless usage relies on reaching `signIn` without the UI sending `INIT`
     service.send({ type: 'done.invoke.signOutActor' });
     await flushPromises();
-    expect(service.getSnapshot().value).toStrictEqual({ setup: 'initConfig' });
+    expect(service.getSnapshot().value).toStrictEqual({
+      signInActor: 'runActor',
+    });
+    expect(service.getSnapshot().context.hasInitialized).toBeUndefined();
 
-    // UI provided `config` is applied rather than ignored
-    service.send({ type: 'INIT' });
+    // a UI rendered after the sign out can still apply its `config`
+    service.send({
+      type: 'INIT',
+      data: { initialState: 'signUp', services: mockServices },
+    });
     await flushPromises();
     expect(service.getSnapshot().value).toStrictEqual({
       signUpActor: 'runActor',
+    });
+    expect(service.getSnapshot().context.config.initialState).toBe('signUp');
+  });
+
+  it('should ignore INIT once the UI has initialized the machine', async () => {
+    service = interpret(
+      createAuthenticatorMachine()
+        .withContext({ config: {}, services: mockServices })
+        .withConfig({
+          actions: {
+            clearActorDoneData: jest.fn(() => Promise.resolve),
+            setUser: jest.fn(() => Promise.resolve),
+            spawnSignUpActor: jest.fn(() => Promise.resolve),
+            spawnSignInActor: jest.fn(() => Promise.resolve),
+          },
+        })
+    );
+
+    service.start();
+
+    await flushPromises();
+    service.send({ type: 'INIT', data: { services: mockServices } });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({
+      signInActor: 'runActor',
+    });
+
+    service.send({
+      type: 'INIT',
+      data: { initialState: 'signUp', services: mockServices },
+    });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({
+      signInActor: 'runActor',
     });
   });
 });
