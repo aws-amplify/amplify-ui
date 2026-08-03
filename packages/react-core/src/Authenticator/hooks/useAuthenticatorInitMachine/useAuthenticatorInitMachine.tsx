@@ -14,7 +14,11 @@ export default function useAuthenticatorInitMachine(
 
   const hasInitialized = React.useRef(false);
   React.useEffect(() => {
-    if (!hasInitialized.current && route === 'setup') {
+    // `setup` is the usual route on first render, but signing out before the
+    // `Authenticator` is rendered moves the machine past setup on its own. Send
+    // `INIT` on any route other than `idle`, which resolves the current user
+    // before the machine can accept it.
+    if (!hasInitialized.current && route !== 'idle') {
       initializeMachine(data);
 
       hasInitialized.current = true;
