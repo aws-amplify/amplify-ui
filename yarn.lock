@@ -9030,10 +9030,10 @@
   resolved "https://registry.yarnpkg.com/@sveltejs/adapter-auto/-/adapter-auto-6.1.1.tgz#f5bc5abce8b9c9e806f3e1a33c3ffceda9272bbe"
   integrity sha512-cBNt4jgH4KuaNO5gRSB2CZKkGtz+OCZ8lPjRQGjhvVUD4akotnj2weUia6imLl2v07K3IgsQRyM36909miSwoQ==
 
-"@sveltejs/kit@^2.60.1":
-  version "2.65.1"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-2.65.1.tgz#7b68122825b7ef8057415c4af8ed13257a674de3"
-  integrity sha512-Sa1rFYYqBB+zv3rIxAg/CsFskR/x4aj5BY/hvLxBd9r/mqbipxM945As1K3PqsDicJAyekPR0BlWoVIiw2OHYg==
+"@sveltejs/kit@^2.69.1":
+  version "2.70.2"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-2.70.2.tgz#83ae10cb3597d223b45e3f168fef4e3ea7b61104"
+  integrity sha512-RzRoRpuR2KXqc5yMO0akQHDZeT4AslOlznGITURsqHaVbtyYP4Wn3eE3gxj9JcDyNYO0crkxhdwFHc+2vkVm6w==
   dependencies:
     "@standard-schema/spec" "^1.0.0"
     "@sveltejs/acorn-typescript" "^1.0.9"
