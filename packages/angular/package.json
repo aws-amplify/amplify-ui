@@ -25,7 +25,7 @@
     "@angular/common": "^20.3.26",
     "@angular/compiler": "^20.3.26",
     "@angular/compiler-cli": "^20.3.26",
-    "@angular/core": "^20.3.26",
+    "@angular/core": "^20.3.27",
     "@angular/forms": "^20.3.26",
     "@angular/platform-browser": "^20.3.26",
     "@angular/platform-browser-dynamic": "^20.3.26",
