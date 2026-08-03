@@ -309,6 +309,14 @@ export function createAuthenticatorMachine(
         },
       },
       on: {
+        // `SIGN_OUT` handled by `setup.initConfig` moves the machine past setup without
+        // the UI ever sending `INIT`, leaving it configured with defaults. Accept `INIT`
+        // late so a subsequently rendered UI can still apply its `config` and `services`.
+        INIT: {
+          cond: 'shouldInitialize',
+          actions: 'configure',
+          target: '#authenticator.setup.getConfig',
+        },
         SIGN_IN_WITH_REDIRECT: { target: '#authenticator.getCurrentUser' },
         CHANGE: { actions: 'forwardToActor' },
         BLUR: { actions: 'forwardToActor' },
@@ -424,6 +432,7 @@ export function createAuthenticatorMachine(
           return {
             services: { ...defaultServices, ...customServices },
             config,
+            hasInitialized: true,
           };
         }),
         setHasSetup: assign({ hasSetup: true }),
@@ -435,6 +444,10 @@ export function createAuthenticatorMachine(
         isInitialStateResetPassword: ({ config }) =>
           config.initialState === 'forgotPassword',
         shouldSetup: ({ hasSetup }) => !hasSetup,
+        // `hasSetup` prevents the late `INIT` from interrupting `idle`, which must
+        // resolve `handleGetCurrentUser` before the machine leaves it
+        shouldInitialize: ({ hasSetup, hasInitialized }) =>
+          hasSetup && !hasInitialized,
         hasUser: ({ user }) => {
           return !!user;
         },

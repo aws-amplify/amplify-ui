@@ -165,6 +165,8 @@ export interface AuthContext {
   // data returned from actors when they finish and reach their final state
   actorDoneData?: ActorDoneData;
   hasSetup?: boolean;
+  // whether the UI has sent `INIT`, applying its `config` and `services`
+  hasInitialized?: boolean;
   passwordlessCapabilities?: PasswordlessCapabilities;
 }
 
