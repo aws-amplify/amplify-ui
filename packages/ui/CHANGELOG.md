@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 6.15.5
+
+### Patch Changes
+
+- [#7055](https://github.com/aws-amplify/amplify-ui/pull/7055) [`21fa602576b12fa59c0101b52eff8551d778352e`](https://github.com/aws-amplify/amplify-ui/commit/21fa602576b12fa59c0101b52eff8551d778352e) Thanks [@ahmedhamouda78](https://github.com/ahmedhamouda78)! - fix(ui): render locale-correct punctuation in Authenticator delivery messages (i18n)
+
+  `getDeliveryMessageText` joined the translated delivery-message fragments with a
+  hardcoded ASCII period, producing incorrect punctuation for locales whose
+  sentence terminator differs — e.g. Japanese and Chinese (which use the
+  ideographic full stop `。`) and Thai (which uses none). The terminator is now
+  derived from the script of the surrounding translated copy, so each locale
+  renders its own punctuation.
+
+  This is an internal change with no public API impact: no translation keys are
+  added or changed, the `translate()` signature is unchanged, existing customer
+  vocabulary overrides on the documented keys keep working, and English output is
+  byte-identical. Fixes #6966.
+
 ## 6.15.4
 
 ### Patch Changes
@@ -1803,7 +1821,6 @@
   UI: add design tokens for collection and searchfield
 
   ### Searchfield Tokens added
-
   - --amplify-components-searchfield-color
   - --amplify-components-searchfield-button-color
   - --amplify-components-searchfield-button-active-background-color
@@ -1820,7 +1837,6 @@
   - --amplify-components-searchfield-button-hover-color
 
   ### Collection tokens added
-
   - --amplify-components-collection-pagination-current-color
   - --amplify-components-collection-pagination-current-background-color
   - --amplify-components-collection-pagination-button-color
@@ -2371,7 +2387,6 @@
   Basic
 
   ## Implementation
-
   - Added 37 new React primitive components such as Button, TextField, Alert that are the building blocks to create consistency across connected components.
   - Added Theming API to allow global and component-override theming. Theme structure uses design tokens including borderWidth, colors, fonts, fontSizes, fontWeights, LineHeights, opacities and breakpoints.
   - Documentation: https://ui.docs.amplify.aws/components
@@ -2383,7 +2398,6 @@
   _See: [RFC: Authenticator@next](https://github.com/aws-amplify/amplify-ui/discussions/200)_
 
   ## Goals
-
   - **Zero-config** – The Authenticator automatically infers Amplify CLI & Admin UI settings to work out-of-the-box.
 
     Run `amplify pull` with the latest CLI whenever your backend changes, and the Authenticator automatically reflects the correct login mechanism, social providers, & more.
