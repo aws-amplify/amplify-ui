@@ -1,4 +1,4 @@
-import { Link, Routes, Route, useLocation } from 'react-router-dom';
+import { Link, Routes, Route, useLocation } from 'react-router';
 import { Flex, Heading } from '@aws-amplify/ui-react';
 
 import SBExamples from './storage-browser';

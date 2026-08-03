@@ -12,6 +12,12 @@ jobs:
   adjust_labels:
     runs-on: ubuntu-latest
 
+    # `issue_comment` fires for pull request comments as well. The triage labels
+    # managed here are only applied to issues, and only cleaned up by the `issues`
+    # events in label-new-issues.yml and issue-closed.yml, which never fire for
+    # pull requests.
+    if: ${{ !github.event.issue.pull_request }}
+
     permissions:
       issues: write
 
@@ -22,7 +28,7 @@ jobs:
 
     steps:
       - name: Remove pending-community-response when new community comment received
-        if: ${{ !contains(fromJSON('["MEMBER", "OWNER"]'), github.event.comment.author_association) && !github.event.issue.pull_request }}
+        if: ${{ !contains(fromJSON('["MEMBER", "OWNER"]'), github.event.comment.author_association) }}
         shell: bash
         run: |
           gh issue edit $ISSUE_NUMBER --repo $REPOSITORY_NAME --remove-label "pending-community-response"
