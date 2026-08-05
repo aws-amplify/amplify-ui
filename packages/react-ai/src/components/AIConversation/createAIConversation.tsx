@@ -22,6 +22,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
     allowAttachments,
     messageRenderer,
     FallbackResponseComponent,
+    guardrails,
   } = input;
 
   function AIConversation(props: AIConversationProps): React.JSX.Element {
@@ -40,6 +41,7 @@ export function createAIConversation(input: AIConversationInput = {}): {
       isLoading,
       messageRenderer,
       FallbackResponseComponent,
+      guardrails,
     };
     return (
       <AIConversationProvider {...providerProps}>

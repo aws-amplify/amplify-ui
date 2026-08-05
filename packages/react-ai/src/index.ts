@@ -9,6 +9,7 @@ export { createAIHooks } from './hooks';
 export type {
   ConversationMessage,
   ConversationMessageContent,
+  GuardrailConfiguration,
   SendMessage,
   SendMesageParameters,
 } from './types';

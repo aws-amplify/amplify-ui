@@ -1,4 +1,5 @@
 export { AIContextContext, AIContextProvider } from './AIContextContext';
+export { GuardrailsContext, GuardrailsProvider } from './GuardrailsContext';
 export { ActionsContext, ActionsProvider } from './ActionsContext';
 export { AvatarsContext, AvatarsProvider } from './AvatarsContext';
 export type {
