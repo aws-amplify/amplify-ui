@@ -41,10 +41,15 @@ jobs:
             build-tool-version: 13
             pkg-manager: npm
             node-version: 24
+          # Vite 6 is the lowest Vite major still supported upstream; v5 and
+          # below are end-of-life (see https://vite.dev/releases). Vite 3's
+          # default build target pinned `safari13`, which predates BigInt and
+          # broke esbuild on Amplify's native BigInt literals; v4+ default to a
+          # BigInt-capable target, so no build.target override is needed.
           - framework: react
             framework-version: 18
             build-tool: vite
-            build-tool-version: 3
+            build-tool-version: 6
             pkg-manager: npm
             node-version: 24
 
@@ -75,10 +80,12 @@ jobs:
             build-tool-version: latest
             pkg-manager: npm
             node-version: 24
+          # Vite 6 is the lowest Vite major still supported upstream
+          # (v5 and below are EOL: https://vite.dev/releases).
           - framework: vue
             framework-version: 3
             build-tool: vite
-            build-tool-version: 3
+            build-tool-version: 6
             pkg-manager: npm
             node-version: 24
           - framework: vue
