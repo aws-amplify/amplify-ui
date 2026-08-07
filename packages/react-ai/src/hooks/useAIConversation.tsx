@@ -35,6 +35,14 @@ interface AIConversationState {
 // initialized: the hook has successfully gotten a conversation and is ready to rock
 const INITIALIZE_REF = ['initial', 'initialLoading', 'initialized'] as const;
 
+// Synthetic ids used for the messages optimistically added by
+// `handleSendMessage` before the backend assigns real ids. The streamed
+// assistant events carry the real message id, so the first event of a turn
+// won't match by id; we use this to swap the placeholder in place instead of
+// appending a second (empty) assistant bubble.
+const OPTIMISTIC_USER_MESSAGE_ID = 'temp-id';
+const OPTIMISTIC_ASSISTANT_MESSAGE_ID = 'temp-id-2';
+
 function hasStarted(state: (typeof INITIALIZE_REF)[number]) {
   return ['initialLoading', 'initialized'].includes(state);
 }
@@ -250,17 +258,27 @@ export function createUseAIConversation<
               isLoading: true,
             };
 
-            // Match by message ID instead of assuming last message
+            // Match by real message ID (handles out-of-order / duplicate
+            // events for a message we've already started rendering). On the
+            // first event of a turn there is no match yet, so fall back to the
+            // optimistic assistant placeholder added by handleSendMessage;
+            // replacing it in place avoids leaving an empty assistant bubble.
             const existingIndex = prev.data.messages.findIndex(
               (m) => m.id === id
             );
+            const targetIndex =
+              existingIndex >= 0
+                ? existingIndex
+                : prev.data.messages.findIndex(
+                    (m) => m.id === OPTIMISTIC_ASSISTANT_MESSAGE_ID
+                  );
 
             const updatedMessages =
-              existingIndex >= 0
+              targetIndex >= 0
                 ? [
-                    ...prev.data.messages.slice(0, existingIndex),
+                    ...prev.data.messages.slice(0, targetIndex),
                     message,
-                    ...prev.data.messages.slice(existingIndex + 1),
+                    ...prev.data.messages.slice(targetIndex + 1),
                   ]
                 : [...prev.data.messages, message];
 
@@ -311,14 +329,14 @@ export function createUseAIConversation<
                   content,
                   role: 'user',
                   createdAt: new Date().toISOString(),
-                  id: 'temp-id',
+                  id: OPTIMISTIC_USER_MESSAGE_ID,
                   conversationId: conversation.id ?? '',
                 },
                 {
                   content: [{ text: ' ' }],
                   role: 'assistant',
                   createdAt: new Date().toISOString(),
-                  id: 'temp-id-2',
+                  id: OPTIMISTIC_ASSISTANT_MESSAGE_ID,
                   conversationId: conversation.id ?? '',
                   isLoading: true,
                 },
