@@ -272,4 +272,59 @@ describe('useAIConverstion', () => {
       expect(text).toBe('ABC');
     });
   });
+
+  // Regression test for https://github.com/aws-amplify/amplify-ui/issues/7105
+  // The streamed assistant events carry the real message id, which never
+  // matches the optimistic 'temp-id-2' placeholder added by sendMessage. In
+  // 1.5.1 that caused the placeholder to be left behind, rendering an empty
+  // assistant bubble alongside the real streamed one.
+  it('replaces the optimistic assistant placeholder instead of leaving an empty bubble', async () => {
+    const client = new mockClient();
+    const { useAIConversation } = createAIHooks(client);
+    const { result } = renderHook(() => useAIConversation('pirateChat'));
+
+    await waitFor(() => {
+      expect(result.current[0].data.conversation).toBeDefined();
+    });
+
+    act(() => {
+      result.current[1]({ content: [{ text: 'hello' }] });
+    });
+
+    // optimistic user + assistant placeholder
+    await waitFor(() => {
+      expect(result.current[0].data.messages).toHaveLength(2);
+    });
+
+    // real streaming events for the assistant turn (real id, not 'temp-id-2')
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        id: '123',
+        conversationId: id,
+        contentBlockIndex: 0,
+        contentBlockDeltaIndex: 0,
+        text: 'Hello ',
+      });
+    });
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      _next({
+        id: '123',
+        conversationId: id,
+        contentBlockIndex: 0,
+        contentBlockDeltaIndex: 1,
+        text: 'world',
+      });
+    });
+
+    await waitFor(() => {
+      const { messages } = result.current[0].data;
+      const assistantMessages = messages.filter((m) => m.role === 'assistant');
+      // exactly one assistant bubble, containing the streamed content
+      expect(assistantMessages).toHaveLength(1);
+      expect(assistantMessages[0].id).toBe('123');
+      expect(assistantMessages[0].content[0].text).toBe('Hello world');
+    });
+  });
 });
