@@ -1,5 +1,5 @@
 import { StorageBrowser } from '../storage-browser'; // import first, not included in docs example
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import { StorageBrowserEventValue } from '@aws-amplify/ui-react-storage/browser';
 

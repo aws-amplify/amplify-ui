@@ -98,6 +98,7 @@
     "**/@graphql-codegen/**/lodash": "^4.18.1",
     "**/relay-compiler/**/immutable": "^4.0.0",
     "**/next/postcss": "^8.5.10",
+    "**/next/sharp": "^0.35.0",
     "**/@cucumber/**/uuid": "^11.1.1",
     "**/@aws-amplify/**/fast-xml-builder": "^1.1.7",
     "**/@opentelemetry/core": "^2.8.0",
@@ -136,8 +137,10 @@
     "**/serve/ajv": "^6.14.0",
     "**/@angular-devkit/build-angular/http-proxy-middleware": "3.0.7",
     "**/@angular-devkit/build-angular/piscina": "4.9.3",
+    "**/@angular-devkit/build-angular/postcss": "^8.5.18",
     "**/@angular/build/piscina": "4.9.3",
-    "**/pacote/sigstore": "^4.1.1"
+    "**/pacote/sigstore": "^4.1.1",
+    "**/@modelcontextprotocol/sdk/@hono/node-server": "^2.0.5"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.7.0",
