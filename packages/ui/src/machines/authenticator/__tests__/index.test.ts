@@ -628,4 +628,97 @@ describe('authenticator', () => {
       signInActor: 'runActor',
     });
   });
+
+  it('should handle SIGN_OUT while resolving the current user in idle', async () => {
+    let resolveUser!: (user: unknown) => void;
+    service = interpret(
+      createAuthenticatorMachine()
+        .withContext({
+          config: {},
+          services: {
+            getCurrentUser: () =>
+              new Promise((resolve) => {
+                resolveUser = resolve;
+              }),
+            getAmplifyConfig: () =>
+              Promise.resolve({}) as ReturnType<
+                (typeof defaultServices)['getAmplifyConfig']
+              >,
+          },
+        })
+        .withConfig({
+          actions: {
+            clearActorDoneData: jest.fn(() => Promise.resolve),
+            spawnSignInActor: jest.fn(() => Promise.resolve),
+            spawnSignOutActor: jest.fn(() => Promise.resolve),
+          },
+        })
+    );
+
+    service.start();
+    expect(service.getSnapshot().value).toStrictEqual('idle');
+
+    // a sign out during `idle` is forwarded to the machine as `SIGN_OUT` by the
+    // Hub listener while `handleGetCurrentUser` is still in flight
+    service.send({ type: 'SIGN_OUT' });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({ signOut: 'runActor' });
+
+    // exiting `idle` cancels the invoke, the stale user is not applied
+    resolveUser({ username: 'stale-user' });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({ signOut: 'runActor' });
+
+    service.send({ type: 'done.invoke.signOutActor' });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({
+      signInActor: 'runActor',
+    });
+    expect(service.getSnapshot().context.user).toBeUndefined();
+  });
+
+  it('should handle SIGN_OUT in the getCurrentUser state', async () => {
+    let calls = 0;
+    service = interpret(
+      createAuthenticatorMachine()
+        .withContext({
+          config: {},
+          services: {
+            getCurrentUser: () => {
+              calls += 1;
+              // reject in `idle`, then hang in `getCurrentUser`
+              return calls === 1 ? Promise.reject() : new Promise(() => {});
+            },
+            getAmplifyConfig: () =>
+              Promise.resolve({}) as ReturnType<
+                (typeof defaultServices)['getAmplifyConfig']
+              >,
+          },
+        })
+        .withConfig({
+          actions: {
+            clearActorDoneData: jest.fn(() => Promise.resolve),
+            spawnSignInActor: jest.fn(() => Promise.resolve),
+            spawnSignOutActor: jest.fn(() => Promise.resolve),
+          },
+        })
+    );
+
+    service.start();
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({ setup: 'initConfig' });
+
+    service.send({ type: 'SIGN_IN_WITH_REDIRECT' });
+    expect(service.getSnapshot().value).toStrictEqual('getCurrentUser');
+
+    service.send({ type: 'SIGN_OUT' });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({ signOut: 'runActor' });
+
+    service.send({ type: 'done.invoke.signOutActor' });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({
+      signInActor: 'runActor',
+    });
+  });
 });
