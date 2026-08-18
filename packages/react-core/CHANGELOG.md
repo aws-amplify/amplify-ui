@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-core
 
+## 3.6.6
+
+### Patch Changes
+
+- [#7083](https://github.com/aws-amplify/amplify-ui/pull/7083) [`733fd63bab9befbdbe1b00b2d7f61c4eb91d42ea`](https://github.com/aws-amplify/amplify-ui/commit/733fd63bab9befbdbe1b00b2d7f61c4eb91d42ea) Thanks [@vishwakt](https://github.com/vishwakt)! - fix(authenticator): apply UI provided `config` and `services` when signing out before the Authenticator is rendered
+
+  `setup.initConfig` handles `SIGN_OUT`, so signing out before the UI sends `INIT` moved the machine past setup configured with defaults, and it settled on `signIn`. `useAuthenticatorInitMachine` only sent `INIT` on the `setup` route, so every prop passed to the `Authenticator` was ignored. The machine now accepts `INIT` until the UI has configured it, and the UI sends `INIT` on any route other than `idle`.
+
+- Updated dependencies [[`733fd63bab9befbdbe1b00b2d7f61c4eb91d42ea`](https://github.com/aws-amplify/amplify-ui/commit/733fd63bab9befbdbe1b00b2d7f61c4eb91d42ea), [`d1f6570056abb7e1aa116f7da81df18ef687b129`](https://github.com/aws-amplify/amplify-ui/commit/d1f6570056abb7e1aa116f7da81df18ef687b129)]:
+  - @aws-amplify/ui@6.15.6
+
 ## 3.6.5
 
 ### Patch Changes

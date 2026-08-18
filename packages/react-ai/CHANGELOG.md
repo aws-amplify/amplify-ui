@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react-ai
 
+## 1.5.2
+
+### Patch Changes
+
+- [#7106](https://github.com/aws-amplify/amplify-ui/pull/7106) [`3c6ebf68afa7c93918813a8c0ed5130c044c5d1b`](https://github.com/aws-amplify/amplify-ui/commit/3c6ebf68afa7c93918813a8c0ed5130c044c5d1b) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(ai): stop rendering an empty assistant bubble before the streamed response
+
+  `handleSendMessage` optimistically appends an assistant placeholder with the synthetic id `temp-id-2`. In 1.5.1 the stream handler began matching the streamed message by its real id, which never equals `temp-id-2`, so the first stream event appended a second assistant message instead of replacing the placeholder — leaving an empty bubble beside the real reply. When no message matches the streamed id, the handler now replaces the optimistic placeholder in place, while preserving the by-id matching that handles out-of-order and duplicate stream events.
+
+- Updated dependencies [[`733fd63bab9befbdbe1b00b2d7f61c4eb91d42ea`](https://github.com/aws-amplify/amplify-ui/commit/733fd63bab9befbdbe1b00b2d7f61c4eb91d42ea), [`d1f6570056abb7e1aa116f7da81df18ef687b129`](https://github.com/aws-amplify/amplify-ui/commit/d1f6570056abb7e1aa116f7da81df18ef687b129)]:
+  - @aws-amplify/ui-react-core@3.6.6
+  - @aws-amplify/ui@6.15.6
+  - @aws-amplify/ui-react@6.15.6
+
 ## 1.5.1
 
 ### Patch Changes
