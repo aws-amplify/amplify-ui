@@ -38,7 +38,7 @@ describe('useAuthenticatorInitMachine', () => {
     expect(initializeMachine).toHaveBeenCalledTimes(1);
   });
 
-  it('does not call initializeMachine when the route !== "setup"', () => {
+  it('does not call initializeMachine when the route === "idle"', () => {
     const route = 'idle';
     const data = {};
 
@@ -50,6 +50,22 @@ describe('useAuthenticatorInitMachine', () => {
     renderHook(() => useAuthenticatorInitMachine(data));
 
     expect(initializeMachine).toHaveBeenCalledTimes(0);
+  });
+
+  // the machine moves past `setup` on its own when signed out before the
+  // `Authenticator` is rendered, it accepts `INIT` until it has been configured
+  it('calls initializeMachine when the route is past "setup"', () => {
+    const route = 'signIn';
+    const data = {};
+
+    (useAuthenticator as jest.Mock).mockReturnValue({
+      initializeMachine,
+      route,
+    } as unknown as UseAuthenticator);
+
+    renderHook(() => useAuthenticatorInitMachine(data));
+
+    expect(initializeMachine).toHaveBeenCalledTimes(1);
   });
 });
 
