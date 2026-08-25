@@ -236,6 +236,11 @@ const download = async (
     mode: 'cors',
     signal: state.batchAbort.signal,
   });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to download ${key}: ${response.status} ${response.statusText}`
+    );
+  }
   if (!response.body) throw new Error(`Empty response body for ${key}`);
   const size = data.size ?? +(response.headers.get('content-length') ?? 0);
   let transferred = 0;

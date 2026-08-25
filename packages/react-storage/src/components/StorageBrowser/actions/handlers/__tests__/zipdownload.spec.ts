@@ -137,6 +137,9 @@ describe('zipDownloadHandler', () => {
     mockGetUrl.mockResolvedValue({ expiresAt, url });
 
     globalThis.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
       headers: { get: (h: string) => (h === 'content-length' ? '100' : null) },
       body: new ReadableStream({
         start(ctrl) {
@@ -227,6 +230,55 @@ describe('zipDownloadHandler', () => {
       message: error.message,
       status: 'FAILED',
     });
+  });
+
+  it('marks a non-ok response (e.g. 403 Glacier) FAILED without blocking the rest of the batch', async () => {
+    // S3 returns 403 for a GLACIER/DEEP_ARCHIVE object that has not been
+    // restored. `fetch` resolves (does not reject) with a non-ok response, so
+    // without a `response.ok` guard the error body would be zipped as file
+    // content and the task would settle COMPLETE.
+    (globalThis.fetch as jest.Mock)
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        headers: { get: () => null },
+        body: new ReadableStream({
+          start(ctrl) {
+            ctrl.close();
+          },
+        }),
+      })
+      .mockResolvedValue({
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        headers: {
+          get: (h: string) => (h === 'content-length' ? '100' : null),
+        },
+        body: new ReadableStream({
+          start(ctrl) {
+            ctrl.enqueue(new Uint8Array(100));
+            ctrl.close();
+          },
+        }),
+      });
+
+    const file1 = { id: 'g1', key: 'prefix/archived', fileKey: 'archived' };
+    const file2 = { id: 'g2', key: 'prefix/available', fileKey: 'available' };
+    const all = [file1, file2];
+    const base = createBaseInput();
+
+    const r1 = zipDownloadHandler({ ...base, data: file1, all });
+    expect(await r1.result).toEqual({
+      status: 'FAILED',
+      message: 'Failed to download prefix/archived: 403 Forbidden',
+      error: expect.any(Error),
+    });
+
+    // The failing file did not cancel the batch — file 2 downloads normally.
+    const r2 = zipDownloadHandler({ ...base, data: file2, all });
+    expect(await r2.result).toEqual({ status: 'COMPLETE' });
   });
 
   it('posts stream to service worker and triggers download', async () => {
