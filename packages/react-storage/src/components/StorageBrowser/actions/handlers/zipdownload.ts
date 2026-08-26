@@ -237,6 +237,8 @@ const download = async (
     signal: state.batchAbort.signal,
   });
   if (!response.ok) {
+    // Release the connection — the error body (S3 error XML) is never consumed.
+    response.body?.cancel().catch(() => {});
     throw new Error(
       `Failed to download ${key}: ${response.status} ${response.statusText}`
     );
