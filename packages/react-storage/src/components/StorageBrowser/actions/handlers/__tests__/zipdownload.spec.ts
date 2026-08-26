@@ -276,9 +276,77 @@ describe('zipDownloadHandler', () => {
       error: expect.any(Error),
     });
 
-    // The failing file did not cancel the batch — file 2 downloads normally.
+    // The `!response.ok` throw fires before `zipWriter.add`, so the 403 body
+    // must never become a zip entry — assert that directly, not via the status.
+    expect(mockAddedFilenames).not.toContain('archived');
+
+    // The failure did not cancel the batch — file 2 downloads normally.
     const r2 = zipDownloadHandler({ ...base, data: file2, all });
     expect(await r2.result).toEqual({ status: 'COMPLETE' });
+
+    expect(mockAddedFilenames).toEqual(['available']);
+  });
+
+  it('does not abort the batch when a file fails in-flight (concurrent dispatch)', async () => {
+    // Production dispatches with `concurrency: 1` (the sequential test above).
+    // Here both files are in flight at once, so a regression that aborted the
+    // shared `batchAbort` on a per-file failure would cancel the sibling —
+    // surfacing CANCELED instead of COMPLETE, which the sequential test can't see.
+    (globalThis.fetch as jest.Mock)
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        headers: { get: () => null },
+        body: new ReadableStream({
+          start(ctrl) {
+            ctrl.close();
+          },
+        }),
+      })
+      .mockResolvedValue({
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        headers: {
+          get: (h: string) => (h === 'content-length' ? '100' : null),
+        },
+        body: new ReadableStream({
+          start(ctrl) {
+            ctrl.enqueue(new Uint8Array(100));
+            ctrl.close();
+          },
+        }),
+      });
+
+    const file1 = { id: 'c1', key: 'prefix/archived', fileKey: 'archived' };
+    const file2 = { id: 'c2', key: 'prefix/available', fileKey: 'available' };
+    const all = [file1, file2];
+    const base = createBaseInput();
+
+    const r1 = zipDownloadHandler({ ...base, data: file1, all });
+    const onProgress = jest.fn();
+    const r2 = zipDownloadHandler({
+      ...base,
+      data: file2,
+      all,
+      options: { onProgress },
+    });
+    const [result1, result2] = await Promise.all([r1.result, r2.result]);
+
+    expect(result1).toEqual({
+      status: 'FAILED',
+      message: 'Failed to download prefix/archived: 403 Forbidden',
+      error: expect.any(Error),
+    });
+    expect(result2).toEqual({ status: 'COMPLETE' });
+
+    expect(mockAddedFilenames).not.toContain('archived');
+    expect(mockAddedFilenames).toEqual(['available']);
+    // The sibling's bytes actually flowed into its entry, not just a COMPLETE
+    // status: onProgress only reaches 'COMPLETE' after the response body is fully
+    // read and enqueued toward the zip writer.
+    expect(onProgress).toHaveBeenCalledWith(file2, 1, 'COMPLETE');
   });
 
   it('posts stream to service worker and triggers download', async () => {
