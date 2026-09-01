@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-storage
 
+## 3.18.2
+
+### Patch Changes
+
+- [#7115](https://github.com/aws-amplify/amplify-ui/pull/7115) [`31c1f1c734f28d941a400a5116a03e03f42aec3f`](https://github.com/aws-amplify/amplify-ui/commit/31c1f1c734f28d941a400a5116a03e03f42aec3f) Thanks [@mwellmn](https://github.com/mwellmn)! - fix(storage): surface non-OK responses (e.g. 403 Glacier) as errors during multi-file download instead of writing the error response body into the zip
+
 ## 3.18.1
 
 ### Patch Changes
