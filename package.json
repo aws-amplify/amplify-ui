@@ -79,6 +79,7 @@
     "@babel/core": "^7.22.0",
     "@babel/preset-env": "^7.22.0",
     "cookie": "^0.7.0",
+    "**/estimo/nanoid": "^5.1.11",
     "decode-uri-component": "^0.5.0",
     "diff": "^8.0.3",
     "json5": "^2.2.1",
