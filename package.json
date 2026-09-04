@@ -79,6 +79,8 @@
     "@babel/core": "^7.22.0",
     "@babel/preset-env": "^7.22.0",
     "cookie": "^0.7.0",
+    "toml": "^4.2.0",
+    "stream-json": "^3.5.0",
     "fast-uri": "^3.1.6",
     "browserslist": "^4.28.7",
     "**/estimo/nanoid": "^5.1.11",
