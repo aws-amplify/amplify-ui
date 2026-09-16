@@ -25,6 +25,16 @@ export default defineConfig({
 
       Object.assign(config.env, process.env);
 
+      // @badeball/cypress-cucumber-preprocessor v28 filters specs using the
+      // lowercase `tags` env key, but CI supplies the tag expression via the
+      // uppercase `TAGS` variable. Map it across only when a lowercase `tags`
+      // was not explicitly supplied via the environment, so an explicit
+      // `tags` still wins while CI's `TAGS` overrides the `not @skip` default
+      // below.
+      if (config.env.TAGS && process.env.tags === undefined) {
+        config.env.tags = config.env.TAGS;
+      }
+
       return config;
     },
   },

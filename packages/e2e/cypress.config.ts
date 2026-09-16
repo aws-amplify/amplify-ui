@@ -21,6 +21,15 @@ export default defineConfig({
 
       Object.assign(config.env, process.env);
 
+      // @badeball/cypress-cucumber-preprocessor v28 filters specs using the
+      // lowercase `tags` env key, but CI supplies the tag expression via the
+      // uppercase `TAGS` variable. Map it across only when a lowercase `tags`
+      // was not explicitly supplied, so a direct/local `tags` still takes
+      // precedence.
+      if (config.env.TAGS && process.env.tags === undefined) {
+        config.env.tags = config.env.TAGS;
+      }
+
       // This is a chrome launch option which enables fake videos and WebGL for CI
       on('before:browser:launch', (browser, launchOptions) => {
         launchOptions.args.push(
