@@ -12,20 +12,28 @@ export default defineConfig({
     baseUrl: 'http://localhost:3000/',
     specPattern: 'features/**/*.feature',
     async setupNodeEvents(on, config) {
-      // Ingest process env and map the tag expression BEFORE the plugin call.
-      // addCucumberPreprocessorPlugin reads `config.env.tags` synchronously
-      // during its own initialization to filter `specPattern`; anything set
-      // after `await addCucumberPreprocessorPlugin(on, config)` arrives too
-      // late and leaves filtering inert.
+      // Ingest process env BEFORE the plugin call. addCucumberPreprocessorPlugin
+      // reads the tag expression synchronously during its own initialization to
+      // filter `specPattern`; anything set after
+      // `await addCucumberPreprocessorPlugin(on, config)` arrives too late and
+      // leaves filtering inert.
       Object.assign(config.env, process.env);
 
-      // @badeball/cypress-cucumber-preprocessor v28 filters specs using the
-      // lowercase `tags` env key, but CI supplies the tag expression via the
-      // uppercase `TAGS` variable. Map it across only when a lowercase `tags`
-      // was not explicitly supplied, so a direct/local `tags` still takes
-      // precedence.
-      if (config.env.TAGS && process.env.tags === undefined) {
-        config.env.tags = config.env.TAGS;
+      // CI supplies the cucumber tag expression via the uppercase `TAGS`
+      // variable (fall back to a lowercase `tags` when explicitly provided).
+      const tagExpression = process.env.tags ?? process.env.TAGS;
+      if (tagExpression) {
+        // @badeball/cypress-cucumber-preprocessor v28 reads the tag expression
+        // from `getEnv(config)`. Under Cypress >= 16 ("Expose era") that
+        // resolves to `config.expose` (NOT `config.env`), and the browser
+        // runtime reads it via `Cypress.expose('tags')`. Populate the expose
+        // channel so BOTH spec-level (filterSpecs) and scenario-level filtering
+        // activate; without it every scenario matches and all 97 cross-framework
+        // specs run, causing wrong-framework 404s.
+        config.expose = { ...(config.expose ?? {}), tags: tagExpression };
+        // Preserve behavior on Cypress < 16 ("Env era"), where the preprocessor
+        // reads the expression from `config.env` instead.
+        config.env.tags = tagExpression;
       }
 
       await addCucumberPreprocessorPlugin(on, config);
