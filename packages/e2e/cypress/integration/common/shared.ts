@@ -238,9 +238,13 @@ Given('I expect an exception', () => {
 });
 
 When('Sign in was called with {string}', (username: string) => {
-  let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
-  stub = null;
-  expect(tempStub).to.be.true;
+  cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+    ({ VALID_PASSWORD }) => {
+      const tempStub = stub.calledWith(username, VALID_PASSWORD);
+      stub = null;
+      expect(tempStub).to.be.true;
+    }
+  );
 });
 
 When('I type an invalid password', () => {
@@ -541,13 +545,21 @@ When('I type a valid confirmation code', () => {
 });
 
 When('I type a custom password from label {string}', (custom: string) => {
-  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+  cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+    ({ VALID_PASSWORD }) => {
+      cy.findByLabelText(custom).type(VALID_PASSWORD);
+    }
+  );
 });
 
 When(
   'I type a custom confirm password from label {string}',
   (custom: string) => {
-    cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+    cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+      ({ VALID_PASSWORD }) => {
+        cy.findByLabelText(custom).type(VALID_PASSWORD);
+      }
+    );
   }
 );
 
@@ -629,7 +641,9 @@ Then('I will be redirected to the confirm forgot password page', () => {
 });
 
 When('I type my username with untrimmed spaces', () => {
-  cy.findInputField('Username').type(` ${Cypress.env('USERNAME')}+CONFIRMED `);
+  cy.env<{ USERNAME: string }>(['USERNAME']).then(({ USERNAME }) => {
+    cy.findInputField('Username').type(` ${USERNAME}+CONFIRMED `);
+  });
 });
 
 When('I type an invalid wrong complexity new password', () => {
@@ -641,7 +655,11 @@ When('I type an invalid no lower case new password', () => {
 });
 
 When('I type my new password', () => {
-  cy.findInputField('New Password').type(Cypress.env('VALID_PASSWORD'));
+  cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+    ({ VALID_PASSWORD }) => {
+      cy.findInputField('New Password').type(VALID_PASSWORD);
+    }
+  );
 });
 
 When(
