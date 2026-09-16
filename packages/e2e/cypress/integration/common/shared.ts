@@ -67,11 +67,16 @@ Given("I'm running the docs page", () => {
 });
 
 Given('I intercept requests to host including {string}', (host: string) => {
-  cy.intercept({ url: '**' }, (req) => {
-    if (req.headers.host?.includes(host)) {
-      req.alias = host;
-    }
-  });
+  // Cypress 16 note: previously this used a catch-all `{ url: '**' }` matcher and
+  // dynamically assigned `req.alias` inside the handler when the host matched.
+  // Under Cy16's native network interception, an alias set that way is no longer
+  // waitable for cross-origin (S3) requests, so `cy.wait('@<host>')` timed out even
+  // though the upload succeeded. Registering a concrete hostname matcher with a
+  // static `.as()` alias captures the request reliably under Cy16. Sequential
+  // `cy.wait('@<host>')` calls still consume matching requests in arrival order, so
+  // the per-bucket waits in the multi-bucket scenario each resolve on their own S3
+  // request while the host-substring assertions are preserved.
+  cy.intercept({ hostname: new RegExp(escapeRegExp(host)) }).as(host);
 });
 
 Given(
