@@ -132,7 +132,20 @@ Then(
   'I confirm the {string} request was made to host containing {string}',
   (request: string, hostValue: string) => {
     cy.wait(`@${request}`).then((interception) => {
-      expect(interception.request.headers.host).to.include(hostValue);
+      // Cypress 16 note: on Chromium the native network interceptor runs with the
+      // proxy disabled, so the browser negotiates directly with the S3 origin over
+      // HTTP/2. HTTP/2 carries the authority in the `:authority` pseudo-header rather
+      // than a `Host` header, so no `host` key is present in
+      // `interception.request.headers` (Cypress 14's proxy spoke HTTP/1.1 and
+      // surfaced it, which is why this assertion passed before the upgrade). Reading
+      // `interception.request.headers.host` therefore yields `undefined`, and chai
+      // throws "the given combination of arguments (undefined and string) is invalid
+      // for this assertion". This is not a header-casing issue — the header is absent
+      // entirely. The request URL is always populated (a request-phase field on the
+      // resolved interception), so derive the host from it to reliably assert the
+      // target bucket for each sequential per-bucket wait.
+      const host = new URL(interception.request.url).host;
+      expect(host).to.include(hostValue);
     });
   }
 );
