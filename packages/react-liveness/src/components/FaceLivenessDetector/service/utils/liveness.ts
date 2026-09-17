@@ -189,7 +189,6 @@ export function drawLivenessOvalInCanvas({
   oval,
   scaleFactor,
   videoEl,
-  isStartScreen,
 }: {
   canvas: HTMLCanvasElement;
   oval: LivenessOvalDetails;
@@ -207,12 +206,11 @@ export function drawLivenessOvalInCanvas({
     ctx.restore();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // fill the canvas with a transparent rectangle
-    ctx.fillStyle = isStartScreen
-      ? getComputedStyle(canvas).getPropertyValue(
-          '--amplify-colors-background-primary'
-        )
-      : '#fff';
+    // fill the canvas with a transparent rectangle if no color is defined
+    ctx.fillStyle =
+      getComputedStyle(canvas).getPropertyValue(
+        '--amplify-colors-background-primary'
+      ) || '#fff';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // On mobile our canvas is the width/height of the full screen.
