@@ -5,8 +5,12 @@ Given('I click {string}', (text: string) => {
 });
 
 When('I confirm my password', () => {
-  cy.findInputField('Confirm Password')
-    .type(Cypress.env('VALID_PASSWORD'))
-    .blur()
-    .wait(100);
+  cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+    ({ VALID_PASSWORD }) => {
+      cy.findInputField('Confirm Password')
+        .type(VALID_PASSWORD)
+        .blur()
+        .wait(100);
+    }
+  );
 });
