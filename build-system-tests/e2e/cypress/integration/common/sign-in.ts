@@ -11,5 +11,9 @@ When(
 );
 
 When('I type my password', () => {
-  cy.findInputField('Password').type(Cypress.env('VALID_PASSWORD'));
+  cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+    ({ VALID_PASSWORD }) => {
+      cy.findInputField('Password').type(VALID_PASSWORD);
+    }
+  );
 });

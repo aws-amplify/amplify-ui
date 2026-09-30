@@ -67,11 +67,16 @@ Given("I'm running the docs page", () => {
 });
 
 Given('I intercept requests to host including {string}', (host: string) => {
-  cy.intercept({ url: '**' }, (req) => {
-    if (req.headers.host?.includes(host)) {
-      req.alias = host;
-    }
-  });
+  // Cypress 16 note: previously this used a catch-all `{ url: '**' }` matcher and
+  // dynamically assigned `req.alias` inside the handler when the host matched.
+  // Under Cy16's native network interception, an alias set that way is no longer
+  // waitable for cross-origin (S3) requests, so `cy.wait('@<host>')` timed out even
+  // though the upload succeeded. Registering a concrete hostname matcher with a
+  // static `.as()` alias captures the request reliably under Cy16. Sequential
+  // `cy.wait('@<host>')` calls still consume matching requests in arrival order, so
+  // the per-bucket waits in the multi-bucket scenario each resolve on their own S3
+  // request while the host-substring assertions are preserved.
+  cy.intercept({ hostname: new RegExp(escapeRegExp(host)) }).as(host);
 });
 
 Given(
@@ -127,7 +132,20 @@ Then(
   'I confirm the {string} request was made to host containing {string}',
   (request: string, hostValue: string) => {
     cy.wait(`@${request}`).then((interception) => {
-      expect(interception.request.headers.host).to.include(hostValue);
+      // Cypress 16 note: on Chromium the native network interceptor runs with the
+      // proxy disabled, so the browser negotiates directly with the S3 origin over
+      // HTTP/2. HTTP/2 carries the authority in the `:authority` pseudo-header rather
+      // than a `Host` header, so no `host` key is present in
+      // `interception.request.headers` (Cypress 14's proxy spoke HTTP/1.1 and
+      // surfaced it, which is why this assertion passed before the upgrade). Reading
+      // `interception.request.headers.host` therefore yields `undefined`, and chai
+      // throws "the given combination of arguments (undefined and string) is invalid
+      // for this assertion". This is not a header-casing issue — the header is absent
+      // entirely. The request URL is always populated (a request-phase field on the
+      // resolved interception), so derive the host from it to reliably assert the
+      // target bucket for each sequential per-bucket wait.
+      const host = new URL(interception.request.url).host;
+      expect(host).to.include(hostValue);
     });
   }
 );
@@ -238,9 +256,13 @@ Given('I expect an exception', () => {
 });
 
 When('Sign in was called with {string}', (username: string) => {
-  let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
-  stub = null;
-  expect(tempStub).to.be.true;
+  cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+    ({ VALID_PASSWORD }) => {
+      const tempStub = stub.calledWith(username, VALID_PASSWORD);
+      stub = null;
+      expect(tempStub).to.be.true;
+    }
+  );
 });
 
 When('I type an invalid password', () => {
@@ -541,13 +563,21 @@ When('I type a valid confirmation code', () => {
 });
 
 When('I type a custom password from label {string}', (custom: string) => {
-  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+  cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+    ({ VALID_PASSWORD }) => {
+      cy.findByLabelText(custom).type(VALID_PASSWORD);
+    }
+  );
 });
 
 When(
   'I type a custom confirm password from label {string}',
   (custom: string) => {
-    cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+    cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+      ({ VALID_PASSWORD }) => {
+        cy.findByLabelText(custom).type(VALID_PASSWORD);
+      }
+    );
   }
 );
 
@@ -629,7 +659,9 @@ Then('I will be redirected to the confirm forgot password page', () => {
 });
 
 When('I type my username with untrimmed spaces', () => {
-  cy.findInputField('Username').type(` ${Cypress.env('USERNAME')}+CONFIRMED `);
+  cy.env<{ USERNAME: string }>(['USERNAME']).then(({ USERNAME }) => {
+    cy.findInputField('Username').type(` ${USERNAME}+CONFIRMED `);
+  });
 });
 
 When('I type an invalid wrong complexity new password', () => {
@@ -641,7 +673,11 @@ When('I type an invalid no lower case new password', () => {
 });
 
 When('I type my new password', () => {
-  cy.findInputField('New Password').type(Cypress.env('VALID_PASSWORD'));
+  cy.env<{ VALID_PASSWORD: string }>(['VALID_PASSWORD']).then(
+    ({ VALID_PASSWORD }) => {
+      cy.findInputField('New Password').type(VALID_PASSWORD);
+    }
+  );
 });
 
 When(
