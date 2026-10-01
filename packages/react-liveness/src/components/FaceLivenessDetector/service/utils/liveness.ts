@@ -182,6 +182,72 @@ export function getStaticLivenessOvalDetails({
 }
 
 /**
+ * Returns how much the intrinsic video frame is scaled inside the rendered
+ * video element. The video element uses the default `object-fit: contain`,
+ * so when the host container gives it a box that does not match the camera
+ * aspect ratio the frame is letterboxed and the smaller ratio applies.
+ */
+export function getVideoScaleFactor(videoEl: HTMLVideoElement): number {
+  // layout size, unaffected by CSS transforms such as a modal zoom animation
+  const { clientWidth: width, clientHeight: height } = videoEl;
+  const { videoWidth, videoHeight } = videoEl;
+
+  if (!videoWidth || !videoHeight) {
+    return 1;
+  }
+
+  return Math.min(width / videoWidth, height / videoHeight);
+}
+
+// When filling a container taller than the camera frame, the frame is scaled
+// up and cropped on the sides. Keep at least this fraction of the frame width
+// visible so the liveness oval (centered, ~45% of the frame width) is never
+// cropped. The frame is never cropped vertically since the oval spans nearly
+// the full frame height.
+export const MIN_VISIBLE_FRAME_WIDTH_FRACTION = 0.7;
+
+/**
+ * Returns the size and position of the video element so the camera frame
+ * fills as much of its container as possible without cropping the oval.
+ */
+export function getVideoFillLayout({
+  containerWidth,
+  containerHeight,
+  videoWidth,
+  videoHeight,
+}: {
+  containerWidth: number;
+  containerHeight: number;
+  videoWidth: number;
+  videoHeight: number;
+}): { width: number; height: number; left: number; top: number } {
+  const scale = Math.min(
+    containerHeight / videoHeight,
+    containerWidth / (videoWidth * MIN_VISIBLE_FRAME_WIDTH_FRACTION)
+  );
+  const width = videoWidth * scale;
+  const height = videoHeight * scale;
+
+  return {
+    width,
+    height,
+    left: (containerWidth - width) / 2,
+    top: (containerHeight - height) / 2,
+  };
+}
+
+/**
+ * Sizes the canvas drawing buffer to match its rendered box (or its parent's
+ * box, which is the full screen on mobile and the video box otherwise).
+ */
+export function resizeCanvasToDisplaySize(canvas: HTMLCanvasElement): void {
+  const { clientWidth, clientHeight } = canvas.parentElement ?? canvas;
+
+  canvas.width = Math.ceil(clientWidth);
+  canvas.height = Math.ceil(clientHeight);
+}
+
+/**
  * Draws the provided liveness oval on the canvas.
  */
 export function drawLivenessOvalInCanvas({
@@ -199,8 +265,7 @@ export function drawLivenessOvalInCanvas({
 }): void {
   const { flippedCenterX, centerY, width, height } = oval;
 
-  const { width: canvasWidth, height: canvasHeight } =
-    canvas.getBoundingClientRect();
+  const { width: canvasWidth, height: canvasHeight } = canvas;
   const ctx = canvas.getContext('2d');
 
   if (ctx) {
@@ -266,13 +331,7 @@ export function drawStaticOval(
 ): void {
   const { width, height } = videoMediaStream.getTracks()[0].getSettings();
 
-  // Get width/height of video element so we can compute scaleFactor
-  // and set canvas width/height.
-  const { width: videoScaledWidth, height: videoScaledHeight } =
-    videoEl.getBoundingClientRect();
-
-  canvasEl.width = Math.ceil(videoScaledWidth);
-  canvasEl.height = Math.ceil(videoScaledHeight);
+  resizeCanvasToDisplaySize(canvasEl);
 
   const ovalDetails = getStaticLivenessOvalDetails({
     width: width!,
@@ -283,7 +342,7 @@ export function drawStaticOval(
 
   // Compute scaleFactor which is how much our video element is scaled
   // vs the intrinsic video resolution
-  const scaleFactor = videoScaledWidth / videoEl.videoWidth;
+  const scaleFactor = getVideoScaleFactor(videoEl);
 
   // Draw oval in canvas using ovalDetails and scaleFactor
   drawLivenessOvalInCanvas({
@@ -492,21 +551,36 @@ export function fillOverlayCanvasFractional({
   heightFraction,
   scaleFactor,
 }: FillOverlayCanvasFractionalInput): void {
-  const { x: videoX, y: videoY } = videoEl.getBoundingClientRect();
+  const videoRect = videoEl.getBoundingClientRect();
+  // The overlay is `position: fixed`, but a transformed ancestor (common for
+  // modal dialogs) makes it relative to that ancestor instead of the viewport,
+  // so measure the canvas itself rather than assuming the window.
+  const canvasRect = overlayCanvas.getBoundingClientRect();
 
   const { flippedCenterX, centerY, width, height } = ovalDetails;
 
-  const updatedCenterX = flippedCenterX * scaleFactor + videoX;
-  const updatedCenterY = centerY * scaleFactor + videoY;
+  // offset of the (possibly letterboxed) video frame relative to the canvas
+  const frameX =
+    videoRect.x +
+    (videoRect.width - videoEl.videoWidth * scaleFactor) / 2 -
+    canvasRect.x;
+  const frameY =
+    videoRect.y +
+    (videoRect.height - videoEl.videoHeight * scaleFactor) / 2 -
+    canvasRect.y;
 
-  const canvasWidth = overlayCanvas.width;
-  const canvasHeight = overlayCanvas.height;
+  const updatedCenterX = flippedCenterX * scaleFactor + frameX;
+  const updatedCenterY = centerY * scaleFactor + frameY;
+
   const ctx = overlayCanvas.getContext('2d');
 
+  // Because the canvas is set to to 100% we need to manually set the height for the canvas to use pixel values
+  const canvasWidth = Math.ceil(canvasRect.width) || window.innerWidth;
+  const canvasHeight = Math.ceil(canvasRect.height) || window.innerHeight;
+
   if (ctx) {
-    // Because the canvas is set to to 100% we need to manually set the height for the canvas to use pixel values
-    ctx.canvas.width = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
+    ctx.canvas.width = canvasWidth;
+    ctx.canvas.height = canvasHeight;
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 

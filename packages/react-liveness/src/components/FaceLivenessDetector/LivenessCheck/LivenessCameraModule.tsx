@@ -3,7 +3,12 @@ import { classNames } from '@aws-amplify/ui';
 
 import { Button, Flex, Loader, Text, View } from '@aws-amplify/ui-react';
 import { useColorMode } from '@aws-amplify/ui-react/internal';
-import { FaceMatchState, clearOvalCanvas, drawStaticOval } from '../service';
+import {
+  FaceMatchState,
+  clearOvalCanvas,
+  drawStaticOval,
+  getVideoFillLayout,
+} from '../service';
 import type { UseMediaStreamInVideo } from '../hooks';
 import {
   useLivenessActor,
@@ -126,6 +131,7 @@ export const LivenessCameraModule = (
   );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const videoAnchorRef = useRef<HTMLDivElement>(null);
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
@@ -138,6 +144,8 @@ export const LivenessCameraModule = (
     initCamera: 'waitForDOMAndCameraDetails',
   });
   const isStartView = state.matches('start') || state.matches('userCancel');
+  const disableStartScreen =
+    !!state.context?.componentProps?.disableStartScreen;
   const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
@@ -206,6 +214,57 @@ export const LivenessCameraModule = (
     };
   }, [videoRef, videoStream, colorMode, isStartView, isMetadataLoaded]);
 
+  // Size the video to fill the anchor, which grows to fill the host container
+  // when the host gives it a height (e.g. a modal body)
+  const layoutVideo = React.useCallback(() => {
+    const anchor = videoAnchorRef.current;
+    const video = videoRef.current;
+    if (!anchor || !video?.videoWidth || !video.videoHeight) {
+      return;
+    }
+
+    const { width, height, left, top } = getVideoFillLayout({
+      containerWidth: anchor.clientWidth,
+      containerHeight: anchor.clientHeight,
+      videoWidth: video.videoWidth,
+      videoHeight: video.videoHeight,
+    });
+
+    video.style.width = `${width}px`;
+    video.style.height = `${height}px`;
+    video.style.left = `${left}px`;
+    video.style.top = `${top}px`;
+  }, [videoRef]);
+
+  // Keep the oval aligned with the video when the host container resizes,
+  // e.g. a modal open animation or a responsive layout change
+  const redrawOnResizeRef = React.useRef<() => void>();
+  redrawOnResizeRef.current = () => {
+    layoutVideo();
+    if (isStartView && isMetadataLoaded && canvasRef.current && videoStream) {
+      drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+    } else if (isRecording) {
+      send({ type: 'VIDEO_RESIZED' });
+    }
+  };
+
+  React.useEffect(() => {
+    const anchor = videoAnchorRef.current;
+    if (!anchor || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      redrawOnResizeRef.current?.();
+    });
+    resizeObserver.observe(anchor);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+    // the video anchor is not rendered while checking camera permissions
+  }, [isCheckingCamera]);
+
   React.useLayoutEffect(() => {
     if (isCameraReady) {
       send({
@@ -254,6 +313,7 @@ export const LivenessCameraModule = (
   };
 
   const handleLoadedMetadata = () => {
+    layoutVideo();
     setIsMetadataLoaded(true);
   };
 
@@ -317,7 +377,11 @@ export const LivenessCameraModule = (
 
   return (
     <>
-      {!isFaceMovementChallenge && photoSensitivityWarning}
+      {/* The warning is only visible on the start screen; without one it would
+          just reserve empty space above the camera */}
+      {!isFaceMovementChallenge &&
+        !disableStartScreen &&
+        photoSensitivityWarning}
 
       {shouldShowCenteredLoader && (
         <Flex className={LivenessClassNames.ConnectingLoader}>
@@ -406,6 +470,7 @@ export const LivenessCameraModule = (
           hidden
         />
         <View
+          ref={videoAnchorRef}
           className={LivenessClassNames.VideoAnchor}
           style={{
             aspectRatio: `${aspectRatio}`,

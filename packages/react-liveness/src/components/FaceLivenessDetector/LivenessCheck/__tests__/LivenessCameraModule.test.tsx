@@ -534,6 +534,33 @@ describe('LivenessCameraModule', () => {
     expect(photosensitivityWarning).toBeInTheDocument();
   });
 
+  it('should not render photosensitivity warning when the start screen is disabled', async () => {
+    isNotRecording = true;
+    mockStateMatchesAndSelectors();
+    mockActorState.context = { componentProps: { disableStartScreen: true } };
+    mockUseLivenessSelector.mockReturnValue('FaceMovementAndLightChallenge');
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
+
+    expect(
+      screen.queryByText(
+        instructionDisplayText.photosensitivityWarningHeadingText
+      )
+    ).not.toBeInTheDocument();
+    delete mockActorState.context;
+  });
+
   it('should not render photosensitivity warning when challenge is FaceMovementChallenge and isNotRecording is true', async () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();

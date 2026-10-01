@@ -8,8 +8,11 @@ import {
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
   getOvalDetailsFromSessionInformation,
+  getVideoFillLayout,
+  getVideoScaleFactor,
   isCameraDeviceVirtual,
   isFaceDistanceBelowThreshold,
+  resizeCanvasToDisplaySize,
 } from '../liveness';
 import {
   getMockContext,
@@ -426,7 +429,137 @@ describe('Liveness Helper', () => {
     });
   });
 
+  describe('getVideoScaleFactor', () => {
+    const createVideo = (rect: { width: number; height: number }) => {
+      const videoEl = document.createElement('video');
+      Object.defineProperty(videoEl, 'videoWidth', { value: 640 });
+      Object.defineProperty(videoEl, 'videoHeight', { value: 480 });
+      Object.defineProperty(videoEl, 'clientWidth', { value: rect.width });
+      Object.defineProperty(videoEl, 'clientHeight', { value: rect.height });
+      return videoEl;
+    };
+
+    it('should return the width ratio when the video box matches the frame', () => {
+      expect(
+        getVideoScaleFactor(createVideo({ width: 960, height: 720 }))
+      ).toBe(1.5);
+    });
+
+    it('should use the height ratio when the frame is pillarboxed', () => {
+      expect(
+        getVideoScaleFactor(createVideo({ width: 960, height: 240 }))
+      ).toBe(0.5);
+    });
+
+    it('should use the width ratio when the frame is letterboxed', () => {
+      expect(
+        getVideoScaleFactor(createVideo({ width: 320, height: 720 }))
+      ).toBe(0.5);
+    });
+
+    it('should return 1 before video metadata is loaded', () => {
+      const videoEl = document.createElement('video');
+      expect(getVideoScaleFactor(videoEl)).toBe(1);
+    });
+  });
+
+  describe('getVideoFillLayout', () => {
+    const video = { videoWidth: 640, videoHeight: 480 };
+
+    it('should match the container when it has the frame aspect ratio', () => {
+      expect(
+        getVideoFillLayout({
+          containerWidth: 640,
+          containerHeight: 480,
+          ...video,
+        })
+      ).toEqual({ width: 640, height: 480, left: 0, top: 0 });
+    });
+
+    it('should fit the height and pillarbox in a wide container', () => {
+      expect(
+        getVideoFillLayout({
+          containerWidth: 1000,
+          containerHeight: 480,
+          ...video,
+        })
+      ).toEqual({ width: 640, height: 480, left: 180, top: 0 });
+    });
+
+    it('should fill the height of a tall container by cropping the sides', () => {
+      // 640x600 container: fill height => frame 800 wide, 80% visible
+      expect(
+        getVideoFillLayout({
+          containerWidth: 640,
+          containerHeight: 600,
+          ...video,
+        })
+      ).toEqual({ width: 800, height: 600, left: -80, top: 0 });
+    });
+
+    it('should never crop more than the allowed fraction of the frame width', () => {
+      const { width, height, top } = getVideoFillLayout({
+        containerWidth: 448,
+        containerHeight: 2000,
+        ...video,
+      });
+      // 448 / 0.7 = 640 => at most 30% of the frame width is cropped
+      expect(width).toBeCloseTo(640);
+      expect(height).toBeCloseTo(480);
+      expect(top).toBeCloseTo(760);
+    });
+  });
+
+  describe('resizeCanvasToDisplaySize', () => {
+    it('should size the canvas buffer to its parent box', () => {
+      const parent = document.createElement('div');
+      const canvas = document.createElement('canvas');
+      parent.appendChild(canvas);
+      Object.defineProperty(parent, 'clientWidth', { value: 800.4 });
+      Object.defineProperty(parent, 'clientHeight', { value: 600.2 });
+
+      resizeCanvasToDisplaySize(canvas);
+
+      expect(canvas.width).toBe(801);
+      expect(canvas.height).toBe(601);
+    });
+  });
+
   describe('fillOverlayCanvasFractional', () => {
+    it('should position the oval relative to the overlay canvas, not the viewport', () => {
+      const overlayCanvas = document.createElement('canvas');
+      // overlay is offset, as when a transformed modal ancestor contains it
+      overlayCanvas.getBoundingClientRect = () =>
+        ({ x: 100, y: 50, width: 1000, height: 800 }) as DOMRect;
+      const videoEl = document.createElement('video');
+      Object.defineProperty(videoEl, 'videoWidth', { value: 640 });
+      Object.defineProperty(videoEl, 'videoHeight', { value: 480 });
+      // pillarboxed 640x480 frame at scale 1 inside an 840x480 video box
+      videoEl.getBoundingClientRect = () =>
+        ({ x: 200, y: 100, width: 840, height: 480 }) as DOMRect;
+
+      fillOverlayCanvasFractional({
+        overlayCanvas,
+        prevColor: 'red',
+        nextColor: 'black',
+        videoEl,
+        ovalDetails: { ...mockOvalDetails, flippedCenterX: 320, centerY: 240 },
+        heightFraction: 1,
+        scaleFactor: 1,
+      });
+
+      expect(overlayCanvas.width).toBe(1000);
+      expect(overlayCanvas.height).toBe(800);
+      const ctx = overlayCanvas.getContext('2d') as any;
+      const ellipse = ctx
+        .__getEvents()
+        .find((e: { type: string }) => e.type === 'ellipse');
+      // frame origin = video x (200) + pillarbox (100) - canvas x (100)
+      expect(ellipse.props.x).toBe(520);
+      // frame origin = video y (100) - canvas y (50)
+      expect(ellipse.props.y).toBe(290);
+    });
+
     it('should fail if canvas context is undefined', () => {
       const mockGetContext = jest.fn().mockReturnValue(undefined);
       const canvas = context.videoAssociatedParams?.canvasEl!;

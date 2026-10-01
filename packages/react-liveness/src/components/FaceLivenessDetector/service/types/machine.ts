@@ -114,7 +114,8 @@ export type LivenessEventTypes =
   | 'SERVER_ERROR'
   | 'RUNTIME_ERROR'
   | 'RETRY_CAMERA_CHECK'
-  | 'MOBILE_LANDSCAPE_WARNING';
+  | 'MOBILE_LANDSCAPE_WARNING'
+  | 'VIDEO_RESIZED';
 
 export type LivenessEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
