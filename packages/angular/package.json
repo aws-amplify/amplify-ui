@@ -29,7 +29,7 @@
     "@angular/forms": "^20.3.26",
     "@angular/platform-browser": "^20.3.26",
     "@angular/platform-browser-dynamic": "^20.3.26",
-    "@angular/router": "^20.3.26",
+    "@angular/router": "^20.3.32",
     "@testing-library/angular": "^18.1.1",
     "@types/node": "^20",
     "jest-preset-angular": "^15.0.0",
