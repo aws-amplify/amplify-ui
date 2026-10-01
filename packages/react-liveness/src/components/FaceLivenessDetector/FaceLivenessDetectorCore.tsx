@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { useInterpret } from '@xstate/react';
 import type { FaceLivenessDetectorCoreProps as FaceLivenessDetectorPropsFromUi } from './service';
-import { livenessMachine } from './service';
+import type { StreamRecorder } from './service';
+import { closeLivenessStream, livenessMachine } from './service';
+import { WS_CLOSURE_CODE } from './service/utils/constants';
 import { View, Flex } from '@aws-amplify/ui-react';
 
 import { FaceLivenessDetectorProvider } from './providers';
@@ -12,8 +14,7 @@ import { getDisplayText } from './utils/getDisplayText';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
-export interface FaceLivenessDetectorCoreProps
-  extends FaceLivenessDetectorPropsFromUi {
+export interface FaceLivenessDetectorCoreProps extends FaceLivenessDetectorPropsFromUi {
   components?: FaceLivenessDetectorComponents;
   displayText?: LivenessDisplayText;
 }
@@ -40,6 +41,27 @@ export default function FaceLivenessDetectorCore(
       },
     },
   });
+
+  React.useEffect(() => {
+    // Track the stream provider as the state changes: by the time this
+    // effect is cleaned up, the service has been stopped and reset.
+    let livenessStreamProvider: StreamRecorder | undefined;
+    const { unsubscribe } = service.subscribe(({ context }) => {
+      ({ livenessStreamProvider } = context);
+    });
+
+    return () => {
+      unsubscribe();
+      // Unmounting mid-check (e.g. the host modal is closed) bypasses the
+      // CANCEL event, so close the stream the same way the cancel button does
+      if (livenessStreamProvider?.isRecording()) {
+        closeLivenessStream(
+          livenessStreamProvider,
+          WS_CLOSURE_CODE.USER_CANCEL
+        );
+      }
+    };
+  }, [service]);
 
   return (
     <View className={DETECTOR_CLASS_NAME} testId={DETECTOR_CLASS_NAME}>

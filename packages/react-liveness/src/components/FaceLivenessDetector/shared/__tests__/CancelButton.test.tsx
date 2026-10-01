@@ -64,4 +64,41 @@ describe('CancelButton', () => {
       screen.queryByRole('button', { name: buttonAriaLabel })
     ).not.toBeInTheDocument();
   });
+
+  it('should render a custom component that cancels the check', () => {
+    const CustomCancelButton = ({ onCancel }: { onCancel: () => void }) => (
+      <button onClick={onCancel}>Leave check</button>
+    );
+    renderWithLivenessProvider(
+      <CancelButton
+        ariaLabel={buttonAriaLabel}
+        Component={CustomCancelButton}
+      />
+    );
+
+    expect(
+      screen.queryByRole('button', { name: buttonAriaLabel })
+    ).not.toBeInTheDocument();
+    screen.getByRole('button', { name: 'Leave check' }).click();
+
+    expect(mockActorSend).toHaveBeenCalledWith({ type: 'CANCEL' });
+  });
+
+  it('should not render a custom component if the machine state is done', () => {
+    mockUseLivenessActor.mockReturnValueOnce([
+      { done: true } as any,
+      mockActorSend,
+    ]);
+    const CustomCancelButton = () => <button>Leave check</button>;
+    renderWithLivenessProvider(
+      <CancelButton
+        ariaLabel={buttonAriaLabel}
+        Component={CustomCancelButton}
+      />
+    );
+
+    expect(
+      screen.queryByRole('button', { name: 'Leave check' })
+    ).not.toBeInTheDocument();
+  });
 });
