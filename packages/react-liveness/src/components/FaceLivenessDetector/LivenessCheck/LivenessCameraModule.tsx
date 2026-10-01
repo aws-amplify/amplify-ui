@@ -58,6 +58,9 @@ export const selectFaceMatchState = createLivenessSelector(
 export const selectSelectedDeviceId = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.selectedDeviceId
 );
+export const selectDisableStartScreen = createLivenessSelector(
+  (state) => state.context.componentProps?.disableStartScreen
+);
 export const selectSelectableDevices = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.selectableDevices
 );
@@ -73,6 +76,10 @@ export interface LivenessCameraModuleProps {
   components?: FaceLivenessDetectorComponents;
   testId?: string;
 }
+
+// how long the video size must be stable during recording before the session
+// oval is redrawn
+const VIDEO_RESIZED_DEBOUNCE_MS = 100;
 
 const showMatchIndicatorStates = [
   FaceMatchState.TOO_FAR,
@@ -123,6 +130,7 @@ export const LivenessCameraModule = (
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const errorState = useLivenessSelector(selectErrorState);
+  const disableStartScreen = useLivenessSelector(selectDisableStartScreen);
 
   const colorMode = useColorMode();
 
@@ -144,8 +152,6 @@ export const LivenessCameraModule = (
     initCamera: 'waitForDOMAndCameraDetails',
   });
   const isStartView = state.matches('start') || state.matches('userCancel');
-  const disableStartScreen =
-    !!state.context?.componentProps?.disableStartScreen;
   const isDetectFaceBeforeStart = state.matches('detectFaceBeforeStart');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
@@ -237,16 +243,30 @@ export const LivenessCameraModule = (
   }, [videoRef]);
 
   // Keep the oval aligned with the video when the host container resizes,
-  // e.g. a modal open animation or a responsive layout change
+  // e.g. a modal open animation or a responsive layout change. Kept in a ref
+  // so the observer below always calls the latest version.
   const redrawOnResizeRef = React.useRef<() => void>();
-  redrawOnResizeRef.current = () => {
-    layoutVideo();
-    if (isStartView && isMetadataLoaded && canvasRef.current && videoStream) {
-      drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
-    } else if (isRecording) {
-      send({ type: 'VIDEO_RESIZED' });
-    }
-  };
+  const recordingResizeTimeoutRef = React.useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+  React.useLayoutEffect(() => {
+    redrawOnResizeRef.current = () => {
+      layoutVideo();
+      if (isStartView && isMetadataLoaded && canvasRef.current && videoStream) {
+        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+      } else if (isRecording) {
+        // the video is laid out every frame above; only redraw the session
+        // oval once the size settles to avoid a machine transition per frame
+        if (recordingResizeTimeoutRef.current) {
+          clearTimeout(recordingResizeTimeoutRef.current);
+        }
+        recordingResizeTimeoutRef.current = setTimeout(() => {
+          recordingResizeTimeoutRef.current = null;
+          send({ type: 'VIDEO_RESIZED' });
+        }, VIDEO_RESIZED_DEBOUNCE_MS);
+      }
+    };
+  });
 
   React.useEffect(() => {
     const anchor = videoAnchorRef.current;
@@ -254,13 +274,34 @@ export const LivenessCameraModule = (
       return;
     }
 
+    let lastWidth: number | undefined;
+    let lastHeight: number | undefined;
+    let frameId: number | undefined;
+
     const resizeObserver = new ResizeObserver(() => {
-      redrawOnResizeRef.current?.();
+      const { clientWidth, clientHeight } = anchor;
+      if (clientWidth === lastWidth && clientHeight === lastHeight) {
+        return;
+      }
+      lastWidth = clientWidth;
+      lastHeight = clientHeight;
+
+      // coalesce into a single redraw per frame
+      frameId ??= requestAnimationFrame(() => {
+        frameId = undefined;
+        redrawOnResizeRef.current?.();
+      });
     });
     resizeObserver.observe(anchor);
 
     return () => {
       resizeObserver.disconnect();
+      if (frameId !== undefined) {
+        cancelAnimationFrame(frameId);
+      }
+      if (recordingResizeTimeoutRef.current) {
+        clearTimeout(recordingResizeTimeoutRef.current);
+      }
     };
     // The camera permission check returns early (below) without rendering the
     // video anchor, so the ref is only set once `isCheckingCamera` is false;

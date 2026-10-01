@@ -15,6 +15,7 @@ import {
 } from '../../hooks';
 import {
   LivenessCameraModule,
+  selectDisableStartScreen,
   selectFaceMatchPercentage,
   selectFaceMatchState,
   selectSelectableDevices,
@@ -39,6 +40,13 @@ const drawStaticOvalSpy = jest.spyOn(ServiceModule, 'drawStaticOval');
 
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
+
+// returns `value` for every selector except `disableStartScreen`, which keeps
+// the start screen enabled
+const mockSelectorsReturnValue = (value: unknown) =>
+  mockUseLivenessSelector.mockImplementation((selector) =>
+    selector === selectDisableStartScreen ? undefined : value
+  );
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
 
 // Mock navigator.mediaDevices.getUserMedia
@@ -513,7 +521,7 @@ describe('LivenessCameraModule', () => {
   it('should render photosensitivity warning when challenge is FaceMovementAndLightChallenge and isNotRecording is true', async () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
-    mockUseLivenessSelector.mockReturnValue('FaceMovementAndLightChallenge');
+    mockSelectorsReturnValue('FaceMovementAndLightChallenge');
     await waitFor(() => {
       renderWithLivenessProvider(
         <LivenessCameraModule
@@ -537,8 +545,11 @@ describe('LivenessCameraModule', () => {
   it('should not render photosensitivity warning when the start screen is disabled', async () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
-    mockActorState.context = { componentProps: { disableStartScreen: true } };
-    mockUseLivenessSelector.mockReturnValue('FaceMovementAndLightChallenge');
+    mockUseLivenessSelector.mockImplementation((selector) =>
+      selector === selectDisableStartScreen
+        ? true
+        : 'FaceMovementAndLightChallenge'
+    );
     await waitFor(() => {
       renderWithLivenessProvider(
         <LivenessCameraModule
@@ -558,7 +569,6 @@ describe('LivenessCameraModule', () => {
         instructionDisplayText.photosensitivityWarningHeadingText
       )
     ).not.toBeInTheDocument();
-    delete mockActorState.context;
   });
 
   it('should not render photosensitivity warning when challenge is FaceMovementChallenge and isNotRecording is true', async () => {
@@ -663,9 +673,7 @@ describe('LivenessCameraModule', () => {
   it('should render hair check screen when isStart = true', async () => {
     isStart = true;
     mockStateMatchesAndSelectors();
-    mockUseLivenessSelector
-      .mockReturnValue(25)
-      .mockReturnValue(['device-id', 'device-id-2', 'device-id-3']);
+    mockSelectorsReturnValue(['device-id', 'device-id-2', 'device-id-3']);
 
     renderWithLivenessProvider(
       <LivenessCameraModule
@@ -692,7 +700,7 @@ describe('LivenessCameraModule', () => {
   it('should render hair check screen when isStart = true, should not render camera selector if only one camera', async () => {
     isStart = true;
     mockStateMatchesAndSelectors();
-    mockUseLivenessSelector.mockReturnValue(25).mockReturnValue(['device-id']);
+    mockSelectorsReturnValue(['device-id']);
     await waitFor(() => {
       renderWithLivenessProvider(
         <LivenessCameraModule
@@ -815,7 +823,20 @@ describe('LivenessCameraModule', () => {
         />
       );
 
+    const originalRequestAnimationFrame = window.requestAnimationFrame;
+    const originalCancelAnimationFrame = window.cancelAnimationFrame;
+    let frameCallbacks: FrameRequestCallback[] = [];
+    const flushFrames = () => {
+      const callbacks = frameCallbacks;
+      frameCallbacks = [];
+      callbacks.forEach((callback) => callback(0));
+    };
+
     beforeEach(() => {
+      frameCallbacks = [];
+      window.requestAnimationFrame = (callback) =>
+        frameCallbacks.push(callback);
+      window.cancelAnimationFrame = jest.fn();
       resizeObservers = [];
       window.ResizeObserver = jest.fn((callback: ResizeObserverCallback) => {
         const observer = {
@@ -830,7 +851,24 @@ describe('LivenessCameraModule', () => {
 
     afterEach(() => {
       window.ResizeObserver = originalResizeObserver;
+      window.requestAnimationFrame = originalRequestAnimationFrame;
+      window.cancelAnimationFrame = originalCancelAnimationFrame;
+      jest.useRealTimers();
     });
+
+    const setAnchorSize = (width: number, height: number) => {
+      const anchor = document.querySelector(
+        `.${LivenessClassNames.VideoAnchor}`
+      )!;
+      Object.defineProperty(anchor, 'clientWidth', {
+        value: width,
+        configurable: true,
+      });
+      Object.defineProperty(anchor, 'clientHeight', {
+        value: height,
+        configurable: true,
+      });
+    };
 
     it('should redraw the static oval on the start screen', async () => {
       isStart = true;
@@ -846,10 +884,41 @@ describe('LivenessCameraModule', () => {
       });
       expect(drawStaticOvalSpy).toHaveBeenCalledTimes(1);
 
+      setAnchorSize(640, 480);
       triggerResize();
+      expect(drawStaticOvalSpy).toHaveBeenCalledTimes(1);
+      flushFrames();
 
       expect(drawStaticOvalSpy).toHaveBeenCalledTimes(2);
       expect(mockActorSend).not.toHaveBeenCalledWith({ type: 'VIDEO_RESIZED' });
+    });
+
+    it('should skip notifications when the size has not changed', async () => {
+      isStart = true;
+      mockStateMatchesAndSelectors();
+      mockUseLivenessSelector.mockReturnValue(25);
+      await waitFor(() => {
+        renderCameraModule();
+      });
+      const videoEl = screen.getByTestId('video');
+      await waitFor(() => {
+        videoEl.dispatchEvent(new Event('loadedmetadata'));
+      });
+      drawStaticOvalSpy.mockClear();
+
+      setAnchorSize(640, 480);
+      triggerResize();
+      triggerResize();
+      flushFrames();
+      expect(drawStaticOvalSpy).toHaveBeenCalledTimes(1);
+
+      // two changes within one frame are coalesced into one redraw
+      setAnchorSize(700, 500);
+      triggerResize();
+      setAnchorSize(800, 600);
+      triggerResize();
+      flushFrames();
+      expect(drawStaticOvalSpy).toHaveBeenCalledTimes(2);
     });
 
     it('should send VIDEO_RESIZED during recording', async () => {
@@ -859,9 +928,25 @@ describe('LivenessCameraModule', () => {
         renderCameraModule();
       });
 
-      triggerResize();
+      jest.useFakeTimers({
+        doNotFake: ['requestAnimationFrame', 'cancelAnimationFrame'],
+      });
+      // several frames of a resize animation
+      [600, 620, 640].forEach((width) => {
+        setAnchorSize(width, 480);
+        triggerResize();
+        flushFrames();
+      });
+      expect(mockActorSend).not.toHaveBeenCalledWith({ type: 'VIDEO_RESIZED' });
 
-      expect(mockActorSend).toHaveBeenCalledWith({ type: 'VIDEO_RESIZED' });
+      jest.advanceTimersByTime(100);
+
+      // sent once the size settles, not once per frame
+      expect(
+        mockActorSend.mock.calls.filter(
+          ([event]) => event.type === 'VIDEO_RESIZED'
+        )
+      ).toHaveLength(1);
       expect(drawStaticOvalSpy).not.toHaveBeenCalled();
     });
 
@@ -878,9 +963,14 @@ describe('LivenessCameraModule', () => {
         document.querySelector(`.${LivenessClassNames.VideoAnchor}`)
       );
 
+      // a redraw is pending when the component unmounts
+      setAnchorSize(640, 480);
+      triggerResize();
+
       unmount();
 
       expect(observer.disconnect).toHaveBeenCalled();
+      expect(window.cancelAnimationFrame).toHaveBeenCalled();
     });
   });
 });

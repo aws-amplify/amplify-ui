@@ -1341,7 +1341,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return;
         }
 
-        const { ovalDetails, scaleFactor } = ovalAssociatedParams!;
+        const { ovalDetails } = ovalAssociatedParams!;
         const { videoEl } = videoAssociatedParams!;
 
         const completed = await colorSequenceDisplay!.startSequences({
@@ -1356,7 +1356,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               ovalDetails: ovalDetails!,
               nextColor: sequenceColor,
               prevColor: prevSequenceColor,
-              scaleFactor: scaleFactor!,
+              // read per frame so a resize during the sequence stays aligned
+              scaleFactor: getVideoScaleFactor(videoEl!),
               videoEl: videoEl!,
             });
           },

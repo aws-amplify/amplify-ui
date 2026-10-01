@@ -10,6 +10,7 @@ import {
   LivenessInterpreter,
 } from '../../types';
 import * as helpers from '../../utils';
+import * as livenessUtils from '../../utils/liveness';
 import {
   mockBlazeFace,
   mockCameraDevice,
@@ -675,6 +676,50 @@ describe('Liveness Machine', () => {
           scaleFactor: 1.5,
           videoEl: mockVideoEl,
         });
+      });
+
+      it('should use the current scale factor for each freshness color frame', async () => {
+        const flashColors = livenessMachine.options.services!
+          .flashColors as unknown as (context: any) => Promise<unknown>;
+        const fillOverlaySpy = jest
+          .spyOn(livenessUtils, 'fillOverlayCanvasFractional')
+          .mockImplementation(() => {});
+        const scales = [1, 2];
+        const colorSequenceDisplay = {
+          startSequences: jest.fn(async ({ onSequenceColorChange }: any) => {
+            // the host container resizes between two color frames
+            scales.forEach((scale) => {
+              mockedHelpers.getVideoScaleFactor.mockReturnValue(scale);
+              onSequenceColorChange({
+                sequenceColor: 'rgb(0,0,0)',
+                prevSequenceColor: 'rgb(255,255,255)',
+                heightFraction: 0.5,
+              });
+            });
+            return true;
+          }),
+        };
+
+        await flashColors({
+          challengeId: 'challenge-id',
+          colorSequenceDisplay,
+          freshnessColorAssociatedParams: {
+            freshnessColorsComplete: false,
+            freshnessColorEl: mockFreshnessColorEl,
+          },
+          livenessStreamProvider: { dispatchStreamEvent: jest.fn() },
+          // stale value captured when the oval was drawn
+          ovalAssociatedParams: {
+            ovalDetails: mockOvalDetails,
+            scaleFactor: 1,
+          },
+          videoAssociatedParams: { videoEl: mockVideoEl },
+        });
+
+        expect(
+          fillOverlaySpy.mock.calls.map(([params]) => params.scaleFactor)
+        ).toEqual([1, 2]);
+        fillOverlaySpy.mockRestore();
       });
 
       it('should not redraw the oval outside of recording', async () => {

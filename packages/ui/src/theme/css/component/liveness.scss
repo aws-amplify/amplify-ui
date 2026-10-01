@@ -130,7 +130,9 @@
   position: relative;
   width: 100%;
   flex: 1 1 auto;
-  min-height: 0;
+  // floor for hosts shorter than the detector's content; at or above ~267px
+  // wide this never exceeds the 4:3 height, so auto-height layouts are unchanged
+  min-height: 200px;
   overflow: hidden;
 }
 
@@ -472,4 +474,7 @@
   justify-content: center;
   text-align: center;
   height: 480px;
+  // don't overflow a host with a shorter definite height while permissions
+  // are pending (resolves to none for auto-height hosts)
+  max-height: 100%;
 }
