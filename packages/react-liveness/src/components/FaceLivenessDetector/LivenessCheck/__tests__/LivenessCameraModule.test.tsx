@@ -788,4 +788,99 @@ describe('LivenessCameraModule', () => {
     });
     expect(drawStaticOvalSpy).toHaveBeenCalledTimes(1);
   });
+
+  describe('when the video area resizes', () => {
+    let resizeObservers: {
+      callback: ResizeObserverCallback;
+      observe: jest.Mock;
+      disconnect: jest.Mock;
+    }[] = [];
+    const originalResizeObserver = window.ResizeObserver;
+
+    const triggerResize = () =>
+      resizeObservers.forEach(({ callback }) =>
+        callback([], {} as ResizeObserver)
+      );
+
+    const renderCameraModule = () =>
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+
+    beforeEach(() => {
+      resizeObservers = [];
+      window.ResizeObserver = jest.fn((callback: ResizeObserverCallback) => {
+        const observer = {
+          callback,
+          observe: jest.fn(),
+          disconnect: jest.fn(),
+        };
+        resizeObservers.push(observer);
+        return observer;
+      }) as unknown as typeof ResizeObserver;
+    });
+
+    afterEach(() => {
+      window.ResizeObserver = originalResizeObserver;
+    });
+
+    it('should redraw the static oval on the start screen', async () => {
+      isStart = true;
+      mockStateMatchesAndSelectors();
+      mockUseLivenessSelector.mockReturnValue(25);
+      await waitFor(() => {
+        renderCameraModule();
+      });
+
+      const videoEl = screen.getByTestId('video');
+      await waitFor(() => {
+        videoEl.dispatchEvent(new Event('loadedmetadata'));
+      });
+      expect(drawStaticOvalSpy).toHaveBeenCalledTimes(1);
+
+      triggerResize();
+
+      expect(drawStaticOvalSpy).toHaveBeenCalledTimes(2);
+      expect(mockActorSend).not.toHaveBeenCalledWith({ type: 'VIDEO_RESIZED' });
+    });
+
+    it('should send VIDEO_RESIZED during recording', async () => {
+      isRecording = true;
+      mockStateMatchesAndSelectors();
+      await waitFor(() => {
+        renderCameraModule();
+      });
+
+      triggerResize();
+
+      expect(mockActorSend).toHaveBeenCalledWith({ type: 'VIDEO_RESIZED' });
+      expect(drawStaticOvalSpy).not.toHaveBeenCalled();
+    });
+
+    it('should observe the video anchor and disconnect on unmount', async () => {
+      isRecording = true;
+      mockStateMatchesAndSelectors();
+      let unmount = () => {};
+      await waitFor(() => {
+        ({ unmount } = renderCameraModule());
+      });
+
+      const observer = resizeObservers[resizeObservers.length - 1];
+      expect(observer.observe).toHaveBeenCalledWith(
+        document.querySelector(`.${LivenessClassNames.VideoAnchor}`)
+      );
+
+      unmount();
+
+      expect(observer.disconnect).toHaveBeenCalled();
+    });
+  });
 });

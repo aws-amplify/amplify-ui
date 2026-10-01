@@ -262,7 +262,9 @@ export const LivenessCameraModule = (
     return () => {
       resizeObserver.disconnect();
     };
-    // the video anchor is not rendered while checking camera permissions
+    // The camera permission check returns early (below) without rendering the
+    // video anchor, so the ref is only set once `isCheckingCamera` is false;
+    // re-run then to start observing the newly mounted anchor.
   }, [isCheckingCamera]);
 
   React.useLayoutEffect(() => {

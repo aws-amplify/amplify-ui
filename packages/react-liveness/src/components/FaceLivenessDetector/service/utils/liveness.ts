@@ -237,8 +237,10 @@ export function getVideoFillLayout({
 }
 
 /**
- * Sizes the canvas drawing buffer to match its rendered box (or its parent's
- * box, which is the full screen on mobile and the video box otherwise).
+ * Sizes the canvas drawing buffer to match its parent's box: the full screen
+ * on mobile and the video anchor box otherwise. The anchor can differ from the
+ * video element's box, which is centered in it and may be letterboxed or
+ * cropped on the sides.
  */
 export function resizeCanvasToDisplaySize(canvas: HTMLCanvasElement): void {
   const { clientWidth, clientHeight } = canvas.parentElement ?? canvas;
@@ -551,32 +553,55 @@ export function fillOverlayCanvasFractional({
   heightFraction,
   scaleFactor,
 }: FillOverlayCanvasFractionalInput): void {
-  const videoRect = videoEl.getBoundingClientRect();
   // The overlay is `position: fixed`, but a transformed ancestor (common for
   // modal dialogs) makes it relative to that ancestor instead of the viewport,
   // so measure the canvas itself rather than assuming the window.
+  // getBoundingClientRect is in transformed (screen) space while clientWidth
+  // and scaleFactor are in layout space, so convert everything into the
+  // canvas's own layout space to also handle scale transforms.
+  const videoRect = videoEl.getBoundingClientRect();
   const canvasRect = overlayCanvas.getBoundingClientRect();
+  const videoScreenScale = videoEl.clientWidth
+    ? videoRect.width / videoEl.clientWidth
+    : 1;
+  const canvasScreenScale =
+    overlayCanvas.clientWidth && canvasRect.width
+      ? canvasRect.width / overlayCanvas.clientWidth
+      : 1;
+
+  // canvas pixels per camera frame pixel
+  const frameScale = (scaleFactor * videoScreenScale) / canvasScreenScale;
+
+  // offset of the (possibly letterboxed or cropped) video frame relative to
+  // the canvas, in canvas pixels
+  const frameX =
+    (videoRect.x +
+      (videoRect.width - videoEl.videoWidth * scaleFactor * videoScreenScale) /
+        2 -
+      canvasRect.x) /
+    canvasScreenScale;
+  const frameY =
+    (videoRect.y +
+      (videoRect.height -
+        videoEl.videoHeight * scaleFactor * videoScreenScale) /
+        2 -
+      canvasRect.y) /
+    canvasScreenScale;
 
   const { flippedCenterX, centerY, width, height } = ovalDetails;
 
-  // offset of the (possibly letterboxed) video frame relative to the canvas
-  const frameX =
-    videoRect.x +
-    (videoRect.width - videoEl.videoWidth * scaleFactor) / 2 -
-    canvasRect.x;
-  const frameY =
-    videoRect.y +
-    (videoRect.height - videoEl.videoHeight * scaleFactor) / 2 -
-    canvasRect.y;
-
-  const updatedCenterX = flippedCenterX * scaleFactor + frameX;
-  const updatedCenterY = centerY * scaleFactor + frameY;
+  const updatedCenterX = flippedCenterX * frameScale + frameX;
+  const updatedCenterY = centerY * frameScale + frameY;
 
   const ctx = overlayCanvas.getContext('2d');
 
-  // Because the canvas is set to to 100% we need to manually set the height for the canvas to use pixel values
-  const canvasWidth = Math.ceil(canvasRect.width) || window.innerWidth;
-  const canvasHeight = Math.ceil(canvasRect.height) || window.innerHeight;
+  // Because the canvas is set to 100% we need to manually set the height for the canvas to use pixel values
+  const canvasWidth =
+    Math.ceil(overlayCanvas.clientWidth || canvasRect.width) ||
+    window.innerWidth;
+  const canvasHeight =
+    Math.ceil(overlayCanvas.clientHeight || canvasRect.height) ||
+    window.innerHeight;
 
   if (ctx) {
     ctx.canvas.width = canvasWidth;
@@ -615,8 +640,8 @@ export function fillOverlayCanvasFractional({
     ctx.ellipse(
       updatedCenterX,
       updatedCenterY,
-      (width * scaleFactor) / 2,
-      (height * scaleFactor) / 2,
+      (width * frameScale) / 2,
+      (height * frameScale) / 2,
       0,
       0,
       2 * Math.PI

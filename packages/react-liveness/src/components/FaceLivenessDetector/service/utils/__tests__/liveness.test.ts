@@ -526,6 +526,54 @@ describe('Liveness Helper', () => {
   });
 
   describe('fillOverlayCanvasFractional', () => {
+    it('should position the oval correctly under a scale transform', () => {
+      // an ancestor applies `transform: scale(0.5)`: rects are halved while
+      // layout sizes (clientWidth/clientHeight) are not
+      const overlayCanvas = document.createElement('canvas');
+      Object.defineProperty(overlayCanvas, 'clientWidth', { value: 1000 });
+      Object.defineProperty(overlayCanvas, 'clientHeight', { value: 800 });
+      overlayCanvas.getBoundingClientRect = () =>
+        ({ x: 100, y: 50, width: 500, height: 400 }) as DOMRect;
+      const videoEl = document.createElement('video');
+      Object.defineProperty(videoEl, 'videoWidth', { value: 640 });
+      Object.defineProperty(videoEl, 'videoHeight', { value: 480 });
+      Object.defineProperty(videoEl, 'clientWidth', { value: 840 });
+      Object.defineProperty(videoEl, 'clientHeight', { value: 480 });
+      // pillarboxed 640x480 frame at scale 1 inside an 840x480 layout box
+      videoEl.getBoundingClientRect = () =>
+        ({ x: 200, y: 100, width: 420, height: 240 }) as DOMRect;
+
+      fillOverlayCanvasFractional({
+        overlayCanvas,
+        prevColor: 'red',
+        nextColor: 'black',
+        videoEl,
+        ovalDetails: {
+          ...mockOvalDetails,
+          flippedCenterX: 320,
+          centerY: 240,
+          width: 200,
+          height: 300,
+        },
+        heightFraction: 1,
+        scaleFactor: 1,
+      });
+
+      // buffer uses the canvas layout size, not the transformed size
+      expect(overlayCanvas.width).toBe(1000);
+      expect(overlayCanvas.height).toBe(800);
+      const ctx = overlayCanvas.getContext('2d') as any;
+      const ellipse = ctx
+        .__getEvents()
+        .find((e: { type: string }) => e.type === 'ellipse');
+      // video starts (200 - 100) / 0.5 = 200 into the canvas, + 100 pillarbox
+      expect(ellipse.props.x).toBe(620);
+      // video starts (100 - 50) / 0.5 = 100 into the canvas
+      expect(ellipse.props.y).toBe(340);
+      expect(ellipse.props.radiusX).toBe(100);
+      expect(ellipse.props.radiusY).toBe(150);
+    });
+
     it('should position the oval relative to the overlay canvas, not the viewport', () => {
       const overlayCanvas = document.createElement('canvas');
       // overlay is offset, as when a transformed modal ancestor contains it

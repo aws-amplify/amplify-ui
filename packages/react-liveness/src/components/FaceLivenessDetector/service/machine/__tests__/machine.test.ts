@@ -646,6 +646,50 @@ describe('Liveness Machine', () => {
   });
 
   describe('recording', () => {
+    describe('VIDEO_RESIZED', () => {
+      it('should recompute the scale factor and redraw the oval', async () => {
+        mockedHelpers.getVideoScaleFactor.mockReturnValue(1);
+        await transitionToRecording(service);
+        await flushPromises(); // detectInitialFaceAndDrawOval
+
+        expect(service.state.context.ovalAssociatedParams!.scaleFactor).toBe(1);
+        mockedHelpers.drawLivenessOvalInCanvas.mockClear();
+        mockedHelpers.resizeCanvasToDisplaySize.mockClear();
+
+        // host container grows after the oval was drawn
+        mockedHelpers.getVideoScaleFactor.mockReturnValue(1.5);
+        const stateBeforeResize = service.state.value;
+        service.send({ type: 'VIDEO_RESIZED' });
+
+        expect(service.state.value).toEqual(stateBeforeResize);
+        expect(service.state.context.ovalAssociatedParams!.scaleFactor).toBe(
+          1.5
+        );
+        expect(mockedHelpers.resizeCanvasToDisplaySize).toHaveBeenCalledWith(
+          mockCanvasEl
+        );
+        expect(mockedHelpers.drawLivenessOvalInCanvas).toHaveBeenCalledTimes(1);
+        expect(mockedHelpers.drawLivenessOvalInCanvas).toHaveBeenCalledWith({
+          canvas: mockCanvasEl,
+          oval: mockOvalDetails,
+          scaleFactor: 1.5,
+          videoEl: mockVideoEl,
+        });
+      });
+
+      it('should not redraw the oval outside of recording', async () => {
+        await transitionToNotRecording(service);
+        await flushPromises(); // notRecording: 'waitForSessionInfo'
+        expect(service.state.value).toEqual('start');
+        mockedHelpers.drawLivenessOvalInCanvas.mockClear();
+
+        service.send({ type: 'VIDEO_RESIZED' });
+
+        expect(service.state.value).toEqual('start');
+        expect(mockedHelpers.drawLivenessOvalInCanvas).not.toHaveBeenCalled();
+      });
+    });
+
     describe('FaceMovementAndLightChallenge', () => {
       it('should handle timeout during recording as expected', async () => {
         await transitionToRecording(service);
