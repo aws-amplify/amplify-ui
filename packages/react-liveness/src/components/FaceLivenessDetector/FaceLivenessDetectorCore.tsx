@@ -14,7 +14,8 @@ import { getDisplayText } from './utils/getDisplayText';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
-export interface FaceLivenessDetectorCoreProps extends FaceLivenessDetectorPropsFromUi {
+export interface FaceLivenessDetectorCoreProps
+  extends FaceLivenessDetectorPropsFromUi {
   components?: FaceLivenessDetectorComponents;
   displayText?: LivenessDisplayText;
 }

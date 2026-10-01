@@ -8,10 +8,17 @@ export function closeLivenessStream(
   livenessStreamProvider: StreamRecorder | undefined,
   closeCode: number
 ): void {
-  livenessStreamProvider?.stopRecording().then(() => {
-    livenessStreamProvider.dispatchStreamEvent({
-      type: 'closeCode',
-      data: { closeCode },
+  livenessStreamProvider
+    ?.stopRecording()
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error('Error stopping liveness recording:', error);
+    })
+    // send the close code even if stopping failed so the session still ends
+    .then(() => {
+      livenessStreamProvider.dispatchStreamEvent({
+        type: 'closeCode',
+        data: { closeCode },
+      });
     });
-  });
 }
