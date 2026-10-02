@@ -12,6 +12,7 @@ import { useLivenessSelector, useLivenessActor } from '../../hooks';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { defaultErrorDisplayText } from '../../displayText';
 import { mockMatchMedia } from '../../__mocks__/utils';
+import { CancelButton } from '../../shared/CancelButton';
 
 jest.mock('../../hooks');
 jest.mock('@aws-amplify/ui-react/internal');
@@ -103,6 +104,47 @@ describe('LivenessCheck', () => {
     expect(screen.getByText(cameraNotFoundMessageText)).toBeInTheDocument();
     expect(screen.getByText(retryCameraPermissionsText)).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
+  });
+
+  it('should not render the cancel button on the permission denied screen when components.CancelButton is null', () => {
+    mockActorState.matches.mockReturnValue(true);
+
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
+        components={{ CancelButton: null }}
+      />
+    );
+
+    expect(
+      screen.queryByRole('button', { name: cancelLivenessCheckText })
+    ).not.toBeInTheDocument();
+    expect(screen.getByText(retryCameraPermissionsText)).toBeInTheDocument();
+  });
+
+  it('should pass a custom CancelButton component on the permission denied screen', () => {
+    mockActorState.matches.mockReturnValue(true);
+    const CustomCancelButton = () => <button>Leave check</button>;
+
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
+        components={{ CancelButton: CustomCancelButton }}
+      />
+    );
+
+    expect(CancelButton).toHaveBeenCalledWith(
+      { ariaLabel: cancelLivenessCheckText, Component: CustomCancelButton },
+      expect.anything()
+    );
   });
 
   it('should render the component content on desktop when no 15 fps camera is found', () => {

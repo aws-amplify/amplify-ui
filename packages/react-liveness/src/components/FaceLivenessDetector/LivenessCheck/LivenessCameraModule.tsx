@@ -115,6 +115,7 @@ export const LivenessCameraModule = (
   const {
     ErrorView = FaceLivenessErrorModal,
     PhotosensitiveWarning = DefaultPhotosensitiveWarning,
+    CancelButton,
   } = customComponents ?? {};
 
   const [state, send] = useLivenessActor();
@@ -461,11 +462,15 @@ export const LivenessCameraModule = (
             />
           )}
 
-          {!isStartView && !isWaitingForCamera && !isCheckSucceeded && (
-            <DefaultCancelButton
-              cancelLivenessCheckText={cancelLivenessCheckText}
-            />
-          )}
+          {!isStartView &&
+            !isWaitingForCamera &&
+            !isCheckSucceeded &&
+            CancelButton !== null && (
+              <DefaultCancelButton
+                cancelLivenessCheckText={cancelLivenessCheckText}
+                CancelButton={CancelButton}
+              />
+            )}
 
           <Flex
             className={classNames(

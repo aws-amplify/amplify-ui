@@ -160,9 +160,14 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
           >
             {retryCameraPermissionsText}
           </Button>
-          <View position="absolute" top="medium" right="medium">
-            <CancelButton ariaLabel={cancelLivenessCheckText}></CancelButton>
-          </View>
+          {components?.CancelButton !== null && (
+            <View position="absolute" top="medium" right="medium">
+              <CancelButton
+                ariaLabel={cancelLivenessCheckText}
+                Component={components?.CancelButton}
+              ></CancelButton>
+            </View>
+          )}
         </Flex>
       );
     } else {

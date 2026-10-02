@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import { useActor } from '@xstate/react';
+import { useActor, useInterpret } from '@xstate/react';
 
 import { FaceLivenessDetector, FaceLivenessDetectorProps } from '..';
 import { getMockedFunction, mockMatchMedia } from '../__mocks__/utils';
@@ -12,6 +12,7 @@ jest.mock('../utils/helpers');
 jest.mock('../hooks');
 
 const mockUseActor = getMockedFunction(useActor);
+const mockUseInterpret = getMockedFunction(useInterpret);
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
 const mockMatches = jest.fn().mockImplementation(() => {
@@ -25,6 +26,9 @@ describe('FaceLivenessDetector', () => {
   const mockActorSend = jest.fn();
 
   mockUseActor.mockReturnValue([mockActorState, mockActorSend]);
+  mockUseInterpret.mockReturnValue({
+    subscribe: () => ({ unsubscribe: () => {} }),
+  } as any);
   mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
   mockUseMediaStreamInVideo.mockReturnValue({
     videoRef: { current: document.createElement('video') },

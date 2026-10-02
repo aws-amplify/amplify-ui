@@ -29,6 +29,7 @@ import { FaceMatchState } from '../../service';
 import * as Device from '../../utils/device';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { selectIsRecordingStopped } from '../LivenessCheck';
+import { CancelButton } from '../../shared/CancelButton';
 
 jest.mock('../../hooks');
 jest.mock('../../hooks/useLivenessSelector');
@@ -648,6 +649,84 @@ describe('LivenessCameraModule', () => {
     expect(actualDeviceId).toEqual(undefined);
     expect(actualSelectableDevices).toEqual(undefined);
     expect(actualFaceMatchState).toEqual(undefined);
+  });
+
+  it('should render the cancel button while recording', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+        />
+      );
+    });
+
+    expect(
+      screen.getByRole('button', { name: cancelLivenessCheckText })
+    ).toBeInTheDocument();
+    expect(CancelButton).toHaveBeenCalledWith(
+      { ariaLabel: cancelLivenessCheckText, Component: undefined },
+      expect.anything()
+    );
+  });
+
+  it('should pass a custom CancelButton component to the cancel button', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    const CustomCancelButton = () => <button>Leave check</button>;
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          components={{ CancelButton: CustomCancelButton }}
+        />
+      );
+    });
+
+    expect(CancelButton).toHaveBeenCalledWith(
+      { ariaLabel: cancelLivenessCheckText, Component: CustomCancelButton },
+      expect.anything()
+    );
+  });
+
+  it('should not render the cancel button when components.CancelButton is null', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    await waitFor(() => {
+      renderWithLivenessProvider(
+        <LivenessCameraModule
+          isMobileScreen={false}
+          isRecordingStopped={false}
+          hintDisplayText={hintDisplayText}
+          streamDisplayText={streamDisplayText}
+          errorDisplayText={errorDisplayText}
+          cameraDisplayText={cameraDisplayText}
+          instructionDisplayText={instructionDisplayText}
+          components={{ CancelButton: null }}
+        />
+      );
+    });
+
+    expect(
+      screen.queryByRole('button', { name: cancelLivenessCheckText })
+    ).not.toBeInTheDocument();
+    expect(CancelButton).not.toHaveBeenCalled();
+    expect(
+      document.querySelector(`.${LivenessClassNames.CancelContainer}`)
+    ).not.toBeInTheDocument();
   });
 
   it('should render with custom components', async () => {

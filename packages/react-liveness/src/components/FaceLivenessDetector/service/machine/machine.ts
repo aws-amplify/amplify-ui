@@ -33,6 +33,7 @@ import type {
 import { FaceMatchState, LivenessErrorState } from '../types';
 import {
   BlazeFaceFaceDetection,
+  closeLivenessStream,
   createRequestStreamGenerator,
   createStreamingClient,
   createSessionInfoFromServerSessionInformation,
@@ -890,12 +891,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           closeCode = WS_CLOSURE_CODE.USER_CANCEL;
         }
 
-        context.livenessStreamProvider?.stopRecording().then(() => {
-          context.livenessStreamProvider?.dispatchStreamEvent({
-            type: 'closeCode',
-            data: { closeCode },
-          });
-        });
+        closeLivenessStream(context.livenessStreamProvider, closeCode);
       },
       freezeStream: (context) => {
         const { videoMediaStream, videoEl } = context.videoAssociatedParams!;
