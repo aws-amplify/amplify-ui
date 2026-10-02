@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import type {
-  BaseBreadcrumbProps,
+  BaseBreadcrumbsProps,
   BreadcrumbsProps,
   Primitive,
   ForwardRefPrimitive,
@@ -42,7 +42,7 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
   );
 };
 
-type BreadcrumbsType = ForwardRefPrimitive<BaseBreadcrumbProps, 'nav'> & {
+type BreadcrumbsType = ForwardRefPrimitive<BaseBreadcrumbsProps, 'nav'> & {
   Link: typeof BreadcrumbLink;
   Item: typeof BreadcrumbItem;
   Separator: typeof BreadcrumbSeparator;
