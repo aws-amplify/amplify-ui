@@ -6,5 +6,5 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 export default function BasicMap() {
-  return <MapView />;
+  return <MapView workerUrl="/maplibre-gl-worker.mjs" />;
 }

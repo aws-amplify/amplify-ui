@@ -7,7 +7,9 @@
     "build": "next build",
     "clean": "rimraf node_modules .next",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "predev": "node scripts/copy-maplibre-worker.mjs",
+    "prebuild": "node scripts/copy-maplibre-worker.mjs"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.15.7",
@@ -23,7 +25,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.3.0",
     "react-icons": "^4.3.1",
-    "react-map-gl": "7.0.23",
+    "react-map-gl": "8.1.3",
     "swr": "^2.0.0"
   },
   "devDependencies": {
