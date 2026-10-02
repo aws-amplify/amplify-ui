@@ -21988,17 +21988,17 @@ pirates@^4.0.1, pirates@^4.0.4, pirates@^4.0.6:
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.7.tgz#643b4a18c4257c8a65104b73f3049ce9a0a15e22"
   integrity sha512-TfySrs/5nm8fQJDcBDuUng3VOUKsd7S+zqvbOTiGXHfxX4wK31ard+hoNuvkicM/2YFzlpDgABOevKSsB4G/FA==
 
-piscina@4.9.3, piscina@5.2.0:
-  version "4.9.3"
-  resolved "https://registry.yarnpkg.com/piscina/-/piscina-4.9.3.tgz#a8df8f699f1f3721c01720d0e7dcc49e7de1fea8"
-  integrity sha512-3e3ka9QCE8RJ5I9uszdAADZnkcYi21cqmF3gxox3u884N72qpFHCsIVhHt8cEQ9t3Auq/NqoiCEuhxlxxQuDWA==
+piscina@4.9.4, piscina@5.2.0:
+  version "4.9.4"
+  resolved "https://registry.yarnpkg.com/piscina/-/piscina-4.9.4.tgz#1fe911df1ffe920325c24822e5d7b596833a0df7"
+  integrity sha512-RyBDr2VheQ8ZfH3N8SzQZHztqVyOtadTwLnUYof6gdj5161/eu2wNhCbGl5GHnNKDpnkicJYpKtL2J+y/gk6XA==
   optionalDependencies:
     "@napi-rs/nice" "^1.0.1"
 
 piscina@^5.0.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/piscina/-/piscina-5.2.0.tgz#3a9a568ab9e3a0556b5c94522ba305962de13e3b"
-  integrity sha512-DszUCKeVN/5G5QKo6jAVHL8fmKnkJvQ0ACiVgY7YGCq3TUB2oznAOayvZPIAdEThvhczkXR+qm3IHsNXpFCYfA==
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/piscina/-/piscina-5.3.2.tgz#ea9376457c47f54d01ecd7556eed94c49160f400"
+  integrity sha512-vv7l/mM7B9WgrhDaudIqv1x6v4LOBRYYmpWGdWushhpbCmVHp11sUB2v4hj1CAeTGXVxuZFz6xOU1RalAiPKfQ==
   optionalDependencies:
     "@napi-rs/nice" "^1.0.4"
 
