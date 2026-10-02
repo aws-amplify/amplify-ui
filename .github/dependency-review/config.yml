@@ -66,3 +66,10 @@ allow-dependencies-licenses:
   # (GitHub's scanner over-reports it as GPL because the LGPL-3.0 license file
   # embeds the GPL-3.0 text.)
   - 'pkg:npm/rollup-plugin-dts'
+allow-ghsas:
+  # maplibre-gl@2.1.9 (packages/react-geo) is pinned because maplibre-gl@6.x is
+  # ESM-only and not yet supported by maplibre-gl-js-amplify (see
+  # aws-amplify/maplibre-gl-js-amplify#285). The advisory's vulnerable
+  # DOM.sanitize() loop does not exist in 2.x. Remove this entry once
+  # @aws-amplify/ui-react-geo moves to maplibre-gl >= 6.4.1.
+  - 'GHSA-jrc7-96c5-q579'

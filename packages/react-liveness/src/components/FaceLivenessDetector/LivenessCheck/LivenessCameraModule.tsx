@@ -3,7 +3,12 @@ import { classNames } from '@aws-amplify/ui';
 
 import { Button, Flex, Loader, Text, View } from '@aws-amplify/ui-react';
 import { useColorMode } from '@aws-amplify/ui-react/internal';
-import { FaceMatchState, clearOvalCanvas, drawStaticOval } from '../service';
+import {
+  FaceMatchState,
+  clearOvalCanvas,
+  drawStaticOval,
+  getVideoFillLayout,
+} from '../service';
 import type { UseMediaStreamInVideo } from '../hooks';
 import {
   useLivenessActor,
@@ -53,6 +58,9 @@ export const selectFaceMatchState = createLivenessSelector(
 export const selectSelectedDeviceId = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.selectedDeviceId
 );
+export const selectDisableStartScreen = createLivenessSelector(
+  (state) => state.context.componentProps?.disableStartScreen
+);
 export const selectSelectableDevices = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.selectableDevices
 );
@@ -68,6 +76,10 @@ export interface LivenessCameraModuleProps {
   components?: FaceLivenessDetectorComponents;
   testId?: string;
 }
+
+// how long the video size must be stable during recording before the session
+// oval is redrawn
+const VIDEO_RESIZED_DEBOUNCE_MS = 100;
 
 const showMatchIndicatorStates = [
   FaceMatchState.TOO_FAR,
@@ -119,6 +131,7 @@ export const LivenessCameraModule = (
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const errorState = useLivenessSelector(selectErrorState);
+  const disableStartScreen = useLivenessSelector(selectDisableStartScreen);
 
   const colorMode = useColorMode();
 
@@ -127,6 +140,7 @@ export const LivenessCameraModule = (
   );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const videoAnchorRef = useRef<HTMLDivElement>(null);
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
@@ -207,6 +221,94 @@ export const LivenessCameraModule = (
     };
   }, [videoRef, videoStream, colorMode, isStartView, isMetadataLoaded]);
 
+  // Size the video to fill the anchor, which grows to fill the host container
+  // when the host gives it a height (e.g. a modal body)
+  const layoutVideo = React.useCallback(() => {
+    const anchor = videoAnchorRef.current;
+    const video = videoRef.current;
+    if (!anchor || !video?.videoWidth || !video.videoHeight) {
+      return;
+    }
+
+    const { width, height, left, top } = getVideoFillLayout({
+      containerWidth: anchor.clientWidth,
+      containerHeight: anchor.clientHeight,
+      videoWidth: video.videoWidth,
+      videoHeight: video.videoHeight,
+    });
+
+    video.style.width = `${width}px`;
+    video.style.height = `${height}px`;
+    video.style.left = `${left}px`;
+    video.style.top = `${top}px`;
+  }, [videoRef]);
+
+  // Keep the oval aligned with the video when the host container resizes,
+  // e.g. a modal open animation or a responsive layout change. Kept in a ref
+  // so the observer below always calls the latest version.
+  const redrawOnResizeRef = React.useRef<() => void>();
+  const recordingResizeTimeoutRef = React.useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+  React.useLayoutEffect(() => {
+    redrawOnResizeRef.current = () => {
+      layoutVideo();
+      if (isStartView && isMetadataLoaded && canvasRef.current && videoStream) {
+        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+      } else if (isRecording) {
+        // the video is laid out every frame above; only redraw the session
+        // oval once the size settles to avoid a machine transition per frame
+        if (recordingResizeTimeoutRef.current) {
+          clearTimeout(recordingResizeTimeoutRef.current);
+        }
+        recordingResizeTimeoutRef.current = setTimeout(() => {
+          recordingResizeTimeoutRef.current = null;
+          send({ type: 'VIDEO_RESIZED' });
+        }, VIDEO_RESIZED_DEBOUNCE_MS);
+      }
+    };
+  });
+
+  React.useEffect(() => {
+    const anchor = videoAnchorRef.current;
+    if (!anchor || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    let lastWidth: number | undefined;
+    let lastHeight: number | undefined;
+    let frameId: number | undefined;
+
+    const resizeObserver = new ResizeObserver(() => {
+      const { clientWidth, clientHeight } = anchor;
+      if (clientWidth === lastWidth && clientHeight === lastHeight) {
+        return;
+      }
+      lastWidth = clientWidth;
+      lastHeight = clientHeight;
+
+      // coalesce into a single redraw per frame
+      frameId ??= requestAnimationFrame(() => {
+        frameId = undefined;
+        redrawOnResizeRef.current?.();
+      });
+    });
+    resizeObserver.observe(anchor);
+
+    return () => {
+      resizeObserver.disconnect();
+      if (frameId !== undefined) {
+        cancelAnimationFrame(frameId);
+      }
+      if (recordingResizeTimeoutRef.current) {
+        clearTimeout(recordingResizeTimeoutRef.current);
+      }
+    };
+    // The camera permission check returns early (below) without rendering the
+    // video anchor, so the ref is only set once `isCheckingCamera` is false;
+    // re-run then to start observing the newly mounted anchor.
+  }, [isCheckingCamera]);
+
   React.useLayoutEffect(() => {
     if (isCameraReady) {
       send({
@@ -255,6 +357,7 @@ export const LivenessCameraModule = (
   };
 
   const handleLoadedMetadata = () => {
+    layoutVideo();
     setIsMetadataLoaded(true);
   };
 
@@ -318,7 +421,11 @@ export const LivenessCameraModule = (
 
   return (
     <>
-      {!isFaceMovementChallenge && photoSensitivityWarning}
+      {/* The warning is only visible on the start screen; without one it would
+          just reserve empty space above the camera */}
+      {!isFaceMovementChallenge &&
+        !disableStartScreen &&
+        photoSensitivityWarning}
 
       {shouldShowCenteredLoader && (
         <Flex className={LivenessClassNames.ConnectingLoader}>
@@ -411,6 +518,7 @@ export const LivenessCameraModule = (
           hidden
         />
         <View
+          ref={videoAnchorRef}
           className={LivenessClassNames.VideoAnchor}
           style={{
             aspectRatio: `${aspectRatio}`,
