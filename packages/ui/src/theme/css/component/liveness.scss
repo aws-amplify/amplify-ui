@@ -33,7 +33,25 @@
   }
 }
 
+// When the host gives the detector a definite height (e.g. a modal body),
+// fill it: the camera module grows or shrinks to take the remaining height.
+// With an auto-height host these resolve to auto and the layout is unchanged.
+.liveness-detector {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+
+  > .amplify-flex,
+  .liveness-detector-check {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+
 .amplify-liveness-camera-module {
+  flex: 1 1 auto;
+  min-height: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -111,6 +129,16 @@
 .amplify-liveness-video-anchor {
   position: relative;
   width: 100%;
+  flex: 1 1 auto;
+  // floor for hosts shorter than the detector's content; at or above ~267px
+  // wide this never exceeds the 4:3 height, so auto-height layouts are unchanged
+  min-height: 200px;
+  overflow: hidden;
+}
+
+// mobile already renders the camera full screen
+.amplify-liveness-camera-module--mobile .amplify-liveness-video-anchor {
+  flex: none;
 }
 
 .amplify-liveness-recording-icon-container {
@@ -446,4 +474,7 @@
   justify-content: center;
   text-align: center;
   height: 480px;
+  // don't overflow a host with a shorter definite height while permissions
+  // are pending (resolves to none for auto-height hosts)
+  max-height: 100%;
 }

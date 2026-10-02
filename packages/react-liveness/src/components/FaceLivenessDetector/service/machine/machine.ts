@@ -37,6 +37,8 @@ import {
   createStreamingClient,
   createSessionInfoFromServerSessionInformation,
   drawLivenessOvalInCanvas,
+  getVideoScaleFactor,
+  resizeCanvasToDisplaySize,
   getFaceMatchStateInLivenessOval,
   getOvalDetailsFromSessionInformation,
   StreamRecorder,
@@ -336,6 +338,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           'sendTimeoutAfterOvalDrawingDelay',
         ],
         initial: 'ovalDrawing',
+        on: {
+          VIDEO_RESIZED: {
+            internal: true,
+            actions: ['updateOvalScaleFactor', 'redrawLivenessOval'],
+          },
+        },
         states: {
           ovalDrawing: {
             invoke: {
@@ -635,6 +643,34 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           !!event.data!.isFaceFarEnoughBeforeRecording,
         errorState: (_, event) => event.data?.error as ErrorState,
       }),
+      // The oval is drawn once per check; keep it aligned when the host
+      // container resizes after it has been drawn (e.g. modal open animation).
+      updateOvalScaleFactor: assign({
+        ovalAssociatedParams: (context) => {
+          const { videoEl } = context.videoAssociatedParams ?? {};
+          if (!context.ovalAssociatedParams?.ovalDetails || !videoEl) {
+            return context.ovalAssociatedParams;
+          }
+          return {
+            ...context.ovalAssociatedParams,
+            scaleFactor: getVideoScaleFactor(videoEl),
+          };
+        },
+      }),
+      redrawLivenessOval: (context) => {
+        const { videoEl, canvasEl } = context.videoAssociatedParams ?? {};
+        const { ovalDetails, scaleFactor } = context.ovalAssociatedParams ?? {};
+        if (!videoEl || !canvasEl || !ovalDetails || !scaleFactor) {
+          return;
+        }
+        resizeCanvasToDisplaySize(canvasEl);
+        drawLivenessOvalInCanvas({
+          canvas: canvasEl,
+          oval: ovalDetails,
+          scaleFactor,
+          videoEl,
+        });
+      },
       updateOvalAndFaceDetailsPostDraw: assign({
         ovalAssociatedParams: (context, event) => ({
           ...context.ovalAssociatedParams,
@@ -1146,7 +1182,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectInitialFaceAndDrawOval(context) {
         const { parsedSessionInformation } = context;
-        const { videoEl, canvasEl, isMobile } = context.videoAssociatedParams!;
+        const { videoEl, canvasEl } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
         // initialize models
@@ -1183,22 +1219,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return { faceMatchState, illuminationState };
         }
 
-        // Get width/height of video element so we can compute scaleFactor
-        // and set canvas width/height.
-        const { width: videoScaledWidth, height: videoScaledHeight } =
-          videoEl!.getBoundingClientRect();
-
-        if (isMobile) {
-          canvasEl!.width = window.innerWidth;
-          canvasEl!.height = window.innerHeight;
-        } else {
-          canvasEl!.width = videoScaledWidth;
-          canvasEl!.height = videoScaledHeight;
-        }
+        // Size the canvas to its container: the full screen on mobile and the
+        // video element otherwise.
+        resizeCanvasToDisplaySize(canvasEl!);
 
         // Compute scaleFactor which is how much our video element is scaled
         // vs the intrinsic video resolution
-        const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
+        const scaleFactor = getVideoScaleFactor(videoEl!);
 
         // generate oval details from initialFace and video dimensions
         const ovalDetails = getOvalDetailsFromSessionInformation({
@@ -1314,7 +1341,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return;
         }
 
-        const { ovalDetails, scaleFactor } = ovalAssociatedParams!;
+        const { ovalDetails } = ovalAssociatedParams!;
         const { videoEl } = videoAssociatedParams!;
 
         const completed = await colorSequenceDisplay!.startSequences({
@@ -1329,7 +1356,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               ovalDetails: ovalDetails!,
               nextColor: sequenceColor,
               prevColor: prevSequenceColor,
-              scaleFactor: scaleFactor!,
+              // read per frame so a resize during the sequence stays aligned
+              scaleFactor: getVideoScaleFactor(videoEl!),
               videoEl: videoEl!,
             });
           },
