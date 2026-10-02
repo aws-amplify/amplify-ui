@@ -7,6 +7,7 @@ import {
 } from '../../__mocks__/utils';
 import { useLivenessActor } from '../../hooks/useLivenessActor';
 import { CancelButton } from '../CancelButton';
+import type { FaceLivenessCancelButtonProps } from '../CancelButton';
 
 jest.mock('../../hooks/useLivenessActor');
 
@@ -66,8 +67,13 @@ describe('CancelButton', () => {
   });
 
   it('should render a custom component that cancels the check', () => {
-    const CustomCancelButton = ({ onCancel }: { onCancel: () => void }) => (
-      <button onClick={onCancel}>Leave check</button>
+    const CustomCancelButton = ({
+      onCancel,
+      cancelLivenessCheckText,
+    }: FaceLivenessCancelButtonProps) => (
+      <button onClick={onCancel} aria-label={cancelLivenessCheckText}>
+        Leave check
+      </button>
     );
     renderWithLivenessProvider(
       <CancelButton
@@ -76,10 +82,9 @@ describe('CancelButton', () => {
       />
     );
 
-    expect(
-      screen.queryByRole('button', { name: buttonAriaLabel })
-    ).not.toBeInTheDocument();
-    screen.getByRole('button', { name: 'Leave check' }).click();
+    expect(screen.queryByTestId('close-icon')).not.toBeInTheDocument();
+    // the custom button gets the resolved cancel text for its accessible name
+    screen.getByRole('button', { name: buttonAriaLabel }).click();
 
     expect(mockActorSend).toHaveBeenCalledWith({ type: 'CANCEL' });
   });

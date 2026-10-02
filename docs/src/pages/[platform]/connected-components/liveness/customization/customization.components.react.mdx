@@ -25,7 +25,7 @@ The following code snippet demonstrates using a more customized error view which
 
 ### Cancel Button Example
 
-Use `components.CancelButton` to replace the cancel ("X") button, or pass `null` to hide it. A custom cancel button receives an `onCancel` callback, which cancels the check the same way the default button does (the `onUserCancel` callback is called and the check restarts).
+Use `components.CancelButton` to replace the cancel ("X") button, or pass `null` to hide it. A custom cancel button receives an `onCancel` callback, which cancels the check the same way the default button does (the `onUserCancel` callback is called and the check restarts), and `cancelLivenessCheckText`, the localized text the default button uses as its accessible name.
 
 Hiding the cancel button is useful when FaceLivenessDetector is rendered inside a modal that already has its own close button. If the component is unmounted while recording, for example because the modal was closed, the session is ended with the same close reason as a cancel. `onUserCancel` is not called in this case.
 

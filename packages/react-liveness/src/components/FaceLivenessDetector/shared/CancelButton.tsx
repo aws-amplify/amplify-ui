@@ -11,6 +11,11 @@ export interface FaceLivenessCancelButtonProps {
    * Cancels the liveness check, same as the default cancel button
    */
   onCancel: () => void;
+  /**
+   * Resolved `cancelLivenessCheckText` display text, used as the default
+   * button's accessible name
+   */
+  cancelLivenessCheckText: string;
 }
 
 export interface CancelButtonProps {
@@ -36,7 +41,11 @@ export const CancelButton: React.FC<CancelButtonProps> = ({
 
   if (isFinalState) return null;
 
-  if (Component) return <Component onCancel={handleClick} />;
+  if (Component) {
+    return (
+      <Component onCancel={handleClick} cancelLivenessCheckText={ariaLabel} />
+    );
+  }
 
   return (
     <Button

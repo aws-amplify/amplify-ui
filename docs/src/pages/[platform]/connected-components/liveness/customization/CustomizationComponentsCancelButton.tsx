@@ -23,9 +23,10 @@ export function CustomizationComponentsCustomCancelButton() {
       region="us-east-1"
       onAnalysisComplete={async () => {}}
       components={{
-        CancelButton: ({ onCancel }) => (
+        CancelButton: ({ onCancel, cancelLivenessCheckText }) => (
           <Button
             size="small"
+            aria-label={cancelLivenessCheckText}
             onClick={() => {
               if (window.confirm('Leave the video check?')) onCancel();
             }}

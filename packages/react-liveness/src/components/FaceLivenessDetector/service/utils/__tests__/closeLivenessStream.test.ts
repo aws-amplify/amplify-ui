@@ -47,6 +47,25 @@ describe('closeLivenessStream', () => {
     });
   });
 
+  it('should log if sending the close code fails', async () => {
+    const error = new Error('dispatch failed');
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    const provider = createProvider(() => Promise.resolve());
+    (provider.dispatchStreamEvent as jest.Mock).mockImplementation(() => {
+      throw error;
+    });
+
+    closeLivenessStream(provider, 4003);
+    await flushPromises();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      'Error sending liveness close code:',
+      error
+    );
+  });
+
   it('should do nothing without a stream provider', () => {
     expect(() => closeLivenessStream(undefined, 4003)).not.toThrow();
   });
