@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react';
-import maplibregl from 'maplibre-gl';
-import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
-import { useControl, useMap } from 'react-map-gl';
-import type { IControl } from 'react-map-gl';
+import React, { useEffect, useRef, useState } from 'react';
+import type * as maplibregl from 'maplibre-gl';
+import type { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
+import { useControl, useMap } from 'react-map-gl/maplibre';
+import type { IControl } from 'react-map-gl/maplibre';
 
 import { useSetUserAgent } from '@aws-amplify/ui-react-core';
 
 import type { LocationSearchProps } from '../types/maplibre-gl-geocoder';
+import { loadMaplibre, loadMaplibreGlJsAmplify } from '../utils';
 import { VERSION } from '../../version';
 
 const LOCATION_SEARCH_OPTIONS = {
-  maplibregl,
   marker: { color: '#3FB1CE' },
   popup: true,
   showResultMarkers: { color: '#3FB1CE' },
@@ -23,12 +23,48 @@ type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
 };
 
+interface GeocoderModules {
+  createGeocoder: typeof createAmplifyGeocoder;
+  maplibregl: typeof maplibregl;
+}
+
+interface LocationSearchInternalProps extends LocationSearchProps {
+  modules: GeocoderModules;
+}
+
+const useGeocoderModules = (): GeocoderModules | undefined => {
+  const [modules, setModules] = useState<GeocoderModules>();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    Promise.all([loadMaplibre(), loadMaplibreGlJsAmplify()]).then(
+      ([maplibre, { createAmplifyGeocoder: createGeocoder }]) => {
+        if (isMounted) {
+          setModules({ createGeocoder, maplibregl: maplibre });
+        }
+      }
+    );
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return modules;
+};
+
 const LocationSearchControl = ({
+  modules: { createGeocoder, maplibregl: maplibre },
   position = 'top-right',
   ...props
-}: LocationSearchProps) => {
+}: LocationSearchInternalProps) => {
   useControl(
-    () => createAmplifyGeocoder(props) as unknown as AmplifyLocationSearch,
+    () =>
+      createGeocoder({
+        maplibregl: maplibre,
+        ...props,
+      }) as unknown as AmplifyLocationSearch,
     {
       position,
     }
@@ -37,18 +73,24 @@ const LocationSearchControl = ({
   return null;
 };
 
-const LocationSearchStandalone = (props: LocationSearchProps) => {
+const LocationSearchStandalone = ({
+  modules: { createGeocoder, maplibregl: maplibre },
+  ...props
+}: LocationSearchInternalProps) => {
   const hasMounted = useRef(false);
 
   useEffect(() => {
     if (!hasMounted.current) {
-      (createAmplifyGeocoder(props) as unknown as AmplifyLocationSearch).addTo(
-        `#${LOCATION_SEARCH_CONTAINER}`
-      );
+      (
+        createGeocoder({
+          maplibregl: maplibre,
+          ...props,
+        }) as unknown as AmplifyLocationSearch
+      ).addTo(`#${LOCATION_SEARCH_CONTAINER}`);
 
       hasMounted.current = true;
     }
-  }, [props]);
+  }, [createGeocoder, maplibre, props]);
 
   return <div id={LOCATION_SEARCH_CONTAINER} />;
 };
@@ -76,8 +118,9 @@ const LocationSearchStandalone = (props: LocationSearchProps) => {
  */
 export const LocationSearch = (
   props: LocationSearchProps
-): React.JSX.Element => {
+): React.JSX.Element | null => {
   const { current: map } = useMap();
+  const modules = useGeocoderModules();
 
   useSetUserAgent({
     componentName: 'LocationSearch',
@@ -91,9 +134,25 @@ export const LocationSearch = (
    * but throws an error if that map doesn't exist. If the map doesn't exist, the LocationSearch is mounted to a container
    * upon rendering inside the `LocationSearchStandalone`.
    */
-  if (map) {
-    return <LocationSearchControl {...LOCATION_SEARCH_OPTIONS} {...props} />;
+  if (!modules) {
+    return map ? null : <div id={LOCATION_SEARCH_CONTAINER} />;
   }
 
-  return <LocationSearchStandalone {...LOCATION_SEARCH_OPTIONS} {...props} />;
+  if (map) {
+    return (
+      <LocationSearchControl
+        {...LOCATION_SEARCH_OPTIONS}
+        {...props}
+        modules={modules}
+      />
+    );
+  }
+
+  return (
+    <LocationSearchStandalone
+      {...LOCATION_SEARCH_OPTIONS}
+      {...props}
+      modules={modules}
+    />
+  );
 };

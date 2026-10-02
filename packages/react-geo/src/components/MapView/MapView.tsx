@@ -2,25 +2,30 @@ import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import type { ResourcesConfig } from 'aws-amplify';
 import { Amplify } from 'aws-amplify';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import maplibregl from 'maplibre-gl';
-import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
-import ReactMapGL from 'react-map-gl';
-import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
+import type * as maplibregl from 'maplibre-gl';
+import ReactMapGL from 'react-map-gl/maplibre';
+import type { MapProps, MapRef } from 'react-map-gl/maplibre';
+
+import { loadMaplibre, loadMaplibreGlJsAmplify } from '../utils';
 
 interface GeoConfig extends NonNullable<ResourcesConfig['Geo']> {}
 
+type TransformRequestFunction = NonNullable<MapProps['transformRequest']>;
+
 interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
-  // replace `any` typed MapProps.mapLib
   mapLib?: typeof maplibregl;
 }
 
 /**
  * The `MapView` component uses [react-map-gl](https://visgl.github.io/react-map-gl/) and
- * [maplibre-gl-js](https://visgl.github.io/react-map-gl/) to provide an interactive map using
+ * [maplibre-gl-js](https://maplibre.org/maplibre-gl-js/docs/) to provide an interactive map using
  * [Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) powered by
  * [Amazon Location Service](https://aws.amazon.com/location/). Since `MapView` is a wrapper of the
- * [react-map-gl default Map](https://visgl.github.io/react-map-gl/docs/api-reference/map/), it accepts the same
+ * [react-map-gl/maplibre Map](https://visgl.github.io/react-map-gl/docs/api-reference/maplibre/map), it accepts the same
  * properties except `transformRequest` which is set by Amplify.
+ *
+ * When bundling maplibre-gl@6, pass `workerUrl` so maplibre can load its web worker. See
+ * https://maplibre.org/maplibre-gl-js/docs/#installation for the bundler-specific URL.
  *
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/geo#mapview)
  *
@@ -59,34 +64,36 @@ const MapView = forwardRef<MapRef, MapViewProps>(
      */
     useEffect(() => {
       (async () => {
-        const { credentials } = await fetchAuthSession();
+        const [{ credentials }, { AmplifyMapLibreRequest }] = await Promise.all(
+          [fetchAuthSession(), loadMaplibreGlJsAmplify()]
+        );
 
         if (credentials && geoConfig) {
           const { region } = geoConfig;
           const { transformRequest: amplifyTransformRequest } =
             new AmplifyMapLibreRequest(credentials, region);
-          setTransformRequest(() => amplifyTransformRequest);
+          setTransformRequest(
+            () => amplifyTransformRequest as TransformRequestFunction
+          );
         }
       })();
     }, [geoConfig]);
 
     /**
-     * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is
-     * mapbox-gl-js, which uses its own copyrighted license. We override the map library with the BSD-licensed
-     * maplibre-gl-js.
+     * The mapLib property is used by react-map-gl to override the underlying map library. By default we pass a promise
+     * of the maplibre-gl dependency of this package, loaded on the client, so `workerUrl` is applied to the same
+     * instance that renders the map.
      *
      * The default mapStyle we use is just the map ID provided by aws-exports.
      */
     return transformRequest ? (
       <ReactMapGL
         {...props}
-        mapLib={mapLib ?? maplibregl}
+        mapLib={mapLib ?? loadMaplibre()}
         mapStyle={mapStyle ?? geoConfig?.maps?.default}
         ref={ref}
         style={styleProps}
         transformRequest={transformRequest}
-        fog={props.fog}
-        terrain={props.terrain}
       />
     ) : null;
   }
