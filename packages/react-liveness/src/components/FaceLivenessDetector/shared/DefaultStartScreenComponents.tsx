@@ -4,11 +4,21 @@ import { Flex, View } from '@aws-amplify/ui-react';
 import { RecordingIcon } from './';
 import { LivenessIconWithPopover } from './LivenessIconWithPopover';
 import { CancelButton as CancelButtonComponent } from './CancelButton';
+import type { FaceLivenessCancelButtonProps } from './CancelButton';
 import { LivenessClassNames } from '../types/classNames';
 import type { CheckScreenComponents } from './FaceLivenessErrorModal';
 
 export type FaceLivenessDetectorComponents = StartScreenComponents &
-  CheckScreenComponents;
+  CheckScreenComponents &
+  CancelButtonComponents;
+
+export interface CancelButtonComponents {
+  /**
+   * Replaces the cancel ("X") button. Pass `null` to hide it, for example
+   * when the host (such as a modal) already provides its own close button.
+   */
+  CancelButton?: React.ComponentType<FaceLivenessCancelButtonProps> | null;
+}
 
 export interface StartScreenComponents {
   PhotosensitiveWarning?: React.ComponentType;
@@ -59,15 +69,18 @@ export const DefaultRecordingIcon = ({
 
 interface CancelButtonProps {
   cancelLivenessCheckText: string;
+  CancelButton?: React.ComponentType<FaceLivenessCancelButtonProps>;
 }
 
 export const DefaultCancelButton = ({
   cancelLivenessCheckText,
+  CancelButton,
 }: CancelButtonProps): React.JSX.Element => {
   return (
     <View className={LivenessClassNames.CancelContainer}>
       <CancelButtonComponent
         ariaLabel={cancelLivenessCheckText}
+        Component={CancelButton}
       ></CancelButtonComponent>
     </View>
   );

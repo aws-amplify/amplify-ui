@@ -1,0 +1,23 @@
+## Sizing
+
+`FaceLivenessDetector` always takes the full width of its container. Its height depends on the container:
+
+- **Container without a set height** (for example, a normal page): the camera area's height follows the camera frame's 4:3 aspect ratio.
+- **Container with a set height** (for example, a modal body with `height` or `flex: 1`): the component fills the container's full width and height. To fill the height, the camera view is scaled up and may be cropped on the left and right, by no more than 30% of the frame width, so the oval always stays fully visible. The top and bottom of the camera view are never cropped.
+
+The camera area doesn't shrink below 200px tall. If the component is resized after the camera starts, for example by a modal open animation or a window resize, the camera view and oval resize with it.
+
+Render size doesn't change how close the user needs to be to the camera. The oval and face-match thresholds come from the Face Liveness session and are evaluated in camera pixels.
+
+```jsx
+<div style={{ height: '80vh', display: 'flex', flexDirection: 'column' }}>
+  <FaceLivenessDetector
+    sessionId={createLivenessApiData.sessionId}
+    region="us-east-1"
+    onAnalysisComplete={handleAnalysisComplete}
+    disableStartScreen={true}
+  />
+</div>
+```
+
+On mobile devices, the camera is shown full screen during the check, so the container's size doesn't apply there.

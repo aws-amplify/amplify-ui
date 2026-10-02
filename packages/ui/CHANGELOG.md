@@ -1,5 +1,17 @@
 # @aws-amplify/ui
 
+## 6.15.7
+
+### Patch Changes
+
+- [#7152](https://github.com/aws-amplify/amplify-ui/pull/7152) [`b92a307a2b13e62f93ebccbf9f2c96159d665fe0`](https://github.com/aws-amplify/amplify-ui/commit/b92a307a2b13e62f93ebccbf9f2c96159d665fe0) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(liveness): size FaceLivenessDetector to fill its host container
+
+  - Redraw the liveness oval when the video element resizes (e.g. modal open animations, responsive layouts)
+  - Fill the width and height of a host container with a definite height (e.g. a modal body); the camera is scaled to fill and cropped on the sides by at most 30% so the oval stays visible
+  - Do not reserve space for the hidden photosensitivity warning when the start screen is disabled
+  - Position the freshness color overlay relative to its own box so it renders correctly inside transformed modal dialogs
+  - Keep the camera area at least 200px tall in hosts shorter than the detector's content
+
 ## 6.15.6
 
 ### Patch Changes

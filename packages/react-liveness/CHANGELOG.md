@@ -1,5 +1,25 @@
 # @aws-amplify/ui-react-liveness
 
+## 3.7.0
+
+### Minor Changes
+
+- [#7153](https://github.com/aws-amplify/amplify-ui/pull/7153) [`646d717d4b14ca170c77cedaccef00adbd162ada`](https://github.com/aws-amplify/amplify-ui/commit/646d717d4b14ca170c77cedaccef00adbd162ada) Thanks [@osama-rizk](https://github.com/osama-rizk)! - feat(liveness): add `components.CancelButton` to replace or hide (`null`) the cancel button, and end the session with the user cancel close code when FaceLivenessDetector is unmounted while recording
+
+### Patch Changes
+
+- [#7152](https://github.com/aws-amplify/amplify-ui/pull/7152) [`b92a307a2b13e62f93ebccbf9f2c96159d665fe0`](https://github.com/aws-amplify/amplify-ui/commit/b92a307a2b13e62f93ebccbf9f2c96159d665fe0) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(liveness): size FaceLivenessDetector to fill its host container
+
+  - Redraw the liveness oval when the video element resizes (e.g. modal open animations, responsive layouts)
+  - Fill the width and height of a host container with a definite height (e.g. a modal body); the camera is scaled to fill and cropped on the sides by at most 30% so the oval stays visible
+  - Do not reserve space for the hidden photosensitivity warning when the start screen is disabled
+  - Position the freshness color overlay relative to its own box so it renders correctly inside transformed modal dialogs
+  - Keep the camera area at least 200px tall in hosts shorter than the detector's content
+
+- Updated dependencies [[`b92a307a2b13e62f93ebccbf9f2c96159d665fe0`](https://github.com/aws-amplify/amplify-ui/commit/b92a307a2b13e62f93ebccbf9f2c96159d665fe0)]:
+  - @aws-amplify/ui@6.15.7
+  - @aws-amplify/ui-react@6.15.7
+
 ## 3.6.9
 
 ### Patch Changes
