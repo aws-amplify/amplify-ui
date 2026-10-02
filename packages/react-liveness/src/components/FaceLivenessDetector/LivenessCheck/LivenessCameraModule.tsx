@@ -196,12 +196,12 @@ export const LivenessCameraModule = (
       isMetadataLoaded;
 
     if (shouldDrawOval) {
-      drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+      drawStaticOval(canvasRef.current, videoRef.current!);
     }
 
     const updateColorModeHandler = (e: MediaQueryListEvent) => {
       if (e.matches && shouldDrawOval) {
-        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+        drawStaticOval(canvasRef.current, videoRef.current!);
       }
     };
 
@@ -254,7 +254,7 @@ export const LivenessCameraModule = (
     redrawOnResizeRef.current = () => {
       layoutVideo();
       if (isStartView && isMetadataLoaded && canvasRef.current && videoStream) {
-        drawStaticOval(canvasRef.current, videoRef.current!, videoStream);
+        drawStaticOval(canvasRef.current, videoRef.current!);
       } else if (isRecording) {
         // the video is laid out every frame above; only redraw the session
         // oval once the size settles to avoid a machine transition per frame

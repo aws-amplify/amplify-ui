@@ -2,6 +2,7 @@ import 'jest-canvas-mock';
 import {
   clearOvalCanvas,
   drawLivenessOvalInCanvas,
+  drawStaticOval,
   estimateIllumination,
   fillOverlayCanvasFractional,
   generateBboxFromLandmarks,
@@ -522,6 +523,36 @@ describe('Liveness Helper', () => {
 
       expect(canvas.width).toBe(801);
       expect(canvas.height).toBe(601);
+    });
+  });
+
+  describe('drawStaticOval', () => {
+    it('should center the oval in the intrinsic frame when the track dims are flipped', () => {
+      // Android/Firefox and iOS report the getUserMedia width/height flipped by
+      // orientation. The oval must follow the 640x480 frame the video element
+      // actually renders, which puts its center in [280, 360] (7/16 to 9/16 of
+      // 640). Sizing from a flipped 480-wide track would land in [120, 200].
+      const parent = document.createElement('div');
+      const canvasEl = document.createElement('canvas');
+      parent.appendChild(canvasEl);
+      Object.defineProperty(parent, 'clientWidth', { value: 800 });
+      Object.defineProperty(parent, 'clientHeight', { value: 360 });
+
+      const videoEl = document.createElement('video');
+      Object.defineProperty(videoEl, 'videoWidth', { value: 640 });
+      Object.defineProperty(videoEl, 'videoHeight', { value: 480 });
+      Object.defineProperty(videoEl, 'clientWidth', { value: 480 });
+      Object.defineProperty(videoEl, 'clientHeight', { value: 360 });
+
+      drawStaticOval(canvasEl, videoEl);
+
+      const path = (canvasEl.getContext('2d') as any)._path;
+      const ellipse = path.find((entry: any) => entry.type === 'ellipse');
+      expect(ellipse).toBeDefined();
+      expect(ellipse.props.x).toBeGreaterThanOrEqual(280);
+      expect(ellipse.props.x).toBeLessThanOrEqual(360);
+      expect(ellipse.props.y).toBeGreaterThanOrEqual(210);
+      expect(ellipse.props.y).toBeLessThanOrEqual(270);
     });
   });
 

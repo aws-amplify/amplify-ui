@@ -328,19 +328,21 @@ export function drawLivenessOvalInCanvas({
 
 export function drawStaticOval(
   canvasEl: HTMLCanvasElement,
-  videoEl: HTMLVideoElement,
-  videoMediaStream: MediaStream
+  videoEl: HTMLVideoElement
 ): void {
-  const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+  // Intrinsic frame dims, never track.getSettings(): Android/Firefox and iOS
+  // report the getUserMedia width/height flipped by orientation, so the track
+  // disagrees with the frame that is actually rendered.
+  const { videoWidth: width, videoHeight: height } = videoEl;
 
   resizeCanvasToDisplaySize(canvasEl);
 
   const ovalDetails = getStaticLivenessOvalDetails({
-    width: width!,
-    height: height!,
+    width,
+    height,
     ratioMultiplier: 0.5,
   });
-  ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
+  ovalDetails.flippedCenterX = width - ovalDetails.centerX;
 
   // Compute scaleFactor which is how much our video element is scaled
   // vs the intrinsic video resolution
