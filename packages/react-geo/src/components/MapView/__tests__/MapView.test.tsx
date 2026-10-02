@@ -29,7 +29,7 @@ jest.mock('maplibre-gl-js-amplify', () => ({
 
 // Mock react-map-gl to check just that ReactMapGL component is rendered, and not what it actually renders.
 jest.mock(
-  'react-map-gl',
+  'react-map-gl/maplibre',
   () =>
     function ReactMapGlMock() {
       return <div data-testid="react-map-gl-mock" />;
