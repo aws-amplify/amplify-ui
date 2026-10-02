@@ -8,6 +8,7 @@ const config: Config = {
     '!<rootDir>/**/index.(ts|tsx)',
     // do not collect from top level style file
     '!<rootDir>/src/styles.ts',
+    '!<rootDir>/src/__mocks__/**',
   ],
   coverageThreshold: {
     global: {
@@ -17,7 +18,10 @@ const config: Config = {
       statements: 70,
     },
   },
-  moduleNameMapper: { '^uuid$': '<rootDir>/../../node_modules/uuid' },
+  moduleNameMapper: {
+    '^maplibre-gl$': '<rootDir>/src/__mocks__/maplibre-gl.ts',
+    '^uuid$': '<rootDir>/../../node_modules/uuid',
+  },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],

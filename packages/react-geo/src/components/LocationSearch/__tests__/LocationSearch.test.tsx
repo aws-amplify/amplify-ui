@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Amplify, ResourcesConfig } from 'aws-amplify';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 import { LocationSearch } from '..';
 
@@ -14,13 +14,14 @@ const partialAmplifyConfig: ResourcesConfig = {
 };
 
 describe('LocationSearch component', () => {
-  it('should render', () => {
+  it('should render', async () => {
     getConfigSpy.mockReturnValue(partialAmplifyConfig);
     const { container } = render(<LocationSearch />);
-    const elements = container.getElementsByClassName(
-      'maplibregl-ctrl-geocoder'
-    );
 
-    expect(elements.length).toBe(1);
+    await waitFor(() => {
+      expect(
+        container.getElementsByClassName('maplibregl-ctrl-geocoder').length
+      ).toBe(1);
+    });
   });
 });
