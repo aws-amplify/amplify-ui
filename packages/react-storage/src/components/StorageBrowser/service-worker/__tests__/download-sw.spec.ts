@@ -26,7 +26,17 @@ jest.spyOn(self, 'addEventListener').mockImplementation(((
 import '../download-sw';
 
 describe('download-sw', () => {
-  const messageHandler = () => listeners['message'] as (e: any) => void;
+  // The message handler now calls `event.waitUntil` when it stores a stream
+  // (keepalive hold). Default a no-op `waitUntil` so existing call sites that
+  // only pass { origin, data, ports } keep working; tests that need to assert on
+  // the hold pass their own `waitUntil`.
+  const messageHandler =
+    () =>
+    (event: any): void =>
+      (listeners['message'] as (e: any) => void)({
+        waitUntil: () => {},
+        ...event,
+      });
   const fetchHandler = () => listeners['fetch'] as (e: any) => void;
 
   // Service worker messages must originate from a same-origin client.
@@ -165,7 +175,10 @@ describe('download-sw', () => {
     );
   });
 
-  it('does not call respondWith when no stream stored', () => {
+  it('responds with 410 when no stream is stored', () => {
+    // A miss means the SW restarted and lost the stream (or the id is stale).
+    // The SW must fail fast with a 410 rather than falling through to the
+    // network, where the URL 404s and Chrome hangs with no error.
     const respondWith = jest.fn();
     fetchHandler()({
       request: {
@@ -174,7 +187,9 @@ describe('download-sw', () => {
       respondWith,
     });
 
-    expect(respondWith).not.toHaveBeenCalled();
+    expect(respondWith).toHaveBeenCalledWith(expect.any(Response));
+    const response: Response = respondWith.mock.calls[0][0];
+    expect(response.status).toBe(410);
   });
 
   it('cleans up stored stream after responding', () => {
@@ -194,7 +209,8 @@ describe('download-sw', () => {
     });
     expect(respondWith).toHaveBeenCalled();
 
-    // Second fetch for same ID should fall through
+    // Second fetch for same ID: stream already consumed, so it now 410s
+    // (previously fell through to the network).
     const respondWith2 = jest.fn();
     fetchHandler()({
       request: {
@@ -202,7 +218,8 @@ describe('download-sw', () => {
       },
       respondWith: respondWith2,
     });
-    expect(respondWith2).not.toHaveBeenCalled();
+    expect(respondWith2).toHaveBeenCalledWith(expect.any(Response));
+    expect(respondWith2.mock.calls[0][0].status).toBe(410);
   });
 
   it('ignores messages from a foreign origin', () => {
@@ -218,7 +235,8 @@ describe('download-sw', () => {
 
     expect(mockPort.postMessage).not.toHaveBeenCalled();
 
-    // A subsequent fetch for that ID falls through (stream was never stored)
+    // A subsequent fetch for that ID 410s (stream was never stored because the
+    // message was rejected), rather than streaming an injected payload.
     const respondWith = jest.fn();
     fetchHandler()({
       request: {
@@ -226,6 +244,196 @@ describe('download-sw', () => {
       },
       respondWith,
     });
+    expect(respondWith).toHaveBeenCalledWith(expect.any(Response));
+    expect(respondWith.mock.calls[0][0].status).toBe(410);
+  });
+
+  it("passes through a request for the SW's own script without a 410", () => {
+    // A request for the worker's own script URL (self.location) is the worker
+    // itself, not a download id — it must fall through to the network rather
+    // than being treated as a missing stream and 410'd. The handler compares
+    // against self.location.pathname, so drive it with the worker's own URL.
+    const respondWith = jest.fn();
+    fetchHandler()({
+      request: {
+        url: self.location.href,
+      },
+      respondWith,
+    });
+
     expect(respondWith).not.toHaveBeenCalled();
+  });
+
+  it('410 response carries a plain-text body and content type', () => {
+    const respondWith = jest.fn();
+    fetchHandler()({
+      request: { url: 'https://localhost/amplify-storage-download/missing' },
+      respondWith,
+    });
+
+    const response: Response = respondWith.mock.calls[0][0];
+    expect(response.status).toBe(410);
+    expect(response.headers.get('Content-Type')).toBe('text/plain');
+  });
+
+  it('holds the SW alive until the fetch consumes the stream, then releases', async () => {
+    // Storing a stream must register a waitUntil hold; the matching fetch
+    // releases it (resolves the promise) so the SW is not pinned past the
+    // transfer handoff.
+    const stream = new ReadableStream();
+    let holdResolved = false;
+    const holdPromises: Promise<unknown>[] = [];
+
+    messageHandler()({
+      origin: ORIGIN,
+      data: { downloadId: 'hold-test', stream },
+      ports: [{ postMessage: jest.fn() }],
+      waitUntil: (p: Promise<unknown>) => {
+        holdPromises.push(p);
+        void p.then(() => {
+          holdResolved = true;
+        });
+      },
+    });
+
+    // Hold is registered but not yet resolved.
+    expect(holdPromises).toHaveLength(1);
+    await Promise.resolve();
+    expect(holdResolved).toBe(false);
+
+    // The matching fetch consumes the stream and releases the hold. Race the
+    // hold against a short sentinel so a regression that never releases fails
+    // with a clear assertion rather than the test's 5s timeout.
+    fetchHandler()({
+      request: { url: 'https://localhost/amplify-storage-download/hold-test' },
+      respondWith: jest.fn(),
+    });
+
+    const SENTINEL = Symbol('not-resolved');
+    const raced = await Promise.race([
+      holdPromises[0].then(() => 'released'),
+      new Promise((resolve) => setTimeout(() => resolve(SENTINEL), 50)),
+    ]);
+    expect(raced).toBe('released');
+    expect(holdResolved).toBe(true);
+  });
+
+  it('on the 30s cap: 410s the fetch, resolves the hold, and cancels the stream', async () => {
+    jest.useFakeTimers();
+    try {
+      const cancel = jest.fn().mockResolvedValue(undefined);
+      const stream = { cancel } as unknown as ReadableStream;
+      let holdResolved = false;
+
+      messageHandler()({
+        origin: ORIGIN,
+        data: { downloadId: 'cap-a', stream },
+        ports: [{ postMessage: jest.fn() }],
+        waitUntil: (p: Promise<unknown>) => {
+          void p.then(() => {
+            holdResolved = true;
+          });
+        },
+      });
+
+      // Just before the boundary: hold still open, stream not cancelled, and a
+      // fetch would still stream (entry present).
+      jest.advanceTimersByTime(29_999);
+      await Promise.resolve();
+      expect(holdResolved).toBe(false);
+      expect(cancel).not.toHaveBeenCalled();
+
+      const respondWithBefore = jest.fn();
+      fetchHandler()({
+        request: { url: 'https://localhost/amplify-storage-download/cap-a' },
+        respondWith: respondWithBefore,
+      });
+      const before: Response = respondWithBefore.mock.calls[0][0];
+      expect(before.status).not.toBe(410);
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+
+  it('on the 30s cap: a later fetch 410s and the stream was cancelled with an Error', async () => {
+    jest.useFakeTimers();
+    try {
+      const cancel = jest.fn().mockResolvedValue(undefined);
+      const stream = { cancel } as unknown as ReadableStream;
+      let holdResolved = false;
+
+      messageHandler()({
+        origin: ORIGIN,
+        data: { downloadId: 'cap-b', stream },
+        ports: [{ postMessage: jest.fn() }],
+        waitUntil: (p: Promise<unknown>) => {
+          void p.then(() => {
+            holdResolved = true;
+          });
+        },
+      });
+
+      // Cross the cap boundary.
+      jest.advanceTimersByTime(30_000);
+      await Promise.resolve();
+
+      // Hold released, stream cancelled with an Error (so the page handler's
+      // err.message is defined and the task ends FAILED, not CANCELED).
+      expect(holdResolved).toBe(true);
+      expect(cancel).toHaveBeenCalledTimes(1);
+      expect(cancel.mock.calls[0][0]).toBeInstanceOf(Error);
+
+      // The entry is gone, so a late fetch 410s.
+      const respondWith = jest.fn();
+      fetchHandler()({
+        request: { url: 'https://localhost/amplify-storage-download/cap-b' },
+        respondWith,
+      });
+      expect(respondWith.mock.calls[0][0].status).toBe(410);
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+
+  it('a keepalive ping refreshes the cap so an in-progress download is not capped', async () => {
+    // The page pings keepalive every 10s. Each ping must refresh the cap so a
+    // stream still waiting for its fetch (e.g. user sitting on Chrome's
+    // multi-download prompt) is not cancelled out from under it at 30s.
+    jest.useFakeTimers();
+    try {
+      const cancel = jest.fn().mockResolvedValue(undefined);
+      const stream = { cancel } as unknown as ReadableStream;
+
+      messageHandler()({
+        origin: ORIGIN,
+        data: { downloadId: 'ka', stream },
+        ports: [{ postMessage: jest.fn() }],
+        waitUntil: () => {},
+      });
+
+      // Approach the boundary, then ping keepalive to refresh the cap.
+      jest.advanceTimersByTime(29_000);
+      messageHandler()({
+        origin: ORIGIN,
+        data: { type: 'keepalive' },
+        waitUntil: () => {},
+      });
+
+      // Past the original 30s mark, but within the refreshed window: not capped.
+      jest.advanceTimersByTime(5_000);
+      expect(cancel).not.toHaveBeenCalled();
+
+      // The fetch still finds the stream and streams it (no 410).
+      const respondWith = jest.fn();
+      fetchHandler()({
+        request: { url: 'https://localhost/amplify-storage-download/ka' },
+        respondWith,
+      });
+      expect(respondWith).toHaveBeenCalledWith(expect.any(Response));
+      expect(respondWith.mock.calls[0][0].status).not.toBe(410);
+      expect(cancel).not.toHaveBeenCalled();
+    } finally {
+      jest.useRealTimers();
+    }
   });
 });
