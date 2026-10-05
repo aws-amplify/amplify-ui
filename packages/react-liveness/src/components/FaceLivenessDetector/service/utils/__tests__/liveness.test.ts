@@ -9,6 +9,7 @@ import {
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
   getOvalDetailsFromSessionInformation,
+  getStaticLivenessOvalDetails,
   getVideoFillLayout,
   getVideoScaleFactor,
   isCameraDeviceVirtual,
@@ -508,6 +509,39 @@ describe('Liveness Helper', () => {
       expect(width).toBeCloseTo(640);
       expect(height).toBeCloseTo(480);
       expect(top).toBeCloseTo(760);
+    });
+  });
+
+  // The supported landscape floor is 360 CSS px of container height.
+  describe('landscape viewport floor', () => {
+    const video = { videoWidth: 640, videoHeight: 480 };
+    // the oval the challenge actually draws, in frame space
+    const oval = getStaticLivenessOvalDetails({
+      width: video.videoWidth,
+      height: video.videoHeight,
+      ratioMultiplier: 0.8,
+    });
+
+    it.each([
+      [800, 360],
+      [915, 412],
+      [740, 360],
+    ])('should fit the oval in a %ix%i viewport', (width, height) => {
+      const layout = getVideoFillLayout({
+        containerWidth: width,
+        containerHeight: height,
+        ...video,
+      });
+      const scale = layout.height / video.videoHeight;
+
+      expect(oval.height * scale).toBeLessThanOrEqual(height);
+    });
+
+    it('should leave the oval under the frame height, so no clamp is needed', () => {
+      // 465 of 480: the oval is height-bound in landscape and getVideoFillLayout
+      // never scales the frame past the container height, so the rendered oval
+      // cannot exceed this fraction of the container at any landscape size.
+      expect(oval.height / video.videoHeight).toBeCloseTo(0.969, 3);
     });
   });
 
