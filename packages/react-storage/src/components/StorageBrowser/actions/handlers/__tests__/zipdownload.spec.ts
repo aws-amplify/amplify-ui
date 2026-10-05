@@ -159,9 +159,12 @@ describe('zipDownloadHandler', () => {
     Object.defineProperty(navigator, 'serviceWorker', {
       value: {
         controller: true,
-        getRegistration: jest.fn().mockResolvedValue({
-          active: { postMessage: mockPostMessage },
-        }),
+        getRegistrations: jest.fn().mockResolvedValue([
+          {
+            scope: 'https://example.com/amplify-storage-download/',
+            active: { postMessage: mockPostMessage },
+          },
+        ]),
         addEventListener: jest.fn(),
         removeEventListener: jest.fn(),
       },
@@ -368,7 +371,7 @@ describe('zipDownloadHandler', () => {
     Object.defineProperty(navigator, 'serviceWorker', {
       value: {
         controller: null,
-        getRegistration: jest.fn().mockResolvedValue({ active: null }),
+        getRegistrations: jest.fn().mockResolvedValue([]),
         addEventListener: jest.fn(),
         removeEventListener: jest.fn(),
       },
@@ -397,7 +400,7 @@ describe('zipDownloadHandler', () => {
     Object.defineProperty(navigator, 'serviceWorker', {
       value: {
         controller: null,
-        getRegistration: jest.fn().mockResolvedValue({ active: null }),
+        getRegistrations: jest.fn().mockResolvedValue([]),
         addEventListener: jest.fn(),
         removeEventListener: jest.fn(),
       },
@@ -485,6 +488,83 @@ describe('zipDownloadHandler', () => {
     // Exactly ONE batch (one ZipWriter) was constructed across both files —
     // proving file 2 did not resurrect the download.
     expect((ZipWriter as jest.Mock).mock.calls.length).toBe(1);
+  });
+
+  describe('service worker lookup by scope', () => {
+    it('selects the download SW by scope among multiple registrations', async () => {
+      // The host page may register its own root ('/') SW alongside the download
+      // SW. The lookup must pick the '/amplify-storage-download/' registration,
+      // not the root one, and must not fall back to blob.
+      const rootPostMessage = jest.fn();
+      Object.defineProperty(navigator, 'serviceWorker', {
+        value: {
+          controller: true,
+          getRegistrations: jest.fn().mockResolvedValue([
+            {
+              scope: 'https://example.com/',
+              active: { postMessage: rootPostMessage },
+            },
+            {
+              scope: 'https://example.com/amplify-storage-download/',
+              active: { postMessage: mockPostMessage },
+            },
+          ]),
+          addEventListener: jest.fn(),
+          removeEventListener: jest.fn(),
+        },
+        writable: true,
+        configurable: true,
+      });
+
+      const input = createBaseInput();
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      // Streamed via the download SW, not the root SW, and not via blob.
+      expect(mockPostMessage).toHaveBeenCalledWith(
+        expect.objectContaining({ downloadId: expect.any(String) }),
+        expect.any(Array)
+      );
+      expect(rootPostMessage).not.toHaveBeenCalled();
+      expect(mockAnchor.href).toMatch(/\/amplify-storage-download\//);
+    });
+
+    it('falls back to blob when only a non-matching root SW is registered', async () => {
+      // A page-registered root SW must not be mistaken for the download SW:
+      // `getRegistration('/amplify-storage-download/')` could resolve the root
+      // SW relative to the page, wrongly skipping the fallback.
+      const rootPostMessage = jest.fn();
+      Object.defineProperty(navigator, 'serviceWorker', {
+        value: {
+          controller: true,
+          getRegistrations: jest.fn().mockResolvedValue([
+            {
+              scope: 'https://example.com/',
+              active: { postMessage: rootPostMessage },
+            },
+          ]),
+          addEventListener: jest.fn(),
+          removeEventListener: jest.fn(),
+        },
+        writable: true,
+        configurable: true,
+      });
+
+      const mockCreateObjectURL = jest.fn(() => 'blob:scope-miss');
+      globalThis.URL.createObjectURL = mockCreateObjectURL;
+      globalThis.URL.revokeObjectURL = jest.fn();
+
+      const input = createBaseInput();
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      expect(rootPostMessage).not.toHaveBeenCalled();
+      expect(mockPostMessage).not.toHaveBeenCalled();
+      expect(mockCreateObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+      expect(mockAnchor.href).toBe('blob:scope-miss');
+    });
   });
 
   describe('zip entry naming (relativePath)', () => {

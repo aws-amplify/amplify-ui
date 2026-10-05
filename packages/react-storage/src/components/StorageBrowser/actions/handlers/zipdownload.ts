@@ -21,6 +21,7 @@ import type { TaskData, TaskResult, TaskResultStatus } from './types';
 import { isFunction } from '@aws-amplify/ui';
 import { getProgress } from './utils';
 import { ZipWriter } from '@zip.js/zip.js';
+import { SW_DOWNLOAD_SCOPE } from '../../service-worker/useServiceWorkerRegistration';
 
 type DownloadTaskResult = TaskResult<TaskResultStatus, { url: URL }>;
 
@@ -148,9 +149,18 @@ const initServiceWorkerStream = (state: BatchState): void => {
   }
 
   state.swReady = navigator.serviceWorker
-    .getRegistration('/amplify-storage-download/')
-    .then((reg) => {
-      // If the batch was cancelled while getRegistration() was pending, bail out
+    .getRegistrations()
+    .then((registrations) => {
+      // Match the download SW by scope pathname. `getRegistration(url)` matches a
+      // scope relative to the page, so a page at '/' with its own root SW can
+      // match that unrelated worker when the download SW is absent — making the
+      // handler skip the blob fallback and silently fail the download.
+      const reg = registrations.find(
+        (registration) =>
+          new URL(registration.scope).pathname === SW_DOWNLOAD_SCOPE
+      );
+
+      // If the batch was cancelled while getRegistrations() was pending, bail out
       // before wiring up the MessageChannel or keepalive interval. Otherwise the
       // interval would be created after reset() already cleared batchMap, leaking
       // a timer with no reference to clear it.
@@ -169,7 +179,7 @@ const initServiceWorkerStream = (state: BatchState): void => {
       const { port1, port2 } = new MessageChannel();
       port1.onmessage = () => {
         const a = document.createElement('a');
-        a.href = `/amplify-storage-download/${state.downloadId}`;
+        a.href = `${SW_DOWNLOAD_SCOPE}${state.downloadId}`;
         a.download = `${state.folder}.zip`;
         a.click();
         port1.close();
