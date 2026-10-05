@@ -26,24 +26,38 @@ import { cond, constant, eq, escapeRegExp } from 'lodash/fp';
  * Using Date.now() for UNKNOWN status gives us a unique and unused
  * alias
  */
-const appendStatusToAlias = (status: string) =>
-  `${Cypress.env('USERNAME')}+${status === 'UNKNOWN' ? Date.now() : status}`;
+const appendStatusToAlias = (username: string, status: string) =>
+  `${username}+${status === 'UNKNOWN' ? Date.now() : status}`;
 
 Cypress.Commands.add(
   'typeAliasWithStatus',
   { prevSubject: true },
   (inputField: Element, loginMechanism: string, status: string) => {
-    const buildAlias = cond([
-      [eq('username'), constant(appendStatusToAlias(status))],
-      [
-        eq('email'),
-        constant(`${appendStatusToAlias(status)}@${Cypress.env('DOMAIN')}`),
-      ],
-      [eq('phone number'), constant(Cypress.env('PHONE_NUMBER'))],
-      [eq('preferred username'), constant(appendStatusToAlias(status))],
-    ]);
+    // Cypress 16 removed the synchronous Cypress.env(). Read the sensitive
+    // credential values asynchronously via cy.env() so they stay in the
+    // Node/test-runner context and are never exposed to the browser.
+    return cy
+      .env<{
+        USERNAME: string;
+        DOMAIN: string;
+        PHONE_NUMBER: string;
+      }>(['USERNAME', 'DOMAIN', 'PHONE_NUMBER'])
+      .then(({ USERNAME, DOMAIN, PHONE_NUMBER }) => {
+        const buildAlias = cond([
+          [eq('username'), constant(appendStatusToAlias(USERNAME, status))],
+          [
+            eq('email'),
+            constant(`${appendStatusToAlias(USERNAME, status)}@${DOMAIN}`),
+          ],
+          [eq('phone number'), constant(PHONE_NUMBER)],
+          [
+            eq('preferred username'),
+            constant(appendStatusToAlias(USERNAME, status)),
+          ],
+        ]);
 
-    return cy.wrap(inputField).type(buildAlias(loginMechanism));
+        return cy.wrap(inputField).type(buildAlias(loginMechanism));
+      });
   }
 );
 
