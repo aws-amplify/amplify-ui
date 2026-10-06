@@ -810,6 +810,27 @@ describe('Liveness Machine', () => {
         expect(service.state.context.errorState).toBeUndefined();
       });
 
+      // P6: landscape is no longer a gate, so the orientation alone can never
+      // route the check to `error`.
+      it('should never reach the landscape error state', async () => {
+        rotate('landscape');
+        await transitionToNotRecording(service);
+
+        expect(service.state.value).toEqual('start');
+        expect(service.state.context.errorState).not.toBe(
+          LivenessErrorState.MOBILE_LANDSCAPE_ERROR
+        );
+
+        await transitionToRecording(service);
+        rotate('portrait');
+        rotate('landscape');
+
+        expect(service.state.context.errorState).not.toBe(
+          LivenessErrorState.MOBILE_LANDSCAPE_ERROR
+        );
+        expect(mockComponentProps.onError).not.toHaveBeenCalled();
+      });
+
       it('should clear the prompt when the orientation is restored', async () => {
         rotate('portrait');
         await transitionToRecording(service);

@@ -18,8 +18,6 @@ import type {
   StreamDisplayText,
   ErrorDisplayText,
 } from '../displayText';
-import { defaultErrorDisplayText } from '../displayText';
-import { LandscapeErrorModal } from '../shared/LandscapeErrorModal';
 import { selectErrorState } from '../shared';
 import type { FaceLivenessDetectorComponents } from '../shared/DefaultStartScreenComponents';
 
@@ -78,22 +76,17 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
     // through a media query instead
     const landscapeMediaQuery = getLandscapeMediaQuery();
 
-    const handleOrientation = (isLandscapeMatched: boolean) => {
-      if (isLandscapeMatched) {
-        send({ type: 'MOBILE_LANDSCAPE_WARNING' });
-      }
-      // ignored outside an active check; during one it drives the non-fatal
-      // "hold your device still" prompt
+    const sendOrientation = (isLandscapeMatched: boolean) => {
       send({
         type: 'ORIENTATION_CHANGED',
         data: { orientation: isLandscapeMatched ? 'landscape' : 'portrait' },
       });
     };
 
-    handleOrientation(landscapeMediaQuery.matches);
+    sendOrientation(landscapeMediaQuery.matches);
 
     const onChange = (event: MediaQueryListEvent) => {
-      handleOrientation(event.matches);
+      sendOrientation(event.matches);
     };
     landscapeMediaQuery.addEventListener('change', onChange);
 
@@ -103,41 +96,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
   }, [isMobile, send]);
 
   const renderCheck = () => {
-    if (errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR) {
-      const displayText: Required<ErrorDisplayText> = {
-        ...defaultErrorDisplayText,
-        ...errorDisplayText,
-      };
-      const {
-        landscapeHeaderText,
-        portraitMessageText,
-        landscapeMessageText,
-        tryAgainText,
-      } = displayText;
-      return (
-        <Flex
-          backgroundColor="background.primary"
-          direction="column"
-          textAlign="center"
-          alignItems="center"
-          justifyContent="center"
-          position="absolute"
-          width="100%"
-        >
-          <LandscapeErrorModal
-            header={landscapeHeaderText}
-            portraitMessage={portraitMessageText}
-            landscapeMessage={landscapeMessageText}
-            tryAgainText={tryAgainText}
-            onRetry={() => {
-              send({
-                type: 'CANCEL',
-              });
-            }}
-          />
-        </Flex>
-      );
-    } else if (isPermissionDenied) {
+    if (isPermissionDenied) {
       return (
         <Flex
           backgroundColor="background.primary"

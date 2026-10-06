@@ -228,10 +228,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         actions: 'updateErrorStateForConnectionTimeout',
       },
       RUNTIME_ERROR: { target: 'error', actions: 'updateErrorStateForRuntime' },
-      MOBILE_LANDSCAPE_WARNING: {
-        target: 'mobileLandscapeWarning',
-        actions: 'updateErrorStateForServer',
-      },
       // tracked at all times so the recording state can capture the
       // orientation the check actually started in
       ORIENTATION_CHANGED: {
@@ -530,10 +526,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       permissionDenied: {
         entry: 'callUserPermissionDeniedCallback',
         on: { RETRY_CAMERA_CHECK: 'initCamera' },
-      },
-      mobileLandscapeWarning: {
-        entry: 'callMobileLandscapeWarningCallback',
-        always: { target: 'error' },
       },
       timeout: {
         entry: ['cleanUpResources', 'callUserTimeoutCallback', 'freezeStream'],
@@ -903,9 +895,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           return errorState;
         },
-      }),
-      callMobileLandscapeWarningCallback: assign({
-        errorState: () => LivenessErrorState.MOBILE_LANDSCAPE_ERROR,
       }),
       getSelectedDeviceInfo: (context) => getSelectedDeviceInfo(context),
       callUserCancelCallback: (context) => {

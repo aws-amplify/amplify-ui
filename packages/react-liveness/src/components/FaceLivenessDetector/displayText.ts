@@ -82,9 +82,21 @@ export const defaultErrorDisplayText = {
   clientMessageText: 'Check failed due to client issue',
   serverHeaderText: 'Server issue',
   serverMessageText: 'Cannot complete check due to server issue',
+  /**
+   * @deprecated No longer displayed. Mobile landscape orientation is
+   * supported, so the landscape error modal is never shown.
+   */
   landscapeHeaderText: 'Landscape orientation not supported',
+  /**
+   * @deprecated No longer displayed. Mobile landscape orientation is
+   * supported, so the landscape error modal is never shown.
+   */
   landscapeMessageText:
     'Rotate your device to portrait (vertical) orientation.',
+  /**
+   * @deprecated No longer displayed. Mobile landscape orientation is
+   * supported, so the landscape error modal is never shown.
+   */
   portraitMessageText:
     'Ensure your device remains in portrait (vertical) orientation for the check’s duration.',
   tryAgainText: 'Try again',

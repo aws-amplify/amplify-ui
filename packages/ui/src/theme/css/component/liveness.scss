@@ -320,22 +320,10 @@
   inset-block-start: 0;
 }
 
-.amplify-liveness-landscape-error-modal {
-  background-color: var(--amplify-colors-background-primary);
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
+// also used for the connecting loader's heading in the camera module
 .amplify-liveness-landscape-error-modal__header {
   font-size: large;
   font-weight: var(--amplify-font-weights-bold);
-}
-
-.amplify-liveness-landscape-error-modal__button {
-  justify-content: center;
 }
 
 .amplify-liveness-start-screen-header {

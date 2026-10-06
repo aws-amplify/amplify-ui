@@ -197,15 +197,33 @@ describe('LivenessCheck', () => {
     expect(screen.getByText('LivenessCameraModule')).toBeInTheDocument();
   });
 
-  it('should render the component content for mobile landscape errors', () => {
-    mockActorState.matches.mockReturnValue(true);
+  // Portrait is the only orientation that worked before the landscape gate was
+  // removed, so its markup must be untouched by that removal. This snapshot
+  // was captured from the pre-removal component.
+  it('should render portrait unchanged by the landscape gate removal', () => {
+    mockActorState.matches.mockReturnValue(false);
+    (global.navigator as any).userAgent =
+      'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
+    mockMatchMedia('(orientation: landscape)', false);
+
+    const { container } = renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+
+    expect(container).toMatchSnapshot();
+  });
+
+  it('should render the camera in mobile landscape rather than an error', () => {
+    mockActorState.matches.mockReturnValue(false);
     (global.navigator as any).userAgent =
       'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
     mockMatchMedia('(orientation: landscape)', true);
-    mockActorState.matches.mockReturnValue(true);
-    mockUseLivenessSelector.mockReturnValue(
-      LivenessErrorState.MOBILE_LANDSCAPE_ERROR
-    );
 
     renderWithLivenessProvider(
       <LivenessCheck
@@ -217,8 +235,33 @@ describe('LivenessCheck', () => {
       />
     );
 
-    expect(screen.getByText(landscapeHeaderText)).toBeInTheDocument();
-    expect(screen.getByText(landscapeMessageText)).toBeInTheDocument();
-    expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
+    expect(screen.getByText('LivenessCameraModule')).toBeInTheDocument();
+    expect(screen.queryByText(landscapeHeaderText)).not.toBeInTheDocument();
+    expect(screen.queryByText(landscapeMessageText)).not.toBeInTheDocument();
+  });
+
+  it('should report the orientation instead of warning about it', () => {
+    mockActorState.matches.mockReturnValue(false);
+    (global.navigator as any).userAgent =
+      'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
+    mockMatchMedia('(orientation: landscape)', true);
+
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+
+    expect(mockActorSend).toHaveBeenCalledWith({
+      type: 'ORIENTATION_CHANGED',
+      data: { orientation: 'landscape' },
+    });
+    expect(mockActorSend).not.toHaveBeenCalledWith({
+      type: 'MOBILE_LANDSCAPE_WARNING',
+    });
   });
 });
