@@ -1149,19 +1149,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           parsedSessionInformation,
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
-        const { videoEl, videoMediaStream } = context.videoAssociatedParams!;
+        const { videoEl } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
-        const { width, height } = videoMediaStream!
-          .getTracks()[0]
-          .getSettings();
+        // Intrinsic frame dims, never track.getSettings(): Android/Firefox and
+        // iOS report the getUserMedia width/height flipped by orientation, and
+        // a flipped pair takes the other branch of the 3:4 recompute below,
+        // which scales the distance threshold by the wrong oval width.
+        const { videoWidth: width, videoHeight: height } = videoEl!;
 
         const challengeConfig =
           parsedSessionInformation!.Challenge!.ChallengeConfig;
 
         const ovalDetails = getStaticLivenessOvalDetails({
-          width: width!,
-          height: height!,
+          width,
+          height,
           ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio!,
         });
 
@@ -1226,7 +1228,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // generate oval details from initialFace and video dimensions
         const ovalDetails = getOvalDetailsFromSessionInformation({
           parsedSessionInformation: parsedSessionInformation!,
-          videoWidth: videoEl!.width,
+          videoWidth: videoEl!.videoWidth,
         });
 
         const challengeConfig =

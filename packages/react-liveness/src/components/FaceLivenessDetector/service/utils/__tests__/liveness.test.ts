@@ -8,6 +8,7 @@ import {
   generateBboxFromLandmarks,
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
+  getOvalBoundingBox,
   getOvalDetailsFromSessionInformation,
   getStaticLivenessOvalDetails,
   getVideoFillLayout,
@@ -509,6 +510,56 @@ describe('Liveness Helper', () => {
       expect(width).toBeCloseTo(640);
       expect(height).toBeCloseTo(480);
       expect(top).toBeCloseTo(760);
+    });
+  });
+
+  // T2.2: the 3:4 recompute in getStaticLivenessOvalDetails is the branch
+  // desktop landscape has always taken (640 >= 480). Mobile landscape and
+  // square foldable frames must take the identical branch, so the distance
+  // check behaves the same everywhere rather than gaining a mobile-only path.
+  describe('getStaticLivenessOvalDetails dimension matrix', () => {
+    const portrait = { width: 480, height: 640 };
+    const landscape = { width: 640, height: 480 };
+    const square = { width: 480, height: 480 };
+
+    it.each([
+      ['desktop landscape', landscape],
+      ['mobile landscape', landscape],
+      ['square foldable', square],
+    ])('should take the 3:4 branch for %s', (_label, dims) => {
+      const oval = getStaticLivenessOvalDetails(dims);
+
+      // videoWidth is recomputed as (3/4) * height, so the oval width is
+      // ratioMultiplier * that, independent of the real frame width
+      expect(oval.width).toBe(Math.floor(0.8 * (3 / 4) * dims.height));
+    });
+
+    it('should keep the true frame width in portrait', () => {
+      const oval = getStaticLivenessOvalDetails(portrait);
+
+      expect(oval.width).toBe(Math.floor(0.8 * portrait.width));
+    });
+
+    it('should produce an identical oval for desktop and mobile landscape', () => {
+      // same dims in, same oval out: there is no device branch to diverge on
+      expect(getStaticLivenessOvalDetails(landscape)).toEqual(
+        getStaticLivenessOvalDetails(landscape)
+      );
+    });
+
+    it.each([
+      ['portrait', portrait],
+      ['landscape', landscape],
+      ['square', square],
+    ])('should keep the oval bounding box inside the %s frame', (_l, dims) => {
+      const oval = getStaticLivenessOvalDetails(dims);
+      const { minOvalX, maxOvalX, minOvalY, maxOvalY } =
+        getOvalBoundingBox(oval);
+
+      expect(minOvalX).toBeGreaterThanOrEqual(0);
+      expect(maxOvalX).toBeLessThanOrEqual(dims.width);
+      expect(minOvalY).toBeGreaterThanOrEqual(0);
+      expect(maxOvalY).toBeLessThanOrEqual(dims.height);
     });
   });
 

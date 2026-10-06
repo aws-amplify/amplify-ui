@@ -102,6 +102,28 @@ export const mockVideoMediaStream = {
   getTracks: () => [mockVideoTrack],
 } as MediaStream;
 
+/**
+ * A video element reporting intrinsic frame dimensions. jsdom leaves
+ * videoWidth/videoHeight at 0, and all geometry reads the intrinsic frame
+ * rather than the track, so a bare createElement('video') models no camera.
+ */
+export const createMockVideoEl = (
+  width = 640,
+  height = 480
+): HTMLVideoElement => {
+  const videoEl = document.createElement('video');
+  // configurable: individual tests redefine these to model other frames
+  Object.defineProperty(videoEl, 'videoWidth', {
+    value: width,
+    configurable: true,
+  });
+  Object.defineProperty(videoEl, 'videoHeight', {
+    value: height,
+    configurable: true,
+  });
+  return videoEl;
+};
+
 export const mockStreamRecorder = {
   dispatchStreamEvent: jest.fn(),
   getChunksLength: jest.fn(),

@@ -12,6 +12,7 @@ import {
 import * as helpers from '../../utils';
 import * as livenessUtils from '../../utils/liveness';
 import {
+  createMockVideoEl,
   mockBlazeFace,
   mockCameraDevice,
   mockFace,
@@ -51,7 +52,7 @@ const mockComponentProps: FaceLivenessDetectorProps = {
   config: {},
 };
 
-const mockVideoEl = document.createElement('video');
+const mockVideoEl = createMockVideoEl();
 const mockCanvasEl = document.createElement('canvas');
 const mockFreshnessColorEl = document.createElement('canvas');
 window.HTMLMediaElement.prototype.pause = () => jest.fn();
@@ -647,6 +648,43 @@ describe('Liveness Machine', () => {
   });
 
   describe('recording', () => {
+    // T2.4 / T1.1(a): on Android/Firefox and iOS the getUserMedia width and
+    // height come back flipped by orientation, so every geometry site must
+    // read the intrinsic frame the video element renders.
+    describe('frame dimension source', () => {
+      it('should map the oval against the intrinsic frame width', async () => {
+        await transitionToRecording(service);
+        await flushPromises(); // detectInitialFaceAndDrawOval
+
+        // the `width` attribute is a React state snapshot that starts at the
+        // flipped track width; videoWidth is the frame actually rendered
+        expect(mockVideoEl.width).not.toBe(mockVideoEl.videoWidth);
+        expect(
+          mockedHelpers.getOvalDetailsFromSessionInformation
+        ).toHaveBeenCalledWith(
+          expect.objectContaining({ videoWidth: mockVideoEl.videoWidth })
+        );
+      });
+
+      it('should size the distance-check oval from the intrinsic frame', async () => {
+        // imported from `utils/liveness` directly, so the mocked `utils`
+        // barrel does not cover it
+        const ovalDetailsSpy = jest.spyOn(
+          livenessUtils,
+          'getStaticLivenessOvalDetails'
+        );
+        await transitionToRecording(service);
+
+        expect(ovalDetailsSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            width: mockVideoEl.videoWidth,
+            height: mockVideoEl.videoHeight,
+          })
+        );
+        ovalDetailsSpy.mockRestore();
+      });
+    });
+
     describe('VIDEO_RESIZED', () => {
       it('should recompute the scale factor and redraw the oval', async () => {
         mockedHelpers.getVideoScaleFactor.mockReturnValue(1);

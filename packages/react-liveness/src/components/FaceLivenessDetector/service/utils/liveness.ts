@@ -173,7 +173,9 @@ export function getStaticLivenessOvalDetails({
   const ovalHeight = ovalHeightWidthRatio * ovalWidth;
 
   return {
-    flippedCenterX: Math.floor(videoWidth - centerX),
+    // mirror against the real frame width: centerX is in frame space, while
+    // videoWidth may have been recomputed to 3:4 for the oval size above
+    flippedCenterX: Math.floor(width - centerX),
     centerX: Math.floor(centerX),
     centerY: Math.floor(centerY),
     width: Math.floor(ovalWidth),
@@ -342,7 +344,6 @@ export function drawStaticOval(
     height,
     ratioMultiplier: 0.5,
   });
-  ovalDetails.flippedCenterX = width - ovalDetails.centerX;
 
   // Compute scaleFactor which is how much our video element is scaled
   // vs the intrinsic video resolution
