@@ -321,14 +321,6 @@ export const LivenessCameraModule = (
         },
       });
     }
-
-    if (videoRef.current) {
-      setMediaWidth(videoRef.current.videoWidth);
-      setMediaHeight(videoRef.current.videoHeight);
-      setAspectRatio(
-        videoRef.current.videoWidth / videoRef.current.videoHeight
-      );
-    }
   }, [send, videoRef, isCameraReady, isMobileScreen]);
 
   React.useEffect(() => {
@@ -357,6 +349,14 @@ export const LivenessCameraModule = (
   };
 
   const handleLoadedMetadata = () => {
+    const video = videoRef.current;
+    if (video?.videoWidth && video.videoHeight) {
+      // the frame is fixed for the session: only the rendered box rotates, so
+      // these are captured once, here, where the intrinsic dims first exist
+      setMediaWidth(video.videoWidth);
+      setMediaHeight(video.videoHeight);
+      setAspectRatio(video.videoWidth / video.videoHeight);
+    }
     layoutVideo();
     setIsMetadataLoaded(true);
   };

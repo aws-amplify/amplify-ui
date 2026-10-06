@@ -594,6 +594,28 @@ describe('Liveness Helper', () => {
       // cannot exceed this fraction of the container at any landscape size.
       expect(oval.height / video.videoHeight).toBeCloseTo(0.969, 3);
     });
+
+    // The stylesheet moves the hint and the match indicator into the inline
+    // gutter beside the oval, pinning their inner edge at `50% + 0.3 * 100dvh`.
+    // That calc is only correct while the rendered oval's half-width really is
+    // 0.3x the container height.
+    it.each([
+      [800, 360],
+      [915, 412],
+      [740, 360],
+    ])(
+      'should put the oval edge at 0.3x the height from center at %ix%i',
+      (width, height) => {
+        const layout = getVideoFillLayout({
+          containerWidth: width,
+          containerHeight: height,
+          ...video,
+        });
+        const scale = layout.height / video.videoHeight;
+
+        expect((oval.width * scale) / 2).toBeCloseTo(0.3 * height, 0);
+      }
+    );
   });
 
   describe('resizeCanvasToDisplaySize', () => {

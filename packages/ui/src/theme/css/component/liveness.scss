@@ -1,8 +1,8 @@
 .amplify-liveness-cancel-container {
   z-index: 2;
   position: absolute;
-  top: var(--amplify-space-medium);
-  right: var(--amplify-space-medium);
+  inset-block-start: var(--amplify-space-medium);
+  inset-inline-end: var(--amplify-space-medium);
 }
 
 .liveness-detector .amplify-button--primary {
@@ -144,8 +144,8 @@
 .amplify-liveness-recording-icon-container {
   z-index: 1;
   position: absolute;
-  top: var(--amplify-space-medium);
-  left: var(--amplify-space-medium);
+  inset-block-start: var(--amplify-space-medium);
+  inset-inline-start: var(--amplify-space-medium);
 }
 
 .amplify-liveness-recording-icon {
@@ -316,8 +316,8 @@
 }
 .amplify-liveness-figure__icon {
   position: absolute;
-  left: 0;
-  top: 0;
+  inset-inline-start: 0;
+  inset-block-start: 0;
 }
 
 .amplify-liveness-landscape-error-modal {
@@ -390,7 +390,7 @@
 }
 
 .amplify-liveness-hint--mobile {
-  margin-top: var(--amplify-space-xxxl);
+  margin-block-start: var(--amplify-space-xxxl);
 }
 
 .amplify-liveness-hint__text {
@@ -404,8 +404,8 @@
 
 .amplify-liveness-popover__anchor {
   position: absolute;
-  top: 26px;
-  left: 20px;
+  inset-block-start: 26px;
+  inset-inline-start: 20px;
   z-index: 3;
   border-style: solid;
   border-width: 0 9px 9px 9px;
@@ -415,8 +415,8 @@
 
 .amplify-liveness-popover__anchor-secondary {
   position: absolute;
-  top: 24px;
-  left: 19px;
+  inset-block-start: 24px;
+  inset-inline-start: 19px;
   z-index: 2;
   border-style: solid;
   border-width: 0 10px 10px 10px;
@@ -432,7 +432,7 @@
   font-size: var(--amplify-font-sizes-xs);
   font-weight: var(--amplify-font-weights-normal);
   padding: var(--amplify-space-small);
-  top: 33px;
+  inset-block-start: 33px;
   width: 240px;
   border: 1px solid var(--amplify-colors-border-secondary);
   border-radius: 2px;
@@ -477,4 +477,59 @@
   // don't overflow a host with a shorter definite height while permissions
   // are pending (resolves to none for auto-height hosts)
   max-height: 100%;
+}
+
+// Short landscape: phones and foldable cover screens. Deliberately not a bare
+// `(orientation: landscape)` query, which also matches nearly every desktop
+// window, where the viewport is tall enough for the portrait layout already.
+@media (orientation: landscape) and (max-height: 31.25rem) {
+  // The anchor carries an inline aspect-ratio from the camera frame, which in
+  // a short landscape viewport resolves taller than the viewport itself. An
+  // inline style outranks any rule here, so clamp the resulting height instead
+  // of trying to unset the ratio; the video is positioned inside the clamped
+  // box from its measured size.
+  .amplify-liveness-video-anchor {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    max-block-size: 100%;
+  }
+
+  // The oval spans ~97% of the frame height and the frame is height-bound
+  // here, so there is no free block space. The frame is letterboxed
+  // horizontally though, so the hint and the match indicator move beside the
+  // oval rather than over the user's face.
+  .amplify-liveness-overlay {
+    padding: var(--amplify-space-xs);
+  }
+
+  // The rendered oval is ~0.6x the container height (0.45 of a 4:3 frame that
+  // is height-bound here), so it spans 50% +/- 0.3h. Pinning both inline edges
+  // makes each box exactly the gutter beside it rather than a guessed share of
+  // the width. A host shorter than the viewport only narrows the gutter, which
+  // is the safe direction.
+  .amplify-liveness-hint,
+  .amplify-liveness-match-indicator {
+    position: absolute;
+    inset-block-start: 50%;
+    // no logical equivalent, and the block axis does not flip under RTL
+    transform: translateY(-50%);
+  }
+
+  .amplify-liveness-hint {
+    inset-inline-start: var(--amplify-space-xs);
+    inset-inline-end: calc(50% + 0.3 * 100dvh);
+  }
+
+  .amplify-liveness-match-indicator {
+    inset-inline-start: calc(50% + 0.3 * 100dvh);
+    inset-inline-end: var(--amplify-space-xs);
+    // the base rule sets a width, which would override the end inset
+    inline-size: auto;
+  }
+
+  // the portrait offset drops the hint below the oval; beside it, the offset
+  // only breaks the block centering above
+  .amplify-liveness-hint--mobile {
+    margin-block-start: 0;
+  }
 }
