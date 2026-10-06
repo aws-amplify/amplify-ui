@@ -29,6 +29,7 @@ import type {
   StreamActorCallback,
   VideoAssociatedParams,
   DeviceInfo,
+  DeviceOrientation,
 } from '../types';
 import { FaceMatchState, LivenessErrorState } from '../types';
 import {
@@ -73,6 +74,10 @@ import { TelemetryReporter } from '../utils/TelemetryReporter/TelemetryReporter'
 
 const CAMERA_ID_KEY = 'AmplifyLivenessCameraId';
 const DEFAULT_FACE_FIT_TIMEOUT = 7000;
+// How long the "hold your device still" prompt may stand before the check
+// fails with an actionable message. Well inside the three-minute session
+// lifetime, so the user never waits for the service to expire instead.
+const ROTATION_PROMPT_TIMEOUT = 15000;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
 
@@ -200,6 +205,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       faceMatchStateBeforeStart: undefined,
       isFaceFarEnoughBeforeRecording: undefined,
       isRecordingStopped: false,
+      currentOrientation: undefined,
+      recordingOrientation: undefined,
+      isOrientationMismatched: false,
     },
     on: {
       CANCEL: 'userCancel',
@@ -223,6 +231,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       MOBILE_LANDSCAPE_WARNING: {
         target: 'mobileLandscapeWarning',
         actions: 'updateErrorStateForServer',
+      },
+      // tracked at all times so the recording state can capture the
+      // orientation the check actually started in
+      ORIENTATION_CHANGED: {
+        internal: true,
+        actions: 'updateCurrentOrientation',
       },
     },
     states: {
@@ -335,15 +349,40 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       recording: {
         entry: [
           'clearErrorState',
+          'captureRecordingOrientation',
           'startRecording',
           'sendTimeoutAfterOvalDrawingDelay',
         ],
+        exit: 'cancelRotationTimeout',
         initial: 'ovalDrawing',
         on: {
           VIDEO_RESIZED: {
             internal: true,
             actions: ['updateOvalScaleFactor', 'redrawLivenessOval'],
           },
+          // Rotating mid-check is NOT fatal: the stream keeps recording in the
+          // frame it opened with, so this only prompts the user to hold the
+          // device steady. The deadline keeps that prompt from being
+          // open-ended, since the session cannot be resumed once it expires.
+          ORIENTATION_CHANGED: [
+            {
+              internal: true,
+              cond: 'isOrientationRestored',
+              actions: [
+                'updateCurrentOrientation',
+                'clearOrientationMismatch',
+                'cancelRotationTimeout',
+              ],
+            },
+            {
+              internal: true,
+              actions: [
+                'updateCurrentOrientation',
+                'setOrientationMismatch',
+                'sendTimeoutAfterRotationDelay',
+              ],
+            },
+          ],
         },
         states: {
           ovalDrawing: {
@@ -799,6 +838,39 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       ),
       cancelOvalMatchTimeout: actions.cancel('ovalMatchTimeout'),
 
+      // orientation
+      updateCurrentOrientation: assign({
+        currentOrientation: (_, event) =>
+          event.data?.orientation as DeviceOrientation,
+      }),
+      captureRecordingOrientation: assign({
+        recordingOrientation: (context) => context.currentOrientation,
+        isOrientationMismatched: () => false,
+      }),
+      setOrientationMismatch: assign({
+        isOrientationMismatched: () => true,
+      }),
+      clearOrientationMismatch: assign({
+        isOrientationMismatched: () => false,
+      }),
+      // A rotation prompt must never be open-ended: a liveness session expires
+      // three minutes after it is created and is single-use, so a user who
+      // obeys slowly would otherwise stall into an opaque service failure
+      // instead of a message they can act on. This is a backstop rather than
+      // the primary bound, since the oval fit timeout is usually already
+      // pending and fires first.
+      sendTimeoutAfterRotationDelay: actions.send(
+        {
+          type: 'TIMEOUT',
+          data: {
+            message:
+              'Client timed out waiting for the device to be held still.',
+          },
+        },
+        { delay: ROTATION_PROMPT_TIMEOUT, id: 'rotationTimeout' }
+      ),
+      cancelRotationTimeout: actions.cancel('rotationTimeout'),
+
       // callbacks
       callUserPermissionDeniedCallback: assign({
         errorState: (context, event) => {
@@ -956,6 +1028,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasParsedSessionInfo: (context) => {
         return context.parsedSessionInformation !== undefined;
+      },
+      isOrientationRestored: (context, event) => {
+        return event.data?.orientation === context.recordingOrientation;
       },
       hasDOMAndCameraDetails: (context) => {
         return (

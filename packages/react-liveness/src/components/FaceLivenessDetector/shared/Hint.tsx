@@ -30,6 +30,10 @@ export const selectFaceMatchStateBeforeStart = createLivenessSelector(
   (state) => state.context.faceMatchStateBeforeStart
 );
 
+export const selectIsOrientationMismatched = createLivenessSelector(
+  (state) => state.context.isOrientationMismatched
+);
+
 const selectFaceMatchPercentage = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams?.faceMatchPercentage
 );
@@ -63,6 +67,10 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     selectIsFaceFarEnoughBeforeRecording
   );
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
+  // appended deliberately: the selector order above is load-bearing for tests
+  const isOrientationMismatched = useLivenessSelector(
+    selectIsOrientationMismatched
+  );
   const isCheckFaceDetectedBeforeStart =
     state.matches('checkFaceDetectedBeforeStart') ||
     state.matches('detectFaceBeforeStart');
@@ -142,6 +150,22 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
         <DefaultToast text={IlluminationStateStringMap[illuminationState]} />
       );
     }
+  }
+
+  // Rotating mid-check never fails the check on its own, so this is a prompt
+  // rather than an error. It outranks the face hints: nothing else the user
+  // does helps until the device stops moving.
+  if (isRecording && isOrientationMismatched) {
+    return (
+      <Toast size="large" variation={'primary'}>
+        <VisuallyHidden aria-live="assertive">
+          {hintDisplayText.hintHoldDeviceStillText}
+        </VisuallyHidden>
+        <View aria-label={hintDisplayText.hintHoldDeviceStillText}>
+          {hintDisplayText.hintHoldDeviceStillText}
+        </View>
+      </Toast>
+    );
   }
 
   if (isFlashingFreshness) {

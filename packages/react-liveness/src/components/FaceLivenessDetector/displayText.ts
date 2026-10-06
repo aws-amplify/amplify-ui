@@ -18,6 +18,7 @@ export type HintDisplayText = {
   hintCenterFaceInstructionText?: string;
   hintFaceOffCenterText?: string;
   hintMatchIndicatorText?: string;
+  hintHoldDeviceStillText?: string;
 };
 
 export type CameraDisplayText = {
@@ -122,6 +123,8 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
+  hintHoldDeviceStillText:
+    'Hold your device still and keep it in the same orientation.',
   hintMatchIndicatorText: '50% completed. Keep moving closer.',
   photosensitivityWarningBodyText:
     'This check flashes different colors. Use caution if you are photosensitive.',

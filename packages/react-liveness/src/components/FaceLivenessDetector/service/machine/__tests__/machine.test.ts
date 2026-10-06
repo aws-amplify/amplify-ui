@@ -773,6 +773,83 @@ describe('Liveness Machine', () => {
       });
     });
 
+    // P4: rotating mid-check prompts the user without failing the check, but
+    // the prompt is bounded, because a liveness session expires three minutes
+    // after creation and cannot be reused.
+    describe('mid-check rotation', () => {
+      const rotate = (orientation: 'landscape' | 'portrait') =>
+        service.send({ type: 'ORIENTATION_CHANGED', data: { orientation } });
+
+      it('should capture the orientation recording started in', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+
+        expect(service.state.context.recordingOrientation).toBe('portrait');
+        expect(service.state.context.isOrientationMismatched).toBe(false);
+      });
+
+      it('should prompt without failing the check when rotated', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+        const stateBeforeRotation = service.state.value;
+
+        rotate('landscape');
+
+        expect(service.state.context.isOrientationMismatched).toBe(true);
+        expect(service.state.value).toEqual(stateBeforeRotation);
+        expect(service.state.context.errorState).toBeUndefined();
+        expect(mockComponentProps.onError).not.toHaveBeenCalled();
+      });
+
+      it('should start in landscape just as readily as portrait', async () => {
+        rotate('landscape');
+        await transitionToRecording(service);
+
+        expect(service.state.context.recordingOrientation).toBe('landscape');
+        expect(service.state.context.isOrientationMismatched).toBe(false);
+        expect(service.state.context.errorState).toBeUndefined();
+      });
+
+      it('should clear the prompt when the orientation is restored', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+        rotate('landscape');
+        expect(service.state.context.isOrientationMismatched).toBe(true);
+
+        rotate('portrait');
+
+        expect(service.state.context.isOrientationMismatched).toBe(false);
+        expect(service.state.context.errorState).toBeUndefined();
+      });
+
+      it('should fail with a timeout rather than leave the prompt open', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+        rotate('landscape');
+
+        jest.runAllTimers();
+
+        expect(service.state.value).toEqual('timeout');
+        expect(service.state.context.errorState).toBe(
+          LivenessErrorState.TIMEOUT
+        );
+      });
+
+      it('should not re-measure the track while recording', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+        mockedHelpers.getTrackDimensions.mockClear();
+
+        rotate('landscape');
+        service.send({ type: 'VIDEO_RESIZED' });
+        rotate('portrait');
+
+        // the frame is fixed for the session: only the rendered box is
+        // re-measured, via getVideoScaleFactor
+        expect(mockedHelpers.getTrackDimensions).not.toHaveBeenCalled();
+      });
+    });
+
     describe('FaceMovementAndLightChallenge', () => {
       it('should handle timeout during recording as expected', async () => {
         await transitionToRecording(service);

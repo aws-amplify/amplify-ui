@@ -29,14 +29,12 @@ interface Challenge {
 }
 
 export interface FaceMovementAndLightChallenge
-  extends Challenge,
-    FaceMovementAndLightServerChallenge {
+  extends Challenge, FaceMovementAndLightServerChallenge {
   Name: (typeof FACE_MOVEMENT_AND_LIGHT_CHALLENGE)['type'];
 }
 
 export interface FaceMovementChallenge
-  extends Challenge,
-    FaceMovementServerChallenge {
+  extends Challenge, FaceMovementServerChallenge {
   Name: (typeof FACE_MOVEMENT_CHALLENGE)['type'];
 }
 
@@ -77,6 +75,8 @@ export interface VideoAssociatedParams {
   selectableDevices?: MediaDeviceInfo[];
 }
 
+export type DeviceOrientation = 'landscape' | 'portrait';
+
 export interface LivenessContext {
   challengeId: string | undefined;
   colorSequenceDisplay: ColorSequenceDisplay | undefined;
@@ -89,6 +89,11 @@ export interface LivenessContext {
   freshnessColorAssociatedParams: FreshnessColorAssociatedParams | undefined;
   isFaceFarEnoughBeforeRecording: boolean | undefined;
   isRecordingStopped: boolean | undefined;
+  // the orientation the check was recording in, and whether the device has
+  // since been turned away from it
+  currentOrientation: DeviceOrientation | undefined;
+  recordingOrientation: DeviceOrientation | undefined;
+  isOrientationMismatched: boolean | undefined;
   livenessStreamProvider: StreamRecorder | undefined;
   maxFailedAttempts: number | undefined;
   ovalAssociatedParams: OvalAssociatedParams | undefined;
@@ -115,6 +120,7 @@ export type LivenessEventTypes =
   | 'RUNTIME_ERROR'
   | 'RETRY_CAMERA_CHECK'
   | 'MOBILE_LANDSCAPE_WARNING'
+  | 'ORIENTATION_CHANGED'
   | 'VIDEO_RESIZED';
 
 export type LivenessEventData = Record<PropertyKey, any>; // TODO: this should be typed further

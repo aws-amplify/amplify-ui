@@ -40,6 +40,7 @@ describe('Hint', () => {
   let faceMatchStateBeforeStart: FaceMatchState | null = null;
   let isFaceFarEnoughBeforeRecordingState: boolean | null = null;
   let faceMatchPercentage: number | null = null;
+  let isOrientationMismatched = false;
 
   let isNotRecording = false;
   let isRecording = false;
@@ -60,7 +61,8 @@ describe('Hint', () => {
       .mockReturnValueOnce(illuminationState)
       .mockReturnValueOnce(faceMatchStateBeforeStart)
       .mockReturnValueOnce(isFaceFarEnoughBeforeRecordingState)
-      .mockReturnValueOnce(faceMatchPercentage);
+      .mockReturnValueOnce(faceMatchPercentage)
+      .mockReturnValueOnce(isOrientationMismatched);
 
     when(mockActorState.matches)
       .calledWith('notRecording')
@@ -94,6 +96,7 @@ describe('Hint', () => {
     faceMatchStateBeforeStart = null;
     isFaceFarEnoughBeforeRecordingState = null;
     faceMatchPercentage = null;
+    isOrientationMismatched = false;
 
     isNotRecording = false;
     isRecording = false;
@@ -107,6 +110,53 @@ describe('Hint', () => {
 
     jest.clearAllMocks();
     resetAllWhenMocks();
+  });
+
+  it('should prompt to hold the device still when rotated mid-check', () => {
+    isRecording = true;
+    isOrientationMismatched = true;
+    faceMatchState = FaceMatchState.TOO_FAR;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
+
+    // rendered twice: the visible toast and the hidden live region
+    expect(
+      screen.getAllByText(hintDisplayText.hintHoldDeviceStillText)
+    ).toHaveLength(2);
+    // outranks the face hint: moving the face does not help here
+    expect(
+      screen.queryByText(hintDisplayText.hintTooFarText)
+    ).not.toBeInTheDocument();
+  });
+
+  it('should announce the rotation prompt assertively', () => {
+    isRecording = true;
+    isOrientationMismatched = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
+
+    const live = screen.getByText(hintDisplayText.hintHoldDeviceStillText, {
+      selector: '[aria-live="assertive"]',
+    });
+    expect(live).toBeInTheDocument();
+  });
+
+  it('should prompt to hold the device still over the freshness hint', () => {
+    isRecording = true;
+    isFlashingFreshness = true;
+    isOrientationMismatched = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
+
+    expect(
+      screen.getAllByText(hintDisplayText.hintHoldDeviceStillText).length
+    ).toBeGreaterThan(0);
+    expect(
+      screen.queryByText(hintDisplayText.hintHoldFaceForFreshnessText)
+    ).not.toBeInTheDocument();
   });
 
   it('should render nothing if error', () => {

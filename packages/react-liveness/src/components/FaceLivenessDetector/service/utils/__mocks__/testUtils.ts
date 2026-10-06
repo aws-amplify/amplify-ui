@@ -274,6 +274,9 @@ export const getMockContext = (): LivenessContext => ({
   errorMessage: undefined,
   maxFailedAttempts: 3,
   failedAttempts: 0,
+  currentOrientation: 'portrait',
+  recordingOrientation: 'portrait',
+  isOrientationMismatched: false,
   componentProps: {
     sessionId: 'foobar',
     region: 'us-east-1',

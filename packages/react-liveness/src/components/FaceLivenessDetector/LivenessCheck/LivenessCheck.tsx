@@ -70,31 +70,36 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
   const { cancelLivenessCheckText } = streamDisplayText;
 
   React.useLayoutEffect(() => {
-    if (isMobile) {
-      const sendLandscapeWarning = (isLandscapeMatched: boolean) => {
-        if (isLandscapeMatched) {
-          send({ type: 'MOBILE_LANDSCAPE_WARNING' });
-        }
-      };
-
-      // Get orientation: landscape media query
-      const landscapeMediaQuery = getLandscapeMediaQuery();
-
-      // Send warning based on initial orientation
-      sendLandscapeWarning(landscapeMediaQuery.matches);
-
-      // Listen for future orientation changes and send warning
-      landscapeMediaQuery.addEventListener('change', (e) => {
-        sendLandscapeWarning(e.matches);
-      });
-
-      // Remove matchMedia event listener
-      return () => {
-        landscapeMediaQuery.removeEventListener('change', (e) =>
-          sendLandscapeWarning(e.matches)
-        );
-      };
+    if (!isMobile) {
+      return;
     }
+
+    // screen.orientation is unsupported in Safari, so orientation is observed
+    // through a media query instead
+    const landscapeMediaQuery = getLandscapeMediaQuery();
+
+    const handleOrientation = (isLandscapeMatched: boolean) => {
+      if (isLandscapeMatched) {
+        send({ type: 'MOBILE_LANDSCAPE_WARNING' });
+      }
+      // ignored outside an active check; during one it drives the non-fatal
+      // "hold your device still" prompt
+      send({
+        type: 'ORIENTATION_CHANGED',
+        data: { orientation: isLandscapeMatched ? 'landscape' : 'portrait' },
+      });
+    };
+
+    handleOrientation(landscapeMediaQuery.matches);
+
+    const onChange = (event: MediaQueryListEvent) => {
+      handleOrientation(event.matches);
+    };
+    landscapeMediaQuery.addEventListener('change', onChange);
+
+    return () => {
+      landscapeMediaQuery.removeEventListener('change', onChange);
+    };
   }, [isMobile, send]);
 
   const renderCheck = () => {
