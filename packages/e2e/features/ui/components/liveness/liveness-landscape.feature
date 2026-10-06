@@ -29,6 +29,9 @@ Feature: Liveness Detector in landscape
     Given I set the viewport to 412 by 915
     Then I click the "Start video check" button
     Then I see "liveness-detector" element
+    # the camera module renders before recording starts, and the prompt only
+    # exists during recording; this hint is the first recording-only text
+    Then I see "Move closer"
     When I rotate the device to "landscape"
     Given I set the viewport to 915 by 412
     Then I see "Hold your device still and keep it in the same orientation."
@@ -41,7 +44,10 @@ Feature: Liveness Detector in landscape
     Given I set the viewport to 412 by 915
     Then I click the "Start video check" button
     Then I see "liveness-detector" element
+    Then I see "Move closer"
     When I rotate the device to "landscape"
     Then I see "Hold your device still and keep it in the same orientation."
     When I rotate the device to "portrait"
     Then I do not see "Hold your device still and keep it in the same orientation."
+    # still recording, so the prompt cleared rather than the check ending
+    Then I see "Move closer"
