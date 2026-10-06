@@ -21,7 +21,7 @@ import type { TaskData, TaskResult, TaskResultStatus } from './types';
 import { isFunction } from '@aws-amplify/ui';
 import { getProgress } from './utils';
 import { ZipWriter } from '@zip.js/zip.js';
-import { SW_DOWNLOAD_SCOPE } from '../../service-worker/useServiceWorkerRegistration';
+import { SW_DOWNLOAD_SCOPE } from '../../service-worker/constants';
 
 type DownloadTaskResult = TaskResult<TaskResultStatus, { url: URL }>;
 
@@ -151,10 +151,12 @@ const initServiceWorkerStream = (state: BatchState): void => {
   state.swReady = navigator.serviceWorker
     .getRegistrations()
     .then((registrations) => {
-      // Match the download SW by scope pathname. `getRegistration(url)` matches a
-      // scope relative to the page, so a page at '/' with its own root SW can
-      // match that unrelated worker when the download SW is absent — making the
-      // handler skip the blob fallback and silently fail the download.
+      // Match the download SW by scope pathname. `getRegistration(url)` returns
+      // the registration whose scope is the longest prefix of `url`, so an app's
+      // root `/` SW matches when the download SW is absent — the handler then
+      // treats the root SW as the download SW and skips the blob fallback,
+      // silently failing the download. This hits any page on an origin that has
+      // a root-scoped SW, not only a page served at `/`.
       const reg = registrations.find(
         (registration) =>
           new URL(registration.scope).pathname === SW_DOWNLOAD_SCOPE

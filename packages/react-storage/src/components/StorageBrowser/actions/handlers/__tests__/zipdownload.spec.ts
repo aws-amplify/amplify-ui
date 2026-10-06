@@ -397,10 +397,18 @@ describe('zipDownloadHandler', () => {
   });
 
   it('revokes blob URL after fallback download', async () => {
+    // Covers the "download SW matches by scope but is not active yet" case
+    // (e.g. first visit while it is still installing/waiting): reg is found but
+    // `reg.active` is null, so the handler must still take the blob fallback.
     Object.defineProperty(navigator, 'serviceWorker', {
       value: {
         controller: null,
-        getRegistrations: jest.fn().mockResolvedValue([]),
+        getRegistrations: jest.fn().mockResolvedValue([
+          {
+            scope: 'https://example.com/amplify-storage-download/',
+            active: null,
+          },
+        ]),
         addEventListener: jest.fn(),
         removeEventListener: jest.fn(),
       },
