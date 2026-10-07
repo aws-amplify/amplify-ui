@@ -23,3 +23,59 @@ FaceLivenessDetector(
 <Alert variation="info" role="none">
     When the FaceLivenessDetector is rendered, Rekognition will mark the session ID as used and any future usages of the FaceLivenessDector will require a new session ID. So if you want to change which camera is used for the FaceMovement challenge at runtime, you will need to create a new liveness session and pass the new session ID into the FaceLivenessDetector with the new Camera option.
 </Alert>
+
+## Cancel Button
+
+Use the `cancelButton` parameter to replace the cancel ("X") button shown during the challenge, or pass an empty composable to hide it. For example, you can hide the button when FaceLivenessDetector is shown inside a screen or dialog that already has its own close action:
+
+```kotlin
+FaceLivenessDetector(
+    sessionId = <session ID>,
+    region = <region>,
+    cancelButton = { },
+    onComplete = {
+        Log.i("MyApp", "Face Liveness flow is complete")
+    },
+    onError = { error ->
+        Log.e("MyApp", "Error during Face Liveness flow", error)
+    }
+)
+```
+
+To replace the button, for example to ask the user to confirm before leaving so an accidental tap doesn't end the challenge, pass your own composable. It's drawn inside a `BoxScope`, so it positions itself, and it receives an `onCancel` callback. Calling `onCancel` ends the challenge the same way as the default button: `onError` is called with `FaceLivenessDetectionException.UserCancelledException`.
+
+```kotlin
+FaceLivenessDetector(
+    sessionId = <session ID>,
+    region = <region>,
+    cancelButton = { onCancel ->
+        var showConfirmation by remember { mutableStateOf(false) }
+        TextButton(
+            modifier = Modifier.align(Alignment.TopEnd).padding(16.dp),
+            onClick = { showConfirmation = true }
+        ) {
+            Text("Leave check")
+        }
+        if (showConfirmation) {
+            AlertDialog(
+                onDismissRequest = { showConfirmation = false },
+                text = { Text("Leave the video check?") },
+                confirmButton = { TextButton(onClick = onCancel) { Text("Leave") } },
+                dismissButton = { TextButton(onClick = { showConfirmation = false }) { Text("Stay") } }
+            )
+        }
+    },
+    onComplete = {
+        Log.i("MyApp", "Face Liveness flow is complete")
+    },
+    onError = { error ->
+        Log.e("MyApp", "Error during Face Liveness flow", error)
+    }
+)
+```
+
+<Alert variation="warning" role="none">
+    The challenge is shown full screen, and FaceLivenessDetector doesn't handle the back button itself. If you hide the cancel button, make sure your app still gives users a way to leave the challenge, such as its own close action or back navigation. Hiding the button doesn't stop users from leaving in other ways, such as switching apps, so always verify the session result on your backend.
+</Alert>
+
+If your app removes FaceLivenessDetector before the challenge finishes, for example when the user leaves through your own close action, the liveness session is closed and `onError` isn't called. If you count user cancellations through `UserCancelledException`, also count exits through your app's own close action.
