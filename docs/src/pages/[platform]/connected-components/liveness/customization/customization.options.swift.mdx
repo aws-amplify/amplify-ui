@@ -26,3 +26,71 @@ FaceLivenessDetectorView(
 <Alert variation="info" role="none">
     When the FaceLivenessDetector is rendered, Rekognition will mark the session ID as used and any future usages of the FaceLivenessDector will require a new session ID. So if you want to change which camera is used for the FaceMovement challenge at runtime, you will need to create a new liveness session and pass the new session ID into the FaceLivenessDetector with the new Camera option.
 </Alert>
+
+## Cancel Button
+
+Use the `hidesCancelButton(_:)` method to hide the cancel ("X") button. It's hidden both during the challenge and on the screen that asks the user to rotate their device to portrait. For example, you can hide the button when FaceLivenessDetectorView is shown inside a screen that already has its own close action:
+
+```swift
+FaceLivenessDetectorView(
+    sessionID: <session ID>,
+    region: <region>,
+    isPresented: $isPresentingLiveness,
+    onCompletion: { result in
+        // ...
+    }
+)
+.hidesCancelButton()
+```
+
+`hidesCancelButton(_:)` takes a `Bool`, defaulting to `true`, so you can also decide at runtime, for example `.hidesCancelButton(isShownInsideMyScreen)`.
+
+To replace the button, for example to ask the user to confirm before leaving so an accidental tap doesn't end the challenge, use the `cancelButton(_:)` method. Your view takes the default button's place in the top trailing corner, and it receives a `FaceLivenessDetectorView.CancelButtonConfiguration` with:
+
+- `cancel`, which ends the challenge the same way as the default button: the liveness session is closed, `isPresented` is set to `false`, and `onCompletion` is called with `.failure(.userCancelled)`. It's isolated to the main actor, so call it from your button's action or from other main-actor code.
+- `accessibilityLabel`, the localized label VoiceOver reads for the default button, for your button to use as its own.
+
+```swift
+struct ConfirmLeaveButton: View {
+    let configuration: FaceLivenessDetectorView.CancelButtonConfiguration
+    @State private var showConfirmation = false
+
+    var body: some View {
+        Button {
+            showConfirmation = true
+        } label: {
+            Image(systemName: "xmark")
+                .frame(width: 44, height: 44)
+        }
+        .accessibilityLabel(configuration.accessibilityLabel)
+        .alert("Leave the video check?", isPresented: $showConfirmation) {
+            Button("Leave", role: .destructive) { configuration.cancel() }
+            Button("Stay", role: .cancel) { }
+        }
+    }
+}
+
+FaceLivenessDetectorView(
+    sessionID: <session ID>,
+    region: <region>,
+    isPresented: $isPresentingLiveness,
+    onCompletion: { result in
+        // ...
+    }
+)
+.cancelButton { configuration in
+    ConfirmLeaveButton(configuration: configuration)
+}
+```
+
+The challenge keeps running while your confirmation is shown. If it finishes or times out first, `onCompletion` is called with that result, and calling `cancel` afterwards does nothing.
+
+Give your button a tap target of at least 44x44 points, as the default button has. If `hidesCancelButton()` is also applied, the button is hidden.
+
+`hidesCancelButton(_:)` and `cancelButton(_:)` are methods on FaceLivenessDetectorView rather than view modifiers, so call them directly on FaceLivenessDetectorView, before any other modifiers such as `.padding()`. They can't be applied to a containing view.
+
+<Alert variation="warning" role="none">
+    If you hide the cancel button, make sure your app still gives users a way to leave the challenge, such as a close action that removes FaceLivenessDetectorView, for example by setting the binding that drives your `fullScreenCover` to `false`. Only the challenge and rotate screens have a cancel button, so your close action is also the way out of the other screens, such as the camera permission screen. Hiding the button doesn't stop users from leaving in other ways, such as switching apps, so always verify the session result on your backend.
+</Alert>
+
+If your app removes FaceLivenessDetectorView before the challenge finishes, for example through your own close action or when the user swipes down a sheet that contains it, the camera stops and the exit isn't reported as `.userCancelled`. The liveness session isn't closed; it stays open until the service ends it, and `onCompletion` may still be called later with a service error. Ignore results that arrive after you've removed the view, and if you count user cancellations through `.userCancelled`, also count exits through your app's own close action.
