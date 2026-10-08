@@ -12,6 +12,10 @@ and cannot rotate to portrait, with no way through. The portrait requirement
 was never a Rekognition constraint: desktop browsers have always streamed
 landscape frames to the same model.
 
+In a landscape viewport under 500px tall the camera area is clamped to the
+available height, and the hint and match indicator move into the gutter beside
+the oval, which spans nearly the full frame height there.
+
 ### Migration
 
 **`MOBILE_LANDSCAPE_ERROR` is no longer emitted.** The member is retained on
@@ -31,9 +35,25 @@ The `landscapeHeaderText`, `landscapeMessageText` and `portraitMessageText`
 display-text fields are likewise retained and deprecated, but nothing renders
 them.
 
-Rotating the device *during* a check now shows a non-fatal prompt rather than
-failing, so an orientation change is no longer a terminal condition at any
-point in the flow.
+**Rotating the device during a check now ends the attempt with a new
+`DEVICE_ROTATION_ERROR`**, which is retryable and shows its own message. The
+challenge oval is computed once per session against the frame the stream opened
+with, so frames captured after a rotation cannot be evaluated against it. A
+check may still *start* in either orientation; only a change after recording
+begins ends it. Previously such a rotation was decided by the oval fit timeout,
+so the user was told their face did not fit and the stream closed with the
+face-fit code.
 
-Portrait rendering is unchanged, verified against a snapshot captured from the
-previous implementation.
+New display text accompanies it: `deviceRotationHeaderText` and
+`deviceRotationMessageText`.
+
+### Behaviour change outside landscape
+
+Every oval dimension is now read from the video element's intrinsic frame
+rather than `track.getSettings()`. On devices where the two disagree, which is
+Android/Firefox and iOS reporting the `getUserMedia` dimensions flipped by
+orientation, this moves the pre-recording face distance threshold: the check
+previously sized its oval from the flipped pair, taking the 3:4 recompute
+branch and dividing by an oval 33% narrower than intended, so it asked the user
+to move further from the camera than the challenge configured. Where the two
+sources agree, including desktop, nothing changes.

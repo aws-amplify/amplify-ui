@@ -17,6 +17,7 @@ import {
   isFaceDistanceBelowThreshold,
   resizeCanvasToDisplaySize,
 } from '../liveness';
+import { OVAL_HEIGHT_WIDTH_RATIO } from '../constants';
 import {
   getMockContext,
   mockCameraDevice,
@@ -557,47 +558,44 @@ describe('Liveness Helper', () => {
   });
 
   // The supported landscape floor is 360 CSS px of container height.
+  //
+  // The oval drawn during recording is NOT computed here: it comes from the
+  // service as `OvalParameters` and `getOvalDetailsFromSessionInformation`
+  // passes its Width/Height through verbatim, varying per session. So the
+  // gutter the stylesheet reserves cannot be derived from any client formula.
+  //
+  // What does bound it: an oval taller than the frame would be clipped, so
+  // `ovalHeight = OvalHeightWidthRatio * ovalWidth <= frameHeight` gives
+  // `ovalWidth <= frameHeight / OvalHeightWidthRatio`. With the 1.618 ratio
+  // the client defaults to, that is 0.618 * frameHeight, i.e. a half-width of
+  // at most 0.309 * frameHeight. The frame is height-bound in short landscape,
+  // so that is 0.309 of the container height, and the stylesheet reserves
+  // 0.32 for margin.
+  //
+  // Unverified: that the service always sends the 1.618 ratio. A smaller ratio
+  // permits a wider oval. T0.1 should log the real OvalParameters for a
+  // 640x480 landscape session.
   describe('landscape viewport floor', () => {
     const video = { videoWidth: 640, videoHeight: 480 };
-    // the oval the challenge actually draws, in frame space
-    const oval = getStaticLivenessOvalDetails({
-      width: video.videoWidth,
+    const GUTTER_FRACTION = 0.32;
+    // the widest oval the frame can hold at the default height:width ratio
+    const widestOval = {
+      width: video.videoHeight / OVAL_HEIGHT_WIDTH_RATIO,
       height: video.videoHeight,
-      ratioMultiplier: 0.8,
+    };
+
+    it('should reserve a gutter no narrower than the widest permissible oval', () => {
+      expect(widestOval.width / 2 / video.videoHeight).toBeLessThanOrEqual(
+        GUTTER_FRACTION
+      );
     });
 
-    it.each([
-      [800, 360],
-      [915, 412],
-      [740, 360],
-    ])('should fit the oval in a %ix%i viewport', (width, height) => {
-      const layout = getVideoFillLayout({
-        containerWidth: width,
-        containerHeight: height,
-        ...video,
-      });
-      const scale = layout.height / video.videoHeight;
-
-      expect(oval.height * scale).toBeLessThanOrEqual(height);
-    });
-
-    it('should leave the oval under the frame height, so no clamp is needed', () => {
-      // 465 of 480: the oval is height-bound in landscape and getVideoFillLayout
-      // never scales the frame past the container height, so the rendered oval
-      // cannot exceed this fraction of the container at any landscape size.
-      expect(oval.height / video.videoHeight).toBeCloseTo(0.969, 3);
-    });
-
-    // The stylesheet moves the hint and the match indicator into the inline
-    // gutter beside the oval, pinning their inner edge at `50% + 0.3 * 100dvh`.
-    // That calc is only correct while the rendered oval's half-width really is
-    // 0.3x the container height.
     it.each([
       [800, 360],
       [915, 412],
       [740, 360],
     ])(
-      'should put the oval edge at 0.3x the height from center at %ix%i',
+      'should clear the widest permissible oval in a %ix%i viewport',
       (width, height) => {
         const layout = getVideoFillLayout({
           containerWidth: width,
@@ -606,7 +604,13 @@ describe('Liveness Helper', () => {
         });
         const scale = layout.height / video.videoHeight;
 
-        expect((oval.width * scale) / 2).toBeCloseTo(0.3 * height, 0);
+        // the oval fits the frame vertically, so nothing needs clamping
+        expect(widestOval.height * scale).toBeLessThanOrEqual(height);
+        // and the stylesheet's `50% + 0.32 * 100dvh` inner edge sits outside
+        // its rendered half-width, so the hint cannot overlap it
+        expect((widestOval.width * scale) / 2).toBeLessThanOrEqual(
+          GUTTER_FRACTION * height
+        );
       }
     );
   });

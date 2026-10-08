@@ -482,7 +482,7 @@
     max-block-size: 100%;
   }
 
-  // The oval spans ~97% of the frame height and the frame is height-bound
+  // The oval spans nearly the full frame height and the frame is height-bound
   // here, so there is no free block space. The frame is letterboxed
   // horizontally though, so the hint and the match indicator move beside the
   // oval rather than over the user's face.
@@ -490,11 +490,15 @@
     padding: var(--amplify-space-xs);
   }
 
-  // The rendered oval is ~0.6x the container height (0.45 of a 4:3 frame that
-  // is height-bound here), so it spans 50% +/- 0.3h. Pinning both inline edges
-  // makes each box exactly the gutter beside it rather than a guessed share of
-  // the width. A host shorter than the viewport only narrows the gutter, which
-  // is the safe direction.
+  // The oval drawn during recording comes from the service, per session, so
+  // its width is not known here. It is bounded though: an oval taller than the
+  // frame would be clipped, so its width cannot exceed
+  // frameHeight / OvalHeightWidthRatio, i.e. 0.618h at the 1.618 ratio the
+  // client defaults to. The frame is height-bound in a short landscape
+  // viewport, so the oval spans at most 50% +/- 0.309h; 0.32 adds margin.
+  // Pinning both inline edges makes each box exactly the gutter beside it
+  // rather than a guessed share of the width. A host shorter than the viewport
+  // only narrows the gutter, which is the safe direction.
   .amplify-liveness-hint,
   .amplify-liveness-match-indicator {
     position: absolute;
@@ -505,11 +509,11 @@
 
   .amplify-liveness-hint {
     inset-inline-start: var(--amplify-space-xs);
-    inset-inline-end: calc(50% + 0.3 * 100dvh);
+    inset-inline-end: calc(50% + 0.32 * 100dvh);
   }
 
   .amplify-liveness-match-indicator {
-    inset-inline-start: calc(50% + 0.3 * 100dvh);
+    inset-inline-start: calc(50% + 0.32 * 100dvh);
     inset-inline-end: var(--amplify-space-xs);
     // the base rule sets a width, which would override the end inset
     inline-size: auto;

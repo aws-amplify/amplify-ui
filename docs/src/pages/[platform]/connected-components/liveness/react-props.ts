@@ -110,6 +110,12 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
     type: `Error`,
   },
   {
+    name: `DEVICE_ROTATION_ERROR`,
+    description:
+      'Indicates that the device was rotated after recording started. The challenge oval is computed once per session against the frame the stream opened with, so the attempt cannot continue across a rotation. Retryable.',
+    type: `Error`,
+  },
+  {
     name: `CAMERA_ACCESS_ERROR`,
     description:
       "Indicates that an error occurred when attempting to access the user's camera, this could be because they did not allow camera permissions in the browser.",
