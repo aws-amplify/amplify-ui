@@ -19,6 +19,7 @@ import I18React from './customization.i18n.react.mdx';
 import I18Swift from './customization.i18n.swift.mdx';
 import ThemeAndroid from './customization.theming.android.mdx';
 import ThemeReact from './customization.theming.react.mdx';
+import ThemeSwift from './customization.theming.swift.mdx';
 import ComponentsReact from './customization.components.react.mdx';
 import SystemClockOffsetReact from './customization.system-clock-offset.react.mdx';
 import CdnReact from './customization.cdn.react.mdx';
@@ -78,9 +79,11 @@ export async function getStaticProps() {
 </InlineFilter>
 <InlineFilter filters={['swift']}>
   <I18Swift />
+
+  <ThemeSwift />
 </InlineFilter>
 
 ## Best Practices
 
-1. The get ready screen has been optimized for increasing the end user's success rate and we strongly discourage making any changes to that screen.
+1. The get ready screen has been optimized for increasing the end user's success rate and we strongly discourage making any changes to that screen, other than theming its colors and fonts.
 1. We do not recommend modifying the countdown time, face fit timeout, and oval size, as they affect the security and accuracy of the Face Liveness check.
