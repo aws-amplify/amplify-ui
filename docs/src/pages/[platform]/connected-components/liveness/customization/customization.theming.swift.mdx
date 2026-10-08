@@ -2,98 +2,133 @@ import { Alert } from '@aws-amplify/ui-react';
 
 ## Theming
 
-Starting with version 1.5.0, you can change the colors and fonts of `FaceLivenessDetectorView` to match your app's branding. Create a `FaceLivenessDetectorTheme`, set the colors and fonts you want to change, and apply it with the `faceLivenessDetectorTheme(_:)` modifier:
+Starting with Amplify UI Swift Liveness 1.5.0, you can change the colors and fonts of `FaceLivenessDetectorView`, including the instruction background, to match your app's branding. To update, in Xcode choose **File > Packages > Update to Latest Package Versions**.
+
+Create a `FaceLivenessDetectorTheme`, set the colors and fonts you want to change, and apply it with the `faceLivenessDetectorTheme(_:)` modifier:
 
 ```swift
 import FaceLiveness
 import SwiftUI
 
-struct LivenessView: View {
-    let sessionID: String
-    @Binding var isPresentingLiveness: Bool
-
-    // Create the theme once, rather than in `body`
-    @State private var theme: FaceLivenessDetectorTheme = {
+extension FaceLivenessDetectorTheme {
+    static let brand: FaceLivenessDetectorTheme = {
         let theme = FaceLivenessDetectorTheme()
         theme.colors.primary = Color("BrandPrimary")
         theme.colors.onPrimary = .white
         theme.fonts.title = .custom("BrandSans-Semibold", size: 24, relativeTo: .title)
         return theme
     }()
-
-    var body: some View {
-        FaceLivenessDetectorView(
-            sessionID: sessionID,
-            region: <region>,
-            isPresented: $isPresentingLiveness,
-            onCompletion: { result in
-                // ...
-            }
-        )
-        .faceLivenessDetectorTheme(theme)
-    }
 }
+
+FaceLivenessDetectorView(
+    sessionID: <session ID>,
+    region: <region>,
+    isPresented: $isPresentingLiveness,
+    onCompletion: { result in
+        // ...
+    }
+)
+.faceLivenessDetectorTheme(.brand)
 ```
 
 Any color or font you don't set keeps its default. If no theme is applied, `FaceLivenessDetectorView` uses the default theme.
 
-### Instruction background color
+### Instruction text background color
 
-The instructions shown during the check, such as "Move closer" and "Hold still", use `primary` for their background and `onPrimary` for their text. The instruction shown when the face is too close uses `error` and `onError`. To match your brand:
+The instructions shown before and during the check, such as "Move closer", "Move face farther away", and "Hold still", use `primary` for their background and `onPrimary` for their text. "Move back", shown when the face gets too close to the oval during the check, uses `error` and `onError` instead. The instruction text uses the `title` font.
 
 ```swift
-let theme = FaceLivenessDetectorTheme()
-// "Move closer", "Hold still" and the other instructions
-theme.colors.primary = Color("BrandPrimary")
-theme.colors.onPrimary = .white
-// "Move face farther away"
-theme.colors.error = Color("BrandWarning")
-theme.colors.onError = .white
+extension FaceLivenessDetectorTheme {
+    static let brand: FaceLivenessDetectorTheme = {
+        let theme = FaceLivenessDetectorTheme()
+        // "Move closer", "Move face farther away", "Hold still" and the other instructions
+        theme.colors.primary = Color("BrandPrimary")
+        theme.colors.onPrimary = .white
+        // "Move back"
+        theme.colors.error = Color("BrandWarning")
+        theme.colors.onError = .white
+        // the instruction text
+        theme.fonts.title = .custom("BrandSans-Semibold", size: 20, relativeTo: .title)
+        return theme
+    }()
+}
 ```
 
-`primary` also colors the progress bar's fill, the primary buttons, and the loading indicator.
+Choose text colors with enough contrast against their backgrounds, for example 4.5:1, so the instructions stay readable. "Connecting" and "Verifying" aren't instructions; they use `background` and `onBackground`.
+
+Instructions wrap onto more lines when they don't fit, for example with longer translations or large Dynamic Type sizes. During the check they're shown at the top of the camera view. To fit long instructions on fewer lines, use a smaller `title` font.
 
 ### Colors
 
-The color names match the roles of the Android `ColorScheme` used by `LivenessColorScheme`, so you can use the same brand colors on both platforms.
+The color names and default values match Android's `LivenessColorScheme`, and each color is used for the same parts of the UI, so you can use the same brand colors on iOS and Android. iOS has no `onSurface`, because no text is shown on `surface`.
 
 | Color | Used for | Light default | Dark default |
 | --- | --- | --- | --- |
-| `primary` | The background of the instructions shown during the check, the progress bar's fill, the primary buttons, and the loading indicator | `#047D95` | `#7DD6E8` |
-| `onPrimary` | Text and icons on `primary` | `#FFFFFF` | `#0D1926` |
-| `error` | The background of the instruction shown when the face is too close | `#950404` | `#EF8F8F` |
+| `primary` | The background of the instructions (except "Move back"), the progress bar's fill, the "Start video check" and "Change Camera Setting" buttons, and the loading indicator | `#047D95` | `#7DD6E8` |
+| `onPrimary` | Text on `primary` | `#FFFFFF` | `#0D1926` |
+| `error` | The background of the "Move back" instruction, shown when the face is too close to the oval | `#950404` | `#EF8F8F` |
 | `onError` | Text on `error` | `#FFFFFF` | `#0D1926` |
-| `background` | The background behind all the views, the close button, the REC indicator, and the "Verifying" message | `#FFFFFF` | `#0D1926` |
-| `onBackground` | Text and icons on `background`, including the get ready, camera permission, loading, and rotate device screens | `#0D1926` | `#FFFFFF` |
+| `background` | The background of the loading, camera permission, get ready, and rotate device screens, and of the cancel button, the REC indicator, and the "Verifying" message | `#FFFFFF` | `#0D1926` |
+| `onBackground` | Text and icons on `background` | `#0D1926` | `#FFFFFF` |
 | `surface` | The unfilled part of the progress bar | `#FFFFFF` | `#0D1926` |
 | `errorContainer` | The background of the photosensitivity warning | `#B8CEF9` | `#043495` |
 | `onErrorContainer` | Text and icons on `errorContainer` | `#002266` | `#E6EEFE` |
 
+<Alert variation="info" role="none">
+    During the check, a white background fills the screen around the face oval. This background and the colors flashed during the check light the user's face as part of the Face Liveness check, so they can't be themed, and theming doesn't affect the check. The oval outlines, the progress bar's border, the REC indicator's red dot, the black background behind the camera before the oval appears and after the check, and the photosensitivity dialog and camera permission alert, which use system colors, also aren't part of the theme.
+</Alert>
+
 ### Fonts
 
-Fonts are named after SwiftUI's text styles. The defaults are Dynamic Type text styles, so they scale with the user's preferred text size. To use your own font and keep that scaling, use `Font.custom(_:size:relativeTo:)`.
+Fonts are named after SwiftUI's text styles. The defaults are Dynamic Type text styles, so they scale with the user's preferred text size. To use your own font and keep that scaling, use `Font.custom(_:size:relativeTo:)` with the text style it replaces. Use the font's PostScript name, and register the font in your app's Info.plist; otherwise the system font is shown.
 
 | Font | Used for |
 | --- | --- |
 | `title` | The instructions shown before and during the check, and "Center your face" on the get ready screen |
-| `title2` | The titles of the camera permission and rotate device screens |
-| `title3` | The title of the photosensitivity dialog |
+| `title2` | The titles of the camera permission and rotate device screens, shown in medium weight |
+| `title3` | The title of the photosensitivity dialog, shown in medium weight |
 | `headline` | The title of the photosensitivity warning |
 | `body` | Body text and button labels, including the photosensitivity warning and dialog, the camera permission and rotate device screens, "Connecting", and "Verifying" |
-| `caption` | The REC indicator's label |
+| `caption` | The REC indicator's label, shown in bold |
 
-`largeTitle`, `subheadline`, `callout`, `caption2`, and `footnote` aren't currently used.
+The medium and bold weights are applied on top of the font you set. `largeTitle`, `subheadline`, `callout`, `caption2`, and `footnote` aren't currently used.
 
 ### Light and dark mode
 
-`FaceLivenessDetectorTheme()` starts with default colors that follow the system's light or dark appearance. For your own colors, use colors that adapt too, such as asset catalog colors with a Dark appearance, or `UIColor(dynamicProvider:)`. They follow appearance changes, even during a check, with a single theme.
+`FaceLivenessDetectorTheme()` starts with default colors that follow the light or dark appearance. For your own colors, use colors that adapt too, such as asset catalog colors with a Dark appearance, or a `UIColor` with a dynamic provider:
 
-To use one appearance's default colors whatever the system's appearance, create the theme with `FaceLivenessDetectorTheme(colorScheme: .light)` or `FaceLivenessDetectorTheme(colorScheme: .dark)`.
+```swift
+theme.colors.primary = Color(uiColor: UIColor { traits in
+    traits.userInterfaceStyle == .dark
+        ? UIColor(red: 0.49, green: 0.84, blue: 0.91, alpha: 1)
+        : UIColor(red: 0.02, green: 0.49, blue: 0.58, alpha: 1)
+})
+```
+
+A single theme with adaptive colors follows appearance changes, even during a check.
+
+To always use the light or dark default colors, whatever the appearance, create the theme with `FaceLivenessDetectorTheme(colorScheme: .light)` or `FaceLivenessDetectorTheme(colorScheme: .dark)`. If you choose the theme by appearance yourself, keep one theme per appearance and read `colorScheme` in a view modifier, rather than in the view that creates `FaceLivenessDetectorView`. Otherwise every appearance change runs the detector view's initializer again:
+
+```swift
+extension FaceLivenessDetectorTheme {
+    static let brandLight = FaceLivenessDetectorTheme(colorScheme: .light)
+    static let brandDark = FaceLivenessDetectorTheme(colorScheme: .dark)
+}
+
+struct LivenessThemeModifier: ViewModifier {
+    @Environment(\.colorScheme) private var colorScheme
+
+    func body(content: Content) -> some View {
+        content.faceLivenessDetectorTheme(colorScheme == .dark ? .brandDark : .brandLight)
+    }
+}
+
+FaceLivenessDetectorView(...)
+    .modifier(LivenessThemeModifier())
+```
 
 ### Changing the theme
 
-`FaceLivenessDetectorView` doesn't observe changes to a theme it's already using. To change the theme while the view is on screen, pass a different theme to `faceLivenessDetectorTheme(_:)`. Create your themes once and keep them, for example in `@State` or as static properties. Creating a new theme in `body` updates the views on every redraw.
+`FaceLivenessDetectorView` doesn't observe changes to a theme it's already using; changing a property of a theme in use can update some views and not others. To change the theme while the view is on screen, pass a different theme to `faceLivenessDetectorTheme(_:)`, for example from `@State`.
 
-<Alert variation="info" role="none">
-    The white background around the face oval, the oval's outline, and the colors flashed during the check light the user's face as part of the Face Liveness check, so they can't be themed.
-</Alert>
+Create your themes once and keep them, for example as static properties in an extension of `FaceLivenessDetectorTheme`, as shown above. Creating a new theme in `body` updates the views on every redraw. The theme's properties are isolated to the main actor, so set them on the main actor; a static property on another type needs to be marked `@MainActor`.
