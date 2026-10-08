@@ -18,7 +18,6 @@ export type HintDisplayText = {
   hintCenterFaceInstructionText?: string;
   hintFaceOffCenterText?: string;
   hintMatchIndicatorText?: string;
-  hintHoldDeviceStillText?: string;
 };
 
 export type CameraDisplayText = {
@@ -78,6 +77,9 @@ export const defaultErrorDisplayText = {
   multipleFacesHeaderText: 'Multiple faces detected',
   multipleFacesMessageText:
     'Ensure only one face is present in front of the camera when connecting.',
+  deviceRotationHeaderText: 'Device rotation detected',
+  deviceRotationMessageText:
+    'Keep your device in the same orientation for the whole check, then try again.',
   clientHeaderText: 'Client error',
   clientMessageText: 'Check failed due to client issue',
   serverHeaderText: 'Server issue',
@@ -135,8 +137,6 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
-  hintHoldDeviceStillText:
-    'Hold your device still and keep it in the same orientation.',
   hintMatchIndicatorText: '50% completed. Keep moving closer.',
   photosensitivityWarningBodyText:
     'This check flashes different colors. Use caution if you are photosensitive.',

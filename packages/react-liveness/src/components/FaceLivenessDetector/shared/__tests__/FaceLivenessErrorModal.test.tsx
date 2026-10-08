@@ -11,6 +11,8 @@ import { defaultErrorDisplayText } from '../../displayText';
 const {
   connectionTimeoutHeaderText,
   connectionTimeoutMessageText,
+  deviceRotationHeaderText,
+  deviceRotationMessageText,
   serverHeaderText,
   serverMessageText,
   timeoutHeaderText,
@@ -43,6 +45,18 @@ describe('FaceLivenessErrorModal', () => {
 
     expect(screen.getByText(timeoutHeaderText)).toBeInTheDocument();
     expect(screen.getByText(timeoutMessageText)).toBeInTheDocument();
+  });
+
+  it('should render the device rotation message appropriately', () => {
+    const errorState = LivenessErrorState.DEVICE_ROTATION_ERROR;
+    render(
+      <FaceLivenessErrorModal onRetry={() => {}}>
+        {renderErrorModal({ errorState })}
+      </FaceLivenessErrorModal>
+    );
+
+    expect(screen.getByText(deviceRotationHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(deviceRotationMessageText)).toBeInTheDocument();
   });
 
   it('should render the connection timeout message appropriately', () => {

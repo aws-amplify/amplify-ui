@@ -12,6 +12,12 @@ export const LivenessErrorState = {
   CAMERA_ACCESS_ERROR: 'CAMERA_ACCESS_ERROR',
   FACE_DISTANCE_ERROR: 'FACE_DISTANCE_ERROR',
   /**
+   * Emitted when the device is rotated after recording has started. The
+   * challenge oval is computed once per session against the frame the stream
+   * opened with, so an attempt cannot continue across a rotation.
+   */
+  DEVICE_ROTATION_ERROR: 'DEVICE_ROTATION_ERROR',
+  /**
    * @deprecated No longer emitted. Mobile landscape orientation is supported,
    * so a check is never failed for being in landscape. Retained so that
    * consumers switching on `ErrorState` keep compiling.

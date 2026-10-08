@@ -89,11 +89,10 @@ export interface LivenessContext {
   freshnessColorAssociatedParams: FreshnessColorAssociatedParams | undefined;
   isFaceFarEnoughBeforeRecording: boolean | undefined;
   isRecordingStopped: boolean | undefined;
-  // the orientation the check was recording in, and whether the device has
-  // since been turned away from it
+  // the orientation last reported by the DOM, and the one recording started
+  // in: a mid-check change between them ends the attempt
   currentOrientation: DeviceOrientation | undefined;
   recordingOrientation: DeviceOrientation | undefined;
-  isOrientationMismatched: boolean | undefined;
   livenessStreamProvider: StreamRecorder | undefined;
   maxFailedAttempts: number | undefined;
   ovalAssociatedParams: OvalAssociatedParams | undefined;

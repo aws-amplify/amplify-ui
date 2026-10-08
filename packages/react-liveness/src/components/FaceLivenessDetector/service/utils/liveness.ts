@@ -497,6 +497,7 @@ export const LivenessErrorStateStringMap = {
   [LivenessErrorState.SERVER_ERROR]: 'SERVER_ERROR',
   [LivenessErrorState.TIMEOUT]: 'TIMEOUT',
   [LivenessErrorState.FACE_DISTANCE_ERROR]: 'FACE_DISTANCE_ERROR',
+  [LivenessErrorState.DEVICE_ROTATION_ERROR]: 'DEVICE_ROTATION_ERROR',
   [LivenessErrorState.MULTIPLE_FACES_ERROR]: 'MULTIPLE_FACES_ERROR',
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: 'CAMERA_FRAMERATE_ERROR',
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: 'CAMERA_ACCESS_ERROR',

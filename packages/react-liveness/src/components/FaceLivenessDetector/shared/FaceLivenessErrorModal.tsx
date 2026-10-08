@@ -38,6 +38,8 @@ const renderToastErrorModal = (props: {
     faceDistanceMessageText,
     multipleFacesHeaderText,
     multipleFacesMessageText,
+    deviceRotationHeaderText,
+    deviceRotationMessageText,
     clientHeaderText,
     clientMessageText,
     serverHeaderText,
@@ -63,6 +65,10 @@ const renderToastErrorModal = (props: {
     case LivenessErrorState.MULTIPLE_FACES_ERROR:
       heading = multipleFacesHeaderText;
       message = multipleFacesMessageText;
+      break;
+    case LivenessErrorState.DEVICE_ROTATION_ERROR:
+      heading = deviceRotationHeaderText;
+      message = deviceRotationMessageText;
       break;
     case LivenessErrorState.RUNTIME_ERROR:
       heading = clientHeaderText;

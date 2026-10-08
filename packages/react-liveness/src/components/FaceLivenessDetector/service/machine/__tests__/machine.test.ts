@@ -27,6 +27,7 @@ import {
 } from '../../utils/__mocks__/testUtils';
 
 import { livenessMachine } from '../machine';
+import { WS_CLOSURE_CODE } from '../../utils/constants';
 
 jest.useFakeTimers();
 jest.mock('../../utils');
@@ -773,9 +774,8 @@ describe('Liveness Machine', () => {
       });
     });
 
-    // P4: rotating mid-check prompts the user without failing the check, but
-    // the prompt is bounded, because a liveness session expires three minutes
-    // after creation and cannot be reused.
+    // P4: rotating mid-check ends the attempt, because the challenge oval is
+    // computed once against the frame the stream opened with.
     describe('mid-check rotation', () => {
       const rotate = (orientation: 'landscape' | 'portrait') =>
         service.send({ type: 'ORIENTATION_CHANGED', data: { orientation } });
@@ -785,18 +785,53 @@ describe('Liveness Machine', () => {
         await transitionToRecording(service);
 
         expect(service.state.context.recordingOrientation).toBe('portrait');
-        expect(service.state.context.isOrientationMismatched).toBe(false);
+        expect(service.state.context.errorState).toBeUndefined();
       });
 
-      it('should prompt without failing the check when rotated', async () => {
+      it('should end the attempt with a device rotation error', async () => {
         rotate('portrait');
         await transitionToRecording(service);
-        const stateBeforeRotation = service.state.value;
 
         rotate('landscape');
 
-        expect(service.state.context.isOrientationMismatched).toBe(true);
-        expect(service.state.value).toEqual(stateBeforeRotation);
+        expect(service.state.value).toEqual('timeout');
+        expect(service.state.context.errorState).toBe(
+          LivenessErrorState.DEVICE_ROTATION_ERROR
+        );
+        expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+        const livenessError = (mockComponentProps.onError as jest.Mock).mock
+          .calls[0][0];
+        expect(livenessError.state).toBe(
+          LivenessErrorState.DEVICE_ROTATION_ERROR
+        );
+      });
+
+      // the close code is what server-side telemetry reads, so a rotation must
+      // not be recorded as a face fit failure
+      it('should not close the stream as a face fit timeout', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+
+        rotate('landscape');
+
+        expect(mockedHelpers.closeLivenessStream).toHaveBeenCalledWith(
+          expect.anything(),
+          WS_CLOSURE_CODE.USER_ERROR_DURING_CONNECTION
+        );
+        expect(mockedHelpers.closeLivenessStream).not.toHaveBeenCalledWith(
+          expect.anything(),
+          WS_CLOSURE_CODE.FACE_FIT_TIMEOUT
+        );
+      });
+
+      it('should ignore an event reporting the orientation it started in', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+        const stateBeforeEvent = service.state.value;
+
+        rotate('portrait');
+
+        expect(service.state.value).toEqual(stateBeforeEvent);
         expect(service.state.context.errorState).toBeUndefined();
         expect(mockComponentProps.onError).not.toHaveBeenCalled();
       });
@@ -806,12 +841,12 @@ describe('Liveness Machine', () => {
         await transitionToRecording(service);
 
         expect(service.state.context.recordingOrientation).toBe('landscape');
-        expect(service.state.context.isOrientationMismatched).toBe(false);
         expect(service.state.context.errorState).toBeUndefined();
+        expect(mockComponentProps.onError).not.toHaveBeenCalled();
       });
 
       // P6: landscape is no longer a gate, so the orientation alone can never
-      // route the check to `error`.
+      // route the check to the landscape error.
       it('should never reach the landscape error state', async () => {
         rotate('landscape');
         await transitionToNotRecording(service);
@@ -823,37 +858,35 @@ describe('Liveness Machine', () => {
 
         await transitionToRecording(service);
         rotate('portrait');
-        rotate('landscape');
 
         expect(service.state.context.errorState).not.toBe(
           LivenessErrorState.MOBILE_LANDSCAPE_ERROR
         );
-        expect(mockComponentProps.onError).not.toHaveBeenCalled();
       });
 
-      it('should clear the prompt when the orientation is restored', async () => {
+      // Osama's repro on PR #7166: before this, a rotation during ovalMatching
+      // was decided by the 7s oval fit timeout, so the user saw face fit copy
+      // and the rotation was reported as a face fit failure.
+      it('should decide the outcome itself rather than leave it to the oval fit timeout', async () => {
+        mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
+          return {
+            faceMatchState: FaceMatchState.TOO_FAR,
+            faceMatchPercentage: 0,
+          };
+        });
         rotate('portrait');
         await transitionToRecording(service);
+
         rotate('landscape');
-        expect(service.state.context.isOrientationMismatched).toBe(true);
-
-        rotate('portrait');
-
-        expect(service.state.context.isOrientationMismatched).toBe(false);
-        expect(service.state.context.errorState).toBeUndefined();
-      });
-
-      it('should fail with a timeout rather than leave the prompt open', async () => {
-        rotate('portrait');
-        await transitionToRecording(service);
-        rotate('landscape');
-
         jest.runAllTimers();
 
-        expect(service.state.value).toEqual('timeout');
         expect(service.state.context.errorState).toBe(
-          LivenessErrorState.TIMEOUT
+          LivenessErrorState.DEVICE_ROTATION_ERROR
         );
+        expect(service.state.context.errorMessage).not.toContain(
+          'face to match oval'
+        );
+        expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
       });
 
       it('should not re-measure the track while recording', async () => {
@@ -861,9 +894,8 @@ describe('Liveness Machine', () => {
         await transitionToRecording(service);
         mockedHelpers.getTrackDimensions.mockClear();
 
-        rotate('landscape');
         service.send({ type: 'VIDEO_RESIZED' });
-        rotate('portrait');
+        rotate('landscape');
 
         // the frame is fixed for the session: only the rendered box is
         // re-measured, via getVideoScaleFactor
