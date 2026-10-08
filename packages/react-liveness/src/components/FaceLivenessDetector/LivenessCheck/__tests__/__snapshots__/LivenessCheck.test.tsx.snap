@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LivenessCheck should render portrait unchanged by the landscape gate removal 1`] = `
+exports[`LivenessCheck should render portrait with no error modal around the camera module 1`] = `
 <div>
   <div
     class="amplify-flex liveness-detector-check"

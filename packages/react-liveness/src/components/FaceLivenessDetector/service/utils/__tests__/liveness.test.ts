@@ -514,17 +514,17 @@ describe('Liveness Helper', () => {
   });
 
   // T2.2: the 3:4 recompute in getStaticLivenessOvalDetails is the branch
-  // desktop landscape has always taken (640 >= 480). Mobile landscape and
-  // square foldable frames must take the identical branch, so the distance
-  // check behaves the same everywhere rather than gaining a mobile-only path.
+  // desktop landscape has always taken (640 >= 480). A mobile landscape or
+  // square foldable frame must take the identical branch, so the distance
+  // check gains no mobile-only path. The function takes only dimensions, so
+  // 'desktop' and 'mobile' landscape are the same input and are one row here.
   describe('getStaticLivenessOvalDetails dimension matrix', () => {
     const portrait = { width: 480, height: 640 };
     const landscape = { width: 640, height: 480 };
     const square = { width: 480, height: 480 };
 
     it.each([
-      ['desktop landscape', landscape],
-      ['mobile landscape', landscape],
+      ['landscape', landscape],
       ['square foldable', square],
     ])('should take the 3:4 branch for %s', (_label, dims) => {
       const oval = getStaticLivenessOvalDetails(dims);
@@ -538,13 +538,6 @@ describe('Liveness Helper', () => {
       const oval = getStaticLivenessOvalDetails(portrait);
 
       expect(oval.width).toBe(Math.floor(0.8 * portrait.width));
-    });
-
-    it('should produce an identical oval for desktop and mobile landscape', () => {
-      // same dims in, same oval out: there is no device branch to diverge on
-      expect(getStaticLivenessOvalDetails(landscape)).toEqual(
-        getStaticLivenessOvalDetails(landscape)
-      );
     });
 
     it.each([

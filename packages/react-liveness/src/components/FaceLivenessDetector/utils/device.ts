@@ -1,5 +1,3 @@
-import type { DeviceOrientation } from '../service/types/machine';
-
 function isNewerIpad() {
   // iPads on iOS13+ return as if a desktop Mac
   // so check for maxTouchPoints also.
@@ -53,10 +51,6 @@ export function isPortrait(): boolean {
  */
 export function getLandscapeMediaQuery(): MediaQueryList {
   return window.matchMedia('(orientation: landscape)');
-}
-
-export function getDeviceOrientation(): DeviceOrientation {
-  return getLandscapeMediaQuery().matches ? 'landscape' : 'portrait';
 }
 
 // minor version 146+ is confirmed to have the fix https://issues.chromium.org/issues/343199623#comment34

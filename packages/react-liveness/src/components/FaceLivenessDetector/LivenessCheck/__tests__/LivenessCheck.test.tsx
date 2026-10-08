@@ -49,6 +49,19 @@ describe('LivenessCheck', () => {
   };
   const mockActorSend = jest.fn();
 
+  // The theme provider registers six breakpoint queries before the component
+  // asks for the orientation one, so mock.results[0] is NOT the orientation
+  // MediaQueryList: its listener is the breakpoint hook's, which also fires on
+  // 'change' and would make these assertions pass while testing nothing.
+  const getOrientationMediaQueryList = () => {
+    const matchMedia = window.matchMedia as jest.Mock;
+    const index = matchMedia.mock.calls.findIndex(
+      ([query]) => query === '(orientation: landscape)'
+    );
+    expect(index).toBeGreaterThanOrEqual(0);
+    return matchMedia.mock.results[index].value;
+  };
+
   const { userAgent: originalUserAgent } = window.navigator;
 
   beforeAll(() => {
@@ -197,10 +210,11 @@ describe('LivenessCheck', () => {
     expect(screen.getByText('LivenessCameraModule')).toBeInTheDocument();
   });
 
-  // Portrait is the only orientation that worked before the landscape gate was
-  // removed, so its markup must be untouched by that removal. This snapshot
-  // was captured from the pre-removal component.
-  it('should render portrait unchanged by the landscape gate removal', () => {
+  // Guards the check wrapper's portrait markup: no error modal, no landscape
+  // copy, just the camera module. LivenessCameraModule is mocked in this file,
+  // so this does NOT cover the camera module's own rendering or any geometry.
+  // The baseline was captured from the pre-removal component.
+  it('should render portrait with no error modal around the camera module', () => {
     mockActorState.matches.mockReturnValue(false);
     (global.navigator as any).userAgent =
       'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
@@ -263,5 +277,67 @@ describe('LivenessCheck', () => {
     expect(mockActorSend).not.toHaveBeenCalledWith({
       type: 'MOBILE_LANDSCAPE_WARNING',
     });
+  });
+
+  // the media query listener is the only path from a real rotation to the
+  // machine, and nothing covered it: replacing the send with a no-op passed
+  // the whole suite
+  it('should forward a rotation reported by the media query listener', () => {
+    mockActorState.matches.mockReturnValue(false);
+    (global.navigator as any).userAgent =
+      'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
+    mockMatchMedia('(orientation: landscape)', true);
+
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+
+    // the exact MediaQueryList the component subscribed to
+    const mediaQueryList = getOrientationMediaQueryList();
+    const [eventName, listener] = mediaQueryList.addEventListener.mock.calls[0];
+    expect(eventName).toBe('change');
+    mockActorSend.mockClear();
+
+    listener({ matches: false } as MediaQueryListEvent);
+
+    expect(mockActorSend).toHaveBeenCalledWith({
+      type: 'ORIENTATION_CHANGED',
+      data: { orientation: 'portrait' },
+    });
+  });
+
+  // the cleanup used to pass a fresh arrow to removeEventListener, so the
+  // listener was never removed; only reference equality catches that
+  it('should remove the same listener it added on unmount', () => {
+    mockActorState.matches.mockReturnValue(false);
+    (global.navigator as any).userAgent =
+      'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
+    mockMatchMedia('(orientation: landscape)', false);
+
+    const { unmount } = renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        instructionDisplayText={instructionDisplayText}
+      />
+    );
+
+    const mediaQueryList = getOrientationMediaQueryList();
+    const [, addedListener] = mediaQueryList.addEventListener.mock.calls[0];
+
+    unmount();
+
+    expect(mediaQueryList.removeEventListener).toHaveBeenCalledWith(
+      'change',
+      addedListener
+    );
   });
 });
