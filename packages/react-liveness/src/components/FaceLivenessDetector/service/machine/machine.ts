@@ -629,6 +629,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             type: 'sessionInfo',
             data: createSessionStartEvent({
               parsedSessionInformation: parsedSessionInformation!,
+              // Unresolved, and deliberately unchanged here: these dims
+              // normalize the bounding boxes Rekognition evaluates, but the
+              // box coordinates come from face detection on the video element
+              // and are in intrinsic frame space, and the stream was opened
+              // declaring VideoWidth/VideoHeight from that same intrinsic
+              // frame. On a device where the two disagree the boxes are
+              // normalized by a frame size the service was never told about.
+              // Settling it needs a real session: log getSettings() beside
+              // videoWidth/videoHeight and compare the returned
+              // OvalParameters. Changing it blind would alter what the service
+              // scores.
               ...getTrackDimensions(videoMediaStream!),
               challengeId: challengeId!,
               ovalAssociatedParams: ovalAssociatedParams!,
@@ -1438,6 +1449,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         livenessStreamProvider!.dispatchStreamEvent({
           type: 'sessionInfo',
           data: createSessionEndEvent({
+            // same unresolved track-vs-intrinsic question as
+            // createSessionStartEvent above
             ...getTrackDimensions(videoMediaStream!),
             parsedSessionInformation: parsedSessionInformation!,
             challengeId: challengeId!,

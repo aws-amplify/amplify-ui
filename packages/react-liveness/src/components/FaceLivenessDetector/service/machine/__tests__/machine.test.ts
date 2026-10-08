@@ -667,22 +667,50 @@ describe('Liveness Machine', () => {
         );
       });
 
-      it('should size the distance-check oval from the intrinsic frame', async () => {
+      // A flipping device: the track reports the sensor-native landscape pair
+      // while the element renders the portrait frame. Reading the track here
+      // sizes the oval from the 3:4 recompute (0.8 * 0.75 * 480 = 288) instead
+      // of the frame (0.8 * 480 = 384), so the face distance threshold is
+      // divided by an oval 33% narrower than the one the check means to use.
+      it('should size the distance-check oval from the intrinsic frame, not the track', async () => {
         // imported from `utils/liveness` directly, so the mocked `utils`
         // barrel does not cover it
         const ovalDetailsSpy = jest.spyOn(
           livenessUtils,
           'getStaticLivenessOvalDetails'
         );
+        Object.defineProperty(mockVideoEl, 'videoWidth', {
+          value: 480,
+          configurable: true,
+        });
+        Object.defineProperty(mockVideoEl, 'videoHeight', {
+          value: 640,
+          configurable: true,
+        });
+
         await transitionToRecording(service);
 
-        expect(ovalDetailsSpy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            width: mockVideoEl.videoWidth,
-            height: mockVideoEl.videoHeight,
-          })
+        // the two sources disagree, so this cannot pass by coincidence
+        expect(mockVideoMediaStream.getTracks()[0].getSettings()).toEqual(
+          expect.objectContaining({ width: 640, height: 480 })
         );
+        expect(ovalDetailsSpy).toHaveBeenCalledWith(
+          expect.objectContaining({ width: 480, height: 640 })
+        );
+        expect(ovalDetailsSpy.mock.results[0].value.width).toBe(384);
         ovalDetailsSpy.mockRestore();
+      });
+
+      afterEach(() => {
+        // mockVideoEl is shared across the file
+        Object.defineProperty(mockVideoEl, 'videoWidth', {
+          value: 640,
+          configurable: true,
+        });
+        Object.defineProperty(mockVideoEl, 'videoHeight', {
+          value: 480,
+          configurable: true,
+        });
       });
     });
 
