@@ -1,5 +1,12 @@
 # @aws-amplify/ui-test-utils
 
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies [[`66ddf22c80465dfa0816d9d935f556caaffe61f0`](https://github.com/aws-amplify/amplify-ui/commit/66ddf22c80465dfa0816d9d935f556caaffe61f0)]:
+  - @aws-amplify/ui-react-storage@3.18.4
+
 ## 0.1.8
 
 ### Patch Changes
