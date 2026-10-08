@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "6.15.7",
-    "@aws-amplify/ui-react-storage": "3.18.3",
+    "@aws-amplify/ui-react-storage": "3.18.4",
     "react": "^18.3.0",
     "next": "^16.3.3",
     "react-dom": "^18",
