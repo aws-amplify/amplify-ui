@@ -77,13 +77,28 @@ export const defaultErrorDisplayText = {
   multipleFacesHeaderText: 'Multiple faces detected',
   multipleFacesMessageText:
     'Ensure only one face is present in front of the camera when connecting.',
+  deviceRotationHeaderText: 'Device rotation detected',
+  deviceRotationMessageText:
+    'Keep your device in the same orientation for the whole check, then try again.',
   clientHeaderText: 'Client error',
   clientMessageText: 'Check failed due to client issue',
   serverHeaderText: 'Server issue',
   serverMessageText: 'Cannot complete check due to server issue',
+  /**
+   * @deprecated No longer displayed. Mobile landscape orientation is
+   * supported, so the landscape error modal is never shown.
+   */
   landscapeHeaderText: 'Landscape orientation not supported',
+  /**
+   * @deprecated No longer displayed. Mobile landscape orientation is
+   * supported, so the landscape error modal is never shown.
+   */
   landscapeMessageText:
     'Rotate your device to portrait (vertical) orientation.',
+  /**
+   * @deprecated No longer displayed. Mobile landscape orientation is
+   * supported, so the landscape error modal is never shown.
+   */
   portraitMessageText:
     'Ensure your device remains in portrait (vertical) orientation for the check’s duration.',
   tryAgainText: 'Try again',

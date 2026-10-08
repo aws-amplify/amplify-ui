@@ -21,3 +21,13 @@ Render size doesn't change how close the user needs to be to the camera. The ova
 ```
 
 On mobile devices, the camera is shown full screen during the check, so the container's size doesn't apply there.
+
+## Device orientation
+
+The check runs in either orientation. A user can start it with the device held in portrait or in landscape, which matters for foldables whose cover screen defaults to landscape and cannot be rotated to portrait.
+
+In a short landscape viewport the camera frame is letterboxed to fit the available height, and the hint and the match progress indicator move beside the oval rather than above and below it, since the oval spans nearly the full height there.
+
+Rotating the device *after* recording has started ends the attempt with a `DEVICE_ROTATION_ERROR`, which is retryable and shows its own message. The challenge oval is computed once per session, in frame pixels, against the frame the stream opened with, so frames captured after a rotation cannot be evaluated against it. Rotating before the check starts has no effect.
+
+Earlier versions failed the check with a `MOBILE_LANDSCAPE_ERROR` as soon as a mobile device was turned to landscape, before it started. That error is no longer emitted. See the [migration note](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/CHANGELOG.md) if your `onError` handler depends on receiving it.
