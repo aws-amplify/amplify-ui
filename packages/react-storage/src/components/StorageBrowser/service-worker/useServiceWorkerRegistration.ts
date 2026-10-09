@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 
-export const SW_DOWNLOAD_SCOPE = '/amplify-storage-download/';
-
-const SW_URL = '/amplify-storage-download/download-sw.js';
+import { SW_DOWNLOAD_SCOPE, SW_URL } from './constants';
 
 export function useServiceWorkerRegistration(): void {
   useEffect(() => {
