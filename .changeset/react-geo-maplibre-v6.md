@@ -4,7 +4,7 @@
 
 feat(react-geo): upgrade to maplibre-gl v6 and react-map-gl v8
 
-Upgrades `maplibre-gl` to `^6.4.1`, which fixes GHSA-jrc7-96c5-q579, and `react-map-gl` to `8.1.3`.
+Upgrades `maplibre-gl` to `^6.4.1`, which fixes GHSA-jrc7-96c5-q579, `react-map-gl` to `8.1.3`, and `maplibre-gl-js-amplify` to `^5.0.0`, the first release that supports `maplibre-gl` v6.
 
 **Breaking changes**
 
