@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Marker, Popup } from 'react-map-gl'; // Note: this dependency should NOT be installed separately
+import { Marker, Popup } from 'react-map-gl/maplibre'; // Note: this dependency should NOT be installed separately
 import { Amplify } from 'aws-amplify';
 import { Heading, Text } from '@aws-amplify/ui-react';
 import { MapView } from '@aws-amplify/ui-react-geo';
@@ -27,7 +27,7 @@ function MarkerWithPopup({ latitude, longitude }) {
         <Popup
           latitude={latitude}
           longitude={longitude}
-          offset={{ bottom: [0, -40] }}
+          offset={40}
           onClose={() => setShowPopup(false)}
         >
           <Heading level={2}>Marker Information</Heading>
@@ -40,7 +40,10 @@ function MarkerWithPopup({ latitude, longitude }) {
 
 export default function MapWithMarkerPopup() {
   return (
-    <MapView initialViewState={{ latitude: 40, longitude: -100, zoom: 3.5 }}>
+    <MapView
+      initialViewState={{ latitude: 40, longitude: -100, zoom: 3.5 }}
+      workerUrl="/maplibre-gl-worker.mjs"
+    >
       <MarkerWithPopup latitude={40} longitude={-100} />
     </MapView>
   );
