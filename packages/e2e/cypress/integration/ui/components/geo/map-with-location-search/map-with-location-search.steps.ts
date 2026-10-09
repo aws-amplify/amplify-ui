@@ -7,7 +7,7 @@ Given('my default search results is {int}', (searchResults: number) => {
 });
 
 When('I press the enter key', () => {
-  cy.findByRole('textbox', {
+  cy.findByRole('searchbox', {
     name: /search/i,
   }).type('{enter}');
 });
