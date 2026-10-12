@@ -29,6 +29,8 @@ FaceLivenessDetectorView(
 
 ## Cancel Button
 
+Available from Amplify UI Swift Liveness 1.5.0.
+
 Use the `hidesCancelButton(_:)` method to hide the cancel ("X") button. It's hidden both during the challenge and on the screen that asks the user to rotate their device to portrait. For example, you can hide the button when FaceLivenessDetectorView is shown inside a screen that already has its own close action:
 
 ```swift
@@ -43,7 +45,7 @@ FaceLivenessDetectorView(
 .hidesCancelButton()
 ```
 
-`hidesCancelButton(_:)` takes a `Bool`, defaulting to `true`, so you can also decide at runtime, for example `.hidesCancelButton(isShownInsideMyScreen)`.
+`hidesCancelButton(_:)` takes a `Bool`, defaulting to `true`, so you can also decide at runtime, for example `.hidesCancelButton(shouldHideCancelButton)`.
 
 To replace the button, for example to ask the user to confirm before leaving so an accidental tap doesn't end the challenge, use the `cancelButton(_:)` method. Your view takes the default button's place in the top trailing corner, and it receives a `FaceLivenessDetectorView.CancelButtonConfiguration` with:
 

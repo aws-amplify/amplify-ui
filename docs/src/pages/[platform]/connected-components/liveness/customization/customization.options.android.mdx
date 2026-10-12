@@ -26,6 +26,8 @@ FaceLivenessDetector(
 
 ## Cancel Button
 
+Available from Amplify UI Android Liveness 1.12.0.
+
 Use the `cancelButton` parameter to replace the cancel ("X") button shown during the challenge, or pass an empty composable to hide it. For example, you can hide the button when FaceLivenessDetector is shown inside a screen or dialog that already has its own close action:
 
 ```kotlin
@@ -74,8 +76,10 @@ FaceLivenessDetector(
 )
 ```
 
+Give your button a tap target of at least 44dp, as the default button has, and an accessible name. For an icon-only button, set its content description, for example by reusing the Liveness library's localized string: `stringResource(com.amplifyframework.ui.liveness.R.string.amplify_ui_liveness_challenge_a11y_cancel_content_description)`.
+
 <Alert variation="warning" role="none">
-    The challenge is shown full screen, and FaceLivenessDetector doesn't handle the back button itself. If you hide the cancel button, make sure your app still gives users a way to leave the challenge, such as its own close action or back navigation. Hiding the button doesn't stop users from leaving in other ways, such as switching apps, so always verify the session result on your backend.
+    The challenge is shown full screen, and FaceLivenessDetector doesn't handle the back button itself. Only the challenge screen has a cancel button: the start screen doesn't have one, even by default. So your app should always give users its own way to leave, such as a close action or back navigation, and this matters even more if you hide the cancel button. Hiding the button doesn't stop users from leaving in other ways, such as switching apps, so always verify the session result on your backend.
 </Alert>
 
 If your app removes FaceLivenessDetector before the challenge finishes, for example when the user leaves through your own close action, the liveness session is closed and `onError` isn't called. If you count user cancellations through `UserCancelledException`, also count exits through your app's own close action.
