@@ -21,6 +21,10 @@ Upgrades `maplibre-gl` to `^6.4.1`, which fixes GHSA-jrc7-96c5-q579, `react-map-
 
   For Next.js and webpack, copy `maplibre-gl/dist/maplibre-gl-worker.mjs` and `maplibre-gl/dist/maplibre-gl-shared.mjs` to your public directory and pass `workerUrl="/maplibre-gl-worker.mjs"`. See https://maplibre.org/maplibre-gl-js/docs/#installation for other bundlers.
 
+  In development, `MapView` logs a one-time console warning when neither `workerUrl` nor `mapLib` is set.
+
+- `LocationSearch`'s search input is now `type="search"` instead of `type="text"`, so its ARIA role is `searchbox` rather than `textbox`. Update any test queries or CSS selectors that target it by role or input type. This comes from `@maplibre/maplibre-gl-geocoder` 1.9, a dependency of `maplibre-gl-js-amplify@5`.
+- `MapView`'s `mapLib` property now also accepts a promise of the `maplibre-gl` module.
 - The Mapbox-only `fog` property is no longer accepted by `MapView`.
 - `mapbox-gl` is no longer a dependency.
 - Next.js 13 is not supported: its compiler produces a broken client bundle for `maplibre-gl` v6. Use Next.js 14 or later.

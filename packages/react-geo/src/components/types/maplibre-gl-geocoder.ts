@@ -1,6 +1,9 @@
 // `LocationSearchProps` is based upon the typing specified by maplibre-gl-geocoder:
 // https://github.com/maplibre/maplibre-gl-geocoder/blob/main/lib/index.js#L11-L66
 // TODO: formalize this type in the `maplibre-gl-geocoder` library
+// Note: `@maplibre/maplibre-gl-geocoder` >= 1.9 (a dependency of `maplibre-gl-js-amplify@5`) ships its own
+// declarations, including `MaplibreGeocoderOptions` in `dist/maplibre-gl-geocoder.d.ts`. This hand-written type can
+// drift from them, so check those declarations when changing it or consider deriving from them.
 
 // disabling errors for the "Function" type. Should be resolved, when using the lib mentioned above
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */

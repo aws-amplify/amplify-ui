@@ -13,8 +13,17 @@ interface GeoConfig extends NonNullable<ResourcesConfig['Geo']> {}
 type TransformRequestFunction = NonNullable<MapProps['transformRequest']>;
 
 interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
-  mapLib?: typeof maplibregl;
+  mapLib?: typeof maplibregl | Promise<typeof maplibregl>;
 }
+
+const MISSING_WORKER_URL_WARNING =
+  '[@aws-amplify/ui-react-geo] MapView: `workerUrl` is not set, so maplibre-gl may fail to load its web worker and ' +
+  'the map will not load tiles. See https://ui.docs.amplify.aws/react/connected-components/geo#web-worker-setup';
+
+let hasWarnedMissingWorkerUrl = false;
+
+const isDevelopment = (): boolean =>
+  typeof process === 'undefined' || process.env.NODE_ENV !== 'production';
 
 /**
  * The `MapView` component uses [react-map-gl](https://visgl.github.io/react-map-gl/) and
@@ -63,21 +72,60 @@ const MapView = forwardRef<MapRef, MapViewProps>(
      * and Amazon Location Service. Once the transformRequest is created, we render the map.
      */
     useEffect(() => {
-      (async () => {
-        const [{ credentials }, { AmplifyMapLibreRequest }] = await Promise.all(
-          [fetchAuthSession(), loadMaplibreGlJsAmplify()]
-        );
+      let isMounted = true;
 
+      (async () => {
+        // Load the module and fetch credentials in parallel, but report their failures separately: a module-load
+        // failure is usually transient, while a credentials failure is a configuration problem for the caller.
+        const [amplifyModule, session] = await Promise.all([
+          loadMaplibreGlJsAmplify().catch((error: unknown) => {
+            // eslint-disable-next-line no-console
+            console.error(
+              '[@aws-amplify/ui-react-geo] MapView: failed to load maplibre-gl-js-amplify.',
+              error
+            );
+          }),
+          fetchAuthSession().catch((error: unknown) => {
+            // eslint-disable-next-line no-console
+            console.error(
+              '[@aws-amplify/ui-react-geo] MapView: failed to fetch Amplify credentials.',
+              error
+            );
+          }),
+        ]);
+
+        if (!isMounted || !amplifyModule || !session) {
+          return;
+        }
+
+        const { credentials } = session;
         if (credentials && geoConfig) {
           const { region } = geoConfig;
           const { transformRequest: amplifyTransformRequest } =
-            new AmplifyMapLibreRequest(credentials, region);
+            new amplifyModule.AmplifyMapLibreRequest(credentials, region);
           setTransformRequest(
             () => amplifyTransformRequest as TransformRequestFunction
           );
         }
       })();
+
+      return () => {
+        isMounted = false;
+      };
     }, [geoConfig]);
+
+    const shouldWarnMissingWorkerUrl = !mapLib && !props.workerUrl;
+    useEffect(() => {
+      if (
+        shouldWarnMissingWorkerUrl &&
+        !hasWarnedMissingWorkerUrl &&
+        isDevelopment()
+      ) {
+        hasWarnedMissingWorkerUrl = true;
+        // eslint-disable-next-line no-console
+        console.warn(MISSING_WORKER_URL_WARNING);
+      }
+    }, [shouldWarnMissingWorkerUrl]);
 
     /**
      * The mapLib property is used by react-map-gl to override the underlying map library. By default we pass a promise

@@ -1,3 +1,12 @@
 @import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
 @import 'maplibre-gl-js-amplify/dist/public/amplify-geocoder.css';
 @import 'maplibre-gl/dist/maplibre-gl.css';
+
+/*
+ * @maplibre/maplibre-gl-geocoder >= 1.9 renders the search input as type="search", for which WebKit and Blink
+ * browsers paint a native clear button next to the geocoder's own Clear button. Hide the native one.
+ */
+.maplibregl-ctrl-geocoder--input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}

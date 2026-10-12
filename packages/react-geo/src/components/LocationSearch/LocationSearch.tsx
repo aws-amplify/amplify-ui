@@ -38,13 +38,19 @@ const useGeocoderModules = (): GeocoderModules | undefined => {
   useEffect(() => {
     let isMounted = true;
 
-    Promise.all([loadMaplibre(), loadMaplibreGlJsAmplify()]).then(
-      ([maplibre, { createAmplifyGeocoder: createGeocoder }]) => {
+    Promise.all([loadMaplibre(), loadMaplibreGlJsAmplify()])
+      .then(([maplibre, { createAmplifyGeocoder: createGeocoder }]) => {
         if (isMounted) {
           setModules({ createGeocoder, maplibregl: maplibre });
         }
-      }
-    );
+      })
+      .catch((error: unknown) => {
+        // eslint-disable-next-line no-console
+        console.error(
+          '[@aws-amplify/ui-react-geo] LocationSearch: failed to load maplibre-gl or maplibre-gl-js-amplify.',
+          error
+        );
+      });
 
     return () => {
       isMounted = false;
