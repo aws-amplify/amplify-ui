@@ -22,6 +22,8 @@ const MISSING_WORKER_URL_WARNING =
 
 let hasWarnedMissingWorkerUrl = false;
 
+// Like `useDeprecationWarning` in `@aws-amplify/ui-react`, this deliberately treats builds without a Node `process`
+// polyfill as development, so the warning still shows there. Bundlers replace `process.env.NODE_ENV` in production.
 const isDevelopment = (): boolean =>
   typeof process === 'undefined' || process.env.NODE_ENV !== 'production';
 
@@ -128,16 +130,27 @@ const MapView = forwardRef<MapRef, MapViewProps>(
     }, [shouldWarnMissingWorkerUrl]);
 
     /**
+     * Load maplibre-gl once per `mapLib` value, when the map first renders, rather than on every render. react-map-gl
+     * only reads `mapLib` on mount, and a rejected import clears the loader cache, so calling `loadMaplibre()` during
+     * every render would start a new import (and an unhandled rejection) on each re-render after a failure.
+     */
+    const shouldRenderMap = !!transformRequest;
+    const mapLibrary = useMemo(
+      () => (shouldRenderMap ? (mapLib ?? loadMaplibre()) : undefined),
+      [mapLib, shouldRenderMap]
+    );
+
+    /**
      * The mapLib property is used by react-map-gl to override the underlying map library. By default we pass a promise
      * of the maplibre-gl dependency of this package, loaded on the client, so `workerUrl` is applied to the same
      * instance that renders the map.
      *
      * The default mapStyle we use is just the map ID provided by aws-exports.
      */
-    return transformRequest ? (
+    return shouldRenderMap ? (
       <ReactMapGL
         {...props}
-        mapLib={mapLib ?? loadMaplibre()}
+        mapLib={mapLibrary}
         mapStyle={mapStyle ?? geoConfig?.maps?.default}
         ref={ref}
         style={styleProps}

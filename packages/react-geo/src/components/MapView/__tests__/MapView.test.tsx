@@ -5,6 +5,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import * as maplibreMock from 'maplibre-gl';
 
 import { MapView } from '..';
+import * as utils from '../../utils';
 
 jest.mock('maplibre-gl-js-amplify', () => ({
   AmplifyMapLibreRequest: jest.fn().mockImplementation(() => {
@@ -74,6 +75,7 @@ const getLastReactMapGlProps = () => {
 describe('Map component', () => {
   let consoleErrorSpy: jest.SpyInstance;
   let consoleWarnSpy: jest.SpyInstance;
+  let loadMaplibreSpy: jest.SpyInstance | undefined;
 
   beforeEach(() => {
     getConfigSpy.mockReturnValue(partialAmplifyConfig);
@@ -86,6 +88,8 @@ describe('Map component', () => {
   afterEach(() => {
     consoleErrorSpy.mockRestore();
     consoleWarnSpy.mockRestore();
+    loadMaplibreSpy?.mockRestore();
+    loadMaplibreSpy = undefined;
   });
 
   it('should render', async () => {
@@ -108,6 +112,45 @@ describe('Map component', () => {
     await screen.findByTestId('react-map-gl-mock');
 
     expect(getLastReactMapGlProps().mapLib).toBe(customMapLib);
+  });
+
+  it('loads maplibre-gl once across re-renders, even when the import fails', async () => {
+    loadMaplibreSpy = jest
+      .spyOn(utils, 'loadMaplibre')
+      .mockImplementation(() => {
+        const failed = Promise.reject(new Error('ChunkLoadError'));
+        // react-map-gl handles the rejection in the real component; the mock does not consume it.
+        failed.catch(() => undefined);
+        return failed as ReturnType<typeof utils.loadMaplibre>;
+      });
+
+    const { rerender } = render(<MapView zoom={1} />);
+    await screen.findByTestId('react-map-gl-mock');
+    rerender(<MapView zoom={2} />);
+    rerender(<MapView zoom={3} />);
+    rerender(<MapView zoom={4} />);
+
+    expect(loadMaplibreSpy).toHaveBeenCalledTimes(1);
+    const mapLibs = new Set(
+      (reactMapGlProps.mock.calls as [{ mapLib: unknown }][]).map(
+        ([props]) => props.mapLib
+      )
+    );
+    expect(mapLibs.size).toBe(1);
+  });
+
+  it('does not load maplibre-gl before the map renders', async () => {
+    loadMaplibreSpy = jest.spyOn(utils, 'loadMaplibre');
+    (fetchAuthSession as jest.Mock).mockRejectedValue(
+      new Error('No credentials')
+    );
+
+    render(<MapView />);
+
+    await waitFor(() => {
+      expect(consoleErrorSpy).toHaveBeenCalled();
+    });
+    expect(loadMaplibreSpy).not.toHaveBeenCalled();
   });
 
   it('logs and renders nothing when fetching credentials fails', async () => {
