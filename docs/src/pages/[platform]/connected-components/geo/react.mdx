@@ -25,8 +25,8 @@ There's a known issue for users of Create React App v4 where the default prod `b
 
 The `MapView` component adds an interactive map to your application.
 
-`MapView` is fully integrated with the open source library [react-map-gl](https://visgl.github.io/react-map-gl/) v7
-while using [maplibre-gl-js](https://maplibre.org/maplibre-gl-js/docs/API/) as the map tile source. Please note that `react-map-gl` is a direct dependency that you should NOT install separately. `MapView` is used as a replacement to `react-map-gl`'s [default map](https://visgl.github.io/react-map-gl/docs/api-reference/map)
+`MapView` is fully integrated with the open source library [react-map-gl](https://visgl.github.io/react-map-gl/) v8
+while using [maplibre-gl-js](https://maplibre.org/maplibre-gl-js/docs/API/) v6 as the map tile source. Please note that `react-map-gl` is a direct dependency that you should NOT install separately. Import `react-map-gl` components and hooks from `react-map-gl/maplibre`. `MapView` is used as a replacement to `react-map-gl`'s [maplibre map](https://visgl.github.io/react-map-gl/docs/api-reference/maplibre/map)
 and supports the same functionality. 
 
 You can import the `MapView` component with related styles and use it in your Amplify application without any
@@ -44,6 +44,18 @@ additional configuration.
   }
   ```
 </Alert>
+
+### Web Worker Setup
+
+`maplibre-gl` v6 loads its web worker from a separate file that bundlers do not emit automatically. Pass the URL of the
+bundled worker to `MapView` with the `workerUrl` property, as shown in the examples on this page. The URL depends on
+your bundler:
+
+- **Vite:** `import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';`
+- **Next.js and webpack:** copy `maplibre-gl/dist/maplibre-gl-worker.mjs` and `maplibre-gl/dist/maplibre-gl-shared.mjs`
+  to your public directory and pass `workerUrl="/maplibre-gl-worker.mjs"`.
+
+See the [maplibre-gl installation guide](https://maplibre.org/maplibre-gl-js/docs/#installation) for other bundlers.
 
 ### Setting Initial Viewport
 
@@ -104,7 +116,7 @@ You may want to access the [native maplibre-gl map object](https://maplibre.org/
 
 ```
 
-If you want access to the `map` object in a child component of `<MapView>`, you can use the [useMap hook from react-map-gl](https://visgl.github.io/react-map-gl/docs/api-reference/use-map) instead:
+If you want access to the `map` object in a child component of `<MapView>`, you can use the [useMap hook from react-map-gl](https://visgl.github.io/react-map-gl/docs/api-reference/maplibre/use-map) instead:
 
 ```jsx{1,14,17,26} file=../../../../../../examples/next/pages/ui/components/geo/use-map-hook/index.page.tsx
 

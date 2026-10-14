@@ -7,7 +7,7 @@ Amplify.configure(awsExports);
 
 export default function MapWithLocationSearch() {
   return (
-    <MapView>
+    <MapView workerUrl="/maplibre-gl-worker.mjs">
       <LocationSearch />
     </MapView>
   );

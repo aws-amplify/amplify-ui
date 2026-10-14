@@ -36,3 +36,6 @@ yarn-error.log*
 # amplify
 **/.amplify
 **/amplifyconfiguration*
+
+# maplibre-gl worker files copied by scripts/copy-maplibre-worker.mjs
+/public/maplibre-gl-*.mjs
