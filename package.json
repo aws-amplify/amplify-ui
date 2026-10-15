@@ -95,6 +95,7 @@
     "@react-native-community/cli": "^17.0.1",
     "joi": "^18.2.5",
     "**/serve/serve-handler/path-to-regexp": "3.3.0",
+    "**/serve/compression": "^1.8.2",
     "serialize-javascript": "^7.0.5",
     "@tootallnate/once": "3.0.1",
     "**/@aws-sdk/**/fast-xml-parser": "^5.7.2",
