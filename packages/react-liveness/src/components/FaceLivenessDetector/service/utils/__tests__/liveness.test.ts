@@ -2,18 +2,22 @@ import 'jest-canvas-mock';
 import {
   clearOvalCanvas,
   drawLivenessOvalInCanvas,
+  drawStaticOval,
   estimateIllumination,
   fillOverlayCanvasFractional,
   generateBboxFromLandmarks,
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
+  getOvalBoundingBox,
   getOvalDetailsFromSessionInformation,
+  getStaticLivenessOvalDetails,
   getVideoFillLayout,
   getVideoScaleFactor,
   isCameraDeviceVirtual,
   isFaceDistanceBelowThreshold,
   resizeCanvasToDisplaySize,
 } from '../liveness';
+import { OVAL_HEIGHT_WIDTH_RATIO } from '../constants';
 import {
   getMockContext,
   mockCameraDevice,
@@ -510,6 +514,107 @@ describe('Liveness Helper', () => {
     });
   });
 
+  // T2.2: the 3:4 recompute in getStaticLivenessOvalDetails is the branch
+  // desktop landscape has always taken (640 >= 480). A mobile landscape or
+  // square foldable frame must take the identical branch, so the distance
+  // check gains no mobile-only path. The function takes only dimensions, so
+  // 'desktop' and 'mobile' landscape are the same input and are one row here.
+  describe('getStaticLivenessOvalDetails dimension matrix', () => {
+    const portrait = { width: 480, height: 640 };
+    const landscape = { width: 640, height: 480 };
+    const square = { width: 480, height: 480 };
+
+    it.each([
+      ['landscape', landscape],
+      ['square foldable', square],
+    ])('should take the 3:4 branch for %s', (_label, dims) => {
+      const oval = getStaticLivenessOvalDetails(dims);
+
+      // videoWidth is recomputed as (3/4) * height, so the oval width is
+      // ratioMultiplier * that, independent of the real frame width
+      expect(oval.width).toBe(Math.floor(0.8 * (3 / 4) * dims.height));
+    });
+
+    it('should keep the true frame width in portrait', () => {
+      const oval = getStaticLivenessOvalDetails(portrait);
+
+      expect(oval.width).toBe(Math.floor(0.8 * portrait.width));
+    });
+
+    it.each([
+      ['portrait', portrait],
+      ['landscape', landscape],
+      ['square', square],
+    ])('should keep the oval bounding box inside the %s frame', (_l, dims) => {
+      const oval = getStaticLivenessOvalDetails(dims);
+      const { minOvalX, maxOvalX, minOvalY, maxOvalY } =
+        getOvalBoundingBox(oval);
+
+      expect(minOvalX).toBeGreaterThanOrEqual(0);
+      expect(maxOvalX).toBeLessThanOrEqual(dims.width);
+      expect(minOvalY).toBeGreaterThanOrEqual(0);
+      expect(maxOvalY).toBeLessThanOrEqual(dims.height);
+    });
+  });
+
+  // The supported landscape floor is 360 CSS px of container height.
+  //
+  // The oval drawn during recording is NOT computed here: it comes from the
+  // service as `OvalParameters` and `getOvalDetailsFromSessionInformation`
+  // passes its Width/Height through verbatim, varying per session. So the
+  // gutter the stylesheet reserves cannot be derived from any client formula.
+  //
+  // What does bound it: an oval taller than the frame would be clipped, so
+  // `ovalHeight = OvalHeightWidthRatio * ovalWidth <= frameHeight` gives
+  // `ovalWidth <= frameHeight / OvalHeightWidthRatio`. With the 1.618 ratio
+  // the client defaults to, that is 0.618 * frameHeight, i.e. a half-width of
+  // at most 0.309 * frameHeight. The frame is height-bound in short landscape,
+  // so that is 0.309 of the container height, and the stylesheet reserves
+  // 0.32 for margin.
+  //
+  // Unverified: that the service always sends the 1.618 ratio. A smaller ratio
+  // permits a wider oval. T0.1 should log the real OvalParameters for a
+  // 640x480 landscape session.
+  describe('landscape viewport floor', () => {
+    const video = { videoWidth: 640, videoHeight: 480 };
+    const GUTTER_FRACTION = 0.32;
+    // the widest oval the frame can hold at the default height:width ratio
+    const widestOval = {
+      width: video.videoHeight / OVAL_HEIGHT_WIDTH_RATIO,
+      height: video.videoHeight,
+    };
+
+    it('should reserve a gutter no narrower than the widest permissible oval', () => {
+      expect(widestOval.width / 2 / video.videoHeight).toBeLessThanOrEqual(
+        GUTTER_FRACTION
+      );
+    });
+
+    it.each([
+      [800, 360],
+      [915, 412],
+      [740, 360],
+    ])(
+      'should clear the widest permissible oval in a %ix%i viewport',
+      (width, height) => {
+        const layout = getVideoFillLayout({
+          containerWidth: width,
+          containerHeight: height,
+          ...video,
+        });
+        const scale = layout.height / video.videoHeight;
+
+        // the oval fits the frame vertically, so nothing needs clamping
+        expect(widestOval.height * scale).toBeLessThanOrEqual(height);
+        // and the stylesheet's `50% + 0.32 * 100dvh` inner edge sits outside
+        // its rendered half-width, so the hint cannot overlap it
+        expect((widestOval.width * scale) / 2).toBeLessThanOrEqual(
+          GUTTER_FRACTION * height
+        );
+      }
+    );
+  });
+
   describe('resizeCanvasToDisplaySize', () => {
     it('should size the canvas buffer to its parent box', () => {
       const parent = document.createElement('div');
@@ -522,6 +627,36 @@ describe('Liveness Helper', () => {
 
       expect(canvas.width).toBe(801);
       expect(canvas.height).toBe(601);
+    });
+  });
+
+  describe('drawStaticOval', () => {
+    it('should center the oval in the intrinsic frame when the track dims are flipped', () => {
+      // Android/Firefox and iOS report the getUserMedia width/height flipped by
+      // orientation. The oval must follow the 640x480 frame the video element
+      // actually renders, which puts its center in [280, 360] (7/16 to 9/16 of
+      // 640). Sizing from a flipped 480-wide track would land in [120, 200].
+      const parent = document.createElement('div');
+      const canvasEl = document.createElement('canvas');
+      parent.appendChild(canvasEl);
+      Object.defineProperty(parent, 'clientWidth', { value: 800 });
+      Object.defineProperty(parent, 'clientHeight', { value: 360 });
+
+      const videoEl = document.createElement('video');
+      Object.defineProperty(videoEl, 'videoWidth', { value: 640 });
+      Object.defineProperty(videoEl, 'videoHeight', { value: 480 });
+      Object.defineProperty(videoEl, 'clientWidth', { value: 480 });
+      Object.defineProperty(videoEl, 'clientHeight', { value: 360 });
+
+      drawStaticOval(canvasEl, videoEl);
+
+      const path = (canvasEl.getContext('2d') as any)._path;
+      const ellipse = path.find((entry: any) => entry.type === 'ellipse');
+      expect(ellipse).toBeDefined();
+      expect(ellipse.props.x).toBeGreaterThanOrEqual(280);
+      expect(ellipse.props.x).toBeLessThanOrEqual(360);
+      expect(ellipse.props.y).toBeGreaterThanOrEqual(210);
+      expect(ellipse.props.y).toBeLessThanOrEqual(270);
     });
   });
 
