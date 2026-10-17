@@ -2,13 +2,16 @@ import type * as React from 'react';
 import type { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import type { BaseLinkProps } from './link';
 
-/** @deprecated For internal use only */
-export interface BaseBreadcrumbProps extends BaseViewProps {
+export interface BaseBreadcrumbsProps extends BaseViewProps {
   /**
    * @description
    * Separator between breadcrumb items
    */
   separator?: React.ReactNode;
+  /**
+   * @description
+   * Array of breadcrumb items to render
+   */
   items?: Array<{
     href?: string;
     label?: React.ReactNode;
@@ -16,15 +19,15 @@ export interface BaseBreadcrumbProps extends BaseViewProps {
   }>;
 }
 
-export interface BaseBreadcrumbItemProps extends BaseViewProps {}
+export interface BaseBreadcrumbItemProps extends BaseViewProps { }
 
 export interface BaseBreadcrumbLinkProps extends BaseLinkProps {
   isCurrent?: boolean;
 }
 
-export interface BaseBreadcrumbSeparatorProps extends BaseViewProps {}
+export interface BaseBreadcrumbSeparatorProps extends BaseViewProps { }
 
-export interface BaseBreadcrumbContainerProps extends BaseViewProps {}
+export interface BaseBreadcrumbContainerProps extends BaseViewProps { }
 
 /**
  * Should work with NextJS routing and react-router
@@ -34,7 +37,7 @@ export interface BaseBreadcrumbContainerProps extends BaseViewProps {}
  */
 
 export type BreadcrumbsProps<Element extends ElementType = 'nav'> =
-  PrimitiveProps<BaseBreadcrumbProps, Element>;
+  PrimitiveProps<BaseBreadcrumbsProps, Element>;
 
 export type BreadcrumbsItemProps<Element extends ElementType = 'li'> =
   PrimitiveProps<BaseBreadcrumbItemProps, Element>;
