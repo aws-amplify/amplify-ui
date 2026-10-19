@@ -137,6 +137,43 @@ const collectBlob = async (
 
 // ─── Service Worker Initialization ───
 
+/** How the SW-backed download is triggered for a given browser engine. */
+export type DownloadTrigger = 'iframe' | 'anchor' | 'blob';
+
+/**
+ * Decides how to deliver the zip for a user-agent string.
+ *
+ * Only engines that route a navigation to the uncontrolled, narrow-scope
+ * download SW can stream to disk:
+ * - Chromium → an in-scope hidden `<iframe>` navigation (a top-level
+ *   `<a download>` nav hangs). Covers Chrome, Edge (`Edg`), Opera (`OPR`),
+ *   Samsung Internet (`SamsungBrowser`) and Android Chrome.
+ * - Firefox (Gecko) → the top-level `<a download>` navigation. Covers Firefox
+ *   desktop and Firefox for Android.
+ *
+ * Everything else — Safari and all iOS browsers (which are WebKit under the
+ * hood, including Chrome `CriOS`, Firefox `FxiOS` and Edge `EdgiOS`) — cannot
+ * reach the worker, so the whole zip is collected into an in-memory blob
+ * (OOM risk for very large downloads). iOS is matched explicitly rather than
+ * relying on the absence of `Chrome/`/`Gecko/` tokens.
+ */
+export const getDownloadTrigger = (userAgent: string): DownloadTrigger => {
+  // iOS browsers carry Chrome-/Firefox-like tokens but are WebKit; force blob.
+  if (
+    /\b(CriOS|FxiOS|EdgiOS)\//.test(userAgent) ||
+    /iPhone|iPad|iPod/.test(userAgent)
+  ) {
+    return 'blob';
+  }
+  if (/\b(Chrome|Chromium|Edg|OPR|SamsungBrowser)\//.test(userAgent)) {
+    return 'iframe';
+  }
+  if (/\bGecko\//.test(userAgent)) {
+    return 'anchor';
+  }
+  return 'blob';
+};
+
 /**
  * Registers the SW stream transfer (MessageChannel handshake + keepalive)
  * or falls back to in-memory blob collection when SW is unavailable.
@@ -144,6 +181,15 @@ const collectBlob = async (
  */
 const initServiceWorkerStream = (state: BatchState): void => {
   if (!navigator.serviceWorker) {
+    state.blobPromise = collectBlob(state.zipReadable!);
+    return;
+  }
+
+  // Route the SW-stream trigger by browser engine. Resolve before transferring
+  // the stream: Safari/unknown engines never reach the uncontrolled, narrow-scope
+  // download SW, and a transferred stream cannot fall back to blob.
+  const trigger = getDownloadTrigger(navigator.userAgent);
+  if (trigger === 'blob') {
     state.blobPromise = collectBlob(state.zipReadable!);
     return;
   }
@@ -180,10 +226,37 @@ const initServiceWorkerStream = (state: BatchState): void => {
 
       const { port1, port2 } = new MessageChannel();
       port1.onmessage = () => {
-        const a = document.createElement('a');
-        a.href = `${SW_DOWNLOAD_SCOPE}${state.downloadId}`;
-        a.download = `${state.folder}.zip`;
-        a.click();
+        // Encode the id for the URL: `downloadId` embeds the raw folder name,
+        // which may contain `#`, `?` or `%`. Unencoded, those break the path
+        // (fragment/query) or make the SW's decodeURIComponent throw, and the
+        // stream is already transferred so there is no fallback. The SW keys its
+        // map on the raw id and decodes the path, so this round-trips.
+        const downloadUrl = `${SW_DOWNLOAD_SCOPE}${encodeURIComponent(
+          state.downloadId
+        )}`;
+        if (trigger === 'iframe') {
+          // Chromium routes an in-scope hidden iframe nav to the SW (a top-level
+          // <a download> nav hangs). No `download` attr — the SW's
+          // Content-Disposition supplies the filename.
+          const iframe = document.createElement('iframe');
+          iframe.hidden = true;
+          iframe.src = downloadUrl;
+          const cleanup = () => {
+            if (iframe.parentNode) {
+              iframe.parentNode.removeChild(iframe);
+            }
+          };
+          // An attachment response may not fire `load`, so also clean up on a timeout.
+          iframe.addEventListener('load', () => setTimeout(cleanup, 5_000));
+          setTimeout(cleanup, 60_000);
+          document.body.appendChild(iframe);
+        } else {
+          // Firefox routes the top-level <a download> nav to the SW.
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.download = `${state.folder}.zip`;
+          a.click();
+        }
         port1.close();
       };
       // Send the user-facing filename explicitly. `downloadId` embeds Date.now()
@@ -206,6 +279,15 @@ const initServiceWorkerStream = (state: BatchState): void => {
       state.keepaliveInterval = setInterval(() => {
         reg.active?.postMessage({ type: 'keepalive' });
       }, 10_000);
+    })
+    .catch(() => {
+      // getRegistrations() can reject (e.g. Chromium throws SecurityError when
+      // site data is blocked). The stream has not been transferred on this path
+      // — zipReadable is only nulled after a successful postMessage — so fall
+      // back to blob rather than failing every file in the batch.
+      if (!state.cancelled && state.zipReadable) {
+        state.blobPromise = collectBlob(state.zipReadable);
+      }
     });
 };
 

@@ -15,7 +15,7 @@ import {
 /* eslint-enable @typescript-eslint/no-unsafe-member-access */
 
 import { getUrl, GetUrlInput } from '../../../storage-internal';
-import { zipDownloadHandler } from '../zipdownload';
+import { zipDownloadHandler, getDownloadTrigger } from '../zipdownload';
 import type { DownloadHandlerInput } from '../download';
 
 jest.mock('../../../storage-internal');
@@ -125,6 +125,95 @@ const createBaseInput = (): DownloadHandlerInput => ({
   ],
 });
 
+// Representative user-agent strings for the three engine branches. The handler
+// routes the SW-stream trigger by engine: Chromium → hidden iframe, Firefox →
+// <a download>, everything else (Safari/unknown) → in-memory blob fallback.
+const CHROMIUM_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+const FIREFOX_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0';
+const SAFARI_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15';
+
+const setUserAgent = (value: string): void => {
+  Object.defineProperty(navigator, 'userAgent', {
+    value,
+    writable: true,
+    configurable: true,
+  });
+};
+
+describe('getDownloadTrigger', () => {
+  it.each([
+    // Chromium family → iframe
+    [
+      'iframe',
+      'Chrome desktop',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    ],
+    [
+      'iframe',
+      'Edge',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
+    ],
+    [
+      'iframe',
+      'Opera',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0',
+    ],
+    [
+      'iframe',
+      'Samsung Internet',
+      'Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/115.0.0.0 Mobile Safari/537.36',
+    ],
+    [
+      'iframe',
+      'Android Chrome',
+      'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+    ],
+    // Gecko family → anchor
+    [
+      'anchor',
+      'Firefox desktop',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0',
+    ],
+    [
+      'anchor',
+      'Firefox Android',
+      'Mozilla/5.0 (Android 13; Mobile; rv:121.0) Gecko/121.0 Firefox/121.0',
+    ],
+    // WebKit / iOS → blob
+    [
+      'blob',
+      'Safari macOS',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15',
+    ],
+    [
+      'blob',
+      'iOS Safari',
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1',
+    ],
+    [
+      'blob',
+      'iOS Chrome (CriOS)',
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/120.0.0.0 Mobile/15E148 Safari/604.1',
+    ],
+    [
+      'blob',
+      'iOS Firefox (FxiOS)',
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/121.0 Mobile/15E148 Safari/605.1.15',
+    ],
+    [
+      'blob',
+      'iOS Edge (EdgiOS)',
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/120.0.0.0 Mobile/15E148 Safari/605.1.15',
+    ],
+    ['blob', 'unknown engine', 'SomeFutureBrowser/1.0'],
+  ])('routes %s for %s', (expected, _label, ua) => {
+    expect(getDownloadTrigger(ua)).toBe(expected);
+  });
+});
+
 describe('zipDownloadHandler', () => {
   const url = new URL('mock://fake.url');
   const mockGetUrl = jest.mocked(getUrl);
@@ -176,6 +265,11 @@ describe('zipDownloadHandler', () => {
     jest
       .spyOn(document, 'createElement')
       .mockReturnValue(mockAnchor as unknown as HTMLElement);
+
+    // Default to a Firefox UA so the existing anchor-based assertions exercise
+    // the <a download> branch. Chromium/Safari/unknown engines are covered
+    // explicitly in the 'engine routing' describe below.
+    setUserAgent(FIREFOX_UA);
   });
 
   afterEach(async () => {
@@ -572,6 +666,356 @@ describe('zipDownloadHandler', () => {
       expect(mockPostMessage).not.toHaveBeenCalled();
       expect(mockCreateObjectURL).toHaveBeenCalledWith(expect.any(Blob));
       expect(mockAnchor.href).toBe('blob:scope-miss');
+    });
+  });
+
+  describe('engine routing (SW trigger vs blob fallback)', () => {
+    it('Chromium: triggers via a hidden iframe (no download attribute)', async () => {
+      setUserAgent(CHROMIUM_UA);
+
+      // Chromium creates an <iframe>; model only the fields the handler sets.
+      const iframe: {
+        hidden: boolean;
+        src: string;
+        download?: string;
+        parentNode: ParentNode | null;
+        addEventListener: jest.Mock;
+      } = {
+        hidden: false,
+        src: '',
+        parentNode: null,
+        addEventListener: jest.fn(),
+      };
+      jest
+        .spyOn(document, 'createElement')
+        .mockReturnValue(iframe as unknown as HTMLElement);
+      const appendSpy = jest
+        .spyOn(document.body, 'appendChild')
+        .mockImplementation(((node: unknown) => {
+          iframe.parentNode = document.body;
+          return node;
+        }) as typeof document.body.appendChild);
+
+      const input = createBaseInput();
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      // Streamed via the SW (postMessage), then triggered via the iframe.
+      expect(mockPostMessage).toHaveBeenCalled();
+      expect(appendSpy).toHaveBeenCalledWith(iframe);
+      expect(iframe.hidden).toBe(true);
+      expect(iframe.src).toMatch(/\/amplify-storage-download\//);
+      // No `download` attribute on the iframe path — the SW's Content-Disposition
+      // supplies the filename.
+      expect(iframe.download).toBeUndefined();
+    });
+
+    it('Safari: skips the SW and falls back to blob', async () => {
+      setUserAgent(SAFARI_UA);
+
+      const mockCreateObjectURL = jest.fn(() => 'blob:safari');
+      globalThis.URL.createObjectURL = mockCreateObjectURL;
+      globalThis.URL.revokeObjectURL = jest.fn();
+
+      const input = createBaseInput();
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      // WebKit never reaches the narrow-scope SW: no registration lookup, no
+      // postMessage — the whole zip is collected into a blob instead.
+      expect(mockPostMessage).not.toHaveBeenCalled();
+      expect(
+        (navigator.serviceWorker as unknown as { getRegistrations: jest.Mock })
+          .getRegistrations
+      ).not.toHaveBeenCalled();
+      expect(mockCreateObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+      expect(mockAnchor.href).toBe('blob:safari');
+      expect(mockAnchor.download).toBe('prefix.zip');
+    });
+
+    it('unknown engine: falls back to blob', async () => {
+      setUserAgent('SomeFutureBrowser/1.0');
+
+      const mockCreateObjectURL = jest.fn(() => 'blob:unknown');
+      globalThis.URL.createObjectURL = mockCreateObjectURL;
+      globalThis.URL.revokeObjectURL = jest.fn();
+
+      const input = createBaseInput();
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      expect(mockPostMessage).not.toHaveBeenCalled();
+      expect(mockCreateObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+      expect(mockAnchor.href).toBe('blob:unknown');
+    });
+
+    it('Firefox: triggers via a top-level <a download>', async () => {
+      setUserAgent(FIREFOX_UA);
+
+      const input = createBaseInput();
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      expect(mockPostMessage).toHaveBeenCalled();
+      expect(mockAnchor.href).toMatch(/\/amplify-storage-download\//);
+      expect(mockAnchor.download).toBe('prefix.zip');
+      expect(mockAnchor.click).toHaveBeenCalled();
+    });
+
+    it('Chromium: percent-encodes a downloadId with URL-unsafe chars in iframe.src', async () => {
+      // A folder like `Q#3 reports` makes downloadId `Q#3 reports-<ts>.zip`.
+      // Unencoded, `#` starts a fragment and the SW sees the wrong id (download
+      // silently never starts). The id must be encoded in the URL; the SW keys
+      // its map on the raw id and decodes the path, so this round-trips.
+      setUserAgent(CHROMIUM_UA);
+
+      const iframe: {
+        hidden: boolean;
+        src: string;
+        parentNode: ParentNode | null;
+        addEventListener: jest.Mock;
+      } = {
+        hidden: false,
+        src: '',
+        parentNode: null,
+        addEventListener: jest.fn(),
+      };
+      jest
+        .spyOn(document, 'createElement')
+        .mockReturnValue(iframe as unknown as HTMLElement);
+      jest
+        .spyOn(document.body, 'appendChild')
+        .mockImplementation(
+          ((node: unknown) => node) as typeof document.body.appendChild
+        );
+
+      const input = createBaseInput();
+      input.data.key = 'Q#3 reports/file-name';
+      input.all = [{ ...input.all[0], key: 'Q#3 reports/file-name' }];
+
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      // The raw `#`, ` ` must not appear literally in the URL.
+      expect(iframe.src).not.toContain('#');
+      expect(iframe.src).not.toContain(' ');
+      expect(iframe.src).toContain('Q%233%20reports');
+    });
+
+    it('Firefox: percent-encodes a downloadId with URL-unsafe chars in a.href', async () => {
+      setUserAgent(FIREFOX_UA);
+
+      const input = createBaseInput();
+      input.data.key = '50% off/file-name';
+      input.all = [{ ...input.all[0], key: '50% off/file-name' }];
+
+      const { result } = zipDownloadHandler(input);
+      await result;
+      await flushAsync();
+
+      // `%` unencoded would make the SW's decodeURIComponent throw a URIError.
+      expect(mockAnchor.href).toContain('50%25%20off');
+      expect(mockAnchor.href).not.toMatch(/50% off/);
+    });
+
+    it('falls back to blob when getRegistrations() rejects', async () => {
+      // Chromium throws SecurityError from SW APIs when site data is blocked.
+      // The stream has not been transferred yet, so the handler must fall back to
+      // blob rather than failing every file in the batch.
+      setUserAgent(CHROMIUM_UA);
+      Object.defineProperty(navigator, 'serviceWorker', {
+        value: {
+          controller: true,
+          getRegistrations: jest
+            .fn()
+            .mockRejectedValue(
+              Object.assign(new Error('denied'), { name: 'SecurityError' })
+            ),
+          addEventListener: jest.fn(),
+          removeEventListener: jest.fn(),
+        },
+        writable: true,
+        configurable: true,
+      });
+
+      const mockCreateObjectURL = jest.fn(() => 'blob:sw-rejected');
+      globalThis.URL.createObjectURL = mockCreateObjectURL;
+      globalThis.URL.revokeObjectURL = jest.fn();
+
+      const input = createBaseInput();
+      const { result } = zipDownloadHandler(input);
+      expect(await result).toEqual({ status: 'COMPLETE' });
+      await flushAsync();
+
+      // Blob fallback fired; no file ended FAILED.
+      expect(mockPostMessage).not.toHaveBeenCalled();
+      expect(mockCreateObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+      expect(mockAnchor.href).toBe('blob:sw-rejected');
+      expect(mockAnchor.download).toBe('prefix.zip');
+    });
+
+    it('Chromium: removes the iframe on load (after 5s)', async () => {
+      jest.useFakeTimers();
+      try {
+        setUserAgent(CHROMIUM_UA);
+
+        const removeChild = jest.fn();
+        const iframe: {
+          hidden: boolean;
+          src: string;
+          parentNode: { removeChild: jest.Mock } | null;
+          addEventListener: jest.Mock;
+        } = {
+          hidden: false,
+          src: '',
+          parentNode: null,
+          addEventListener: jest.fn(),
+        };
+        jest
+          .spyOn(document, 'createElement')
+          .mockReturnValue(iframe as unknown as HTMLElement);
+        jest.spyOn(document.body, 'appendChild').mockImplementation(((
+          node: unknown
+        ) => {
+          iframe.parentNode = { removeChild };
+          return node;
+        }) as typeof document.body.appendChild);
+
+        // Fake timers are active BEFORE the handler runs, so the cleanup
+        // setTimeouts are registered in fake-timer space. Flush the async SW
+        // handshake (microtasks + the mock's short timers) so the iframe is
+        // appended and its load/timeout callbacks are registered.
+        const input = createBaseInput();
+        const { result } = zipDownloadHandler(input);
+        await jest.advanceTimersByTimeAsync(100);
+
+        const loadCall = iframe.addEventListener.mock.calls.find(
+          (call: [string, () => void]) => call[0] === 'load'
+        ) as [string, () => void] | undefined;
+        expect(loadCall).toBeDefined();
+
+        // load fires -> cleanup scheduled 5s later -> iframe removed once.
+        loadCall![1]();
+        expect(removeChild).not.toHaveBeenCalled();
+        await jest.advanceTimersByTimeAsync(5_000);
+        expect(removeChild).toHaveBeenCalledTimes(1);
+
+        await result;
+      } finally {
+        jest.useRealTimers();
+      }
+    });
+
+    it('Chromium: removes the iframe via the 60s safety timeout when load never fires', async () => {
+      // Attachment responses may never fire the iframe `load` event, so the 60s
+      // hard timeout is the only cleanup path. Verify it actually runs (and runs
+      // exactly once).
+      jest.useFakeTimers();
+      try {
+        setUserAgent(CHROMIUM_UA);
+
+        const removeChild = jest.fn();
+        const iframe: {
+          hidden: boolean;
+          src: string;
+          parentNode: { removeChild: jest.Mock } | null;
+          addEventListener: jest.Mock;
+        } = {
+          hidden: false,
+          src: '',
+          parentNode: null,
+          addEventListener: jest.fn(),
+        };
+        jest
+          .spyOn(document, 'createElement')
+          .mockReturnValue(iframe as unknown as HTMLElement);
+        jest.spyOn(document.body, 'appendChild').mockImplementation(((
+          node: unknown
+        ) => {
+          iframe.parentNode = { removeChild };
+          return node;
+        }) as typeof document.body.appendChild);
+
+        const input = createBaseInput();
+        const { result } = zipDownloadHandler(input);
+        await jest.advanceTimersByTimeAsync(100);
+
+        // load never invoked. Before 60s: not removed. After 60s: removed once.
+        expect(removeChild).not.toHaveBeenCalled();
+        await jest.advanceTimersByTimeAsync(60_000);
+        expect(removeChild).toHaveBeenCalledTimes(1);
+
+        await result;
+      } finally {
+        jest.useRealTimers();
+      }
+    });
+
+    it('Chromium: second cleanup is a guarded no-op after the iframe is already detached', async () => {
+      // Both the load->5s path and the 60s safety timeout can fire for the same
+      // iframe. The second one must find parentNode already null and skip the
+      // removeChild call (the `if (iframe.parentNode)` guard), not throw.
+      jest.useFakeTimers();
+      try {
+        setUserAgent(CHROMIUM_UA);
+
+        const removeChild = jest.fn();
+        const iframe: {
+          hidden: boolean;
+          src: string;
+          parentNode: { removeChild: jest.Mock } | null;
+          addEventListener: jest.Mock;
+        } = {
+          hidden: false,
+          src: '',
+          parentNode: null,
+          addEventListener: jest.fn(),
+        };
+        jest
+          .spyOn(document, 'createElement')
+          .mockReturnValue(iframe as unknown as HTMLElement);
+        jest.spyOn(document.body, 'appendChild').mockImplementation(((
+          node: unknown
+        ) => {
+          iframe.parentNode = { removeChild };
+          return node;
+        }) as typeof document.body.appendChild);
+        // Model real DOM detachment: removeChild clears parentNode, so the
+        // second cleanup sees null and the guard short-circuits.
+        removeChild.mockImplementation(() => {
+          iframe.parentNode = null;
+        });
+
+        const input = createBaseInput();
+        const { result } = zipDownloadHandler(input);
+        await jest.advanceTimersByTimeAsync(100);
+
+        const loadCall = iframe.addEventListener.mock.calls.find(
+          (call: [string, () => void]) => call[0] === 'load'
+        ) as [string, () => void] | undefined;
+        expect(loadCall).toBeDefined();
+
+        // load -> 5s cleanup detaches the iframe...
+        loadCall![1]();
+        await jest.advanceTimersByTimeAsync(5_000);
+        expect(removeChild).toHaveBeenCalledTimes(1);
+
+        // ...then the 60s timeout fires on the already-detached iframe. The guard
+        // must prevent a second removeChild and must not throw.
+        await expect(
+          jest.advanceTimersByTimeAsync(60_000)
+        ).resolves.not.toThrow();
+        expect(removeChild).toHaveBeenCalledTimes(1);
+
+        await result;
+      } finally {
+        jest.useRealTimers();
+      }
     });
   });
 
