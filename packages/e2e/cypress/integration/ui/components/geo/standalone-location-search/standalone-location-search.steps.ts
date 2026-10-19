@@ -11,7 +11,7 @@ Then('I see results equal to my default search results', () => {
 });
 
 Then('the search input is not empty', () => {
-  cy.findByRole('textbox', {
+  cy.findByRole('searchbox', {
     name: /search/i,
   })
     .invoke('val')

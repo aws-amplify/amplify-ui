@@ -1,4 +1,4 @@
-import { useMap } from 'react-map-gl'; // Note: this dependency should NOT be installed separately
+import { useMap } from 'react-map-gl/maplibre'; // Note: this dependency should NOT be installed separately
 import { Amplify } from 'aws-amplify';
 import { Button } from '@aws-amplify/ui-react';
 import { MapView } from '@aws-amplify/ui-react-geo';
@@ -20,7 +20,7 @@ function FlyToButton() {
 
 export default function MapWithButton() {
   return (
-    <MapView>
+    <MapView workerUrl="/maplibre-gl-worker.mjs">
       <FlyToButton />
     </MapView>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Marker } from 'react-map-gl'; // Note: this dependency should NOT be installed separately
+import { Marker } from 'react-map-gl/maplibre'; // Note: this dependency should NOT be installed separately
 import { Amplify } from 'aws-amplify';
 import { Button } from '@aws-amplify/ui-react';
 import { MapView } from '@aws-amplify/ui-react-geo';
@@ -20,7 +20,7 @@ export default function MapWithMovingMarker() {
   return (
     <>
       <Button onClick={updateMarker}>Move Marker</Button>
-      <MapView>
+      <MapView workerUrl="/maplibre-gl-worker.mjs">
         <Marker latitude={latitude} longitude={longitude} />
       </MapView>
     </>

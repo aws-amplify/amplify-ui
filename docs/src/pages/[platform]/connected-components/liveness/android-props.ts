@@ -28,6 +28,18 @@ export const FACE_LIVENESS_DETECTOR_PARAMETERS = [
     type: `ChallengeOptions`,
   },
   {
+    name: `videoOptions`,
+    description:
+      'Optional parameter that configures the video recorded during the challenge, such as its codec. Available from 1.9.0.',
+    type: `VideoOptions`,
+  },
+  {
+    name: `cancelButton`,
+    description:
+      'Optional composable that replaces the cancel button shown during the challenge. It receives an onCancel callback that ends the challenge the same way as the default button. Pass an empty composable to hide the button. Available from 1.12.0.',
+    type: `@Composable BoxScope.(onCancel: () -> Unit) -> Unit`,
+  },
+  {
     name: `onComplete`,
     description:
       'Callback that signals when the liveness session has completed.',

@@ -115,7 +115,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Setup Node.js 24
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: 'yarn'
@@ -211,7 +211,7 @@ jobs:
         run: yarn global add @aws-amplify/cli
 
       - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
@@ -230,7 +230,7 @@ jobs:
         run: yarn environments auth pull
 
       - name: Configure geo credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.GEO_E2E_ROLE_ARN }}
@@ -246,7 +246,7 @@ jobs:
         run: yarn environments geo pull
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
@@ -262,7 +262,7 @@ jobs:
         run: yarn environments storage pull
 
       - name: Configure datastore credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
@@ -278,7 +278,7 @@ jobs:
         run: yarn environments datastore pull
 
       - name: Configure liveness credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
@@ -294,7 +294,7 @@ jobs:
         run: yarn environments liveness pull
 
       - name: Configure in-app-messaging credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
@@ -313,7 +313,7 @@ jobs:
         run: yarn environments in-app-messaging pull
 
       - name: Configure ai credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-west-2
           role-to-assume: ${{ secrets.AI_E2E_ROLE_ARN }}
@@ -406,7 +406,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js 24
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: 'yarn'
@@ -461,7 +461,7 @@ jobs:
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
       - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
@@ -532,13 +532,13 @@ jobs:
           persist-credentials: false
 
       - name: Install Java 11
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
         with:
           distribution: 'corretto' # Amazon Corretto Build of OpenJDK
           java-version: '11'
 
       - name: Setup Node.js 24
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: 'yarn'
@@ -570,7 +570,7 @@ jobs:
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
       - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
@@ -665,7 +665,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js 24
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: 'yarn'

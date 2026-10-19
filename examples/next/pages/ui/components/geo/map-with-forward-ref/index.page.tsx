@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import type { MapRef } from 'react-map-gl'; // Note: this dependency should NOT be installed separately
+import type { MapRef } from 'react-map-gl/maplibre'; // Note: this dependency should NOT be installed separately
 import { Amplify } from 'aws-amplify';
 import { Button } from '@aws-amplify/ui-react';
 import { MapView } from '@aws-amplify/ui-react-geo';
@@ -18,7 +18,7 @@ export default function MapWithRef() {
   return (
     <>
       <Button onClick={flyToMordor}>Fly, you fools!</Button>
-      <MapView ref={mapRef} />
+      <MapView ref={mapRef} workerUrl="/maplibre-gl-worker.mjs" />
     </>
   );
 }
