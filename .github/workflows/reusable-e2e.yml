@@ -354,7 +354,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: e2e-cypress-error-${{ matrix.package }}
@@ -502,7 +502,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
         with:
           name: e2e-detox-error-react-native-ios
@@ -643,7 +643,7 @@ jobs:
           adb -s emulator-$EMULATOR2_PORT emu kill
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ failure() && steps.e2e-android.outcome != 'success' }}
         with:
           name: e2e-detox-error-react-native-android
@@ -761,7 +761,7 @@ jobs:
         run: yarn docs test:links
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: docs-e2e-cypress-error
