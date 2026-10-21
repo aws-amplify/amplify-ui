@@ -2,19 +2,28 @@
 #              to a custom dist NPM tag of your choice. This is intended to run
 #              on release branches (e.g. `in-app-messaging/release`).
 #
-# Triggered by: This runs whenever you push a commit to the specified release branch.
+# Triggered by: called from `.github/workflows/release.yml` when you push a commit
+#               to the specified release branch.
 #
-# To use: replace <BRANCH> with your release branch name. Replace <TAG> with
-#         your NPM tag name.
+# To use: copy this file to `.github/workflows/publish-<TAG>.yml`, replace <TAG>
+#         with your NPM tag name, then route your release branch to it in
+#         `.github/workflows/release.yml` (do not add a `push` trigger here, since
+#         npm trusted publishing only accepts publishes from `release.yml`):
+#
+#           # in release.yml
+#           on:
+#             push:
+#               branches: [main, hotfix, <BRANCH>]
+#           jobs:
+#             <TAG>:
+#               if: github.ref_name == '<BRANCH>'
+#               uses: ./.github/workflows/publish-<TAG>.yml
+#               secrets: inherit
 
-name: Test and Publish / <BRANCH>
+name: Test and Publish / <TAG>
 
 on:
-  # You may change this to `pull_request` if you want to run this on a PRs.
-  # This can be useful for publishing hotfixes quickly to unblock customers,
-  # but otherwise, we recommend to use a release branch.
-  push:
-    branches: [<BRANCH>]
+  workflow_call:
 
 # This permission block is only required if you're running e2e tests.
 permissions:
@@ -65,5 +74,3 @@ jobs:
     needs: e2e
     with:
       dist-tag: <TAG>
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

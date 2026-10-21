@@ -119,7 +119,7 @@ Amplify UI publishes to NPM on every Tuesday. We use [`changesets`](https://gith
 1. Each contributor adds a changeset in their PR
 1. Changesets get accumulated into [Version Packages PR](https://github.com/aws-amplify/amplify-ui/pulls/app%2Fgithub-actions).
 1. Maintainer will run tests, approve, and merge the PR.
-1. Previous step will trigger [`publish-latest`](./.github/workflows/publish-next.yml) action that will build and publish packages to NPM.
+1. Previous step will trigger the [`release`](./.github/workflows/release.yml) workflow, which runs [`publish-latest`](./.github/workflows/publish-latest.yml) to build and publish packages to NPM.
 
 ### Docs Publishing
 

@@ -1,14 +1,14 @@
 # Description: this workflow publishes UI packages to `latest` tag on NPM.
 #
-# Triggered by: whenever a PR is merged to `hotfix` branch
+# Triggered by: whenever a PR is merged to `hotfix` branch (called from release.yml)
 
 # If successful, we will publish all updated UI packages to NPM.
 
 name: Test and Publish / hotfix
 
+# Called from release.yml on pushes to hotfix
 on:
-  push:
-    branches: [hotfix]
+  workflow_call:
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -34,8 +34,6 @@ jobs:
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
       dist-tag: hotfix
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     uses: ./.github/workflows/reusable-build-system-test.yml
@@ -70,6 +68,10 @@ jobs:
       - build-test
       - build-test-react-native
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    # Job-level permissions replace workflow-level ones; id-token is required for npm trusted publishing (OIDC)
+    permissions:
+      contents: write # Used to push tags to GitHub
+      id-token: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -89,13 +91,14 @@ jobs:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
+      - name: Ensure npm supports trusted publishing
+        uses: ./.github/actions/ensure-npm-trusted-publishing
       - name: Publish to @latest
-        uses: changesets/action@aba318e9165b45b7948c60273e0b72fce0a64eb9 #v1.4.7
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
           publish: yarn publish:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   create-pr-to-main:
     needs: setup

@@ -1,17 +1,13 @@
 # Description: This workflow runs unit + e2e tests, then publishes UI packages
 #              to `@next` NPM tag.
 #
-# Triggered by: merge to `main`
+# Triggered by: merge to `main` (called from release.yml)
 
 name: Test and Publish / next
 
-concurrency:
-  group: e2e-${{ github.sha }}
-  cancel-in-progress: true
-
+# Called from release.yml on pushes to main. Concurrency is configured on the caller job.
 on:
-  push:
-    branches: [main]
+  workflow_call:
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -57,11 +53,9 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   publish:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
+    uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
       dist-tag: next
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   deploy-sample-app-next:
     runs-on: ubuntu-latest
