@@ -208,7 +208,7 @@
     "ts-morph": "^17.0.0",
     "turbo": "^2.9.14",
     "typescript": "^5.2.2",
-    "vite": "^6.4.2",
+    "vite": "^6.4.4",
     "vue-tsc": "^2.0.7"
   },
   "overrides": {
