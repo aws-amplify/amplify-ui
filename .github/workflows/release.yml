@@ -13,21 +13,24 @@ on:
   push:
     branches: [main, hotfix]
 
-# Permissions required for pushing tags, creating PRs, and requesting an OIDC token for npm trusted
-# publishing and aws-actions/configure-aws-credentials. Called workflows can only use permissions granted here.
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write
+# Permissions are granted per job. Called workflows can only use permissions granted by their caller job.
+# `id-token: write` is required for npm trusted publishing and aws-actions/configure-aws-credentials.
+permissions: {}
 
 jobs:
   latest:
     if: github.ref_name == 'main'
+    permissions:
+      contents: write # push release tags
+      id-token: write
     uses: ./.github/workflows/publish-latest.yml
     secrets: inherit
 
   next:
     if: github.ref_name == 'main'
+    permissions:
+      contents: read
+      id-token: write
     concurrency:
       group: release-next-${{ github.sha }}
       cancel-in-progress: true
@@ -36,5 +39,9 @@ jobs:
 
   hotfix:
     if: github.ref_name == 'hotfix'
+    permissions:
+      contents: write # push release tags
+      pull-requests: write # open the hotfix -> main PR
+      id-token: write
     uses: ./.github/workflows/publish-hotfix.yml
     secrets: inherit

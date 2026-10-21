@@ -6,6 +6,11 @@
   "react-native": "src/index.ts",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/amplify-ui",
+    "directory": "packages/react-native"
+  },
   "scripts": {
     "build": "yarn build:cjs && yarn build:esm",
     "build:cjs": "tsc --project tsconfig.cjs.json && cp -a src/assets/icons lib/assets",

@@ -68,5 +68,10 @@
   },
   "keywords": [
     "svelte"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/amplify-ui",
+    "directory": "packages/svelte"
+  }
 }
