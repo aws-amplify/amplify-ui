@@ -9,14 +9,15 @@ on:
         # commit to run tests against
         required: true
         type: string
-    secrets:
-      NPM_TOKEN:
-        required: true
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     environment: deployment
+    # id-token is required for npm trusted publishing (OIDC)
+    permissions:
+      contents: read # This is required for actions/checkout
+      id-token: write
     steps:
       - name: fail this workflow if dist-tag is invalid
         if: ${{ inputs.dist-tag == '' || inputs.dist-tag == 'latest' }}
@@ -26,7 +27,8 @@ jobs:
       - name: Setup Node.js 24
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 24
+          # Exact pin keeps npm >= 11.5.1 (Node 24.22.1 bundles npm 11.19.1), required for npm trusted publishing
+          node-version: 24.22.1
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
@@ -34,6 +36,7 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true # publishing doesn't need cypress
+          frozen-lockfile: true # publish from exactly what yarn.lock pins
       - name: Build packages
         run: yarn build
       - name: Add changeset that bumps all public packages
@@ -43,9 +46,5 @@ jobs:
         run: yarn changeset version --snapshot ${{ inputs.dist-tag }}-$(git rev-parse --short=7 HEAD) && yarn angular build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to next tag
         run: yarn changeset publish --tag ${{ inputs.dist-tag }}

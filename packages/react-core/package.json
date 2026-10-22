@@ -20,6 +20,11 @@
   },
   "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/amplify-ui",
+    "directory": "packages/react-core"
+  },
   "files": [
     "dist",
     "elements",

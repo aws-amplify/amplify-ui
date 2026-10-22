@@ -3,6 +3,7 @@
 # Environment variable inputs:
 #   SKIP_CYPRESS_BINARY (boolean): Skips cypress binary installation if true.
 #   NO_LOCKFILE (boolean): Ignores yarn.lock file if true
+#   FROZEN_LOCKFILE (boolean): Fails instead of updating yarn.lock if true
 #   WORKING_DIRECTORY (string): Path to run yarn install at
 
 if [ -n "$WORKING_DIRECTORY" ]; then
@@ -25,6 +26,9 @@ for i in {1..4}; do
   if [ "$NO_LOCKFILE" = "true" ]; then
     echo "[LOG]: Ignoring yarn.lock file"
     yarn install --no-lockfile --network-timeout 60000
+  elif [ "$FROZEN_LOCKFILE" = "true" ]; then
+    echo "[LOG]: Installing from yarn.lock with --frozen-lockfile"
+    yarn install --frozen-lockfile --network-timeout 60000
   else
     yarn install --network-timeout 60000
   fi

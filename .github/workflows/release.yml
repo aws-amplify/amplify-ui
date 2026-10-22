@@ -1,0 +1,48 @@
+# Description: single entry point for all npm publishes.
+#
+# npm trusted publishing (OIDC) validates the filename of the top-level (caller) workflow, not the
+# reusable workflow that runs `npm publish`. All npm publishes must therefore originate from this file,
+# which dispatches to the publish-* reusable workflows based on the pushed branch.
+#
+# To publish from a new release branch (e.g. a custom dist-tag), add the branch below and a job that
+# routes to a reusable workflow. See `.github/workflow-samples/tagged-release.yml`.
+
+name: Release
+
+on:
+  push:
+    branches: [main, hotfix]
+
+# Permissions are granted per job. Called workflows can only use permissions granted by their caller job.
+# `id-token: write` is required for npm trusted publishing and aws-actions/configure-aws-credentials.
+permissions: {}
+
+jobs:
+  latest:
+    if: github.ref_name == 'main'
+    permissions:
+      contents: write # push release tags
+      id-token: write
+    uses: ./.github/workflows/publish-latest.yml
+    secrets: inherit
+
+  next:
+    if: github.ref_name == 'main'
+    permissions:
+      contents: read
+      id-token: write
+    # Never cancel mid-`changeset publish`; a newer pending run still replaces an older pending one
+    concurrency:
+      group: release-next-${{ github.ref }}
+      cancel-in-progress: false
+    uses: ./.github/workflows/publish-next.yml
+    secrets: inherit
+
+  hotfix:
+    if: github.ref_name == 'hotfix'
+    permissions:
+      contents: write # push release tags
+      pull-requests: write # open the hotfix -> main PR
+      id-token: write
+    uses: ./.github/workflows/publish-hotfix.yml
+    secrets: inherit
