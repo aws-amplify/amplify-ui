@@ -31,9 +31,10 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    # Never cancel mid-`changeset publish`; a newer pending run still replaces an older pending one
     concurrency:
-      group: release-next-${{ github.sha }}
-      cancel-in-progress: true
+      group: release-next-${{ github.ref }}
+      cancel-in-progress: false
     uses: ./.github/workflows/publish-next.yml
     secrets: inherit
 

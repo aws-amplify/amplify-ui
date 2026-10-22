@@ -17,15 +17,22 @@
 #           jobs:
 #             <TAG>:
 #               if: github.ref_name == '<BRANCH>'
+#               permissions:
+#                 contents: read
+#                 id-token: write # npm trusted publishing and the e2e AWS roles
 #               uses: ./.github/workflows/publish-<TAG>.yml
 #               secrets: inherit
+#
+#         Also add <BRANCH> to the `deployment` environment's deployment branch
+#         policy (if one is configured), or the publish job will not be allowed to run.
 
 name: Test and Publish / <TAG>
 
 on:
   workflow_call:
 
-# This permission block is only required if you're running e2e tests.
+# id-token is always required (npm trusted publishing, plus the e2e AWS roles); the caller
+# job's `permissions` in release.yml decide whether this workflow actually receives it.
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read # This is required for actions/checkout
