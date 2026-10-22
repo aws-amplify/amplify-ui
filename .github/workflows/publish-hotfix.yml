@@ -94,11 +94,15 @@ jobs:
       - name: Ensure npm supports trusted publishing
         uses: ./.github/actions/ensure-npm-trusted-publishing
       - name: Publish to @latest
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
+        uses: changesets/action@aba318e9165b45b7948c60273e0b72fce0a64eb9 #v1.4.7
         with:
           publish: yarn publish:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # npm authenticates via trusted publishing (OIDC). changesets/action v1.4.7 always writes
+          # `//registry.npmjs.org/:_authToken=$NPM_TOKEN` to ~/.npmrc; an empty value keeps it from
+          # writing the literal string `undefined`. npm replaces the token with the OIDC token at publish time.
+          NPM_TOKEN: ''
 
   create-pr-to-main:
     needs: setup
