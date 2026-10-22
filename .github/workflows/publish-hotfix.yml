@@ -81,7 +81,8 @@ jobs:
       - name: Setup Node.js 24
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 24
+          # Exact pin keeps npm >= 11.5.1 (Node 24.22.1 bundles npm 11.19.1), required for npm trusted publishing
+          node-version: 24.22.1
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
@@ -89,10 +90,9 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true # publishing doesn't need cypress
+          frozen-lockfile: true # publish from exactly what yarn.lock pins
       - name: Build packages
         run: yarn build
-      - name: Ensure npm supports trusted publishing
-        uses: ./.github/actions/ensure-npm-trusted-publishing
       - name: Publish to @latest
         uses: changesets/action@aba318e9165b45b7948c60273e0b72fce0a64eb9 #v1.4.7
         with:
