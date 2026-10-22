@@ -12,6 +12,7 @@ import {
 import * as helpers from '../../utils';
 import * as livenessUtils from '../../utils/liveness';
 import {
+  createMockVideoEl,
   mockBlazeFace,
   mockCameraDevice,
   mockFace,
@@ -26,6 +27,7 @@ import {
 } from '../../utils/__mocks__/testUtils';
 
 import { livenessMachine } from '../machine';
+import { WS_CLOSURE_CODE } from '../../utils/constants';
 
 jest.useFakeTimers();
 jest.mock('../../utils');
@@ -51,7 +53,7 @@ const mockComponentProps: FaceLivenessDetectorProps = {
   config: {},
 };
 
-const mockVideoEl = document.createElement('video');
+const mockVideoEl = createMockVideoEl();
 const mockCanvasEl = document.createElement('canvas');
 const mockFreshnessColorEl = document.createElement('canvas');
 window.HTMLMediaElement.prototype.pause = () => jest.fn();
@@ -647,6 +649,71 @@ describe('Liveness Machine', () => {
   });
 
   describe('recording', () => {
+    // T2.4 / T1.1(a): on Android/Firefox and iOS the getUserMedia width and
+    // height come back flipped by orientation, so every geometry site must
+    // read the intrinsic frame the video element renders.
+    describe('frame dimension source', () => {
+      it('should map the oval against the intrinsic frame width', async () => {
+        await transitionToRecording(service);
+        await flushPromises(); // detectInitialFaceAndDrawOval
+
+        // the `width` attribute is a React state snapshot that starts at the
+        // flipped track width; videoWidth is the frame actually rendered
+        expect(mockVideoEl.width).not.toBe(mockVideoEl.videoWidth);
+        expect(
+          mockedHelpers.getOvalDetailsFromSessionInformation
+        ).toHaveBeenCalledWith(
+          expect.objectContaining({ videoWidth: mockVideoEl.videoWidth })
+        );
+      });
+
+      // A flipping device: the track reports the sensor-native landscape pair
+      // while the element renders the portrait frame. Reading the track here
+      // sizes the oval from the 3:4 recompute (0.8 * 0.75 * 480 = 288) instead
+      // of the frame (0.8 * 480 = 384), so the face distance threshold is
+      // divided by an oval 33% narrower than the one the check means to use.
+      it('should size the distance-check oval from the intrinsic frame, not the track', async () => {
+        // imported from `utils/liveness` directly, so the mocked `utils`
+        // barrel does not cover it
+        const ovalDetailsSpy = jest.spyOn(
+          livenessUtils,
+          'getStaticLivenessOvalDetails'
+        );
+        Object.defineProperty(mockVideoEl, 'videoWidth', {
+          value: 480,
+          configurable: true,
+        });
+        Object.defineProperty(mockVideoEl, 'videoHeight', {
+          value: 640,
+          configurable: true,
+        });
+
+        await transitionToRecording(service);
+
+        // the two sources disagree, so this cannot pass by coincidence
+        expect(mockVideoMediaStream.getTracks()[0].getSettings()).toEqual(
+          expect.objectContaining({ width: 640, height: 480 })
+        );
+        expect(ovalDetailsSpy).toHaveBeenCalledWith(
+          expect.objectContaining({ width: 480, height: 640 })
+        );
+        expect(ovalDetailsSpy.mock.results[0].value.width).toBe(384);
+        ovalDetailsSpy.mockRestore();
+      });
+
+      afterEach(() => {
+        // mockVideoEl is shared across the file
+        Object.defineProperty(mockVideoEl, 'videoWidth', {
+          value: 640,
+          configurable: true,
+        });
+        Object.defineProperty(mockVideoEl, 'videoHeight', {
+          value: 480,
+          configurable: true,
+        });
+      });
+    });
+
     describe('VIDEO_RESIZED', () => {
       it('should recompute the scale factor and redraw the oval', async () => {
         mockedHelpers.getVideoScaleFactor.mockReturnValue(1);
@@ -732,6 +799,135 @@ describe('Liveness Machine', () => {
 
         expect(service.state.value).toEqual('start');
         expect(mockedHelpers.drawLivenessOvalInCanvas).not.toHaveBeenCalled();
+      });
+    });
+
+    // P4: rotating mid-check ends the attempt, because the challenge oval is
+    // computed once against the frame the stream opened with.
+    describe('mid-check rotation', () => {
+      const rotate = (orientation: 'landscape' | 'portrait') =>
+        service.send({ type: 'ORIENTATION_CHANGED', data: { orientation } });
+
+      it('should capture the orientation recording started in', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+
+        expect(service.state.context.recordingOrientation).toBe('portrait');
+        expect(service.state.context.errorState).toBeUndefined();
+      });
+
+      it('should end the attempt with a device rotation error', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+
+        rotate('landscape');
+
+        expect(service.state.value).toEqual('timeout');
+        expect(service.state.context.errorState).toBe(
+          LivenessErrorState.DEVICE_ROTATION_ERROR
+        );
+        expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+        const livenessError = (mockComponentProps.onError as jest.Mock).mock
+          .calls[0][0];
+        expect(livenessError.state).toBe(
+          LivenessErrorState.DEVICE_ROTATION_ERROR
+        );
+      });
+
+      // the close code is what server-side telemetry reads, so a rotation must
+      // not be recorded as a face fit failure
+      it('should not close the stream as a face fit timeout', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+
+        rotate('landscape');
+
+        expect(mockedHelpers.closeLivenessStream).toHaveBeenCalledWith(
+          expect.anything(),
+          WS_CLOSURE_CODE.USER_ERROR_DURING_CONNECTION
+        );
+        expect(mockedHelpers.closeLivenessStream).not.toHaveBeenCalledWith(
+          expect.anything(),
+          WS_CLOSURE_CODE.FACE_FIT_TIMEOUT
+        );
+      });
+
+      it('should ignore an event reporting the orientation it started in', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+        const stateBeforeEvent = service.state.value;
+
+        rotate('portrait');
+
+        expect(service.state.value).toEqual(stateBeforeEvent);
+        expect(service.state.context.errorState).toBeUndefined();
+        expect(mockComponentProps.onError).not.toHaveBeenCalled();
+      });
+
+      it('should start in landscape just as readily as portrait', async () => {
+        rotate('landscape');
+        await transitionToRecording(service);
+
+        expect(service.state.context.recordingOrientation).toBe('landscape');
+        expect(service.state.context.errorState).toBeUndefined();
+        expect(mockComponentProps.onError).not.toHaveBeenCalled();
+      });
+
+      // P6: landscape is no longer a gate, so the orientation alone can never
+      // route the check to the landscape error.
+      it('should never reach the landscape error state', async () => {
+        rotate('landscape');
+        await transitionToNotRecording(service);
+
+        expect(service.state.value).toEqual('start');
+        expect(service.state.context.errorState).not.toBe(
+          LivenessErrorState.MOBILE_LANDSCAPE_ERROR
+        );
+
+        await transitionToRecording(service);
+        rotate('portrait');
+
+        expect(service.state.context.errorState).not.toBe(
+          LivenessErrorState.MOBILE_LANDSCAPE_ERROR
+        );
+      });
+
+      // Osama's repro on PR #7166: before this, a rotation during ovalMatching
+      // was decided by the 7s oval fit timeout, so the user saw face fit copy
+      // and the rotation was reported as a face fit failure.
+      it('should decide the outcome itself rather than leave it to the oval fit timeout', async () => {
+        mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
+          return {
+            faceMatchState: FaceMatchState.TOO_FAR,
+            faceMatchPercentage: 0,
+          };
+        });
+        rotate('portrait');
+        await transitionToRecording(service);
+
+        rotate('landscape');
+        jest.runAllTimers();
+
+        expect(service.state.context.errorState).toBe(
+          LivenessErrorState.DEVICE_ROTATION_ERROR
+        );
+        expect(service.state.context.errorMessage).not.toContain(
+          'face to match oval'
+        );
+        expect(mockComponentProps.onError).toHaveBeenCalledTimes(1);
+      });
+
+      it('should not re-measure the track while recording', async () => {
+        rotate('portrait');
+        await transitionToRecording(service);
+        mockedHelpers.getTrackDimensions.mockClear();
+
+        service.send({ type: 'VIDEO_RESIZED' });
+        rotate('landscape');
+
+        // the frame is fixed for the session: only the rendered box is
+        // re-measured, via getVideoScaleFactor
+        expect(mockedHelpers.getTrackDimensions).not.toHaveBeenCalled();
       });
     });
 

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LivenessCheck should render portrait with no error modal around the camera module 1`] = `
+<div>
+  <div
+    class="amplify-flex liveness-detector-check"
+    data-testid="liveness-detector-check"
+    style="flex-direction: column; position: relative; gap: var(--amplify-space-xl);"
+  >
+    <div>
+      LivenessCameraModule
+    </div>
+  </div>
+</div>
+`;
