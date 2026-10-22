@@ -149,6 +149,7 @@
     "**/@angular/build/piscina": "4.9.4",
     "**/pacote/sigstore": "^4.1.1",
     "**/@modelcontextprotocol/sdk/@hono/node-server": "^2.0.5",
+    "**/@angular/cli/@modelcontextprotocol/sdk": "^1.32.1",
     "sharp": "^0.35.5",
     "hono": "^4.13.5",
     "vitest": "^4.1.11",
