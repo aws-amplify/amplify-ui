@@ -1,5 +1,59 @@
 # @aws-amplify/ui-react-storage
 
+## 3.18.4
+
+### Patch Changes
+
+- [#7164](https://github.com/aws-amplify/amplify-ui/pull/7164) [`f5325b0e7028b6543b2d99519f033680d9a8367e`](https://github.com/aws-amplify/amplify-ui/commit/f5325b0e7028b6543b2d99519f033680d9a8367e) Thanks [@mwellmn](https://github.com/mwellmn)! - fix(storage-browser): harden the download service worker fetch handling
+
+  Three fixes to the zip-download service worker:
+
+  - Fail fast with a `410` when no stream is stored for a download id, instead of
+    returning and falling through to the network — where the URL 404s and Chrome
+    hangs with no error. A miss means the worker restarted and lost the stream, or
+    the id is stale.
+  - Keep the worker alive across the acknowledgement → navigation → fetch gap. The
+    message handler now holds the worker via `event.waitUntil` until the matching
+    fetch consumes the stream. A safety cap drops and cancels a stream that is
+    never fetched: a short inactivity window refreshed by the page's keepalive
+    ping (so an in-progress or prompt-blocked download is not cut off), bounded by
+    an absolute ceiling so an abandoned navigation cannot pin the worker or leak
+    the stream for the life of the tab.
+  - Pass through a request for the worker's own script
+    (`/amplify-storage-download/download-sw.js`) so only real `<download-id>`
+    requests get the stream-or-410 treatment.
+
+- [#7165](https://github.com/aws-amplify/amplify-ui/pull/7165) [`2af63222c00eed68bd00032e86f3a230cfdb47a9`](https://github.com/aws-amplify/amplify-ui/commit/2af63222c00eed68bd00032e86f3a230cfdb47a9) Thanks [@mwellmn](https://github.com/mwellmn)! - fix(storage-browser): route the zip-download trigger by browser engine
+
+  The multi-file zip download delivered its stream to the download service worker
+  with a single mechanism — a top-level `<a download>` navigation — which does not
+  work the same across engines. Chromium does not route a top-level `<a download>`
+  navigation to the uncontrolled, narrow-scope download worker (it hangs), and
+  WebKit (Safari) never routes to it at all.
+
+  The handler now detects the browser engine and routes accordingly:
+
+  - **Chromium** triggers the download via an in-scope hidden `<iframe>`
+    navigation (the worker's `Content-Disposition` supplies the filename), with
+    listener- and timeout-based cleanup of the iframe.
+  - **Firefox** keeps the top-level `<a download>` navigation.
+  - **Safari and unknown engines** skip the worker entirely and fall back to
+    in-memory blob collection.
+
+- [#7163](https://github.com/aws-amplify/amplify-ui/pull/7163) [`66ddf22c80465dfa0816d9d935f556caaffe61f0`](https://github.com/aws-amplify/amplify-ui/commit/66ddf22c80465dfa0816d9d935f556caaffe61f0) Thanks [@mwellmn](https://github.com/mwellmn)! - fix(storage-browser): match the download service worker by scope pathname
+
+  The multi-file zip download looked up its service worker with
+  `getRegistration('/amplify-storage-download/')`, which returns the registration
+  whose scope is the longest prefix of the given URL. On an origin that also
+  registers a root `/` service worker, that root registration is always a prefix,
+  so when the download worker was never registered the lookup returned the root
+  worker instead. The handler treated it as a live download worker and skipped the
+  in-memory blob fallback, so the download silently failed. This affected any page
+  on such an origin, not only a page served at `/`. The handler now enumerates
+  registrations and matches the scope pathname exactly, so a root worker is no
+  longer mistaken for the download worker and the blob fallback fires whenever the
+  download worker is genuinely absent.
+
 ## 3.18.3
 
 ### Patch Changes
