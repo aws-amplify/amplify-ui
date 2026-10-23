@@ -72,6 +72,8 @@ jobs:
     needs: publish
     with:
       dist-tag: next
+      # Install the exact version this run published; `@next` may resolve to a stale or newer release.
+      ui-version: ${{ needs.publish.outputs.version }}
     secrets:
       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
@@ -85,6 +87,8 @@ jobs:
     needs: publish
     with:
       dist-tag: next
+      # Install the exact version this run published; `@next` may resolve to a stale or newer release.
+      ui-version: ${{ needs.publish.outputs.version }}
 
   log-failure-metric:
     # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure

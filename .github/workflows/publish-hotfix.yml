@@ -43,6 +43,8 @@ jobs:
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     with:
       dist-tag: hotfix
+      # Install the exact version this run published; `@hotfix` may resolve to a stale or newer release.
+      ui-version: ${{ needs.publish-hotfix.outputs.version }}
     secrets:
       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
@@ -59,6 +61,8 @@ jobs:
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     with:
       dist-tag: hotfix
+      # Install the exact version this run published; `@hotfix` may resolve to a stale or newer release.
+      ui-version: ${{ needs.publish-hotfix.outputs.version }}
 
   publish:
     runs-on: ubuntu-latest
