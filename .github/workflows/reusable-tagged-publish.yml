@@ -9,11 +9,17 @@ on:
         # commit to run tests against
         required: true
         type: string
+    outputs:
+      version:
+        description: 'Exact snapshot version published (e.g. 0.0.0-next-<sha>-<timestamp>), confirmed resolvable on npm'
+        value: ${{ jobs.publish.outputs.version }}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     environment: deployment
+    outputs:
+      version: ${{ steps.snapshot-version.outputs.version }}
     # id-token is required for npm trusted publishing (OIDC)
     permissions:
       contents: read # This is required for actions/checkout
@@ -46,5 +52,18 @@ jobs:
         run: yarn changeset version --snapshot ${{ inputs.dist-tag }}-$(git rev-parse --short=7 HEAD) && yarn angular build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Read snapshot version
+        id: snapshot-version
+        # The bump-versions preset always bumps @aws-amplify/ui, and `changeset version --snapshot`
+        # assigns one shared version to every bumped package, so its version identifies the release.
+        run: echo "version=$(node -p "require('./packages/ui/package.json').version")" >> "$GITHUB_OUTPUT"
       - name: Publish to next tag
         run: yarn changeset publish --tag ${{ inputs.dist-tag }}
+      - name: Wait for npm registry to serve published versions
+        # Downstream jobs install these exact versions right away; wait out registry/CDN propagation
+        # once here rather than having every build-system-test matrix job race it.
+        timeout-minutes: 20
+        run: ./.github/scripts/wait-for-npm-registry.sh "$VERSION"
+        env:
+          VERSION: ${{ steps.snapshot-version.outputs.version }}
+          WAIT_TIMEOUT_SECONDS: 900

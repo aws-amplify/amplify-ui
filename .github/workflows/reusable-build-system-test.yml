@@ -7,6 +7,11 @@ on:
       dist-tag:
         required: true
         type: string
+      ui-version:
+        # Exact Amplify UI version to install. Defaults to resolving `dist-tag`.
+        required: false
+        type: string
+        default: ''
     secrets:
       AUTH_E2E_ROLE_ARN:
         required: true
@@ -141,8 +146,10 @@ jobs:
           key: ${{ runner.os }}-node24-canary-cypress-${{ hashFiles('build-system-tests/e2e/yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      # `--name` pins the app directory to MEGA_APP_NAME; without it setup-mega-app.sh derives the name
+      # from `--tag`, and a dotted exact version is not a valid project name for some CLIs (e.g. `ng new`).
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run setup:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --tag ${{inputs.dist-tag}}
+        run: npm run setup:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --name ${{ env.MEGA_APP_NAME }} --tag ${{ inputs.ui-version || inputs.dist-tag }}
         shell: bash
         working-directory: build-system-tests
       - name: Install e2e packages

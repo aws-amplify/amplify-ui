@@ -7,6 +7,11 @@ on:
       dist-tag:
         required: true
         type: string
+      ui-version:
+        # Exact Amplify UI version to install. Defaults to resolving `dist-tag`.
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build:
@@ -129,7 +134,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run setup:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{inputs.dist-tag}} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
+        run: npm run setup:${{matrix.framework}}:${{matrix.build-tool}} -- --name ${{ env.MEGA_APP_NAME }} --platform ${{matrix.platform}} --tag ${{ inputs.ui-version || inputs.dist-tag }} --framework-version ${{matrix.framework-version.value}} --build-tool-version ${{matrix.build-tool-version}}
         shell: bash
         working-directory: build-system-tests
 
