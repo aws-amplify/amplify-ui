@@ -149,8 +149,10 @@ jobs:
       # `--name` pins the app directory to MEGA_APP_NAME; without it setup-mega-app.sh derives the name
       # from `--tag`, and a dotted exact version is not a valid project name for some CLIs (e.g. `ng new`).
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
-        run: npm run setup:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --name ${{ env.MEGA_APP_NAME }} --tag ${{ inputs.ui-version || inputs.dist-tag }}
+        run: npm run setup:${{ matrix.framework }}:${{matrix.build-tool}} -- --framework-version ${{matrix.framework-version}} --build-tool-version ${{matrix.build-tool-version}} --pkg-manager ${{matrix.pkg-manager}} --name ${{ env.MEGA_APP_NAME }} --tag "$UI_TAG"
         shell: bash
+        env:
+          UI_TAG: ${{ inputs.ui-version || inputs.dist-tag }}
         working-directory: build-system-tests
       - name: Install e2e packages
         uses: ./.github/actions/install-with-retries

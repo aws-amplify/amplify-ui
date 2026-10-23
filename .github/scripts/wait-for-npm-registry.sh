@@ -57,10 +57,14 @@ printf '  %s\n' "${PACKAGES[@]}"
 # - `npm view --prefer-online` revalidates npm's local cache against the full packument.
 # - The abbreviated ("corgi") packument is what `npm install` resolves against, and the CDN
 #   caches it separately from the full packument, so it can lag behind.
+# This only proves visibility from this runner's CDN edge; other runners may hit a different edge
+# that still serves a stale packument, so install retries remain as a fallback downstream.
 is_available() {
   local pkg="$1"
-  npm view "$pkg@$VERSION" version --prefer-online 2>/dev/null | grep -qxF "$VERSION" || return 1
-  curl -fsSL -H 'Accept: application/vnd.npm.install-v1+json' \
+  # Compare directly instead of piping into `grep -q`: under pipefail, grep exiting early can
+  # SIGPIPE `npm view` and turn a match into a false negative.
+  [[ "$(npm view "$pkg@$VERSION" version --prefer-online --fetch-timeout=30000 2>/dev/null)" == "$VERSION" ]] || return 1
+  curl -fsSL --max-time 30 -H 'Accept: application/vnd.npm.install-v1+json' \
     "$REGISTRY/${pkg/\//%2f}" 2>/dev/null |
     node -e '
       const doc = JSON.parse(require("fs").readFileSync(0, "utf8"));

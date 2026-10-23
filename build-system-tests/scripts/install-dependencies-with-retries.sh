@@ -7,6 +7,10 @@ install_dependencies_with_retries() {
     local retries=5
     local attempt=1
     local extra_args=""
+    if [ "$1" == "npm" ]; then
+        # Revalidate cached packuments from the start so freshly published versions resolve.
+        extra_args="--prefer-online"
+    fi
     echo "Disable exit-on-error temporarily"
     echo "set +e"
     set +e
@@ -35,7 +39,6 @@ install_dependencies_with_retries() {
                 # retry can see newly published versions.
                 echo "npm cache clean --force"
                 npm cache clean --force
-                extra_args="--prefer-online"
             fi
         else
             echo "$1 install failed after $retries attempts."

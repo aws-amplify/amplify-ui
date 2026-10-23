@@ -56,7 +56,16 @@ jobs:
         id: snapshot-version
         # The bump-versions preset always bumps @aws-amplify/ui, and `changeset version --snapshot`
         # assigns one shared version to every bumped package, so its version identifies the release.
-        run: echo "version=$(node -p "require('./packages/ui/package.json').version")" >> "$GITHUB_OUTPUT"
+        # Fail fast if it is not a snapshot for this dist-tag, so a real release version is never waited on or tested.
+        run: |
+          version="$(node -p "require('./packages/ui/package.json').version")"
+          if [[ "$version" != "0.0.0-${DIST_TAG}-"* ]]; then
+            echo "::error::Unexpected snapshot version '$version'; expected 0.0.0-${DIST_TAG}-*"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+        env:
+          DIST_TAG: ${{ inputs.dist-tag }}
       - name: Publish to next tag
         run: yarn changeset publish --tag ${{ inputs.dist-tag }}
       - name: Wait for npm registry to serve published versions
