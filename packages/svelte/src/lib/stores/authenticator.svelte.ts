@@ -11,7 +11,7 @@ import { onDestroy } from 'svelte';
 import { get, writable, type Writable } from 'svelte/store';
 import { interpret } from 'xstate';
 import { getCurrentUser } from 'aws-amplify/auth';
-import { type AnyFn, type UseAuthenticator } from '../types';
+import type { AnyFn, UseAuthenticator } from '../types';
 
 type SharedReturn<T extends AnyFn = AnyFn> = T;
 type StateMachine = ReturnType<typeof createAuthenticatorMachine>;
