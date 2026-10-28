@@ -25,6 +25,12 @@ export default defineConfig({
   ],
   server: { port: 3000, fs: { strict: true } },
   resolve: {
+    // The Svelte workspaces are nohoisted, so `aws-amplify` is installed in
+    // this example, in packages/svelte and at the repo root. Without dedupe the
+    // app, @aws-amplify/ui-svelte and @aws-amplify/ui each bundle their own
+    // copy, and `Amplify.configure()` in a page never reaches the Authenticator.
+    // xstate is deduped for the same reason: the auth machine is shared.
+    dedupe: ['aws-amplify', '@aws-amplify/auth', '@aws-amplify/core', 'xstate'],
     alias: [
       {
         find: './runtimeConfig',
