@@ -1,13 +1,24 @@
+import adapter from '@sveltejs/adapter-auto';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteTesting } from '@testing-library/svelte/vite';
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-const resolvePath = (str: string) => path.resolve(__dirname, str);
+const resolvePath = (str: string) => path.resolve(import.meta.dirname, str);
 
 export default defineConfig({
-  plugins: [sveltekit(), svelteTesting()],
+  plugins: [
+    sveltekit({
+      compilerOptions: { css: 'external' },
+      preprocess: vitePreprocess(),
+      adapter: adapter(),
+      inlineStyleThreshold: Infinity,
+      output: { bundleStrategy: 'single' },
+    }),
+    svelteTesting(),
+  ],
   test: {
     environment: 'jsdom',
     coverage: {

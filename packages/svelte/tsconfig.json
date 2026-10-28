@@ -1,7 +1,11 @@
 {
-  "extends": "@aws-amplify/typescript-config/tsconfig.svelte.json",
+  "extends": [
+    "@aws-amplify/typescript-config/tsconfig.svelte.json",
+    "$app/tsconfig"
+  ],
   "compilerOptions": {
-    "types": ["svelte", "node"]
+    "baseUrl": null,
+    "types": ["$app/types", "svelte", "node", "vite/client"]
   },
   "include": [
     "__mocks__",
