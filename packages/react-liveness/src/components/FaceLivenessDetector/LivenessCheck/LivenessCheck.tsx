@@ -18,8 +18,6 @@ import type {
   StreamDisplayText,
   ErrorDisplayText,
 } from '../displayText';
-import { defaultErrorDisplayText } from '../displayText';
-import { LandscapeErrorModal } from '../shared/LandscapeErrorModal';
 import { selectErrorState } from '../shared';
 import type { FaceLivenessDetectorComponents } from '../shared/DefaultStartScreenComponents';
 
@@ -70,69 +68,35 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
   const { cancelLivenessCheckText } = streamDisplayText;
 
   React.useLayoutEffect(() => {
-    if (isMobile) {
-      const sendLandscapeWarning = (isLandscapeMatched: boolean) => {
-        if (isLandscapeMatched) {
-          send({ type: 'MOBILE_LANDSCAPE_WARNING' });
-        }
-      };
-
-      // Get orientation: landscape media query
-      const landscapeMediaQuery = getLandscapeMediaQuery();
-
-      // Send warning based on initial orientation
-      sendLandscapeWarning(landscapeMediaQuery.matches);
-
-      // Listen for future orientation changes and send warning
-      landscapeMediaQuery.addEventListener('change', (e) => {
-        sendLandscapeWarning(e.matches);
-      });
-
-      // Remove matchMedia event listener
-      return () => {
-        landscapeMediaQuery.removeEventListener('change', (e) =>
-          sendLandscapeWarning(e.matches)
-        );
-      };
+    if (!isMobile) {
+      return;
     }
+
+    // screen.orientation is unsupported in Safari, so orientation is observed
+    // through a media query instead
+    const landscapeMediaQuery = getLandscapeMediaQuery();
+
+    const sendOrientation = (isLandscapeMatched: boolean) => {
+      send({
+        type: 'ORIENTATION_CHANGED',
+        data: { orientation: isLandscapeMatched ? 'landscape' : 'portrait' },
+      });
+    };
+
+    sendOrientation(landscapeMediaQuery.matches);
+
+    const onChange = (event: MediaQueryListEvent) => {
+      sendOrientation(event.matches);
+    };
+    landscapeMediaQuery.addEventListener('change', onChange);
+
+    return () => {
+      landscapeMediaQuery.removeEventListener('change', onChange);
+    };
   }, [isMobile, send]);
 
   const renderCheck = () => {
-    if (errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR) {
-      const displayText: Required<ErrorDisplayText> = {
-        ...defaultErrorDisplayText,
-        ...errorDisplayText,
-      };
-      const {
-        landscapeHeaderText,
-        portraitMessageText,
-        landscapeMessageText,
-        tryAgainText,
-      } = displayText;
-      return (
-        <Flex
-          backgroundColor="background.primary"
-          direction="column"
-          textAlign="center"
-          alignItems="center"
-          justifyContent="center"
-          position="absolute"
-          width="100%"
-        >
-          <LandscapeErrorModal
-            header={landscapeHeaderText}
-            portraitMessage={portraitMessageText}
-            landscapeMessage={landscapeMessageText}
-            tryAgainText={tryAgainText}
-            onRetry={() => {
-              send({
-                type: 'CANCEL',
-              });
-            }}
-          />
-        </Flex>
-      );
-    } else if (isPermissionDenied) {
+    if (isPermissionDenied) {
       return (
         <Flex
           backgroundColor="background.primary"
