@@ -53,7 +53,12 @@ export const getCustomFormFields = (
         // if this field is a known auth attribute that we have defaults for,
         // apply defaults to customOptions.
         const defaultOptions = defaultFormFieldOptions[fieldName];
-        const mergedOptions = { ...defaultOptions, ...customOptions };
+        const mergedOptions = {
+          ...defaultOptions,
+          ...(route === 'signIn' &&
+            fieldName === 'password' && { autocomplete: 'current-password' }),
+          ...customOptions,
+        };
 
         return { ...acc, [fieldName]: mergedOptions };
       } else {
