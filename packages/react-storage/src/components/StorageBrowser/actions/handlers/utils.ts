@@ -53,7 +53,7 @@ export const constructBucket = ({
 export const parseAccessGrantLocation = (
   location: AccessGrantLocation
 ): LocationData => {
-  const { permission, scope, type } = location;
+  const { accountId, permission, scope, type } = location;
   if (!scope.startsWith('s3://')) {
     throw new Error(`Invalid scope: ${scope}`);
   }
@@ -103,7 +103,7 @@ export const parseAccessGrantLocation = (
       throw new Error(`Invalid location permission: ${permission}`);
   }
 
-  return { bucket, id, permissions: permissions, prefix, type };
+  return { accountId, bucket, id, permissions: permissions, prefix, type };
 };
 
 const isSamePermissions = (

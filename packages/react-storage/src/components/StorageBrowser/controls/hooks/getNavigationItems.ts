@@ -12,7 +12,7 @@ export const getNavigationItems = ({
   location,
   onNavigate,
 }: GetNavigationItemsInput): NavigationProps['items'] => {
-  const { bucket, permissions, prefix = '', type } = location;
+  const { prefix = '' } = location;
   const destinationSubpaths: string[] = [];
 
   return destinationParts.map((part, index) => {
@@ -24,13 +24,8 @@ export const getNavigationItems = ({
 
     const destinationPath = `${destinationSubpaths.concat('').join('/')}`;
 
-    const destination = {
-      id: crypto.randomUUID(),
-      type,
-      permissions,
-      bucket,
-      prefix,
-    };
+    // spread `location` so every field (e.g. the owner `accountId`) is kept
+    const destination = { ...location, id: crypto.randomUUID(), prefix };
 
     return {
       name: part,

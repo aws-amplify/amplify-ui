@@ -151,6 +151,40 @@ describe('useGetActionInputCallback', () => {
     });
   });
 
+  it('prefers the location owner accountId over the adapter accountId', () => {
+    useCredentialsSpy.mockReturnValueOnce({
+      destroy: jest.fn(),
+      getCredentials,
+    });
+
+    useStoreSpy.mockReturnValueOnce([
+      // @ts-expect-error mocking out the entire store is unnecessary
+      { location: { current: undefined, key } },
+      jest.fn(),
+    ]);
+
+    const { result } = renderHook(() =>
+      useGetActionInputCallback({ accountId, customEndpoint, region })
+    );
+
+    const actionInput = result.current({
+      bucket: 'cross-account-bucket',
+      id: 'id',
+      permissions: ['get', 'list'],
+      prefix: 'myPrefix/',
+      type: 'PREFIX',
+      accountId: '111122223333',
+    });
+
+    expect(actionInput).toStrictEqual({
+      accountId: '111122223333',
+      customEndpoint,
+      bucket: 'cross-account-bucket',
+      credentials,
+      region,
+    });
+  });
+
   it('throws on call to `getActionInput` when current `location` is invalid', () => {
     useCredentialsSpy.mockReturnValueOnce({
       destroy: jest.fn(),

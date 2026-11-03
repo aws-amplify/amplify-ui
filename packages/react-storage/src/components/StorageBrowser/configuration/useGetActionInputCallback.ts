@@ -41,7 +41,10 @@ export function useGetActionInputCallback({
       const scope = `s3://${bucket}/${prefix}${type === 'OBJECT' ? '' : '*'}`;
 
       return {
-        accountId,
+        // Prefer the location's own owner account (S3 Access Grants
+        // cross-account sharing) so each S3 call sends the correct
+        // `expectedBucketOwner`; fall back to the adapter-wide account.
+        accountId: location.accountId ?? accountId,
         bucket,
         credentials: getCredentials({
           permissions,

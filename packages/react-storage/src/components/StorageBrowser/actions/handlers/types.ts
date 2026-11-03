@@ -3,6 +3,17 @@ import type { LocationCredentialsProvider } from '../../storage-internal';
 import type { TaskStatus } from '../../tasks';
 
 /**
+ * S3 Access Grants instance scope. Selects whether `listCallerAccessGrants` /
+ * `getDataAccess` resolve against the caller's own grants (`SELF`) or all
+ * grants the caller can assume cross-account (`ALL`).
+ *
+ * TODO(S3AG-preview): replace with the `InstanceScope` type imported
+ * from `../../storage-internal` once the `@aws-amplify/storage` release exports
+ * it, then delete this local definition.
+ */
+export type InstanceScope = 'SELF' | 'ALL';
+
+/**
  * `location` grant scope
  */
 export type LocationType = 'OBJECT' | 'PREFIX' | 'BUCKET';
@@ -40,6 +51,13 @@ export interface LocationData {
    * @see {@link LocationType}
    */
   type: LocationType;
+
+  /**
+   * AWS account id that owns this location's bucket, when it differs from the
+   * adapter-wide account (S3 Access Grants cross-account sharing). Used as the
+   * per-location `expectedBucketOwner`. Undefined for same-account locations.
+   */
+  accountId?: string;
 }
 
 export interface FolderData {
@@ -70,8 +88,9 @@ export interface FileItem extends TaskData {
   file: File;
 }
 
-export interface OptionalFileData
-  extends Partial<Omit<FileData, 'id' | 'key'>> {}
+export interface OptionalFileData extends Partial<
+  Omit<FileData, 'id' | 'key'>
+> {}
 
 export interface ActionInputConfig {
   accountId?: string;
@@ -79,6 +98,7 @@ export interface ActionInputConfig {
   credentials: LocationCredentialsProvider;
   customEndpoint?: string;
   region: string;
+  instanceScope?: InstanceScope;
 }
 
 interface ActionInput<T = any> {
