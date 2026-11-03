@@ -176,6 +176,8 @@ In the case where you are adding Storage Browser with an [Amplify backend config
 
 To use this authorization method, you first have to configure an IAM Identity Center and set up permission grants for your users and groups in S3 Access Grants. Then, you connect your application to Identity Center and configure your application to exchange an identity token from your external Identity Provider with one from Identity Center. Afterwards, you configure your application to provide the Identity Center token to Storage Browser when a user opens the page in your application to access your data in S3. To learn more, visit the [S3 documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-browser.html).
 
+By default, Storage Browser lists only the grants in the S3 Access Grants instance of the `accountId` you provide. To also list grants from S3 Access Grants instances shared with that account through AWS Resource Access Manager (RAM), set `instanceScope` to `'ALL'`. Each location then uses its own owning account as the expected bucket owner for S3 requests.
+
 <Example>
 <ExampleCode>
 ```ts
@@ -201,6 +203,9 @@ export const { StorageBrowser } = createStorageBrowser({
     // AWS `region` and `accountId` of the S3 Access Grants Instance.
     region: '',
     accountId: '',
+    // (optional) list grants from S3 Access Grants instances shared with
+    // `accountId` through AWS RAM. Defaults to 'SELF' (own instance only).
+    // instanceScope: 'ALL',
     // call `onAuthStateChange` when end user auth state changes
     // to clear sensitive data from the `StorageBrowser` state
     registerAuthListener: (onAuthStateChange) => {},
@@ -242,6 +247,9 @@ export const { StorageBrowser } = createStorageBrowser({
             id: 'XXXXXXX', // unique identifier
             type: 'PREFIX',
             permissions: ['delete', 'get', 'list', 'write'],
+            // (optional) account that owns this bucket, when it differs from
+            // the top-level `accountId`. Used as the expected bucket owner.
+            accountId: 'XXXXXXXXXXXX',
           }
         ]
       }

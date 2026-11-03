@@ -2,6 +2,7 @@ import type {
   GetLocationCredentials,
   GetLocationCredentialsInput,
 } from '../../credentials';
+import type { InstanceScope } from '../../actions';
 import type { CredentialsProvider } from '../../storage-internal';
 import { getDataAccess } from '../../storage-internal';
 import { toAccessGrantPermission } from '../permissionParsers';
@@ -11,13 +12,19 @@ interface CreateLocationCredentialsHandlerInput {
   credentialsProvider: CredentialsProvider;
   region: string;
   customEndpoint?: string;
+  instanceScope?: InstanceScope;
 }
 
 export const createLocationCredentialsHandler = (
   handlerInput: CreateLocationCredentialsHandlerInput
 ): GetLocationCredentials => {
-  const { accountId, region, credentialsProvider, customEndpoint } =
-    handlerInput;
+  const {
+    accountId,
+    region,
+    credentialsProvider,
+    customEndpoint,
+    instanceScope,
+  } = handlerInput;
 
   /**
    * Retrieves credentials for the specified scope & permission.
@@ -36,6 +43,7 @@ export const createLocationCredentialsHandler = (
       region,
       scope,
       customEndpoint,
+      instanceScope,
     });
   };
 };

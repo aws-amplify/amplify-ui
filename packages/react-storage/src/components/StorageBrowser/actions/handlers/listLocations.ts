@@ -27,11 +27,12 @@ export interface ListLocationsOutput {
 // used `Config` option of `CreateStorageBrowser` that do not require
 // `config` values as they are provided through higher-order functions
 // defined in the default and managed auth adapters
-export interface ListLocations
-  extends ListHandler<ListLocationsInput, ListLocationsOutput> {}
+export interface ListLocations extends ListHandler<
+  ListLocationsInput,
+  ListLocationsOutput
+> {}
 
-export interface ListLocationsHandlerOptions
-  extends ListHandlerOptions<ListLocationsExcludeOptions> {}
+export interface ListLocationsHandlerOptions extends ListHandlerOptions<ListLocationsExcludeOptions> {}
 
 export interface ListLocationsHandlerInput {
   options?: ListLocationsHandlerOptions;
@@ -40,12 +41,15 @@ export interface ListLocationsHandlerInput {
 
 export interface ListLocationsHandlerOutput extends ListLocationsOutput {}
 
-export interface ListLocationsHandler
-  extends ListHandler<ListLocationsHandlerInput, ListLocationsHandlerOutput> {}
+export interface ListLocationsHandler extends ListHandler<
+  ListLocationsHandlerInput,
+  ListLocationsHandlerOutput
+> {}
 
 export const listLocationsHandler: ListLocationsHandler = async (input) => {
   const { config, options } = input;
-  const { accountId, credentials, customEndpoint, region } = config;
+  const { accountId, credentials, customEndpoint, region, instanceScope } =
+    config;
   const { exclude, nextToken, pageSize = DEFAULT_PAGE_SIZE } = options ?? {};
 
   const fetchLocations = async (
@@ -63,6 +67,7 @@ export const listLocationsHandler: ListLocationsHandler = async (input) => {
       nextToken: locationsNextToken,
       pageSize: remainingPageSize,
       region,
+      instanceScope,
     });
 
     const parsedOutput = getFilteredLocations(output.locations, exclude);

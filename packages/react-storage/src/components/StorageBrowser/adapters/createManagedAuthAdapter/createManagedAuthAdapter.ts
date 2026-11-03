@@ -19,12 +19,14 @@ export const createManagedAuthAdapter = ({
   customEndpoint,
   region,
   registerAuthListener,
+  instanceScope,
 }: CreateManagedAuthAdapterInput): StorageBrowserAuthAdapter => {
   const config = {
     accountId,
     credentials: credentialsProvider,
     customEndpoint,
     region,
+    instanceScope,
   };
 
   const listLocations = ({ options }: ListLocationsInput = {}) =>
@@ -35,6 +37,7 @@ export const createManagedAuthAdapter = ({
     accountId,
     customEndpoint,
     region,
+    instanceScope,
   });
 
   return {

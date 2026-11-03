@@ -1,13 +1,19 @@
 import { createManagedAuthAdapter } from '../../../adapters/createManagedAuthAdapter/createManagedAuthAdapter';
 import { createLocationCredentialsHandler } from '../../../adapters/createManagedAuthAdapter/createLocationCredentialsHandler';
+import { listLocationsHandler } from '../../../actions';
 
 jest.mock(
   '../../../adapters/createManagedAuthAdapter/createLocationCredentialsHandler'
 );
+jest.mock('../../../actions', () => ({
+  ...jest.requireActual<object>('../../../actions'),
+  listLocationsHandler: jest.fn(),
+}));
 
 const mockCreateLocationCredentialsHandler = jest.mocked(
   createLocationCredentialsHandler
 );
+const mockListLocationsHandler = jest.mocked(listLocationsHandler);
 
 describe('createManagedAuthConfigAdapter', () => {
   const region = 'us-foo-2';
@@ -73,5 +79,43 @@ describe('createManagedAuthConfigAdapter', () => {
       credentialsProvider,
       customEndpoint,
     });
+  });
+
+  it('should thread instanceScope to the location credentials handler', () => {
+    createManagedAuthAdapter({
+      region,
+      accountId,
+      credentialsProvider,
+      customEndpoint,
+      registerAuthListener: mockRegisterAuthListener,
+      instanceScope: 'ALL',
+    });
+
+    expect(mockCreateLocationCredentialsHandler).toHaveBeenCalledWith(
+      expect.objectContaining({ instanceScope: 'ALL' })
+    );
+  });
+
+  it('should default instanceScope to undefined when not provided', () => {
+    const adapter = createManagedAuthAdapter({
+      region,
+      accountId,
+      credentialsProvider,
+      customEndpoint,
+      registerAuthListener: mockRegisterAuthListener,
+    });
+
+    // credentials handler receives instanceScope: undefined (no SELF default here)
+    expect(mockCreateLocationCredentialsHandler).toHaveBeenCalledWith(
+      expect.objectContaining({ instanceScope: undefined })
+    );
+
+    // and the list locations handler forwards the same undefined through config
+    adapter.listLocations({});
+    expect(mockListLocationsHandler).toHaveBeenCalledWith(
+      expect.objectContaining({
+        config: expect.objectContaining({ instanceScope: undefined }),
+      })
+    );
   });
 });
