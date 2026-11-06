@@ -24,6 +24,7 @@ export type {
   FileDataItem,
   FileItem,
   FolderData,
+  InstanceScope,
   ListHandler,
   ListHandlerInput,
   ListHandlerOptions,

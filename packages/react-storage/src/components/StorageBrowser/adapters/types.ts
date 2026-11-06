@@ -1,4 +1,4 @@
-import type { LocationType, ListLocations } from '../actions';
+import type { LocationType, ListLocations, InstanceScope } from '../actions';
 import type {
   GetLocationCredentials,
   CredentialsLocation,
@@ -22,6 +22,7 @@ export interface CreateManagedAuthAdapterInput {
   credentialsProvider: CredentialsProvider;
   registerAuthListener: RegisterAuthListener;
   customEndpoint?: string;
+  instanceScope?: InstanceScope;
 }
 
 export interface StorageBrowserAuthAdapter {

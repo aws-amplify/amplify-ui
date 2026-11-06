@@ -74,7 +74,38 @@ describe('listLocationsHandler', () => {
       nextToken: input.options?.nextToken,
       pageSize: input.options?.pageSize,
       region: input.config.region,
+      instanceScope: undefined,
     });
+  });
+
+  it('should forward instanceScope to listCallerAccessGrants', async () => {
+    mockListCallerAccessGrants.mockResolvedValueOnce({
+      locations: [],
+      nextToken: undefined,
+    });
+
+    await listLocationsHandler({
+      ...input,
+      config: { ...input.config, instanceScope: 'ALL' },
+    });
+
+    expect(mockListCallerAccessGrants).toHaveBeenCalledWith(
+      expect.objectContaining({ instanceScope: 'ALL' })
+    );
+  });
+
+  it('should forward instanceScope as undefined when omitted (default)', async () => {
+    mockListCallerAccessGrants.mockResolvedValueOnce({
+      locations: [],
+      nextToken: undefined,
+    });
+
+    // input.config has no instanceScope; no SELF default is applied here
+    await listLocationsHandler(input);
+
+    expect(mockListCallerAccessGrants).toHaveBeenCalledWith(
+      expect.objectContaining({ instanceScope: undefined })
+    );
   });
 
   it('should fetch multiple pages of results successfully', async () => {
