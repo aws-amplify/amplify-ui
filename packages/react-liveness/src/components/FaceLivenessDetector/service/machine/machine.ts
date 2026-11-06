@@ -29,6 +29,7 @@ import type {
   StreamActorCallback,
   VideoAssociatedParams,
   DeviceInfo,
+  DeviceOrientation,
 } from '../types';
 import { FaceMatchState, LivenessErrorState } from '../types';
 import {
@@ -200,6 +201,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       faceMatchStateBeforeStart: undefined,
       isFaceFarEnoughBeforeRecording: undefined,
       isRecordingStopped: false,
+      currentOrientation: undefined,
+      recordingOrientation: undefined,
     },
     on: {
       CANCEL: 'userCancel',
@@ -220,9 +223,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         actions: 'updateErrorStateForConnectionTimeout',
       },
       RUNTIME_ERROR: { target: 'error', actions: 'updateErrorStateForRuntime' },
-      MOBILE_LANDSCAPE_WARNING: {
-        target: 'mobileLandscapeWarning',
-        actions: 'updateErrorStateForServer',
+      // tracked at all times so the recording state can capture the
+      // orientation the check actually started in
+      ORIENTATION_CHANGED: {
+        internal: true,
+        actions: 'updateCurrentOrientation',
       },
     },
     states: {
@@ -335,6 +340,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       recording: {
         entry: [
           'clearErrorState',
+          'captureRecordingOrientation',
           'startRecording',
           'sendTimeoutAfterOvalDrawingDelay',
         ],
@@ -344,6 +350,28 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             internal: true,
             actions: ['updateOvalScaleFactor', 'redrawLivenessOval'],
           },
+          // Rotating mid-check ends the attempt. The challenge oval is
+          // computed once, in frame pixels, against the frame the stream
+          // opened with, so frames captured after a rotation cannot be
+          // evaluated against it. Failing here is retryable and says why,
+          // which beats uploading frames that no longer match the oval.
+          ORIENTATION_CHANGED: [
+            {
+              internal: true,
+              cond: 'isOrientationUnchangedSinceRecording',
+              actions: 'updateCurrentOrientation',
+            },
+            {
+              target: '#livenessMachine.retryableTimeout',
+              actions: [
+                'updateCurrentOrientation',
+                'updateErrorStateForDeviceRotation',
+                'cancelOvalDrawingTimeout',
+                'cancelOvalMatchTimeout',
+                'cancelRecordingTimeout',
+              ],
+            },
+          ],
         },
         states: {
           ovalDrawing: {
@@ -492,10 +520,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         entry: 'callUserPermissionDeniedCallback',
         on: { RETRY_CAMERA_CHECK: 'initCamera' },
       },
-      mobileLandscapeWarning: {
-        entry: 'callMobileLandscapeWarningCallback',
-        always: { target: 'error' },
-      },
       timeout: {
         entry: ['cleanUpResources', 'callUserTimeoutCallback', 'freezeStream'],
       },
@@ -605,6 +629,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             type: 'sessionInfo',
             data: createSessionStartEvent({
               parsedSessionInformation: parsedSessionInformation!,
+              // Unresolved, and deliberately unchanged here: these dims
+              // normalize the bounding boxes Rekognition evaluates, but the
+              // box coordinates come from face detection on the video element
+              // and are in intrinsic frame space, and the stream was opened
+              // declaring VideoWidth/VideoHeight from that same intrinsic
+              // frame. On a device where the two disagree the boxes are
+              // normalized by a frame size the service was never told about.
+              // Settling it needs a real session: log getSettings() beside
+              // videoWidth/videoHeight and compare the returned
+              // OvalParameters. Changing it blind would alter what the service
+              // scores.
               ...getTrackDimensions(videoMediaStream!),
               challengeId: challengeId!,
               ovalAssociatedParams: ovalAssociatedParams!,
@@ -799,6 +834,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       ),
       cancelOvalMatchTimeout: actions.cancel('ovalMatchTimeout'),
 
+      // orientation
+      updateCurrentOrientation: assign({
+        currentOrientation: (_, event) =>
+          event.data?.orientation as DeviceOrientation,
+      }),
+      captureRecordingOrientation: assign({
+        recordingOrientation: (context) => context.currentOrientation,
+      }),
+      updateErrorStateForDeviceRotation: assign({
+        errorState: (_) => LivenessErrorState.DEVICE_ROTATION_ERROR,
+        errorMessage: (_) =>
+          'Device orientation changed after recording started.',
+      }),
+
       // callbacks
       callUserPermissionDeniedCallback: assign({
         errorState: (context, event) => {
@@ -831,9 +880,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           return errorState;
         },
-      }),
-      callMobileLandscapeWarningCallback: assign({
-        errorState: () => LivenessErrorState.MOBILE_LANDSCAPE_ERROR,
       }),
       getSelectedDeviceInfo: (context) => getSelectedDeviceInfo(context),
       callUserCancelCallback: (context) => {
@@ -884,7 +930,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           closeCode = WS_CLOSURE_CODE.RUNTIME_ERROR;
         } else if (
           context.errorState === LivenessErrorState.FACE_DISTANCE_ERROR ||
-          context.errorState === LivenessErrorState.MULTIPLE_FACES_ERROR
+          context.errorState === LivenessErrorState.MULTIPLE_FACES_ERROR ||
+          context.errorState === LivenessErrorState.DEVICE_ROTATION_ERROR
         ) {
           closeCode = WS_CLOSURE_CODE.USER_ERROR_DURING_CONNECTION;
         } else if (context.errorState === undefined) {
@@ -956,6 +1003,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasParsedSessionInfo: (context) => {
         return context.parsedSessionInformation !== undefined;
+      },
+      isOrientationUnchangedSinceRecording: (context, event) => {
+        return event.data?.orientation === context.recordingOrientation;
       },
       hasDOMAndCameraDetails: (context) => {
         return (
@@ -1149,19 +1199,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           parsedSessionInformation,
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
-        const { videoEl, videoMediaStream } = context.videoAssociatedParams!;
+        const { videoEl } = context.videoAssociatedParams!;
         const { faceDetector } = context.ovalAssociatedParams!;
 
-        const { width, height } = videoMediaStream!
-          .getTracks()[0]
-          .getSettings();
+        // Intrinsic frame dims, never track.getSettings(): Android/Firefox and
+        // iOS report the getUserMedia width/height flipped by orientation, and
+        // a flipped pair takes the other branch of the 3:4 recompute below,
+        // which scales the distance threshold by the wrong oval width.
+        const { videoWidth: width, videoHeight: height } = videoEl!;
 
         const challengeConfig =
           parsedSessionInformation!.Challenge!.ChallengeConfig;
 
         const ovalDetails = getStaticLivenessOvalDetails({
-          width: width!,
-          height: height!,
+          width,
+          height,
           ovalHeightWidthRatio: challengeConfig!.OvalHeightWidthRatio!,
         });
 
@@ -1226,7 +1278,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // generate oval details from initialFace and video dimensions
         const ovalDetails = getOvalDetailsFromSessionInformation({
           parsedSessionInformation: parsedSessionInformation!,
-          videoWidth: videoEl!.width,
+          videoWidth: videoEl!.videoWidth,
         });
 
         const challengeConfig =
@@ -1397,6 +1449,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         livenessStreamProvider!.dispatchStreamEvent({
           type: 'sessionInfo',
           data: createSessionEndEvent({
+            // same unresolved track-vs-intrinsic question as
+            // createSessionStartEvent above
             ...getTrackDimensions(videoMediaStream!),
             parsedSessionInformation: parsedSessionInformation!,
             challengeId: challengeId!,

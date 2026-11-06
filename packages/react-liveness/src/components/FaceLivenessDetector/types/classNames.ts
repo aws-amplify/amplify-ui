@@ -17,8 +17,6 @@ export enum LivenessClassNames {
   InstructionOverlay = 'amplify-liveness-instruction-overlay',
   Hint = 'amplify-liveness-hint',
   HintText = 'amplify-liveness-hint__text',
-  LandscapeErrorModal = 'amplify-liveness-landscape-error-modal',
-  LandscapeErrorModalButton = 'amplify-liveness-landscape-error-modal__button',
   LandscapeErrorModalHeader = 'amplify-liveness-landscape-error-modal__header',
   Loader = 'amplify-liveness-loader',
   MatchIndicator = 'amplify-liveness-match-indicator',

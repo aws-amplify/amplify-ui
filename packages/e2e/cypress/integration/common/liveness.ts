@@ -11,6 +11,87 @@ let validCameraId: string | null = null;
 // the below value can be increased as needed
 const LIVENESS_TIMEOUT = 60000;
 
+const MOBILE_USER_AGENT =
+  'Mozilla/5.0 (Linux; Android 12; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36';
+
+type OrientationName = 'landscape' | 'portrait';
+
+/**
+ * The component reads orientation through `matchMedia`, because
+ * `screen.orientation` is unsupported in Safari. `cy.viewport` resizes the
+ * frame but does not re-evaluate media queries, so the query is stubbed with
+ * one whose listeners the test can fire to simulate a rotation.
+ */
+const stubOrientation = (win: Window, initial: OrientationName) => {
+  const listeners = new Set<(event: MediaQueryListEvent) => void>();
+  let current = initial;
+
+  const isOrientationQuery = (query: string) => query.includes('orientation:');
+
+  const matches = (query: string) =>
+    isOrientationQuery(query) ? query.includes(current) : false;
+
+  const nativeMatchMedia = win.matchMedia.bind(win);
+
+  const stub = (query: string): MediaQueryList => {
+    if (!isOrientationQuery(query)) {
+      return nativeMatchMedia(query);
+    }
+
+    const list = {
+      media: query,
+      get matches() {
+        return matches(query);
+      },
+      addEventListener: (_: string, listener: any) => listeners.add(listener),
+      removeEventListener: (_: string, listener: any) =>
+        listeners.delete(listener),
+      addListener: (listener: any) => listeners.add(listener),
+      removeListener: (listener: any) => listeners.delete(listener),
+      onchange: null,
+      dispatchEvent: () => true,
+    };
+
+    return list as unknown as MediaQueryList;
+  };
+
+  (win as any).matchMedia = stub;
+  (win as any).__livenessRotate = (next: OrientationName) => {
+    current = next;
+    listeners.forEach((listener) => {
+      listener({ matches: next === 'landscape' } as MediaQueryListEvent);
+    });
+  };
+};
+
+Given(
+  "I'm running the example {string} on a mobile device in {string}",
+  (example: string, orientation: OrientationName) => {
+    cy.visit(example, {
+      onBeforeLoad(win) {
+        Object.defineProperty(win.navigator, 'userAgent', {
+          value: MOBILE_USER_AGENT,
+          configurable: true,
+        });
+        stubOrientation(win, orientation);
+      },
+    });
+  }
+);
+
+Given(
+  'I set the viewport to {int} by {int}',
+  (width: number, height: number) => {
+    cy.viewport(width, height);
+  }
+);
+
+When('I rotate the device to {string}', (orientation: OrientationName) => {
+  cy.window().then((win) => {
+    (win as any).__livenessRotate(orientation);
+  });
+});
+
 Then('I see the {string} timeout error', (message: string) => {
   cy.findByRole('document')
     .contains(new RegExp(escapeRegExp(message), 'i'), {
