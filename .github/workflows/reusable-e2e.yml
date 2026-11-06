@@ -107,7 +107,7 @@ jobs:
           persist-credentials: false
 
       - name: Next.js Cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ github.workspace }}/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('yarn.lock') }}
@@ -123,7 +123,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -132,7 +132,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore node_modules cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: restore-cache
         with:
           path: |
@@ -143,7 +143,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
@@ -151,7 +151,7 @@ jobs:
 
       - name: Restore ${{ matrix.package }}/dist cache
         id: restore-package-cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
@@ -415,7 +415,7 @@ jobs:
 
       - name: Restore CocoaPods cache
         id: restore-cocoapods-cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ./examples/react-native/ios/Pods
           key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
@@ -673,7 +673,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -682,7 +682,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore Puppeteer runner cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: restore-puppeteer-cache
         with:
           path: ~/.cache/puppeteer
@@ -691,7 +691,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore node_modules cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: restore-cache
         with:
           path: |
