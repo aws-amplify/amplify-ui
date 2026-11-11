@@ -173,7 +173,7 @@ describe('useGetActionInputCallback', () => {
       permissions: ['get', 'list'],
       prefix: 'myPrefix/',
       type: 'PREFIX',
-      accountId: '111122223333',
+      ownerAccountId: '111122223333',
     });
 
     expect(actionInput).toStrictEqual({
