@@ -54,10 +54,11 @@ export interface LocationData {
 
   /**
    * AWS account id that owns this location's bucket, when it differs from the
-   * adapter-wide account (S3 Access Grants cross-account sharing). Used as the
-   * per-location `expectedBucketOwner`. Undefined for same-account locations.
+   * adapter-wide `accountId` (S3 Access Grants cross-account sharing). Used as
+   * the per-location `expectedBucketOwner`. Undefined for same-account
+   * locations.
    */
-  accountId?: string;
+  ownerAccountId?: string;
 }
 
 export interface FolderData {

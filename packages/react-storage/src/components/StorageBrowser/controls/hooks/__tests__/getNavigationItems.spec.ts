@@ -72,8 +72,11 @@ describe('getNavigationItems', () => {
     );
   });
 
-  it('keeps the location owner accountId on each destination', () => {
-    const crossAccountLocation = { ...location, accountId: '111122223333' };
+  it('keeps the location ownerAccountId on each destination', () => {
+    const crossAccountLocation = {
+      ...location,
+      ownerAccountId: '111122223333',
+    };
     const [item1] = getNavigationItems({
       destinationParts,
       location: crossAccountLocation,

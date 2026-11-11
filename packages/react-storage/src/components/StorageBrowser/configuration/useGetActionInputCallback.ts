@@ -44,7 +44,7 @@ export function useGetActionInputCallback({
         // Prefer the location's own owner account (S3 Access Grants
         // cross-account sharing) so each S3 call sends the correct
         // `expectedBucketOwner`; fall back to the adapter-wide account.
-        accountId: location.accountId ?? accountId,
+        accountId: location.ownerAccountId ?? accountId,
         bucket,
         credentials: getCredentials({
           permissions,
