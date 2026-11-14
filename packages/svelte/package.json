@@ -46,7 +46,7 @@
     "@eslint/compat": "^1.2.5",
     "@eslint/js": "^9.22.0",
     "@sveltejs/adapter-auto": "^8.0.0",
-    "@sveltejs/kit": "^3.1.0",
+    "@sveltejs/kit": "^3.1.1",
     "@sveltejs/load-config": "^0.2.2",
     "@sveltejs/package": "^3.0.1",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
