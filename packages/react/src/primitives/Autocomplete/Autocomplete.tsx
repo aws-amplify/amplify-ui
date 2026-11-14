@@ -96,14 +96,6 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
       }
     };
 
-    // This is required. Mousedown event will fire a blur event by default
-    // and so the menu will close before the click event on an option gets a chance to fire
-    const handleOnMouseDown: React.MouseEventHandler<HTMLLIElement> = (
-      event
-    ) => {
-      event.preventDefault();
-    };
-
     const handleOnMouseMove: React.MouseEventHandler<HTMLLIElement> = () => {
       setActiveOption(option);
     };
@@ -117,7 +109,6 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
         id={optionId}
         key={optionId}
         onClick={handleOnClick}
-        onMouseDown={handleOnMouseDown}
         onMouseMove={handleOnMouseMove}
         {...rest}
       >
@@ -131,6 +122,15 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
       </AutocompleteOption>
     );
   });
+
+  // This is required. Mousedown event will fire a blur event by default
+  // and so the menu will close before the click event on an option, or on
+  // an element in the menu header or footer, gets a chance to fire
+  const handleOnMenuMouseDown: React.MouseEventHandler<HTMLDivElement> = (
+    event
+  ) => {
+    event.preventDefault();
+  };
 
   return (
     <View
@@ -156,6 +156,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
           id={menuId}
           isLoading={isLoading}
           listboxId={listboxId}
+          onMouseDown={handleOnMenuMouseDown}
           {...menuSlots}
         >
           {Options}
