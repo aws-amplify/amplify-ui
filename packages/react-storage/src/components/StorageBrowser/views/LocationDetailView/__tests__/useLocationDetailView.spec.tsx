@@ -261,6 +261,65 @@ describe('useLocationDetailView', () => {
     expect(result.current.pageItems).toEqual(mockItems.slice(0, 3));
   });
 
+  describe('hasNextPage', () => {
+    // 4 items with a page size of 3 leaves one item on a second page
+    const items = mockItems.slice(0, EXPECTED_PAGE_SIZE + 1);
+
+    const mockListValue = (value: {
+      items: LocationItemData[];
+      nextToken: string | undefined;
+    }) =>
+      mockUseList.mockReturnValue([
+        { value, message: '', hasError: false, isLoading: false },
+        mockHandleList,
+      ]);
+
+    it('is true when there is a nextToken', () => {
+      mockListValue({
+        items: items.slice(0, EXPECTED_PAGE_SIZE),
+        nextToken: 'token',
+      });
+
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: EXPECTED_PAGE_SIZE })
+      );
+
+      expect(result.current.hasNextPage).toBe(true);
+    });
+
+    it('is true when loaded items extend past the current page without a nextToken', () => {
+      mockListValue({ items, nextToken: undefined });
+
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: EXPECTED_PAGE_SIZE })
+      );
+
+      expect(result.current.page).toBe(1);
+      expect(result.current.hasNextPage).toBe(true);
+
+      act(() => {
+        result.current.onPaginate(2);
+      });
+
+      expect(result.current.page).toBe(2);
+      expect(result.current.pageItems).toEqual(items.slice(EXPECTED_PAGE_SIZE));
+      expect(result.current.hasNextPage).toBe(false);
+    });
+
+    it('is false when all items fit on the current page and there is no nextToken', () => {
+      mockListValue({
+        items: items.slice(0, EXPECTED_PAGE_SIZE),
+        nextToken: undefined,
+      });
+
+      const { result } = renderHook(() =>
+        useLocationDetailView({ pageSize: EXPECTED_PAGE_SIZE })
+      );
+
+      expect(result.current.hasNextPage).toBe(false);
+    });
+  });
+
   it('should handle refreshing location data', () => {
     const mockListState = {
       value: { items: [], nextToken: 'token123' },
