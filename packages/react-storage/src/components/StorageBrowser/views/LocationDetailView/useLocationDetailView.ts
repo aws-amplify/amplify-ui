@@ -109,6 +109,12 @@ export const useLocationDetailView = (
     pageSize: listOptions.pageSize,
   });
 
+  // Loaded items can extend past the current page without a `nextToken`, e.g.
+  // when the first request over-fetches `pageSize + 1` items and no folder
+  // object is filtered out of the result
+  const hasNextPage =
+    !!nextToken || currentPage * listOptions.pageSize < items.length;
+
   const onSearch = (query: string, includeSubfolders?: boolean) => {
     if (hasInvalidPrefix) return;
     const searchOptions = {
@@ -242,7 +248,7 @@ export const useLocationDetailView = (
             icon,
             isDisabled: isFunction(disable)
               ? disable(dataItems)
-              : disable ?? false,
+              : (disable ?? false),
             isHidden: isFunction(hide) ? hide(permissions) : hide,
             label,
           };
@@ -263,7 +269,7 @@ export const useLocationDetailView = (
     fileDataItems,
     hasError,
     hasDownloadError: task?.status === 'FAILED',
-    hasNextPage: !!nextToken,
+    hasNextPage,
     highestPageVisited,
     message,
     downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),
