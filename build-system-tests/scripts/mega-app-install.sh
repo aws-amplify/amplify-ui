@@ -106,12 +106,12 @@ fi
 
 DEV_DEPENDENCIES=""
 if [[ "$FRAMEWORK" == 'vue' && "$BUILD_TOOL" == 'vue-cli' ]]; then
-    # Vue CLI 5 scaffolds typescript ~4.5.5, but @babel/types 7.29.15 / 8.1.3 ship
-    # `infer ... extends` syntax (TS >= 4.7) in typings still served to TS >= 4.1,
-    # so `vue-cli-service build` fails with TS1005 parse errors (skipLibCheck does not help).
-    # TODO: remove once @babel/types fixes its typesVersions.
-    # See https://github.com/babel/babel/pull/18670
-    DEV_DEPENDENCIES="typescript@~4.9.5"
+    # Vue CLI 5 is in maintenance mode and still scaffolds typescript ~4.5.5 (2021).
+    # Build the mega app with a current TypeScript, matching the version this repo uses,
+    # instead of testing against that stale default. TypeScript 4.5 can no longer parse
+    # typings in current dependencies, e.g. @babel/types >= 7.29.15 uses TS 4.7+ syntax
+    # (https://github.com/babel/babel/pull/18670).
+    DEV_DEPENDENCIES="typescript@~5.9.3"
     echo "DEV_DEPENDENCIES=$DEV_DEPENDENCIES"
 fi
 
