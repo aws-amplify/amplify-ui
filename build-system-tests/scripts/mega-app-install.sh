@@ -104,6 +104,17 @@ elif [ "$FRAMEWORK" == 'angular' ]; then
     echo "DEPENDENCIES=$DEPENDENCIES"
 fi
 
+DEV_DEPENDENCIES=""
+if [[ "$FRAMEWORK" == 'vue' && "$BUILD_TOOL" == 'vue-cli' ]]; then
+    # Vue CLI 5 scaffolds typescript ~4.5.5, but @babel/types 7.29.15 / 8.1.3 ship
+    # `infer ... extends` syntax (TS >= 4.7) in typings still served to TS >= 4.1,
+    # so `vue-cli-service build` fails with TS1005 parse errors (skipLibCheck does not help).
+    # TODO: remove once @babel/types fixes its typesVersions.
+    # See https://github.com/babel/babel/pull/18670
+    DEV_DEPENDENCIES="typescript@~4.9.5"
+    echo "DEV_DEPENDENCIES=$DEV_DEPENDENCIES"
+fi
+
 if [ "$PKG_MANAGER" == 'yarn' ]; then
     echo "yarn version"
     yarn -v
@@ -113,6 +124,10 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
     yarn -v
     echo "yarn add $DEPENDENCIES"
     yarn add $DEPENDENCIES
+    if [ -n "$DEV_DEPENDENCIES" ]; then
+        echo "yarn add -D $DEV_DEPENDENCIES"
+        yarn add -D $DEV_DEPENDENCIES
+    fi
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         # async-storage v3.0.0+ requires Gradle 7.6.3+, pin to 2.x for compatibility
@@ -147,6 +162,9 @@ else
         fi
     else
         install_dependencies_with_retries npm "$DEPENDENCIES"
+        if [ -n "$DEV_DEPENDENCIES" ]; then
+            install_dependencies_with_retries npm "--save-dev $DEV_DEPENDENCIES"
+        fi
     fi
 fi
 
