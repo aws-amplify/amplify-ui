@@ -9474,10 +9474,10 @@
   resolved "https://registry.yarnpkg.com/@sveltejs/adapter-auto/-/adapter-auto-8.0.0.tgz#a45a927827ed80f45043cf482963e10a3430ba60"
   integrity sha512-CKOwUS865xfoZn3CpM868slPfitsQ4vmxAR/yOfTIguAwStgkhjhzV0zEhmkzPalH338LJ9XnQX9vfQeY7220A==
 
-"@sveltejs/adapter-static@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-static/-/adapter-static-4.0.0.tgz#a9995c6c43c1bb519f13aa2b0c8556a106b7b668"
-  integrity sha512-aF1J23R1ebKqUxQ4/qLr/Lxu63NFmLAtg8UZl3HFLxaoA1D/nhTVGcD9lTqx65iUbjNR2iOL0TgOxSX82x6Paw==
+"@sveltejs/adapter-static@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-static/-/adapter-static-4.0.1.tgz#1e0db2d52d22881a0d64252345766f1c0bf91a87"
+  integrity sha512-svOU1OcBiJ9Kn1cdxHDmJIsBy1/iQe9STPvUFkO2/iinxPFS7r8fc9TiCaWWUgbrE+7ox6Bt4MURv3RPi7sunQ==
 
 "@sveltejs/kit@^3.1.1":
   version "3.1.1"
