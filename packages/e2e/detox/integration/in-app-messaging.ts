@@ -1,5 +1,9 @@
-import { Then, When } from '@cucumber/cucumber';
+import { Given, Then, When } from '@cucumber/cucumber';
 import { by, element, expect } from 'detox';
+
+// The web e2e tests stub Amazon Pinpoint network requests in the browser.
+// Detox has no equivalent network stubbing here, so this step is a no-op.
+Given('Amazon Pinpoint requests are stubbed', () => {});
 
 // timeout for the banner to display, to prevent flaky tests
 const POPUP_DISPLAY_TIMEOUT = 5000;

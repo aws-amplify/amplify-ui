@@ -25,13 +25,36 @@ When('I toggle {string} checkbox', (checkboxName: string) => {
   cy.findByRole('checkbox', { name: checkboxName, timeout: 5000 }).click();
 });
 
-When('I wait for pinpoint messages to sync', () => {
-  const analyticsCampaignRegion = 'us-east-1';
-  cy.intercept({
-    method: 'GET',
-    url: `https://pinpoint.${analyticsCampaignRegion}.amazonaws.com/**`,
-  }).as('syncPinpointMessages');
-  cy.wait('@syncPinpointMessages');
+Given('Amazon Pinpoint requests are stubbed', () => {
+  // Amazon Pinpoint reached end of support on October 30, 2026, and rejects every
+  // request. The In-App Messaging library still calls it in the background (for
+  // example to record message display and dismiss events), so return minimal
+  // successful responses to keep these tests independent of the retired service.
+  const pinpointUrl = 'https://pinpoint.*.amazonaws.com/v1/apps/*';
+  // Catch-all so no request reaches Pinpoint. Cypress checks the most recently
+  // defined intercept first, so the specific stubs below take precedence.
+  cy.intercept('https://pinpoint.*.amazonaws.com/**', {
+    statusCode: 200,
+    body: {},
+  });
+  cy.intercept(
+    { method: 'POST', url: `${pinpointUrl}/events` },
+    {
+      statusCode: 200,
+      body: { Results: {} },
+    }
+  );
+  cy.intercept(
+    { method: 'PUT', url: `${pinpointUrl}/endpoints/*` },
+    {
+      statusCode: 202,
+      body: { Message: 'Accepted', RequestID: 'stubbed' },
+    }
+  );
+  cy.intercept(
+    { method: 'GET', url: `${pinpointUrl}/endpoints/*/inappmessages` },
+    { statusCode: 200, body: { InAppMessageCampaigns: [] } }
+  );
 });
 
 Then('the banner has an image', () => {
