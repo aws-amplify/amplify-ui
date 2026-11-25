@@ -3,7 +3,8 @@ Feature: In-App Messaging demo page to show banners with various configurations
   Testing In-App Messaging demo page to show banners with various configurations.
 
   Background:
-    Given I'm running the example "ui/components/in-app-messaging/demo"
+    Given I ignore Amazon Pinpoint end of support errors
+    And I'm running the example "ui/components/in-app-messaging/demo"
     Then I wait for 2000 ms
 
   @react @react-native
@@ -80,7 +81,9 @@ Feature: In-App Messaging demo page to show banners with various configurations
     Then I see a "top" banner dialog
     Then the banner has an image
 
-  @react
+  # Amazon Pinpoint reached end of support on October 30, 2026, so campaign
+  # messages can no longer be synced. Skipped until these scenarios are reworked.
+  @todo-react
   Scenario: Verify that top banner is shown on TOP_BANNER analytic event
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
@@ -90,7 +93,9 @@ Feature: In-App Messaging demo page to show banners with various configurations
     Then I click the "Display Demo Message" button
     Then I see a "top" banner dialog
 
-  @react
+  # Amazon Pinpoint reached end of support on October 30, 2026, so campaign
+  # messages can no longer be synced. Skipped until these scenarios are reworked.
+  @todo-react
   Scenario: Verify that bottom banner is shown on BOTTOM_BANNER analytic event
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
@@ -100,7 +105,9 @@ Feature: In-App Messaging demo page to show banners with various configurations
     Then I click the "Display Demo Message" button
     Then I see a "bottom" banner dialog
 
-  @react
+  # Amazon Pinpoint reached end of support on October 30, 2026, so campaign
+  # messages can no longer be synced. Skipped until these scenarios are reworked.
+  @todo-react
   Scenario: Verify that middle banner is shown on MIDDLE_BANNER analytic event
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
@@ -110,7 +117,9 @@ Feature: In-App Messaging demo page to show banners with various configurations
     Then I click the "Display Demo Message" button
     Then I see a "middle" banner dialog
 
-  @react
+  # Amazon Pinpoint reached end of support on October 30, 2026, so campaign
+  # messages can no longer be synced. Skipped until these scenarios are reworked.
+  @todo-react
   Scenario: Verify that modal banner is shown on MODAL analytic event
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync
@@ -120,7 +129,9 @@ Feature: In-App Messaging demo page to show banners with various configurations
     Then I click the "Display Demo Message" button
     Then I see a "modal" dialog
 
-  @react
+  # Amazon Pinpoint reached end of support on October 30, 2026, so campaign
+  # messages can no longer be synced. Skipped until these scenarios are reworked.
+  @todo-react
   Scenario: Verify that fullscreen banner is shown on FULL_SCREEN analytic event
     When I toggle "Use Analytic events" checkbox
     Then I wait for pinpoint messages to sync

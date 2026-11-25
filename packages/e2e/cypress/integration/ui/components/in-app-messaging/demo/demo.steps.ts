@@ -25,6 +25,17 @@ When('I toggle {string} checkbox', (checkboxName: string) => {
   cy.findByRole('checkbox', { name: checkboxName, timeout: 5000 }).click();
 });
 
+Given('I ignore Amazon Pinpoint end of support errors', () => {
+  // Amazon Pinpoint reached end of support on October 30, 2026, and now rejects
+  // the demo app's background requests with a Forbidden error. Ignore only that
+  // error so the scenarios that display local demo messages keep running.
+  cy.on('uncaught:exception', (error) => {
+    if (error.message.includes('AWS ended support for Amazon Pinpoint')) {
+      return false;
+    }
+  });
+});
+
 When('I wait for pinpoint messages to sync', () => {
   const analyticsCampaignRegion = 'us-east-1';
   cy.intercept({
