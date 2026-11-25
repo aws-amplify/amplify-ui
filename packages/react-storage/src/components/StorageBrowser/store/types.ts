@@ -4,8 +4,10 @@ import type { LocationData, LocationType } from '../actions';
 /**
  * @see {@link LocationData}
  */
-export interface LocationValue
-  extends Pick<LocationData, 'bucket' | 'permissions' | 'prefix'> {
+export interface LocationValue extends Pick<
+  LocationData,
+  'bucket' | 'permissions' | 'prefix'
+> {
   /**
    * @see {@link LocationData.id} defaults to auto-generated uuid
    */
@@ -30,6 +32,11 @@ export interface LocationValue
    * @see {@link LocationType}
    */
   type?: LocationType;
+
+  /**
+   * @see {@link LocationData.ownerAccountId}
+   */
+  ownerAccountId?: LocationData['ownerAccountId'];
 }
 
 export interface StorageBrowserValue {
@@ -37,7 +44,11 @@ export interface StorageBrowserValue {
   location?: LocationValue;
 }
 
-export interface LocationEventValue extends Required<LocationValue> {}
+// `ownerAccountId` stays optional: only cross-account capable sources set it
+export interface LocationEventValue
+  extends
+    Required<Omit<LocationValue, 'ownerAccountId'>>,
+    Pick<LocationValue, 'ownerAccountId'> {}
 
 export interface StorageBrowserEventValue {
   // `undefined` on no `actionType` selected

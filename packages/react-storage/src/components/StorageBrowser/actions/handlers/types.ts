@@ -1,17 +1,15 @@
 import type { AllFileTypes } from '../../createStorageBrowser/types';
-import type { LocationCredentialsProvider } from '../../storage-internal';
+import type {
+  InstanceScope,
+  LocationCredentialsProvider,
+} from '../../storage-internal';
 import type { TaskStatus } from '../../tasks';
 
 /**
- * S3 Access Grants instance scope. Selects whether `listCallerAccessGrants` /
- * `getDataAccess` resolve against the caller's own grants (`SELF`) or all
- * grants the caller can assume cross-account (`ALL`).
- *
- * TODO(S3AG-preview): replace with the `InstanceScope` type imported
- * from `../../storage-internal` once the `@aws-amplify/storage` release exports
- * it, then delete this local definition.
+ * S3 Access Grants instance scope: the caller's own instance (`SELF`, the
+ * default) or also instances shared with it through AWS RAM (`ALL`).
  */
-export type InstanceScope = 'SELF' | 'ALL';
+export type { InstanceScope };
 
 /**
  * `location` grant scope
@@ -53,10 +51,11 @@ export interface LocationData {
   type: LocationType;
 
   /**
-   * AWS account id that owns this location's bucket, when it differs from the
-   * adapter-wide `accountId` (S3 Access Grants cross-account sharing). Used as
-   * the per-location `expectedBucketOwner`. Undefined for same-account
-   * locations.
+   * Account that owns the S3 Access Grants instance the grant came from. Used
+   * as the per-location `expectedBucketOwner`, on the basis that the instance
+   * owner owns the bucket. Set for every managed-auth location with a
+   * parseable instance ARN, including same-account ones. Falls back to the
+   * adapter-wide `accountId` when unset.
    */
   ownerAccountId?: string;
 }

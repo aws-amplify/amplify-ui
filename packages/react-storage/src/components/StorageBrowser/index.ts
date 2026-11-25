@@ -11,6 +11,7 @@ export type {
   DownloadHandlerInput,
   DownloadHandlerOutput,
   ExtendedActionConfigs,
+  InstanceScope,
   ListLocations,
   ListLocationsInput,
   ListLocationsOutput,

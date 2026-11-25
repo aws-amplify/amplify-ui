@@ -24,7 +24,7 @@ export const getNavigationItems = ({
 
     const destinationPath = `${destinationSubpaths.concat('').join('/')}`;
 
-    // spread `location` so every field (e.g. the owner `accountId`) is kept
+    // spread `location` so every field (e.g. `ownerAccountId`) is kept
     const destination = { ...location, id: crypto.randomUUID(), prefix };
 
     return {

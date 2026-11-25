@@ -87,6 +87,18 @@ describe('getLocationData', () => {
     expect(output).toStrictEqual(location);
   });
 
+  it('keeps `ownerAccountId` when present', () => {
+    const output = getLocationData({
+      ...location,
+      ownerAccountId: '111122223333',
+    });
+
+    expect(output).toStrictEqual({
+      ...location,
+      ownerAccountId: '111122223333',
+    });
+  });
+
   it('provides default values for `id` and `type` when not included in value', () => {
     const value: LocationValue = {
       bucket: 'bucket',
@@ -140,6 +152,37 @@ describe('getState', () => {
         path: '',
       },
     });
+  });
+});
+
+describe('getState round-trip', () => {
+  it('keeps `ownerAccountId` from a controlled `value`', () => {
+    const output = getState({
+      location: {
+        bucket: 'bucket',
+        id: 'id',
+        permissions: ['get', 'list'],
+        prefix: 'p/',
+        type: 'PREFIX',
+        ownerAccountId: '111122223333',
+        path: '',
+      },
+    });
+
+    expect(output.location.current?.ownerAccountId).toBe('111122223333');
+  });
+
+  it('keeps `ownerAccountId` from a `defaultValue`', () => {
+    const output = getInitialState({
+      location: {
+        bucket: 'bucket',
+        permissions: ['get', 'list'],
+        prefix: 'p/',
+        ownerAccountId: '111122223333',
+      },
+    });
+
+    expect(output.location.current?.ownerAccountId).toBe('111122223333');
   });
 });
 
