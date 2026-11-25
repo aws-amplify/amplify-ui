@@ -1,9 +1,9 @@
 import { Given, Then, When } from '@cucumber/cucumber';
 import { by, element, expect } from 'detox';
 
-// The web e2e tests ignore Amazon Pinpoint end of support errors in the browser.
-// There is nothing to set up on React Native, so this step is a no-op here.
-Given('I ignore Amazon Pinpoint end of support errors', () => {});
+// The web e2e tests stub Amazon Pinpoint network requests in the browser.
+// Detox has no equivalent network stubbing here, so this step is a no-op.
+Given('Amazon Pinpoint requests are stubbed', () => {});
 
 // timeout for the banner to display, to prevent flaky tests
 const POPUP_DISPLAY_TIMEOUT = 5000;
