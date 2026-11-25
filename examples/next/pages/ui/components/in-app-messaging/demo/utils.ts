@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-import * as Analytics from '@aws-amplify/analytics';
-import { syncMessages } from 'aws-amplify/in-app-messaging';
+import { useState } from 'react';
 import {
   InAppMessage,
   InAppMessageAction,
@@ -21,7 +19,6 @@ export interface GetDemoMessageParams {
   primaryButtonAction: InAppMessageAction;
   secondaryButtonAction: InAppMessageAction;
   layout: InAppMessageLayout;
-  useAnalyticEvents: boolean;
 }
 
 export const ACTIONS: InAppMessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
@@ -114,16 +111,6 @@ export function useInAppDemo() {
   const [secondaryButtonAction, setSecondaryButtonAction] =
     useState<GetDemoMessageParams['secondaryButtonAction']>('CLOSE');
 
-  const [useAnalyticEvents, setUseAnalyticEvents] =
-    useState<GetDemoMessageParams['useAnalyticEvents']>(false);
-  const [shouldSyncMessages, setShouldSyncMessages] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (shouldSyncMessages) {
-      syncMessages();
-    }
-  }, [shouldSyncMessages]);
-
   const handleAction = (
     type:
       | 'setHasHeader'
@@ -135,7 +122,6 @@ export function useInAppDemo() {
       | 'setPrimaryButtonAction'
       | 'setHasSecondaryButton'
       | 'setSecondaryButtonAction'
-      | 'setUseAnalyticEvents'
   ) =>
     function handler(value) {
       switch (type) {
@@ -166,10 +152,6 @@ export function useInAppDemo() {
         case 'setSecondaryButtonAction':
           setSecondaryButtonAction(value);
           break;
-        case 'setUseAnalyticEvents':
-          setUseAnalyticEvents(value);
-          if (!shouldSyncMessages) setShouldSyncMessages(true);
-          break;
         default:
           return null;
       }
@@ -185,15 +167,10 @@ export function useInAppDemo() {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
-    useAnalyticEvents,
   });
 
   return {
     displayDemoMessage: () => {
-      if (useAnalyticEvents) {
-        Analytics.record({ name: layout });
-        return;
-      }
       displayMessage(demoMessage);
     },
     handleAction,
@@ -206,6 +183,5 @@ export function useInAppDemo() {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
-    useAnalyticEvents,
   };
 }
