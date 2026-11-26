@@ -1029,6 +1029,65 @@ describe('LivenessCameraModule', () => {
       expect(drawStaticOvalSpy).not.toHaveBeenCalled();
     });
 
+    it('should lay the video out from the settled box after a rotation', async () => {
+      // the real math, so the assertion is about geometry rather than a stub
+      const fillLayoutSpy = jest
+        .spyOn(ServiceModule, 'getVideoFillLayout')
+        .mockImplementation(
+          jest.requireActual('../../service/utils/liveness').getVideoFillLayout
+        );
+      isStart = true;
+      mockStateMatchesAndSelectors();
+      mockUseLivenessSelector.mockReturnValue(25);
+      await waitFor(() => {
+        renderCameraModule();
+      });
+
+      const videoEl = screen.getByTestId('video') as HTMLVideoElement;
+      Object.defineProperty(videoEl, 'videoWidth', {
+        value: 640,
+        configurable: true,
+      });
+      Object.defineProperty(videoEl, 'videoHeight', {
+        value: 480,
+        configurable: true,
+      });
+
+      // portrait box first: width-bound, so the frame is scaled to keep 70% of
+      // its width visible (412 / (640 * 0.7)) and cropped on the sides
+      setAnchorSize(412, 915);
+      await waitFor(() => {
+        videoEl.dispatchEvent(new Event('loadedmetadata'));
+      });
+      expect(parseFloat(videoEl.style.height)).toBeCloseTo((480 * 412) / 448);
+
+      // iOS Safari reports a stale box immediately after the rotation, then
+      // settles; every change schedules one frame, so the last one wins
+      setAnchorSize(412, 915);
+      triggerResize();
+      setAnchorSize(915, 412);
+      triggerResize();
+      flushFrames();
+
+      // landscape box: height-bound, so the frame fills the 412px height and
+      // is pillarboxed rather than cropped
+      expect(fillLayoutSpy).toHaveBeenLastCalledWith({
+        containerWidth: 915,
+        containerHeight: 412,
+        videoWidth: 640,
+        videoHeight: 480,
+      });
+      expect(parseFloat(videoEl.style.height)).toBeCloseTo(412);
+      expect(parseFloat(videoEl.style.width)).toBeCloseTo((640 * 412) / 480);
+
+      // captured once at loadedmetadata from the intrinsic frame, not the
+      // flipped track dims the hook reports, and unchanged by the rotation
+      expect(videoEl.getAttribute('width')).toBe('640');
+      expect(videoEl.getAttribute('height')).toBe('480');
+
+      fillLayoutSpy.mockRestore();
+    });
+
     it('should observe the video anchor and disconnect on unmount', async () => {
       isRecording = true;
       mockStateMatchesAndSelectors();

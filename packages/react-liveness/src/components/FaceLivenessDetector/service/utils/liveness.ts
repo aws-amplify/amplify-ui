@@ -173,7 +173,9 @@ export function getStaticLivenessOvalDetails({
   const ovalHeight = ovalHeightWidthRatio * ovalWidth;
 
   return {
-    flippedCenterX: Math.floor(videoWidth - centerX),
+    // mirror against the real frame width: centerX is in frame space, while
+    // videoWidth may have been recomputed to 3:4 for the oval size above
+    flippedCenterX: Math.floor(width - centerX),
     centerX: Math.floor(centerX),
     centerY: Math.floor(centerY),
     width: Math.floor(ovalWidth),
@@ -328,19 +330,20 @@ export function drawLivenessOvalInCanvas({
 
 export function drawStaticOval(
   canvasEl: HTMLCanvasElement,
-  videoEl: HTMLVideoElement,
-  videoMediaStream: MediaStream
+  videoEl: HTMLVideoElement
 ): void {
-  const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+  // Intrinsic frame dims, never track.getSettings(): Android/Firefox and iOS
+  // report the getUserMedia width/height flipped by orientation, so the track
+  // disagrees with the frame that is actually rendered.
+  const { videoWidth: width, videoHeight: height } = videoEl;
 
   resizeCanvasToDisplaySize(canvasEl);
 
   const ovalDetails = getStaticLivenessOvalDetails({
-    width: width!,
-    height: height!,
+    width,
+    height,
     ratioMultiplier: 0.5,
   });
-  ovalDetails.flippedCenterX = width! - ovalDetails.centerX;
 
   // Compute scaleFactor which is how much our video element is scaled
   // vs the intrinsic video resolution
@@ -494,6 +497,7 @@ export const LivenessErrorStateStringMap = {
   [LivenessErrorState.SERVER_ERROR]: 'SERVER_ERROR',
   [LivenessErrorState.TIMEOUT]: 'TIMEOUT',
   [LivenessErrorState.FACE_DISTANCE_ERROR]: 'FACE_DISTANCE_ERROR',
+  [LivenessErrorState.DEVICE_ROTATION_ERROR]: 'DEVICE_ROTATION_ERROR',
   [LivenessErrorState.MULTIPLE_FACES_ERROR]: 'MULTIPLE_FACES_ERROR',
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: 'CAMERA_FRAMERATE_ERROR',
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: 'CAMERA_ACCESS_ERROR',

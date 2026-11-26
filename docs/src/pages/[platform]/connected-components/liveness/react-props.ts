@@ -110,6 +110,12 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
     type: `Error`,
   },
   {
+    name: `DEVICE_ROTATION_ERROR`,
+    description:
+      'Indicates that the device was rotated after recording started. The challenge oval is computed once per session against the frame the stream opened with, so the attempt cannot continue across a rotation. Retryable.',
+    type: `Error`,
+  },
+  {
     name: `CAMERA_ACCESS_ERROR`,
     description:
       "Indicates that an error occurred when attempting to access the user's camera, this could be because they did not allow camera permissions in the browser.",
@@ -130,7 +136,7 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
   {
     name: `MOBILE_LANDSCAPE_ERROR`,
     description:
-      'Indicates that the user attempted to switch to using landscape mode which is not supported.',
+      'Deprecated and no longer emitted. Mobile landscape orientation is supported, so a check is never failed for being in landscape. Retained so that code switching on the error state keeps compiling.',
     type: `Error`,
   },
   {

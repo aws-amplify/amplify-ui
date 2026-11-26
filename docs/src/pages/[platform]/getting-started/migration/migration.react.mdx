@@ -649,6 +649,62 @@ The latest version of the `Authenticator` has a completely different set of CSS 
 Previous versions of `Authenticator` exposed a `onAuthUIStateChange` handler to detect Auth state changes. For similar functionality see [useAuthenticator](/react/connected-components/authenticator/advanced#access-auth-state).
 
 ## `@aws-amplify/ui-react-liveness`
+### Migrate from 3.x to 4.x
+#### Installation
+
+Install the 4.x version of the `@aws-amplify/ui-react-liveness` library.
+
+<Tabs.Container defaultValue="npm">
+  <Tabs.List>
+    <Tabs.Item value="npm">npm</Tabs.Item>
+    <Tabs.Item value="yarn">yarn</Tabs.Item>
+  </Tabs.List>
+  <Tabs.Panel value="npm">
+    <TerminalCommand command="npm install aws-amplify@6.x @aws-amplify/ui-react-liveness@4.x" />
+  </Tabs.Panel>
+  <Tabs.Panel value="yarn">
+    <TerminalCommand command="yarn add aws-amplify@6.x @aws-amplify/ui-react-liveness@4.x" />
+  </Tabs.Panel>
+</Tabs.Container>
+
+#### `MOBILE_LANDSCAPE_ERROR` is no longer emitted
+
+Mobile landscape orientation is supported, so a check is never failed for being
+in landscape. The `MOBILE_LANDSCAPE_ERROR` member is retained on the
+`ErrorState` union and marked deprecated, so code that switches on it keeps
+compiling. Code that *relies* on receiving it will no longer be called, and the
+type system cannot flag that:
+
+```diff
+ onError={(livenessError) => {
+-  if (livenessError.state === 'MOBILE_LANDSCAPE_ERROR') {
+-    promptUserToRotateDevice();
+-  }
++  if (livenessError.state === 'DEVICE_ROTATION_ERROR') {
++    // only after recording has started; starting in landscape is fine
++    promptUserToHoldStill();
++  }
+ }}
+```
+
+If you rendered your own rotate-your-device screen in response to that error,
+remove it: the component now runs the check in either orientation.
+
+The `landscapeHeaderText`, `landscapeMessageText` and `portraitMessageText`
+display-text fields are likewise retained and deprecated, and nothing renders
+them. `deviceRotationHeaderText` and `deviceRotationMessageText` replace them.
+
+#### Face distance threshold on devices that report flipped dimensions
+
+Every oval dimension is now read from the video element's intrinsic frame
+rather than `track.getSettings()`. Android/Firefox and iOS report the
+`getUserMedia` dimensions flipped by orientation, and on those devices the
+pre-recording face distance check previously divided by an oval 33% narrower
+than intended, asking the user to move further from the camera than the
+challenge configured. No action is needed, but the prompt now clears at a
+different distance. Where the two sources agree, including desktop, nothing
+changes.
+
 ### Migrate from 2.x to 3.x
 #### Installation
 
