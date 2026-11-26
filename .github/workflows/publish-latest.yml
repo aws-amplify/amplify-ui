@@ -76,7 +76,7 @@ jobs:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
       - name: Setup Node.js 24
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           # Exact pin keeps npm >= 11.5.1 (Node 24.22.1 bundles npm 11.19.1), required for npm trusted publishing
           node-version: 24.22.1
