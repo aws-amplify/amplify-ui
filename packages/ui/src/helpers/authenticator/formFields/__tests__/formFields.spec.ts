@@ -82,6 +82,35 @@ describe('removeOrderKeys', () => {
 });
 
 describe('getCustomFormField', () => {
+  it.each([
+    ['signIn', 'current-password'],
+    ['signUp', 'new-password'],
+    ['confirmResetPassword', 'new-password'],
+    ['forceNewPassword', 'new-password'],
+  ] as const)(
+    'preserves %s password autocomplete when only the placeholder is customized',
+    (route, autocomplete) => {
+      const state = generateMockState(
+        { [route]: { password: { placeholder: 'Your password' } } },
+        'username'
+      );
+
+      expect(getCustomFormFields(route, state).password).toMatchObject({
+        placeholder: 'Your password',
+        autocomplete,
+      });
+    }
+  );
+
+  it('preserves an explicit sign-in password autocomplete override', () => {
+    const state = generateMockState(
+      { signIn: { password: { autocomplete: 'off' } } },
+      'username'
+    );
+
+    expect(getCustomFormFields('signIn', state).password.autocomplete).toBe('off');
+  });
+
   it('returns empty object if customFormFields is not present', () => {
     const state = generateMockState(undefined, 'email');
     const result = getCustomFormFields('signIn', state);
@@ -219,6 +248,18 @@ describe('getCustomFormField', () => {
 });
 
 describe('getFormFields', () => {
+  it('keeps current-password on the customized sign-in password field', () => {
+    const state = generateMockState(
+      { signIn: { password: { placeholder: 'Your password' } } },
+      'username'
+    );
+
+    expect(getFormFields('signIn', state).password).toMatchObject({
+      placeholder: 'Your password',
+      autocomplete: 'current-password',
+    });
+  });
+
   const formFields: AuthFormFields = {
     signIn: {
       username: {
