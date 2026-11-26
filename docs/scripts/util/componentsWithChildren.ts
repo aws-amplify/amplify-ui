@@ -5,6 +5,7 @@ export const componentsWithChildren: {
 } = {
   Accordion: ['Accordion.Item'],
   Breadcrumbs: [
+    'Breadcrumbs.Container',
     'Breadcrumbs.Item',
     'Breadcrumbs.Link',
     'Breadcrumbs.Separator',
