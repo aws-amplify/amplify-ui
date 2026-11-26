@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 6.15.8
+
+### Patch Changes
+
+- [#7205](https://github.com/aws-amplify/amplify-ui/pull/7205) [`c0cccad2cc6db1c9be2df4381d7eb089c8ac4f62`](https://github.com/aws-amplify/amplify-ui/commit/c0cccad2cc6db1c9be2df4381d7eb089c8ac4f62) Thanks [@osama-rizk](https://github.com/osama-rizk)! - fix(ui): allow Rolldown and esbuild to tree-shake unused Authenticator translation dictionaries
+
+  `i18n/dictionaries` now re-exports the per-language dictionaries instead of copying each one with an object spread. Rolldown (the default bundler in Vite 8) and esbuild kept those top-level spreads as possible side effects, so every language dictionary ended up in the bundle even when `translations` was never imported. The exported dictionaries and `translations` are unchanged.
+
 ## 6.15.7
 
 ### Patch Changes
