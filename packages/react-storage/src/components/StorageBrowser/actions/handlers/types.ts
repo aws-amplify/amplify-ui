@@ -1,6 +1,15 @@
 import type { AllFileTypes } from '../../createStorageBrowser/types';
-import type { LocationCredentialsProvider } from '../../storage-internal';
+import type {
+  InstanceScope,
+  LocationCredentialsProvider,
+} from '../../storage-internal';
 import type { TaskStatus } from '../../tasks';
+
+/**
+ * S3 Access Grants instance scope: the caller's own instance (`SELF`, the
+ * default) or also instances shared with it through AWS RAM (`ALL`).
+ */
+export type { InstanceScope };
 
 /**
  * `location` grant scope
@@ -40,6 +49,15 @@ export interface LocationData {
    * @see {@link LocationType}
    */
   type: LocationType;
+
+  /**
+   * Account that owns the S3 Access Grants instance the grant came from. Used
+   * as the per-location `expectedBucketOwner`, on the basis that the instance
+   * owner owns the bucket. Set for every managed-auth location with a
+   * parseable instance ARN, including same-account ones. Falls back to the
+   * adapter-wide `accountId` when unset.
+   */
+  ownerAccountId?: string;
 }
 
 export interface FolderData {
@@ -70,8 +88,9 @@ export interface FileItem extends TaskData {
   file: File;
 }
 
-export interface OptionalFileData
-  extends Partial<Omit<FileData, 'id' | 'key'>> {}
+export interface OptionalFileData extends Partial<
+  Omit<FileData, 'id' | 'key'>
+> {}
 
 export interface ActionInputConfig {
   accountId?: string;
@@ -79,6 +98,7 @@ export interface ActionInputConfig {
   credentials: LocationCredentialsProvider;
   customEndpoint?: string;
   region: string;
+  instanceScope?: InstanceScope;
 }
 
 interface ActionInput<T = any> {

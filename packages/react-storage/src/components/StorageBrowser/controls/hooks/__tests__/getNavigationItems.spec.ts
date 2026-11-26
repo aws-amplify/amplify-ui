@@ -71,4 +71,23 @@ describe('getNavigationItems', () => {
       `${partA}/${partB}/`
     );
   });
+
+  it('keeps the location ownerAccountId on each destination', () => {
+    const crossAccountLocation = {
+      ...location,
+      ownerAccountId: '111122223333',
+    };
+    const [item1] = getNavigationItems({
+      destinationParts,
+      location: crossAccountLocation,
+      onNavigate: mockOnNavigate,
+    });
+
+    item1.onNavigate?.();
+
+    expect(mockOnNavigate).toHaveBeenCalledWith(
+      { ...crossAccountLocation, id: uuid },
+      ''
+    );
+  });
 });

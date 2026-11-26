@@ -87,6 +87,26 @@ describe('utils', () => {
         prefix: '',
         permissions: ['delete', 'write'],
         type: 'BUCKET',
+        ownerAccountId: undefined,
+      };
+
+      expect(parseAccessGrantLocation(location)).toStrictEqual(expected);
+    });
+
+    it('carries the owner accountId onto a cross-account location', () => {
+      const location: AccessGrantLocation = {
+        permission: 'READ',
+        scope: `s3://${bucket}/*`,
+        type: 'BUCKET',
+        ownerAccountId: '111122223333',
+      };
+      const expected: LocationData = {
+        bucket,
+        id,
+        prefix: '',
+        permissions: ['get', 'list'],
+        type: 'BUCKET',
+        ownerAccountId: '111122223333',
       };
 
       expect(parseAccessGrantLocation(location)).toStrictEqual(expected);
@@ -105,6 +125,7 @@ describe('utils', () => {
         prefix: folderPrefix,
         permissions: ['delete', 'write'],
         type: 'PREFIX',
+        ownerAccountId: undefined,
       };
 
       expect(parseAccessGrantLocation(location)).toStrictEqual(expected);
@@ -123,6 +144,7 @@ describe('utils', () => {
         prefix: `${folderPrefix}${fileKey}`,
         permissions: ['delete', 'write'],
         type: 'OBJECT',
+        ownerAccountId: undefined,
       };
 
       expect(parseAccessGrantLocation(location)).toStrictEqual(expected);

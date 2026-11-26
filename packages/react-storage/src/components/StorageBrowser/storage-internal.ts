@@ -6,6 +6,7 @@ export type {
   CredentialsLocation,
   CredentialsProvider,
   GetUrlInput,
+  InstanceScope,
   ListLocations,
   ListLocationsOutput,
   ListOutput,

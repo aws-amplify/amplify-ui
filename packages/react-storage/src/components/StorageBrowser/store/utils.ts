@@ -20,12 +20,28 @@ export function getLocationData(
 ): LocationData | undefined {
   if (location === undefined) return;
 
-  const { bucket, permissions, prefix, id: _id, type: _type } = location;
+  const {
+    bucket,
+    permissions,
+    prefix,
+    id: _id,
+    type: _type,
+    ownerAccountId,
+  } = location;
 
   const id = _id ?? crypto.randomUUID();
   const type = _type ?? parseLocationType(location);
 
-  return { bucket, permissions, prefix, id, type };
+  return {
+    bucket,
+    permissions,
+    prefix,
+    id,
+    type,
+    // keep the owner so controlled mode and `defaultValue` send the right
+    // `expectedBucketOwner`; omitted when unset
+    ...(ownerAccountId !== undefined && { ownerAccountId }),
+  };
 }
 
 export function getState(
