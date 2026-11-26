@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
@@ -459,6 +459,39 @@ describe('Autocomplete:', () => {
     expect(footer).toBeInTheDocument();
     expect(footer).toHaveClass(ComponentClassName.AutocompleteMenuFooter);
   });
+
+  it.each(['Header', 'Footer'] as const)(
+    'should keep the menu open when pressing an element in custom %s',
+    async (slot) => {
+      const onClick = jest.fn();
+      render(
+        <Autocomplete
+          label={label}
+          options={options}
+          menuSlots={{
+            [slot]: <button onClick={onClick}>{`${slot} action`}</button>,
+          }}
+        />
+      );
+
+      const textInput = await screen.findByRole('combobox');
+      await act(async () => {
+        await userEvent.click(textInput);
+      });
+
+      const action = screen.getByText(`${slot} action`);
+      // In a browser, if mousedown moves focus away from the input, the menu
+      // closes on blur and is removed before the click event can fire.
+      expect(fireEvent.mouseDown(action)).toBe(false);
+
+      await act(async () => {
+        await userEvent.click(action);
+      });
+      expect(onClick).toHaveBeenCalledTimes(1);
+      expect(textInput).toHaveFocus();
+      expect(textInput).toHaveAttribute('aria-expanded', 'true');
+    }
+  );
 
   it('should set accessible props correctly', async () => {
     render(<Autocomplete label={label} options={options} />);
