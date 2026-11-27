@@ -101,6 +101,7 @@ export const useLocationDetailView = (
     currentPage,
     handlePaginate,
     handleReset,
+    hasMoreLoadedItems,
     highestPageVisited,
     pageItems,
   } = usePaginate({
@@ -110,10 +111,10 @@ export const useLocationDetailView = (
   });
 
   // Loaded items can extend past the current page without a `nextToken`, e.g.
-  // when the first request over-fetches `pageSize + 1` items and no folder
-  // object is filtered out of the result
-  const hasNextPage =
-    !!nextToken || currentPage * listOptions.pageSize < items.length;
+  // a search (which loads every match and returns no `nextToken`), or a first
+  // request that over-fetches `pageSize + 1` items with no folder object to
+  // filter out
+  const hasNextPage = !!nextToken || hasMoreLoadedItems;
 
   const onSearch = (query: string, includeSubfolders?: boolean) => {
     if (hasInvalidPrefix) return;
