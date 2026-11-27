@@ -104,6 +104,17 @@ elif [ "$FRAMEWORK" == 'angular' ]; then
     echo "DEPENDENCIES=$DEPENDENCIES"
 fi
 
+DEV_DEPENDENCIES=""
+if [[ "$FRAMEWORK" == 'vue' && "$BUILD_TOOL" == 'vue-cli' ]]; then
+    # Vue CLI 5 is in maintenance mode and still scaffolds typescript ~4.5.5 (2021).
+    # Build the mega app with a current TypeScript, matching the version this repo uses,
+    # instead of testing against that stale default. TypeScript 4.5 can no longer parse
+    # typings in current dependencies, e.g. @babel/types >= 7.29.15 uses TS 4.7+ syntax
+    # (https://github.com/babel/babel/pull/18670).
+    DEV_DEPENDENCIES="typescript@~5.9.3"
+    echo "DEV_DEPENDENCIES=$DEV_DEPENDENCIES"
+fi
+
 if [ "$PKG_MANAGER" == 'yarn' ]; then
     echo "yarn version"
     yarn -v
@@ -113,6 +124,10 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
     yarn -v
     echo "yarn add $DEPENDENCIES"
     yarn add $DEPENDENCIES
+    if [ -n "$DEV_DEPENDENCIES" ]; then
+        echo "yarn add -D $DEV_DEPENDENCIES"
+        yarn add -D $DEV_DEPENDENCIES
+    fi
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         # async-storage v3.0.0+ requires Gradle 7.6.3+, pin to 2.x for compatibility
@@ -147,6 +162,9 @@ else
         fi
     else
         install_dependencies_with_retries npm "$DEPENDENCIES"
+        if [ -n "$DEV_DEPENDENCIES" ]; then
+            install_dependencies_with_retries npm "--save-dev $DEV_DEPENDENCIES"
+        fi
     fi
 fi
 
