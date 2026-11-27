@@ -239,4 +239,67 @@ describe('useFolders', () => {
 
     expect(mockHandleList).not.toHaveBeenCalled();
   });
+
+  describe('hasNextPage', () => {
+    const { pageSize } = DEFAULT_LIST_OPTIONS;
+    // one more folder than fits on a page, as a search with no `nextToken`
+    // returns when it matches more than `pageSize` folders
+    const manyFolders = Array.from({ length: pageSize + 1 }, (_, index) => ({
+      key: `prefix1/folder-${index}/`,
+      lastModified: new Date(),
+      id: `id-${index}`,
+      size: 0,
+      type: 'FOLDER' as const,
+    }));
+
+    const mockFolders = (
+      items: typeof manyFolders,
+      nextToken: string | undefined
+    ) =>
+      mockUseList.mockReturnValue([
+        {
+          value: { items, nextToken },
+          hasError: false,
+          isLoading: false,
+          message: undefined,
+        },
+        mockHandleList,
+      ]);
+
+    it('is `true` when loaded folders extend past the current page without a `nextToken`', () => {
+      mockFolders(manyFolders, undefined);
+
+      const { result } = renderHook(() =>
+        useFolders({
+          destination: location,
+          setDestination: mockSetDestination,
+        })
+      );
+
+      expect(result.current.hasNextPage).toBe(true);
+
+      act(() => {
+        result.current.onPaginate(2);
+      });
+
+      expect(result.current.page).toBe(2);
+      expect(result.current.pageItems).toEqual(manyFolders.slice(pageSize));
+      expect(result.current.hasNextPage).toBe(false);
+      // loaded items need no extra request
+      expect(mockHandleList).not.toHaveBeenCalled();
+    });
+
+    it('is `false` when all folders fit on the current page and there is no `nextToken`', () => {
+      mockFolders(manyFolders.slice(0, pageSize), undefined);
+
+      const { result } = renderHook(() =>
+        useFolders({
+          destination: location,
+          setDestination: mockSetDestination,
+        })
+      );
+
+      expect(result.current.hasNextPage).toBe(false);
+    });
+  });
 });

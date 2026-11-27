@@ -46,6 +46,7 @@ export const useUploadView = (
   const {
     currentPage,
     handlePaginate,
+    hasMoreLoadedItems,
     pageItems: pageTasks,
   } = usePaginate({
     items: tasks,
@@ -95,7 +96,7 @@ export const useUploadView = (
     statusCounts,
     tasks: pageTasks,
     page: currentPage,
-    hasNextPage: currentPage * pageSize < items.length,
+    hasNextPage: hasMoreLoadedItems,
     highestPageVisited: Math.ceil(items.length / pageSize),
     onActionCancel,
     onActionExit,

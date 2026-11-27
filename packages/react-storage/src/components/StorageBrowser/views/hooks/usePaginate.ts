@@ -7,6 +7,13 @@ interface UsePaginateState<T> {
   highestPageVisited: number;
   handlePaginate: (page: number) => void;
   handleReset: () => void;
+  /**
+   * `true` when already loaded items extend past the current page, e.g. a
+   * search (which loads every match and returns no `nextToken`), or a first
+   * request that over-fetches `pageSize + 1` items. Combine with `nextToken`
+   * to derive `hasNextPage`.
+   */
+  hasMoreLoadedItems: boolean;
   pageItems: T[];
 }
 
@@ -68,6 +75,7 @@ export const usePaginate = <T>({
         setCurrentPage(page);
       },
       handleReset,
+      hasMoreLoadedItems: adjustedCurrentPage * pageSize < totalItems,
       highestPageVisited,
       pageItems,
     };

@@ -299,4 +299,76 @@ describe('useLocationsView', () => {
       })
     );
   });
+
+  describe('hasNextPage', () => {
+    it('is `true` when there is a `nextToken`', () => {
+      mockUseLocationsData({
+        value: {
+          items: mockData.slice(0, EXPECTED_PAGE_SIZE),
+          nextToken: 'token',
+        },
+        message: '',
+        hasError: false,
+        isLoading: false,
+      });
+
+      const { result } = renderHook(() =>
+        useLocationsView({ pageSize: EXPECTED_PAGE_SIZE })
+      );
+
+      expect(result.current.hasNextPage).toBe(true);
+    });
+
+    // a search loads every match and returns no `nextToken`
+    it('is `true` when search results extend past the current page without a `nextToken`', () => {
+      mockUseLocationsData({
+        value: { items: mockData, nextToken: undefined },
+        message: '',
+        hasError: false,
+        isLoading: false,
+      });
+
+      const { result } = renderHook(() =>
+        useLocationsView({ pageSize: EXPECTED_PAGE_SIZE })
+      );
+
+      act(() => {
+        result.current.onSearchQueryChange('item');
+      });
+      act(() => {
+        result.current.onSearch();
+      });
+
+      expect(result.current.page).toBe(1);
+      expect(result.current.hasNextPage).toBe(true);
+
+      act(() => {
+        result.current.onPaginate(2);
+      });
+
+      expect(result.current.page).toBe(2);
+      expect(result.current.pageItems).toEqual(
+        mockData.slice(EXPECTED_PAGE_SIZE)
+      );
+      expect(result.current.hasNextPage).toBe(false);
+    });
+
+    it('is `false` when all items fit on the current page and there is no `nextToken`', () => {
+      mockUseLocationsData({
+        value: {
+          items: mockData.slice(0, EXPECTED_PAGE_SIZE),
+          nextToken: undefined,
+        },
+        message: '',
+        hasError: false,
+        isLoading: false,
+      });
+
+      const { result } = renderHook(() =>
+        useLocationsView({ pageSize: EXPECTED_PAGE_SIZE })
+      );
+
+      expect(result.current.hasNextPage).toBe(false);
+    });
+  });
 });

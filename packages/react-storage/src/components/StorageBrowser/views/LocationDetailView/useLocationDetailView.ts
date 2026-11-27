@@ -101,6 +101,7 @@ export const useLocationDetailView = (
     currentPage,
     handlePaginate,
     handleReset,
+    hasMoreLoadedItems,
     highestPageVisited,
     pageItems,
   } = usePaginate({
@@ -108,6 +109,12 @@ export const useLocationDetailView = (
     onPaginate,
     pageSize: listOptions.pageSize,
   });
+
+  // Loaded items can extend past the current page without a `nextToken`, e.g.
+  // a search (which loads every match and returns no `nextToken`), or a first
+  // request that over-fetches `pageSize + 1` items with no folder object to
+  // filter out
+  const hasNextPage = !!nextToken || hasMoreLoadedItems;
 
   const onSearch = (query: string, includeSubfolders?: boolean) => {
     if (hasInvalidPrefix) return;
@@ -242,7 +249,7 @@ export const useLocationDetailView = (
             icon,
             isDisabled: isFunction(disable)
               ? disable(dataItems)
-              : disable ?? false,
+              : (disable ?? false),
             isHidden: isFunction(hide) ? hide(permissions) : hide,
             label,
           };
@@ -263,7 +270,7 @@ export const useLocationDetailView = (
     fileDataItems,
     hasError,
     hasDownloadError: task?.status === 'FAILED',
-    hasNextPage: !!nextToken,
+    hasNextPage,
     highestPageVisited,
     message,
     downloadErrorMessage: getDownloadErrorMessageFromFailedDownloadTask(task),

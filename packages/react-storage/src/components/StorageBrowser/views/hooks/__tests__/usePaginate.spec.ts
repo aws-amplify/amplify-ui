@@ -103,6 +103,38 @@ describe('usePaginate', () => {
     expect(result.current.pageItems).toEqual(['item1', 'item2']);
   });
 
+  describe('hasMoreLoadedItems', () => {
+    it('is `true` when loaded items extend past the current page', () => {
+      const { result } = renderHook(() =>
+        usePaginate({ items: ['a', 'b', 'c'], onPaginate, pageSize: 2 })
+      );
+
+      expect(result.current.hasMoreLoadedItems).toBe(true);
+
+      act(() => {
+        result.current.handlePaginate(2);
+      });
+
+      expect(result.current.hasMoreLoadedItems).toBe(false);
+    });
+
+    it('is `false` when loaded items fill exactly the current page', () => {
+      const { result } = renderHook(() =>
+        usePaginate({ items: ['a', 'b'], onPaginate, pageSize: 2 })
+      );
+
+      expect(result.current.hasMoreLoadedItems).toBe(false);
+    });
+
+    it('is `false` when there are no items', () => {
+      const { result } = renderHook(() =>
+        usePaginate({ items: undefined, onPaginate, pageSize: 2 })
+      );
+
+      expect(result.current.hasMoreLoadedItems).toBe(false);
+    });
+  });
+
   it('prevents navigation to pages beyond available pages', () => {
     const items = ['item1', 'item2', 'item3'];
     const { result } = renderHook(() => usePaginate({ items, pageSize: 2 }));

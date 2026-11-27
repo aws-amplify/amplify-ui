@@ -40,10 +40,9 @@ export const useFolders = ({
     });
   }, [handleList, key]);
 
-  const hasNextPage = !!nextToken;
-
   const onPaginate = () => {
-    if (!hasNextPage) return;
+    // only request more when the server has more; loaded items need no fetch
+    if (!nextToken) return;
 
     handleList({
       prefix: key,
@@ -54,6 +53,7 @@ export const useFolders = ({
   const {
     currentPage: page,
     handlePaginate,
+    hasMoreLoadedItems,
     highestPageVisited,
     pageItems,
     handleReset,
@@ -62,6 +62,10 @@ export const useFolders = ({
     onPaginate,
     pageSize: DEFAULT_PAGE_SIZE,
   });
+
+  // a search loads every match and returns no `nextToken`, so loaded items
+  // can extend past the current page
+  const hasNextPage = !!nextToken || hasMoreLoadedItems;
 
   const onSearch = (query: string) => {
     handleReset();

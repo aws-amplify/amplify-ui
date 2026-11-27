@@ -62,6 +62,7 @@ export const useLocationsView = (
     currentPage,
     handlePaginate,
     handleReset,
+    hasMoreLoadedItems,
     highestPageVisited,
     pageItems,
   } = usePaginate({
@@ -69,6 +70,10 @@ export const useLocationsView = (
     onPaginate,
     pageSize: listOptions.pageSize,
   });
+
+  // a search loads every match and returns no `nextToken`, so loaded items
+  // can extend past the current page
+  const hasNextPage = hasNextToken || hasMoreLoadedItems;
 
   const onSearch = (query: string) => {
     handleReset();
@@ -93,7 +98,7 @@ export const useLocationsView = (
     hasError,
     message,
     page: currentPage,
-    hasNextPage: hasNextToken,
+    hasNextPage,
     highestPageVisited,
     pageItems,
     searchQuery,
